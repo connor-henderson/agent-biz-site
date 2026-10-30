@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Your order · Westworks</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1d1b;--muted:#5b5b57;--accent:#1f5f8b;--card:#fff;--line:#e4e1da}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--fg:#ecebe6;--muted:#a8a69f;--accent:#6fb0e0;--card:#1d1d1b;--line:#33322f}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:720px;margin:0 auto;padding:40px 16px 64px}
+h1{font-size:1.7rem;line-height:1.25;margin:0 0 12px}
+.small{font-size:.9rem;color:var(--muted)}
+label{display:block;font-weight:600;margin:18px 0 6px}
+input,textarea{width:100%;font:inherit;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+textarea{min-height:220px}
+button{margin-top:20px;padding:14px 22px;background:var(--accent);color:#fff;border:0;border-radius:8px;font:inherit;font-weight:600;cursor:pointer}
+button:disabled{opacity:.6;cursor:default}
+.disclose{border-left:3px solid var(--accent);padding:8px 14px;background:var(--card);margin:20px 0}
+.done{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+[hidden]{display:none}
+footer{margin-top:48px;font-size:.85rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<main>
+<div id="no-order" hidden>
+  <h1>We couldn't find your order number</h1>
+  <p>This page opens after checkout. If you paid and landed here without an order link, email <a href="mailto:admin@westworkshq.com">admin@westworkshq.com</a> with the email address you paid with.</p>
+</div>
+
+<form id="desk" method="post" action="https://script.google.com/macros/s/AKfycbxOqURWCEJMjC8nIms06TAmXw5QJuwNAkjeaD2AD4Wmqoe34Wv79IfstT2PrPnoKvm6/exec" hidden>
+  <input type="hidden" name="session_id" id="session_id">
+  <input type="hidden" name="kind" id="kind" value="listing">
+
+  <section data-kind="listing">
+    <h1>Payment received. One more step: send us the listing.</h1>
+    <p>Paste everything on the listing page: asking price, revenue, cash flow or SDE, equipment, lease terms, and the description. Many listing sites block automated reading, and we don't work around that, so we analyze exactly what you paste. Your report arrives by email within 24 hours of this step.</p>
+    <label for="listing_url">Listing URL</label>
+    <input id="listing_url" name="listing_url" type="url" placeholder="https://…">
+    <label for="text-listing">Listing text (required)</label>
+    <textarea id="text-listing" placeholder="Paste the full listing here"></textarea>
+    <label for="notes">Anything else (optional)</label>
+    <textarea id="notes" name="notes" style="min-height:120px" placeholder="The store's address or cross streets, if you have them (so we can count nearby competitors). Numbers the broker sent you: P&amp;L lines, machine list, lease terms. Only include what you're free to share; some broker NDAs restrict it."></textarea>
+    <button type="submit">Send listing</button>
+  </section>
+
+  <section data-kind="question">
+    <h1>Ask a follow-up question about your report</h1>
+    <label for="text-question">Your question</label>
+    <textarea id="text-question"></textarea>
+    <p class="small">We answer by email within 24 hours.</p>
+    <button type="submit">Send question</button>
+  </section>
+
+  <section data-kind="refund">
+    <h1>Request a refund</h1>
+    <p>If the report wasn't useful, you get your $99 back. Ask within 7 days of delivery. You don't have to explain, but if you tell us what was missing, we'll fix it for the next buyer.</p>
+    <label for="text-refund">What wasn't useful? (optional)</label>
+    <textarea id="text-refund" style="min-height:120px"></textarea>
+    <button type="submit">Request refund</button>
+  </section>
+
+  <input type="hidden" name="text" id="text">
+  <p class="small">Order reference: <span id="ref"></span></p>
+</form>
+
+<div id="thanks" class="done" hidden>
+  <h1 id="thanks-title">Received.</h1>
+  <p id="thanks-body"></p>
+</div>
+
+<div class="disclose"><strong>Westworks is an AI-run service.</strong> An AI agent writes each report, and a second AI review, run separately from the writer, checks it before it's sent. Reports are informational only: not an appraisal, and not legal, tax, or investment advice.</div>
+<p class="small">We use the email from your checkout only to deliver your report, answer your questions, and handle refunds. We keep your listing and report on file so we can answer follow-up questions. We never contact the seller or the broker.</p>
+
+<footer>Westworks · westworkshq.com · admin@westworkshq.com · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a></footer>
+</main>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var id = q.get('id') || '';
+  var kind = ['listing', 'question', 'refund'].indexOf(q.get('type')) >= 0 ? q.get('type') : 'listing';
+  if (!/^cs_(live|test)_[A-Za-z0-9]{10,200}$/.test(id)) {
+    document.getElementById('no-order').hidden = false;
+    return;
+  }
+  var form = document.getElementById('desk');
+  form.hidden = false;
+  document.getElementById('session_id').value = id;
+  document.getElementById('kind').value = kind;
+  document.getElementById('ref').textContent = id.slice(-8);
+  document.querySelectorAll('section[data-kind]').forEach(function (s) {
+    if (s.getAttribute('data-kind') !== kind) s.remove();
+  });
+  var textBox = document.getElementById('text-' + kind);
+  if (kind === 'listing') textBox.required = true;
+  if (kind === 'question') textBox.required = true;
+
+  var thanks = {
+    listing: 'We have your listing. Your report arrives by email within 24 hours.',
+    question: 'We have your question and will answer by email within 24 hours.',
+    refund: 'Refund requested. We process it within 24 hours. Your bank usually shows it 5–10 business days after that.'
+  };
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    document.getElementById('text').value = textBox.value;
+    var button = form.querySelector('button');
+    button.disabled = true;
+    fetch(form.action, { method: 'POST', mode: 'no-cors', body: new URLSearchParams(new FormData(form)) })
+      .then(function () {
+        form.hidden = true;
+        document.getElementById('thanks-body').textContent = thanks[kind];
+        document.getElementById('thanks').hidden = false;
+      })
+      .catch(function () { form.submit(); });
+  });
+})();
+</script>
+</body>
+</html>
