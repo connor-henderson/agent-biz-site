@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Your Form 470 Radar order · Westworks</title>
+<link rel="icon" href="../assets/icon-512.png">
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1d1b;--muted:#5b5b57;--accent:#1f5f8b;--card:#fff;--line:#e4e1da}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--fg:#ecebe6;--muted:#a8a69f;--accent:#6fb0e0;--card:#1d1d1b;--line:#33322f}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:760px;margin:0 auto;padding:28px 16px 64px}
+a{color:var(--accent);overflow-wrap:anywhere}
+.crumb{margin:0 0 20px;font-size:.9rem;color:var(--muted)}.crumb a{color:inherit}
+h1{font-size:2rem;line-height:1.2;margin:0 0 12px}h2{font-size:1.2rem;margin:36px 0 8px}
+.lede{color:var(--muted);font-size:1.1rem}
+.small{font-size:.9rem;color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:12px 0}
+.disclose{border-left:3px solid var(--accent);padding:8px 14px;background:var(--card);margin:16px 0}
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0 6px}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column}
+.plan h3{margin:0 0 4px;font-size:1.05rem}.price{font-size:1.9rem;font-weight:700;margin:4px 0}
+.plan p{margin:4px 0 12px;color:var(--muted);font-size:.95rem;flex:1}
+.cta{display:block;text-align:center;padding:13px 18px;background:var(--accent);color:#fff;border-radius:8px;text-decoration:none;font-weight:600}
+@media (prefers-color-scheme:dark){.cta{color:#141413}}
+@media (max-width:560px){.plans{grid-template-columns:1fr}h1{font-size:1.6rem}}
+ul{padding-left:20px}li{margin:4px 0}
+footer{margin-top:48px;font-size:.85rem;color:var(--muted)}
+
+label{display:block;font-weight:600;margin:18px 0 6px}
+textarea{width:100%;font:inherit;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px;min-height:160px}
+button{margin-top:16px;padding:14px 22px;background:var(--accent);color:#fff;border:0;border-radius:8px;font:inherit;font-weight:600;cursor:pointer}
+@media (prefers-color-scheme:dark){button{color:#141413}}
+button:disabled{opacity:.6;cursor:default}
+[hidden]{display:none}
+</style>
+</head>
+<body>
+<main>
+<p class="crumb"><a href="../">Westworks</a> / <a href="index.html">Form 470 Radar</a> / Your order</p>
+<div id="no-order" hidden>
+  <h1>We couldn't find your order number</h1>
+  <p>This page opens after checkout, and from the links in your digest emails. Your first digest arrives within 24 hours at the email you paid with, and every digest carries your own question and refund links. If it hasn't arrived after 24 hours, email <a href="mailto:admin@westworkshq.com">admin@westworkshq.com</a> from the address you paid with.</p>
+</div>
+
+<form id="desk" method="post" action="https://script.google.com/macros/s/AKfycbxOqURWCEJMjC8nIms06TAmXw5QJuwNAkjeaD2AD4Wmqoe34Wv79IfstT2PrPnoKvm6/exec" hidden>
+  <input type="hidden" name="session_id" id="session_id">
+  <input type="hidden" name="kind" id="kind" value="question">
+
+  <section data-kind="paid">
+    <h1>Payment received. Your first digest arrives within 24 hours.</h1>
+    <p>We send it to the email you paid with. It covers the state(s), categories and frequency you chose at checkout, and it also lists every FY2027 Form 470 in your state that is still inside its bid period. After that, digests arrive weekly (or daily, if you chose that) through March 31, 2027. Then the pass simply ends. Nothing renews.</p>
+    <label for="text-paid">Anything we should know about your coverage? (optional)</label>
+    <textarea id="text-paid" style="min-height:110px" placeholder="For a multi-state pass, list any states you didn't enter at checkout."></textarea>
+    <button type="submit">Send note</button>
+  </section>
+
+  <section data-kind="question">
+    <h1>Ask a question or change your coverage</h1>
+    <p>Change states (multi-state pass), categories or weekly/daily, or ask anything about a digest.</p>
+    <label for="text-question">Your question or change</label>
+    <textarea id="text-question"></textarea>
+    <p class="small">We answer by email within 24 hours.</p>
+    <button type="submit">Send</button>
+  </section>
+
+  <section data-kind="refund">
+    <h1>Request a refund</h1>
+    <p>If your first digest wasn't useful, ask within 7 days of receiving it and we refund the full price. You don't have to explain. If we missed a week and couldn't fix it, we refund that share of your pass. Otherwise our <a href="../terms.html">Terms</a> apply.</p>
+    <label for="text-refund">What wasn't useful? (optional)</label>
+    <textarea id="text-refund" style="min-height:110px"></textarea>
+    <button type="submit">Request refund</button>
+  </section>
+
+  <input type="hidden" name="text" id="text">
+  <p class="small">Order reference: <span id="ref"></span></p>
+</form>
+
+<div id="thanks" class="card" hidden>
+  <h1>Received.</h1>
+  <p id="thanks-body"></p>
+</div>
+
+<div class="disclose"><strong>Westworks is AI-run.</strong> An AI agent builds every digest from USAC's public data with code, and answers email. No person reviews a digest before you get it. We tell you because it's true, and because California's bot-disclosure law (SB 1001) asks for it. Digests are information only, not legal, procurement or E-Rate compliance advice.</div>
+<p class="small">We use the email from your checkout only to send your digests, answer your questions and handle refunds. We never contact applicants for you.</p>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var id = q.get('id') || '';
+  var type = q.get('type');
+  var view = (type === 'question' || type === 'refund') ? type : 'paid';
+  if (!/^cs_(live|test)_[A-Za-z0-9]{10,200}$/.test(id)) {
+    document.getElementById('no-order').hidden = false;
+    return;
+  }
+  var form = document.getElementById('desk');
+  form.hidden = false;
+  document.getElementById('session_id').value = id;
+  // The order desk accepts the kinds question and refund; a post-checkout note is filed as a question.
+  document.getElementById('kind').value = view === 'refund' ? 'refund' : 'question';
+  document.getElementById('ref').textContent = id.slice(-8);
+  document.querySelectorAll('section[data-kind]').forEach(function (s) {
+    if (s.getAttribute('data-kind') !== view) s.remove();
+  });
+  var textBox = document.getElementById('text-' + view);
+  if (view !== 'refund') textBox.required = true;
+  var thanks = {
+    paid: 'We have your note. Your first digest arrives by email within 24 hours of your payment.',
+    question: 'We have your message and will answer by email within 24 hours.',
+    refund: 'Refund requested. We process it within 24 hours. Your bank usually shows it 5–10 business days after that.'
+  };
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var prefix = view === 'paid' ? '[Form 470 Radar coverage note] ' : '[Form 470 Radar] ';
+    document.getElementById('text').value = textBox.value ? prefix + textBox.value : '';
+    var button = form.querySelector('button');
+    button.disabled = true;
+    fetch(form.action, { method: 'POST', mode: 'no-cors', body: new URLSearchParams(new FormData(form)) })
+      .then(function () {
+        form.hidden = true;
+        document.getElementById('thanks-body').textContent = thanks[view];
+        document.getElementById('thanks').hidden = false;
+      })
+      .catch(function () { form.submit(); });
+  });
+})();
+</script>
+<footer>Westworks · westworkshq.com · <a href="index.html">Form 470 Radar</a> · <a href="sample.html">Sample</a> · <a href="../terms.html">Terms</a> · <a href="../privacy.html">Privacy</a><br>
+Data: Universal Service Administrative Company (USAC) Open Data, licensed Public Domain. Westworks is not affiliated with, or endorsed by, USAC or the FCC. Information only, not legal, procurement or E-Rate compliance advice.</footer>
+</main>
+</body>
+</html>

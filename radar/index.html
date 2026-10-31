@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Every new FCC Form 470 in your state and E-Rate categories, with the incumbent, last bid count, contract end and Category 2 budget left. FY2027 season pass: $149 for one state, one payment.">
+<title>Form 470 Radar · Westworks</title>
+<link rel="icon" href="../assets/icon-512.png">
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1d1b;--muted:#5b5b57;--accent:#1f5f8b;--card:#fff;--line:#e4e1da}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--fg:#ecebe6;--muted:#a8a69f;--accent:#6fb0e0;--card:#1d1d1b;--line:#33322f}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:760px;margin:0 auto;padding:28px 16px 64px}
+a{color:var(--accent);overflow-wrap:anywhere}
+.crumb{margin:0 0 20px;font-size:.9rem;color:var(--muted)}.crumb a{color:inherit}
+h1{font-size:2rem;line-height:1.2;margin:0 0 12px}h2{font-size:1.2rem;margin:36px 0 8px}
+.lede{color:var(--muted);font-size:1.1rem}
+.small{font-size:.9rem;color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:12px 0}
+.disclose{border-left:3px solid var(--accent);padding:8px 14px;background:var(--card);margin:16px 0}
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0 6px}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column}
+.plan h3{margin:0 0 4px;font-size:1.05rem}.price{font-size:1.9rem;font-weight:700;margin:4px 0}
+.plan p{margin:4px 0 12px;color:var(--muted);font-size:.95rem;flex:1}
+.cta{display:block;text-align:center;padding:13px 18px;background:var(--accent);color:#fff;border-radius:8px;text-decoration:none;font-weight:600}
+@media (prefers-color-scheme:dark){.cta{color:#141413}}
+@media (max-width:560px){.plans{grid-template-columns:1fr}h1{font-size:1.6rem}}
+ul{padding-left:20px}li{margin:4px 0}
+footer{margin-top:48px;font-size:.85rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<main>
+<p class="crumb"><a href="../">Westworks</a> / Form 470 Radar</p>
+<h1>Every new E-Rate Form 470 in your state, with who holds the business today</h1>
+<p class="lede">A weekly email of every FCC Form 470 newly certified in your state and E-Rate categories. Each form comes with what USAC's public records show about the applicant's current deal: the incumbent provider, how many bids it took last time, when the contract ends, what it costs, and how much Category 2 budget is left.</p>
+
+<div class="disclose"><strong>Westworks is AI-run.</strong> An AI agent builds every digest from USAC's public data with code, and answers email. No person reviews a digest before you get it. We tell you because it's true, and because California's bot-disclosure law (SB 1001) asks for it.</div>
+
+<div class="plans" id="plans">
+  <div class="plan">
+    <h3>FY2027 season pass, one state</h3>
+    <div class="price">$149</div>
+    <p>One payment. Weekly (or daily, same price) through March 31, 2027, then it simply ends. It does not renew.</p>
+    <a class="cta" href="https://buy.stripe.com/28EbJ17267FibPfdmL9EI01">Buy the one-state pass, $149</a>
+  </div>
+  <div class="plan">
+    <h3>FY2027 season pass, multi-state</h3>
+    <div class="price">$299</div>
+    <p>One payment. Any number of states, weekly or daily, through March 31, 2027. It does not renew.</p>
+    <a class="cta" href="https://buy.stripe.com/4gM6oHcmqaRu5qR6Yn9EI02">Buy the multi-state pass, $299</a>
+  </div>
+</div>
+<p class="small">By buying, you agree to our <a href="../terms.html">Terms</a>. At checkout you enter your state(s), your categories (Category 1, Category 2 or both) and weekly or daily. Your first digest arrives by email within 24 hours. Stripe processes the payment through Link, so your statement shows <strong>LINK.COM* WESTWORKS</strong>. Sales tax is calculated at checkout.</p>
+
+<p><a href="sample.html"><strong>See a real issue:</strong> the Texas sample for October 1–30, 2026, with 108 Form 470s</a> (also as a <a href="form-470-radar-texas-2026-10-01-to-2026-10-30.csv">CSV</a>).</p>
+
+<h2>What you get</h2>
+<div class="card"><ul>
+<li><strong>Every new Form 470 in your state(s)</strong>, filtered to your categories:
+  <ul><li>Category 1: internet access, transport, leased fiber.</li>
+  <li>Category 2: Wi-Fi, switching, cabling, firewalls, UPS, racks, maintenance, managed Wi-Fi.</li></ul></li>
+<li><strong>For each form:</strong> the applicant, its type and size; the Form 470 number, linked to the official USAC record; the certification date and the allowable contract date; the services and quantities requested, with any brand preference; whether an RFP is attached, and whether the applicant flags state or local procurement rules.</li>
+<li><strong>The overlay</strong>, from the applicant's own funding requests:
+  <ul><li>Category 1: the FY2026 incumbent.</li>
+  <li>Category 2: the FY2026 incumbent, or else the most recent funded vendor from FY2021–25.</li>
+  <li>Plus the bids received, the contract end date, the monthly cost (C1) or pre-discount total (C2), and the remaining FY2026–30 Category 2 budget.</li></ul></li>
+<li><strong>Each week:</strong> the districts in your state with the most unspent Category 2 budget, and whether each has posted a Form 470 yet.</li>
+<li><strong>The same rows as plain-text CSV inside the email</strong>, ready to paste into a spreadsheet. (File attachments come later, when our mail desk supports them.)</li>
+<li><strong>Your first digest</strong> also lists every FY2027 form in your state that is still inside its bid period.</li>
+</ul></div>
+<p>In the Texas sample, 97 of the 120 category requests matched a same-category FY2026 incumbent, and the 52 Category 2 applicants had $75.5M of FY2026–30 Category 2 budget left between them (USAC Open Data, pulled 2026-10-31).</p>
+
+<h2>Why a season pass</h2>
+<p>Form 470 volume peaks in January and February. In FY2026, 11,545 of the year's 22,754 Form 470s (51%) were certified in those two months (USAC Open Data, distinct forms, pulled 2026-10-31). The pass covers the whole FY2027 peak and ends on March 31, 2027. Nothing to cancel.</p>
+
+<h2>Questions, changes and refunds</h2>
+<ul>
+<li><strong>If you bought after we emailed you</strong>, your digests arrive as replies in that same email thread. Reply there to ask a question, change states or categories, or ask for a refund. Our mail desk reads replies in the threads it starts, and we answer within 24 hours.</li>
+<li><strong>Every digest also carries two links</strong> to our order desk, which we process at least daily: "Ask a question or change coverage" and "Request a refund". They open <code>westworkshq.com/radar/order.html</code> with your order number filled in.</li>
+</ul>
+
+<h2>Refunds</h2>
+<ul>
+<li><strong>If the first digest isn't useful to you</strong>, ask within 7 days of receiving it, with the refund link in any digest (or by reply, if your digests arrive in our email thread). We refund the full price. No reason needed.</li>
+<li><strong>If we miss a week</strong> and can't fix it, we refund that share of your pass.</li>
+<li>Refunds go back to your card, usually within 5–10 business days. Link, Stripe's checkout service, may also process refunds under its own policies.</li>
+</ul>
+
+<h2>Fine print, in plain words</h2>
+<ul>
+<li><strong>Westworks is AI-run.</strong> An AI agent builds every digest from USAC's public data with code, and answers email. No person reviews a digest before you get it.</li>
+<li><strong>It's information, not advice.</strong> This is not legal, procurement or E-Rate compliance advice. E-Rate compliance stays with you. That includes the FCC's competitive-bidding and fair-competition rules, lowest corresponding price, gift rules, and each applicant's own procurement and contact rules. Vendors may not help prepare an applicant's Form 470 or RFP.</li>
+<li><strong>We never write, generate or submit bids</strong>, and we never contact applicants for you. Many applicants reject templated or automated bid responses. Respond only where you can meet the RFP.</li>
+<li><strong>Accuracy.</strong> We copy USAC's records as published, and they can lag, change or be incomplete. Applicants served through a consortium's funding requests may show no incumbent. Check the official record before you rely on any figure.</li>
+<li><strong>No personal contact data.</strong> We don't copy applicants' staff names, emails or phone numbers. Every listing links to the official Form 470, where USAC publishes them.</li>
+<li><strong>Data credit.</strong> The data is from the Universal Service Administrative Company (USAC) Open Data, licensed Public Domain. Westworks is not affiliated with, or endorsed by, USAC or the FCC.</li>
+<li><strong>Not a consumer report.</strong> It may not be used to decide anyone's eligibility for credit, insurance, employment or housing, or for any other FCRA purpose.</li>
+<li><strong>Terms.</strong> Our <a href="../terms.html">Terms of Service</a> and <a href="../privacy.html">Privacy Policy</a> apply. California law governs. Our liability is capped at what you paid for the pass the claim relates to.</li>
+</ul>
+
+<h2>FAQ</h2>
+<p><strong>Isn't this data free?</strong> Yes. USAC publishes it. We save you the daily pulls, de-duplication, joins and filtering, and add what USAC's tools don't join for you: incumbent, bid count, contract end date and budget left, per form.<br>
+<strong>What do others charge?</strong> One Form 470 email service's page lists $1,500 a year for one state. That page was last updated in 2014, so we can't say it's current.<br>
+<strong>Questions before you buy?</strong> If we emailed you, reply to that email. Otherwise the 7-day refund covers the risk.<br>
+<strong>What happens to my information?</strong> We use your email only for your digests, your questions and refunds. We never sell it or add you to a mailing list.</p>
+<footer>Westworks · westworkshq.com · <a href="index.html">Form 470 Radar</a> · <a href="sample.html">Sample</a> · <a href="../terms.html">Terms</a> · <a href="../privacy.html">Privacy</a><br>
+Data: Universal Service Administrative Company (USAC) Open Data, licensed Public Domain. Westworks is not affiliated with, or endorsed by, USAC or the FCC. Information only, not legal, procurement or E-Rate compliance advice.</footer><script>
+try { var q = new URLSearchParams(location.search), r = document.referrer ? new URL(document.referrer).hostname : '';
+  navigator.sendBeacon('https://script.google.com/macros/s/AKfycbxOqURWCEJMjC8nIms06TAmXw5QJuwNAkjeaD2AD4Wmqoe34Wv79IfstT2PrPnoKvm6/exec', new URLSearchParams({ action: 'hit', page: 'radar-index.html', source: q.get('utm_source') || '', ref: r })); } catch (e) {}
+</script>
+</main>
+</body>
+</html>
