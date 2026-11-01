@@ -1,0 +1,461 @@
+<!doctype html>
+<!-- Westworks free tool: refrigerant leak rate calculator and log. Staged in agent-biz/experiments/candidates/leak-rate-tool;
+     publish to westworkshq.com/refrigerant/ (index.html + leakcore.js). No external requests: nothing typed leaves the browser.
+     Rule facts verified against eCFR as of 2026-10-29 (see README.md; independent review in reviews/r2.md, 2026-11-01).
+     Re-verify before each republish.
+     PAID SECTION: hidden by default. It lives in <template id="paidSection"> below and is shown only when
+     SHOW_PAID_SECTION (top of the script) is true. Flip it only after refrigerant/order.html and the Stripe link exist. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Refrigerant Leak Rate Calculator · Westworks</title>
+<meta name="description" content="Free EPA refrigerant leak rate calculator for the 2026 HFC leak repair rule (40 CFR 84 subpart C) and Section 608 (40 CFR 82.157). Annualizing and rolling average methods, repair deadlines, the 125% chronic-leak check, and a log you can export. No signup.">
+<link rel="canonical" href="https://westworkshq.com/refrigerant/">
+<link rel="icon" href="../assets/icon-512.png">
+<meta property="og:title" content="Refrigerant leak rate calculator (EPA 2026 rules)">
+<meta property="og:description" content="Annualizing and rolling average leak rates, repair deadlines and the 125% chronic-leak check, with every rule cited. Free, in your browser.">
+<meta property="og:image" content="https://westworkshq.com/assets/icon-512.png">
+<meta name="theme-color" content="#fbf8f3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14171c" media="(prefers-color-scheme: dark)">
+<style>
+:root{--bg:#fbf8f3;--fg:#1b2430;--muted:#5a6270;--line:#e6e0d6;--card:#fff;--sun:#e2622b;--sun-text:#b4481c;--link:#a8441a;--soft:#f4eee5;--ok:#2f6b3a;--bad:#a3261b;--badbg:#fbeae6;--okbg:#e8f2e9}
+@media (prefers-color-scheme:dark){:root{--bg:#14171c;--fg:#ebe7e0;--muted:#a3a8b1;--line:#2c313a;--card:#1b1f26;--sun:#ee7a45;--sun-text:#ee7a45;--link:#f2956a;--soft:#1a1e24;--ok:#7cc48a;--bad:#ff8f80;--badbg:#3a1f1c;--okbg:#1c2c20}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-wrap:break-word}
+a{color:var(--link);text-underline-offset:2px}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+header.top{border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:14px;padding-bottom:14px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--fg);text-decoration:none;font-weight:700;font-size:1.2rem}
+.mark{width:34px;height:34px;flex:none}
+nav a{color:var(--muted);text-decoration:none;font-size:.95rem;margin-left:16px}
+.hero{padding-top:44px;padding-bottom:8px}
+.kicker{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--sun-text);font-weight:700;margin:0 0 8px}
+h1{font-size:clamp(1.9rem,4.6vw,2.8rem);line-height:1.1;letter-spacing:-.02em;margin:0 0 14px}
+.lede{color:var(--muted);font-size:1.08rem;max-width:64ch;margin:0}
+h2{font-size:clamp(1.3rem,2.8vw,1.65rem);letter-spacing:-.015em;line-height:1.25;margin:0 0 8px}
+h3{font-size:1.05rem;margin:18px 0 6px}
+section{padding:36px 0 8px}
+.sub{color:var(--muted);margin:0 0 18px;max-width:66ch}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+.soft{background:var(--soft)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px 16px}
+label{display:block;font-weight:600;font-size:.92rem;margin-bottom:4px}
+.hint{font-weight:400;color:var(--muted);font-size:.84rem}
+input,select{width:100%;font:inherit;font-size:16px;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 10px;min-height:42px}
+input[type=checkbox]{width:auto;min-height:0}
+.radios{display:flex;gap:16px;flex-wrap:wrap;margin:4px 0 12px}
+.radios label{font-weight:500;display:flex;gap:6px;align-items:center}
+.radios input{width:auto;min-height:0}
+.big{font-size:2.2rem;font-weight:700;letter-spacing:-.02em;line-height:1.1;font-variant-numeric:tabular-nums}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.pill{border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:.88rem}
+.pill.bad{border-color:var(--bad);color:var(--bad);background:var(--badbg)}
+.pill.ok{border-color:var(--ok);color:var(--ok);background:var(--okbg)}
+.status{border-left:4px solid var(--line);padding:10px 14px;margin:10px 0;background:var(--card);border-radius:0 10px 10px 0}
+.status.bad{border-color:var(--bad)}
+.status.ok{border-color:var(--ok)}
+.status p{margin:4px 0}
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:8px 0}
+table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:640px}
+th,td{text-align:left;padding:6px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600}
+td input,td select{min-height:36px;padding:5px 7px}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.btn{display:inline-block;background:var(--fg);color:var(--bg);border:0;font:inherit;font-weight:600;padding:10px 16px;border-radius:8px;cursor:pointer;text-decoration:none}
+.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.btn.sun{background:var(--sun);color:#fff}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}
+.x{background:none;border:0;color:var(--muted);cursor:pointer;font-size:1.1rem;padding:4px 8px}
+.small{font-size:.86rem;color:var(--muted)}
+ul.tight{margin:6px 0;padding-left:20px}
+ul.tight li{margin:3px 0}
+.rules td:first-child{white-space:nowrap}
+.warn{color:var(--sun-text)}
+details{margin:8px 0}
+summary{cursor:pointer;font-weight:600}
+textarea{width:100%;min-height:120px;font:13px/1.4 ui-monospace,Menlo,Consolas,monospace;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px}
+.disclaimer{border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:.9rem;color:var(--muted);background:var(--soft)}
+footer{padding:32px 0 48px;color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);margin-top:40px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px 24px;flex-wrap:wrap}
+footer a{color:var(--muted)}
+@media (max-width:680px){.wrap{padding:0 16px}.hero{padding-top:28px}nav a{margin:0 14px 0 0}}
+@media print{header.top,nav,.noprint,footer{display:none}body{background:#fff;color:#000}.card{border-color:#999}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="../" aria-label="Westworks home">
+    <svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><path d="M26 60a24 24 0 0 1 48 0z" fill="#e2622b"/><rect x="6" y="64" width="88" height="7" rx="3.5" fill="currentColor"/><rect x="22" y="78" width="56" height="7" rx="3.5" fill="currentColor"/></svg>
+    Westworks
+  </a>
+  <nav aria-label="On this page"><a href="#quick">Calculator</a><a href="#log">Appliance log</a><a href="#rules">The rules</a></nav>
+</div></header>
+
+<main>
+<div class="wrap hero">
+  <p class="kicker">Free tool · EPA leak repair rules · updated November 1, 2026</p>
+  <h1>Refrigerant leak rate calculator</h1>
+  <p class="lede">Since January 1, 2026, EPA's leak repair rule covers appliances holding <b>15 lb or more</b> of an HFC refrigerant such as R-404A, R-448A or R-134a. That brings in HFC walk-in coolers, supermarket rack systems and process chillers from 15 lb up. The older Section 608 leak rule still covers only appliances with 50 lb or more of an ozone-depleting refrigerant such as R-22. Work out a leak rate the way EPA defines it, see the repair deadlines it starts, and keep a log you can export. Free, no signup. Nothing you type leaves your browser.</p>
+</div>
+
+<div class="wrap">
+<div class="card soft" style="margin-top:22px">
+  <h3 style="margin-top:0">What changed in 2026, in four lines</h3>
+  <ul class="tight">
+    <li><b>Who:</b> owners and operators of appliances with a full charge of 15 lb or more of a refrigerant that contains an HFC, or a substitute with a global warming potential above 53 (<a href="https://www.ecfr.gov/current/title-40/part-84/section-84.106#p-84.106(a)">40 CFR 84.106(a)</a>). Residential and light-commercial AC (EPA: equipment for cooling individual rooms, single-family homes and small commercial buildings) is exempt. Chillers are not, and EPA's January 2026 fact sheet says certain VRF systems are not either.</li>
+    <li><b>When to calculate:</b> every time refrigerant is added, except right after an installation or retrofit, or a seasonal variance (<a href="https://www.ecfr.gov/current/title-40/part-84/section-84.106#p-84.106(b)">84.106(b)</a>).</li>
+    <li><b>Repair trigger:</b> a leak rate <b>over</b> 20% for commercial refrigeration, 30% for industrial process refrigeration, or 10% for comfort cooling and everything else. Repairs and an initial verification test are due within 30 days (<a href="https://www.ecfr.gov/current/title-40/part-84/section-84.106#p-84.106(c)(2)">84.106(c)–(e)</a>).</li>
+    <li><b>New yearly report:</b> any covered appliance that leaked <b>125% or more</b> of its full charge in 2026 must be reported to EPA by <b>March 1, 2027</b> (<a href="https://www.ecfr.gov/current/title-40/part-84/section-84.106#p-84.106(j)">84.106(j)</a>).</li>
+  </ul>
+</div>
+</div>
+
+<section id="quick"><div class="wrap">
+  <h2>Quick leak rate</h2>
+  <p class="sub">One number for one refrigerant addition. Use the method your facility already uses for all its covered appliances: the rule requires one method per facility (<a href="https://www.ecfr.gov/current/title-40/part-84/section-84.102">84.102, "Leak rate"</a>).</p>
+  <div class="card">
+    <div class="radios" role="radiogroup" aria-label="Method">
+      <label><input type="radio" name="qm" value="annualizing" checked> Annualizing method</label>
+      <label><input type="radio" name="qm" value="rolling"> Rolling average method</label>
+    </div>
+    <div class="grid">
+      <div><label for="qfc">Full charge (lb)</label><input id="qfc" type="number" min="0" step="any" inputmode="decimal" placeholder="35"></div>
+      <div><label for="qlbs"><span id="qlbsLabel">Pounds added this time</span> <span class="hint" id="qlbsHint">for this leak, including earlier top-ups for the same leak</span></label><input id="qlbs" type="number" min="0" step="any" inputmode="decimal" placeholder="6"></div>
+      <div id="qdaysBox"><label for="qdays">Days since refrigerant was last added <span class="hint">over 365 counts as 365; Part 84 with no record of any earlier addition: 365</span></label><input id="qdays" type="number" min="1" step="1" inputmode="numeric" placeholder="120"></div>
+    </div>
+    <div id="qout" aria-live="polite" style="margin-top:16px"><p class="small">Enter the full charge and the pounds added.</p></div>
+  </div>
+</div></section>
+
+<section id="log"><div class="wrap">
+  <h2>Check one appliance and keep its log</h2>
+  <p class="sub">Tell us what the appliance is, then enter each refrigerant addition from your service tickets. You'll see whether the rule covers it, the leak rate at every addition, the deadlines an exceedance starts, and the 125% yearly check. Your log is saved in this browser only. Export it to keep a copy.</p>
+
+  <div class="card">
+    <div class="row noprint" style="margin-top:0">
+      <label for="appSel" style="margin:0">Appliance</label>
+      <select id="appSel" style="width:auto;min-width:200px"></select>
+      <button class="btn ghost" id="appNew" type="button">Add another appliance</button>
+      <button class="btn ghost" id="appDel" type="button">Delete this one</button>
+    </div>
+    <div class="grid">
+      <div><label for="aName">Name or ID <span class="hint">e.g. "Walk-in cooler 1, back kitchen"</span></label><input id="aName" type="text" maxlength="80"></div>
+      <div><label for="aRef">Refrigerant</label><select id="aRef"></select></div>
+      <div><label for="aFc">Full charge (lb) <span class="hint">nameplate or documented (84.102 "Full charge")</span></label><input id="aFc" type="number" min="0" step="any" inputmode="decimal"></div>
+      <div><label for="aCat">Appliance type</label><select id="aCat"></select></div>
+      <div><label for="aMethod">Method used at this facility</label><select id="aMethod"><option value="annualizing">Annualizing</option><option value="rolling">Rolling average</option></select></div>
+      <div><label for="aPrior">Refrigerant last added before this log <span class="hint">date, even if in 2025; leave blank only if you have no record of it</span></label><input id="aPrior" type="date"></div>
+    </div>
+    <div id="customRef" class="grid" style="margin-top:12px;display:none">
+      <div><label><input type="checkbox" id="cHfc"> Contains an HFC <span class="hint">(R-32, R-125, R-134a, R-143a, R-152a, …)</span></label></div>
+      <div><label><input type="checkbox" id="cOds"> Contains an HCFC or CFC <span class="hint">(R-22, R-124, R-142b, R-12, …)</span></label></div>
+      <div><label for="cGwp">Otherwise, its GWP <span class="hint">from the refrigerant's SDS</span></label><input id="cGwp" type="number" min="0" step="any"></div>
+    </div>
+    <label style="margin-top:10px;font-weight:500"><input type="checkbox" id="aShut"> Repairs would need an industrial process shutdown <span class="hint">(gives 120 days instead of 30)</span></label>
+    <div id="applic" aria-live="polite"></div>
+  </div>
+
+  <h3>Refrigerant additions and passed follow-up tests</h3>
+  <p class="small">One row per service visit that added refrigerant. Add a "follow-up test passed" row on the date a follow-up verification test confirmed all identified leaks were repaired: under the rolling average method, the count restarts after it.</p>
+  <div class="tablewrap">
+    <table id="evTable">
+      <thead><tr><th>Date</th><th>Entry</th><th>Lb added</th><th>Why no calculation</th><th title="Same leak as the previous addition">Same leak</th><th title="Purged refrigerant destroyed at 98% or better (84.106(k))">Purged &amp; destroyed lb</th><th>Leak rate</th><th class="noprint"></th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <div class="row noprint">
+    <button class="btn ghost" id="addAdd" type="button">+ Addition</button>
+    <button class="btn ghost" id="addFvt" type="button">+ Follow-up test passed</button>
+  </div>
+
+  <div id="results" aria-live="polite"></div>
+
+  <div class="row noprint">
+    <button class="btn" id="dlCsv" type="button">Download CSV</button>
+    <button class="btn ghost" id="showCsv" type="button">Show CSV to copy</button>
+    <button class="btn ghost" id="printBtn" type="button">Print</button>
+  </div>
+  <textarea id="csvBox" readonly style="display:none" aria-label="CSV export"></textarea>
+  <p class="small">Records you must keep for 3 years include each appliance's full charge and how it was determined, and for every service: the date, the parts serviced, the technician, pounds and type of refrigerant added, and the leak rate and method (<a href="https://www.ecfr.gov/current/title-40/part-84/section-84.106#p-84.106(l)">84.106(l)</a>). This log covers the numbers; keep the technicians' service records with it.</p>
+</div></section>
+
+<!-- PAID SECTION (hidden): see SHOW_PAID_SECTION in the script. Inert until enabled; order.html does not exist yet. -->
+<div id="paidSlot"></div>
+<template id="paidSection">
+<section id="records"><div class="wrap">
+  <div class="card" style="border-color:var(--sun)">
+    <p class="kicker">Optional paid check</p>
+    <h2>Want a second pair of eyes on your 2026 records before March 1?</h2>
+    <p>Export the log for each appliance (or paste in your service-ticket lines) and send it to us. Within 24 hours you get back, in plain text: every leak rate recomputed, any calculation or repair deadline that looks missed, which appliances (if any) cross 125% for 2026 and need a report by March 1, 2027, a worksheet with the twelve items EPA's chronic-leak report asks for, and a list of the records that are missing.</p>
+    <p><b>$79 per site</b> (up to 10 appliances), one-time, nothing renews. Full refund within 7 days if it isn't useful. It's a records check, not legal advice, and we don't file anything with EPA for you.</p>
+    <p class="row"><a class="btn sun" href="order.html">See how the records check works</a></p>
+    <p class="small">The calculator on this page stays free, with no signup and no email required.</p>
+  </div>
+</div></section>
+</template>
+
+<section id="rules"><div class="wrap">
+  <h2>The rules this page uses</h2>
+  <p class="sub">Text checked against the eCFR on October 29, 2026. Part 84 subpart C has not changed since it took effect on December 10, 2024 (published October 11, 2024); 82.157 was last amended April 10, 2020.</p>
+  <div class="tablewrap"><table class="rules">
+    <thead><tr><th>Rule</th><th>What it says</th></tr></thead>
+    <tbody>
+      <tr><td><a href="https://www.ecfr.gov/current/title-40/part-84/section-84.102">84.102</a> "Leak rate"</td><td><b>Annualizing:</b> (lb added to return to full charge ÷ full charge) ÷ (shorter of days since refrigerant was last added, or 365 ÷ 365) × 100. <b>Rolling average:</b> lb added over the previous 365 days, or since the last successful follow-up verification test if that's shorter, ÷ full charge × 100. One method for all covered appliances at a facility.</td></tr>
+      <tr><td><a href="https://www.ecfr.gov/current/title-40/part-84/section-84.106#p-84.106(a)">84.106(a)</a></td><td>Applies from January 1, 2026 to appliances with 15 lb or more of a refrigerant containing an HFC, or a substitute with GWP above 53. Not to appliances using solely an ozone-depleting refrigerant (those stay under Section 608) or to residential and light-commercial AC and heat pumps.</td></tr>
+      <tr><td><a href="https://www.ecfr.gov/current/title-40/part-84/section-84.106#p-84.106(b)">84.106(b)</a></td><td>Calculate at every addition, except right after a retrofit or a new installation, or a seasonal variance. For the first calculation after January 1, 2026, use 365 days (annualizing) or only pounds added since January 1, 2026 (rolling average). EPA's preamble says this substitute is for when records of earlier additions are absent (<a href="https://www.govinfo.gov/content/pkg/FR-2024-10-11/html/2024-21967.htm">89 FR 82724</a>).</td></tr>
+      <tr><td><a href="https://www.ecfr.gov/current/title-40/part-84/section-84.106#p-84.106(c)">84.106(c)</a></td><td>Repair when the rate is over 20% (commercial refrigeration: retail food and cold storage, including restaurants), 30% (industrial process refrigeration, including ice rinks and industrial ice machines), or 10% (comfort cooling, refrigerated transport, other).</td></tr>
+      <tr><td><a href="https://www.ecfr.gov/current/title-40/part-84/section-84.106#p-84.106(d)">84.106(d)–(f)</a></td><td>A certified technician finds and repairs the leaks within 30 days of the addition that exceeded the trigger (120 if an industrial process shutdown is needed), with an initial verification test in that window and a follow-up test within 10 days after. Extensions must be requested from EPA within the same window.</td></tr>
+      <tr><td><a href="https://www.ecfr.gov/current/title-40/part-84/section-84.106#p-84.106(g)">84.106(g)</a></td><td>After an exceedance, leak inspections: every 3 months for commercial or industrial process refrigeration with 500 lb or more, otherwise yearly, until the rate stays under the trigger for 4 quarters (or 1 year).</td></tr>
+      <tr><td><a href="https://www.ecfr.gov/current/title-40/part-84/section-84.106#p-84.106(h)">84.106(h)</a></td><td>A signed retrofit or retirement plan within 30 days if you won't repair, take no action, or repairs fail.</td></tr>
+      <tr><td><a href="https://www.ecfr.gov/current/title-40/part-84/section-84.106#p-84.106(j)">84.106(j), (m)(4)</a></td><td>Leaked 125% or more of full charge in a calendar year: report to EPA by March 1 of the next year, electronically. EPA's reporting tool is HAWK, reached through its CDX portal with the "Leak Reporter" role (<a href="https://www.epa.gov/system/files/documents/2026-01/aim-er-r-registration-reporting-webinar-2026-01-08.pdf">EPA webinar, Jan. 8, 2026</a>).</td></tr>
+      <tr><td><a href="https://www.ecfr.gov/current/title-40/part-84/section-84.106#p-84.106(k)">84.106(k)</a></td><td>Purged refrigerant destroyed at 98% efficiency or better doesn't count toward the leak rate.</td></tr>
+      <tr><td><a href="https://www.ecfr.gov/current/title-40/part-84/section-84.108">84.108</a></td><td>Commercial or industrial process refrigeration with 1,500 lb or more: automatic leak detection on installation or within 30 days of it (installed from 2026), or by January 1, 2027 for systems installed 2017–2025.</td></tr>
+      <tr><td><a href="https://www.ecfr.gov/current/title-40/part-82/section-82.157">82.157</a> (Section 608)</td><td>Appliances with 50 lb or more of a CFC or HCFC refrigerant (such as R-22), or a blend containing one: the same formulas, triggers, repair deadlines and 125% report. Extension requests and chronic-leak reports go to <a href="mailto:608reports@epa.gov">608reports@epa.gov</a> (82.157(m)). No 2026 transition rule: you need the actual date of the previous addition.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Pending, not yet law</h3>
+  <ul class="tight">
+    <li>EPA proposed on May 26, 2026 to exempt road and intermodal container transport refrigeration units from Part 84 leak repair (<a href="https://www.federalregister.gov/documents/2026/05/26/2026-10388/phasedown-of-hydrofluorocarbons-excluding-road-and-intermodal-container-transport-refrigeration">FR Doc. 2026-10388</a>; comments closed July 10, 2026). As of November 1, 2026 no final rule has been published.</li>
+    <li>Grocery groups have asked EPA to reconsider the leak repair rule (for example <a href="https://www.epa.gov/system/files/documents/2026-01/the-food-industry-association-fmi.pdf">FMI's petition</a>). EPA's May 2026 final rule on related HFC rules (<a href="https://www.federalregister.gov/documents/2026/05/26/2026-10387/phasedown-of-hydrofluorocarbons-reconsideration-of-certain-regulatory-requirements-promulgated-under">FR Doc. 2026-10387</a>) changed technology-transition dates, not the leak repair section.</li>
+  </ul>
+  <h3>How this page reads the gray areas</h3>
+  <ul class="tight small">
+    <li>Several additions marked "same leak" are added together (as 84.102 Step 1 allows), and the days are counted from the addition before that leak to its first top-up. Two additions on the same day are combined. This gives the higher of the two possible rates.</li>
+    <li>Additions before January 1, 2026 (Part 84): the rule text says to use 365 days, or pounds since January 1, 2026, for the first calculation. EPA's preamble says that is for when records of earlier additions are absent. So if you enter a 2025 addition, this page uses it, which can only raise the rate. Leave 2025 out only if you have no record of it.</li>
+    <li>An appliance with an HCFC/HFC blend (such as R-408A) at 50 lb or more falls under both rules. This page then calculates under Section 608, which has no 2026 transition, so earlier additions you enter always count.</li>
+    <li>Deadlines shown are the basic ones. They don't account for mothballing (which pauses the clock), approved extensions, or automatic leak detection replacing inspections.</li>
+    <li>Variable refrigerant flow (VRF): the 2024 rule preamble put VRF in the exempt residential and light-commercial group, but EPA's January 2026 fact sheet says certain VRF systems are in their own subsector and not in that group. Ask EPA before treating a large VRF system as exempt.</li>
+    <li>Additions with no calculation required (seasonal variance, right after installation or retrofit) are left out of later rolling sums and the 125% yearly total, because they don't replace leaked refrigerant. Their dates still count as the last day refrigerant was added.</li>
+    <li>"Over" the trigger means strictly greater: exactly 20.0% does not trigger the 20% rule.</li>
+    <li>Refrigerant makeup (which blends contain an HFC or an HCFC) follows the ASHRAE Standard 34 designations. Check your cylinder or SDS. GWPs for non-HFC refrigerants are from <a href="https://www.ecfr.gov/current/title-40/part-84/section-84.64">84.64(b)</a>.</li>
+    <li>Which "appliance type" fits is your call, using the definitions in <a href="https://www.ecfr.gov/current/title-40/part-84/section-84.102">84.102</a>. EPA's <a href="https://www.epa.gov/system/files/documents/2026-01/er-r-fact-sheet-leak-repair-2026-01-13_1.pdf">January 2026 fact sheet</a> summarizes the rule.</li>
+  </ul>
+
+  <div class="disclaimer" style="margin-top:24px">
+    <b>Information, not legal advice.</b> Using this page does not make you compliant, and a result of "not covered" or "not over the trigger" is not a determination by EPA. This page is a free calculator built by Westworks, a small company run by an AI agent. It is not from EPA, and it is not legal or compliance advice. It does what the rules above say, as we read them; it can be wrong, and the rules can change. It only knows what you type in. Whether an appliance is covered, which type it is, and its full charge are your determinations. Confirm anything you act on against the current eCFR text or with EPA (<a href="mailto:HFCEmissionsReductions@epa.gov">HFCEmissionsReductions@epa.gov</a>), and have a certified technician do leak inspections and repairs.
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <span>© 2026 Westworks · Run by an AI agent · <a href="mailto:admin@westworkshq.com">admin@westworkshq.com</a></span>
+  <span><a href="../terms.html">Terms</a> · <a href="../privacy.html">Privacy</a></span>
+</div></footer>
+
+<script src="leakcore.js"></script>
+<script>
+(function () {
+  'use strict';
+  var SHOW_PAID_SECTION = false; // the one switch for the paid "Leak Records Check" section (needs refrigerant/order.html first)
+  var L = window.LeakCore;
+  if (SHOW_PAID_SECTION) { var tpl = document.getElementById('paidSection'); if (tpl) document.getElementById('paidSlot').appendChild(tpl.content.cloneNode(true)); }
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s === null || s === undefined ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+  var pct = function (x) { return (Math.round(x * 10) / 10).toFixed(1) + '%'; };
+  var nice = function (d) { if (!d) return ''; var t = new Date(d + 'T00:00:00Z'); return t.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' }); };
+
+  // ---------- quick calculator ----------
+  function quick() {
+    var m = document.querySelector('input[name=qm]:checked').value;
+    $('qdaysBox').style.display = m === 'annualizing' ? '' : 'none';
+    $('qlbsLabel').textContent = m === 'annualizing' ? 'Pounds added this time' : 'Pounds added in the window';
+    $('qlbsHint').textContent = m === 'annualizing' ? 'for this leak, including earlier top-ups for the same leak' : 'all additions in the past 365 days, or since the last passed follow-up test (Part 84: if you have no records before Jan 1, 2026, count from that date)';
+    var fc = parseFloat($('qfc').value), lbs = parseFloat($('qlbs').value), days = parseFloat($('qdays').value);
+    var out = $('qout');
+    if (!(fc > 0) || !(lbs >= 0) || $('qlbs').value === '') { out.innerHTML = '<p class="small">Enter the full charge and the pounds added.</p>'; return; }
+    var rate, how;
+    try {
+      if (m === 'annualizing') {
+        if (!(days >= 1)) { out.innerHTML = '<p class="small">Enter the days since refrigerant was last added (at least 1).</p>'; return; }
+        var d = Math.min(Math.round(days), 365);
+        rate = L.annualizingRate(lbs, fc, d);
+        how = '(' + lbs + ' ÷ ' + fc + ') ÷ (' + d + ' ÷ 365) × 100';
+      } else { rate = L.rollingRate(lbs, fc); how = lbs + ' ÷ ' + fc + ' × 100'; }
+    } catch (e) { out.innerHTML = '<p class="small">' + esc(e.message) + '</p>'; return; }
+    var pills = [['Comfort cooling, transport, other', 10], ['Commercial refrigeration', 20], ['Industrial process', 30]].map(function (p) {
+      var over = rate > p[1];
+      return '<span class="pill ' + (over ? 'bad' : 'ok') + '">' + p[0] + ' (' + p[1] + '%): ' + (over ? 'over the trigger' : 'not over') + '</span>';
+    }).join('');
+    out.innerHTML = '<div class="big">' + pct(rate) + '</div><p class="small" style="margin:4px 0 0">' + esc(how) + '</p><div class="pills">' + pills + '</div>' +
+      '<p class="small">Applies only if the appliance is covered: 15 lb or more of an HFC refrigerant (Part 84), or 50 lb or more of an HCFC/CFC like R-22 (Section 608). Check below.</p>';
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('#quick input'), function (el) { el.addEventListener('input', quick); el.addEventListener('change', quick); });
+
+  // ---------- state ----------
+  var KEY = 'westworks-leaklog-v1';
+  var state;
+  function blankApp(n) { return { name: 'Appliance ' + n, refrigerant: 'R-404A', custom: { hfc: true, ods: false, gwp: '' }, fullCharge: '', category: 'cr', method: 'annualizing', priorAdditionDate: '', shutdownRequired: false, events: [] }; }
+  function load() {
+    try { var s = JSON.parse(localStorage.getItem(KEY)); if (s && s.apps && s.apps.length) return s; } catch (e) {}
+    return { cur: 0, apps: [blankApp(1)] };
+  }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+  state = load();
+  if (!(state.cur >= 0 && state.cur < state.apps.length)) state.cur = 0;
+  function app() { return state.apps[state.cur]; }
+
+  // ---------- selects ----------
+  L.REFRIGERANTS.forEach(function (r) { var o = document.createElement('option'); o.value = r.id; o.textContent = r.name; $('aRef').appendChild(o); });
+  var oc = document.createElement('option'); oc.value = 'custom'; oc.textContent = 'Other (describe it)'; $('aRef').appendChild(oc);
+  Object.keys(L.CATEGORIES).forEach(function (k) { var o = document.createElement('option'); o.value = k; o.textContent = L.CATEGORIES[k].label; $('aCat').appendChild(o); });
+
+  function fillAppSel() {
+    var sel = $('appSel'); sel.innerHTML = '';
+    state.apps.forEach(function (a, i) { var o = document.createElement('option'); o.value = i; o.textContent = a.name || ('Appliance ' + (i + 1)); sel.appendChild(o); });
+    sel.value = state.cur;
+  }
+  function fillForm() {
+    var a = app();
+    $('aName').value = a.name; $('aRef').value = a.refrigerant; $('aFc').value = a.fullCharge; $('aCat').value = a.category;
+    $('aMethod').value = a.method; $('aPrior').value = a.priorAdditionDate || ''; $('aShut').checked = !!a.shutdownRequired;
+    $('cHfc').checked = !!a.custom.hfc; $('cOds').checked = !!a.custom.ods; $('cGwp').value = a.custom.gwp;
+    drawEvents(); compute();
+  }
+  function readForm() {
+    var a = app();
+    a.name = $('aName').value; a.refrigerant = $('aRef').value; a.fullCharge = $('aFc').value; a.category = $('aCat').value;
+    a.method = $('aMethod').value; a.priorAdditionDate = $('aPrior').value; a.shutdownRequired = $('aShut').checked;
+    a.custom = { hfc: $('cHfc').checked, ods: $('cOds').checked, gwp: $('cGwp').value };
+  }
+  ['aName', 'aRef', 'aFc', 'aCat', 'aMethod', 'aPrior', 'aShut', 'cHfc', 'cOds', 'cGwp'].forEach(function (id) {
+    $(id).addEventListener('input', function () { readForm(); if (id === 'aName') fillAppSel(); compute(); save(); });
+    $(id).addEventListener('change', function () { readForm(); compute(); save(); });
+  });
+  $('appSel').addEventListener('change', function () { state.cur = Number(this.value); fillForm(); save(); });
+  $('appNew').addEventListener('click', function () { state.apps.push(blankApp(state.apps.length + 1)); state.cur = state.apps.length - 1; fillAppSel(); fillForm(); save(); });
+  $('appDel').addEventListener('click', function () {
+    if (!confirm('Delete "' + (app().name || 'this appliance') + '" and its log from this browser?')) return;
+    state.apps.splice(state.cur, 1); if (!state.apps.length) state.apps.push(blankApp(1)); state.cur = 0; fillAppSel(); fillForm(); save();
+  });
+
+  // ---------- events table ----------
+  function today() { var d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+  function drawEvents() {
+    var tb = document.querySelector('#evTable tbody'); tb.innerHTML = '';
+    app().events.forEach(function (e, i) {
+      var tr = document.createElement('tr'); tr.dataset.i = i;
+      if (e.kind === 'fvt') {
+        tr.innerHTML = '<td><input type="date" data-f="date" value="' + esc(e.date) + '" aria-label="Date"></td><td>Follow-up test passed</td><td colspan="4" class="small">All identified leaks verified repaired</td><td class="num" data-rate></td><td class="noprint"><button class="x" data-del aria-label="Remove row">×</button></td>';
+      } else {
+        tr.innerHTML = '<td><input type="date" data-f="date" value="' + esc(e.date) + '" aria-label="Date"></td><td>Addition</td>' +
+          '<td><input type="number" min="0" step="any" inputmode="decimal" data-f="lbs" value="' + esc(e.lbs) + '" aria-label="Pounds added" style="width:6.5em"></td>' +
+          '<td><select data-f="exempt" aria-label="Why no calculation"><option value="">Calculate (normal)</option><option value="seasonal">Seasonal variance</option><option value="install">Right after installation</option><option value="retrofit">Right after retrofit</option></select></td>' +
+          '<td><input type="checkbox" data-f="sameLeak" aria-label="Same leak as previous addition"' + (e.sameLeak ? ' checked' : '') + '></td>' +
+          '<td><input type="number" min="0" step="any" data-f="purgedDestroyedLbs" value="' + esc(e.purgedDestroyedLbs || '') + '" aria-label="Purged and destroyed pounds" style="width:5.5em"></td>' +
+          '<td class="num" data-rate></td><td class="noprint"><button class="x" data-del aria-label="Remove row">×</button></td>';
+        tr.querySelector('[data-f=exempt]').value = e.exempt || '';
+      }
+      tb.appendChild(tr);
+    });
+  }
+  var tbody = document.querySelector('#evTable tbody');
+  function onRow(ev) {
+    var tr = ev.target.closest('tr'); if (!tr) return;
+    var e = app().events[Number(tr.dataset.i)]; var f = ev.target.dataset.f; if (!f) return;
+    e[f] = ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value;
+    compute(); save();
+  }
+  tbody.addEventListener('input', onRow); tbody.addEventListener('change', onRow);
+  tbody.addEventListener('click', function (ev) {
+    if (!ev.target.hasAttribute('data-del')) return;
+    app().events.splice(Number(ev.target.closest('tr').dataset.i), 1); drawEvents(); compute(); save();
+  });
+  $('addAdd').addEventListener('click', function () { app().events.push({ date: today(), kind: 'add', lbs: '', exempt: '', sameLeak: false, purgedDestroyedLbs: '' }); drawEvents(); compute(); save(); });
+  $('addFvt').addEventListener('click', function () { app().events.push({ date: today(), kind: 'fvt' }); drawEvents(); compute(); save(); });
+
+  // ---------- compute and render ----------
+  var lastResult = null;
+  function refOf(a) {
+    if (a.refrigerant !== 'custom') return a.refrigerant;
+    return { hfc: !!a.custom.hfc, ods: !!a.custom.ods, gwp: parseFloat(a.custom.gwp) };
+  }
+  function compute() {
+    var a = app();
+    $('customRef').style.display = a.refrigerant === 'custom' ? '' : 'none';
+    var ap = L.applicability({ refrigerant: refOf(a), fullCharge: a.fullCharge, category: a.category });
+    var h = '';
+    if (!(Number(a.fullCharge) > 0)) h = '<p class="small" style="margin-top:12px">Enter the full charge to see whether the leak repair rules cover this appliance.</p>';
+    else if (ap.needsGwp) h = '<div class="status"><p class="small">' + esc(ap.reasons[0]) + '</p></div>';
+    else {
+      h = '<div class="status ' + (ap.applies ? 'bad' : 'ok') + '"><p><b>' + (ap.applies ? 'Covered as entered: leak repair applies, trigger over ' + ap.threshold + '%.' : 'Not covered by either leak repair rule, as entered.') + '</b></p>' +
+        ap.reasons.map(function (r) { return '<p class="small">' + esc(r) + '</p>'; }).join('') +
+        ap.notes.map(function (r) { return '<p class="small warn">' + esc(r) + '</p>'; }).join('') + '</div>';
+    }
+    $('applic').innerHTML = h;
+
+    var regime = ap.regime || (refOf(a).ods && !refOf(a).hfc ? '82' : '84');
+    if (typeof refOf(a) === 'string') { var rr = L.findRefrigerant(refOf(a)); if (!ap.regime) regime = rr && rr.ods && !rr.hfc ? '82' : '84'; }
+    var thr = ap.threshold || L.CATEGORIES[a.category].t84 || L.CATEGORIES[a.category].t82;
+    var res = L.computeLog({ fullCharge: a.fullCharge, method: a.method, regime: regime, category: a.category, threshold: thr, priorAdditionDate: a.priorAdditionDate, shutdownRequired: a.shutdownRequired },
+      a.events.map(function (e) { return { date: e.date, kind: e.kind, lbs: e.lbs, exempt: e.exempt || null, sameLeak: !!e.sameLeak, purgedDestroyedLbs: e.purgedDestroyedLbs }; }));
+    var methods = state.apps.filter(function (x) { return Number(x.fullCharge) > 0; }).map(function (x) { return x.method; });
+    if (methods.some(function (m) { return m !== methods[0]; })) $('applic').innerHTML += '<p class="small warn">Your saved appliances use different methods. The rule requires one method for all covered appliances at a facility (84.102 "Leak rate"); if they are at the same site, pick one.</p>';
+    lastResult = { app: a, res: res, ap: ap };
+    renderResults(a, ap, res, thr);
+  }
+  function renderResults(a, ap, res, thr) {
+    var out = $('results');
+    // per-row rate cells
+    var cells = document.querySelectorAll('#evTable tbody tr');
+    Array.prototype.forEach.call(cells, function (tr) { tr.querySelector('[data-rate]').textContent = ''; });
+    if (!a.events.length) { out.innerHTML = '<p class="small">No entries yet. Add the refrigerant additions from your service tickets, oldest first or in any order.</p>'; return; }
+    if (res.errors.length) { out.innerHTML = '<div class="status"><p><b>Fix these to see results:</b></p>' + res.errors.map(function (e) { return '<p class="small">' + esc(e) + '</p>'; }).join('') + '</div>'; return; }
+    var html = '<h3>Results, oldest first</h3>';
+    if (!ap.applies) html += '<p class="small warn">As entered, neither rule covers this appliance, so these rates trigger nothing. They are shown against the ' + thr + '% level for reference.</p>';
+    res.rows.forEach(function (r) {
+      var cls = r.rate === null ? '' : (r.exceeds && ap.applies ? 'bad' : 'ok');
+      var title = r.kind === 'fvt' ? nice(r.date) + ': follow-up verification test passed'
+        : nice(r.date) + ': ' + r.lbs + ' lb added' + (r.rate === null ? '' : ' → leak rate ' + pct(r.rate) + (r.exceeds ? ', over the ' + thr + '% trigger' : ', not over ' + thr + '%'));
+      html += '<div class="status ' + cls + '"><p><b>' + esc(title) + '</b></p><p class="small">' + esc(r.calc) + '</p>';
+      r.warnings.forEach(function (w) { html += '<p class="small warn">' + esc(w) + '</p>'; });
+      if (r.deadlines.length && (ap.applies)) {
+        html += '<ul class="tight small">' + r.deadlines.map(function (d) { return '<li>' + (d.by ? '<b>By ' + esc(nice(d.by)) + ':</b> ' : '') + esc(d.what) + ' (' + esc(d.cite) + ')</li>'; }).join('') + '</ul>';
+      }
+      html += '</div>';
+    });
+    // fill rate cells by matching date/kind order
+    var byKey = {};
+    res.rows.forEach(function (r) { var k = r.date + '|' + r.kind; (byKey[k] = byKey[k] || []).push(r); });
+    Array.prototype.forEach.call(cells, function (tr) {
+      var e = a.events[Number(tr.dataset.i)]; var list = byKey[e.date + '|' + (e.kind === 'fvt' ? 'fvt' : 'add')];
+      var r = list && list.shift(); if (!r) return;
+      tr.querySelector('[data-rate]').innerHTML = r.rate === null ? (r.kind === 'fvt' ? '' : '<span class="small">no calc</span>') : '<b style="color:var(--' + (r.exceeds && ap.applies ? 'bad' : 'ok') + ')">' + pct(r.rate) + '</b>';
+    });
+    if (res.years.length) {
+      html += '<h3>125% yearly check (chronically leaking appliances)</h3>';
+      res.years.forEach(function (y) {
+        html += '<div class="status ' + (y.chronic && ap.applies ? 'bad' : 'ok') + '"><p><b>' + y.year + ': ' + (Math.round(y.lbs * 100) / 100) + ' lb added, ' + pct(y.pct) + ' of the full charge.</b> ' +
+          (y.chronic ? (ap.applies ? 'That is 125% or more: a report to EPA is due by ' + esc(nice(y.reportDue)) + ', ' + esc(y.reportTo) + ' (' + y.cite + ').' : 'That would be 125% or more if the appliance were covered.') : 'Under 125%: no chronic-leak report for this year so far.') + '</p></div>';
+      });
+      html += '<p class="small">Counts the pounds entered above for each calendar year, minus purged-and-destroyed pounds and additions that need no calculation. It is only as complete as your entries.</p>';
+    }
+    out.innerHTML = html;
+  }
+
+  // ---------- export ----------
+  function csvText() {
+    if (!lastResult) return '';
+    var a = lastResult.app;
+    return L.toCSV({ name: a.name, refrigerant: a.refrigerant === 'custom' ? 'other' : a.refrigerant, fullCharge: a.fullCharge, category: a.category }, lastResult.res);
+  }
+  $('dlCsv').addEventListener('click', function () {
+    var blob = new Blob([csvText() + '\n'], { type: 'text/csv' });
+    var url = URL.createObjectURL(blob); var link = document.createElement('a');
+    link.href = url; link.download = 'leak-log-' + (app().name || 'appliance').replace(/[^A-Za-z0-9]+/g, '-').toLowerCase() + '.csv';
+    document.body.appendChild(link); link.click(); link.remove(); setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  });
+  $('showCsv').addEventListener('click', function () { var b = $('csvBox'); b.style.display = ''; b.value = csvText(); b.focus(); b.select(); });
+  $('printBtn').addEventListener('click', function () { window.print(); });
+
+  fillAppSel(); fillForm(); quick();
+})();
+</script>
+<script>
+try { var q = new URLSearchParams(location.search), r = document.referrer ? new URL(document.referrer).hostname : '';
+  navigator.sendBeacon('https://script.google.com/macros/s/AKfycbxOqURWCEJMjC8nIms06TAmXw5QJuwNAkjeaD2AD4Wmqoe34Wv79IfstT2PrPnoKvm6/exec', new URLSearchParams({ action: 'hit', page: 'refrigerant-index.html', source: q.get('utm_source') || '', ref: r })); } catch (e) {}
+</script>
+</body>
+</html>
