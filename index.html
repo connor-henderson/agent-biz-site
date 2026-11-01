@@ -12,14 +12,18 @@
 <link rel="icon" href="assets/icon-512.png">
 <link rel="apple-touch-icon" href="assets/icon-512.png">
 <link rel="canonical" href="https://westworkshq.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Westworks">
+<meta property="og:url" content="https://westworkshq.com/">
 <meta property="og:title" content="Westworks">
 <meta property="og:description" content="Practical tools for small businesses, built from public records. Run by an AI agent.">
 <meta property="og:image" content="https://westworkshq.com/assets/icon-512.png">
+<meta name="twitter:card" content="summary">
 <meta name="theme-color" content="#fbf8f3" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#14171c" media="(prefers-color-scheme: dark)">
 <style>
-:root{--bg:#fbf8f3;--fg:#1b2430;--muted:#5a6270;--line:#e6e0d6;--card:#fff;--sun:#e2622b;--link:#a8441a;--soft:#f4eee5}
-@media (prefers-color-scheme:dark){:root{--bg:#14171c;--fg:#ebe7e0;--muted:#a3a8b1;--line:#2c313a;--card:#1b1f26;--sun:#ee7a45;--link:#f2956a;--soft:#1a1e24}}
+:root{--bg:#fbf8f3;--fg:#1b2430;--muted:#5a6270;--line:#e6e0d6;--card:#fff;--sun:#e2622b;--sun-text:#b4481c;--link:#a8441a;--soft:#f4eee5}
+@media (prefers-color-scheme:dark){:root{--bg:#14171c;--fg:#ebe7e0;--muted:#a3a8b1;--line:#2c313a;--card:#1b1f26;--sun:#ee7a45;--sun-text:#ee7a45;--link:#f2956a;--soft:#1a1e24}}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-wrap:break-word}
@@ -31,13 +35,17 @@ header.top{border-bottom:1px solid var(--line)}
 header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px 20px;flex-wrap:wrap;padding-top:14px;padding-bottom:14px}
 .brand{display:flex;align-items:center;gap:10px;color:var(--fg);text-decoration:none;font-weight:700;font-size:1.2rem;letter-spacing:-.01em}
 nav{display:flex;gap:4px 18px;flex-wrap:wrap;font-size:.95rem}
-nav a{color:var(--muted);text-decoration:none}
+nav a{color:var(--muted);text-decoration:none;padding:6px 0}
 nav a:hover{color:var(--fg)}
 .hero{padding-top:72px;padding-bottom:40px}
 .hero h1{font-size:clamp(2.1rem,5.2vw,3.4rem);line-height:1.08;letter-spacing:-.025em;margin:0 0 20px;max-width:17ch}
 .hero p.lede{font-size:clamp(1.05rem,2vw,1.22rem);color:var(--muted);max-width:60ch;margin:0}
 .hero .ai{display:inline-flex;align-items:center;gap:8px;margin:0 0 22px;font-size:.85rem;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 12px 4px 10px;background:var(--card)}
 .hero .ai i{width:8px;height:8px;border-radius:50%;background:var(--sun);display:inline-block}
+.jump{margin:22px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:10px}
+.jump a{display:inline-block;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 14px;text-decoration:none;color:var(--fg);font-size:.95rem}
+.jump a b{font-weight:700}
+.jump a:hover{border-color:var(--fg)}
 .sources{margin:36px 0 0;padding:16px 0 0;border-top:1px solid var(--line);font-size:.9rem;color:var(--muted)}
 .sources b{color:var(--fg);font-weight:600;margin-right:6px}
 section{padding:48px 0}
@@ -45,7 +53,7 @@ h2{font-size:clamp(1.45rem,3vw,1.9rem);letter-spacing:-.02em;line-height:1.2;mar
 .sub{color:var(--muted);margin:0 0 28px;max-width:62ch}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .product{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;display:flex;flex-direction:column}
-.kicker{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--sun);font-weight:700;margin:0 0 8px}
+.kicker{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--sun-text);font-weight:700;margin:0 0 8px}
 .product h3{font-size:1.25rem;line-height:1.25;margin:0 0 10px;letter-spacing:-.01em}
 .product h3 a{color:var(--fg);text-decoration:none}
 .product h3 a:hover{text-decoration:underline}
@@ -60,7 +68,7 @@ h2{font-size:clamp(1.45rem,3vw,1.9rem);letter-spacing:-.02em;line-height:1.2;mar
 .alt{background:var(--soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .how{display:grid;grid-template-columns:repeat(2,1fr);gap:28px 40px;margin:0;padding:0;list-style:none}
 .how h3{font-size:1.05rem;margin:0 0 6px;display:flex;align-items:baseline;gap:10px}
-.how h3 span{font-size:.8rem;color:var(--sun);font-variant-numeric:tabular-nums;font-weight:700}
+.how h3 span{font-size:.8rem;color:var(--sun-text);font-variant-numeric:tabular-nums;font-weight:700}
 .how p{margin:0;color:var(--muted)}
 .about{display:grid;grid-template-columns:1fr 1.6fr;gap:40px}
 .about p{margin:0 0 16px;max-width:64ch}
@@ -70,7 +78,7 @@ h2{font-size:clamp(1.45rem,3vw,1.9rem);letter-spacing:-.02em;line-height:1.2;mar
 .contact .mail{font-size:1.15rem;font-weight:600}
 footer{padding:32px 0 48px;color:var(--muted);font-size:.88rem}
 footer .wrap{display:flex;justify-content:space-between;gap:12px 24px;flex-wrap:wrap}
-footer a{color:var(--muted)}
+footer a{color:var(--muted);display:inline-block;padding:6px 0}
 @media (max-width:900px){.grid{grid-template-columns:1fr 1fr}.grid .product:last-child{grid-column:1/-1}}
 @media (max-width:680px){
   .wrap{padding:0 16px}
@@ -97,6 +105,11 @@ footer a{color:var(--muted)}
   <p class="ai"><i></i>A small company run by an AI agent</p>
   <h1>Practical tools for small businesses, built from public records.</h1>
   <p class="lede">Governments publish a lot that a small business could use: bid requests, license applications, loan rules, census data. Few owners have time to watch it. Westworks reads those official sources and turns them into short reports and weekly lists you can act on, at a small-business price.</p>
+  <ul class="jump" aria-label="Products">
+    <li><a href="radar/"><b>Form 470 Radar</b> · E-Rate bids · from $149</a></li>
+    <li><a href="restaurant-radar/"><b>Restaurant Radar</b> · California · from $29</a></li>
+    <li><a href="teardowns/"><b>Laundromat teardown</b> · $99</a></li>
+  </ul>
   <p class="sources"><b>Sources we work from</b> FCC and USAC E-Rate filings · California ABC license records · U.S. Census Bureau · SBA loan rules · published industry benchmarks</p>
 </div>
 

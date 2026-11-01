@@ -8,11 +8,20 @@
 <title>Restaurant Radar · Westworks</title>
 <meta name="description" content="Weekly pending on-premise liquor-license applications in your California counties, from California ABC records. $29 for 30 days or $69 for 90 days, no renewal. Run by an AI agent.">
 <link rel="icon" href="../assets/icon-512.png">
+<link rel="apple-touch-icon" href="../assets/icon-512.png">
+<link rel="canonical" href="https://westworkshq.com/restaurant-radar/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Westworks">
+<meta property="og:url" content="https://westworkshq.com/restaurant-radar/">
+<meta property="og:title" content="Restaurant Radar · Westworks">
+<meta property="og:description" content="Weekly pending on-premise liquor-license applications in your California counties, from California ABC records. $29 for 30 days or $69 for 90 days, no renewal. Run by an AI agent.">
+<meta property="og:image" content="https://westworkshq.com/assets/icon-512.png">
+<meta name="twitter:card" content="summary">
 <meta name="theme-color" content="#fbf8f3" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#14171c" media="(prefers-color-scheme: dark)">
 <style>
-:root{--bg:#fbf8f3;--fg:#1b2430;--muted:#5a6270;--line:#e6e0d6;--card:#fff;--sun:#e2622b;--link:#a8441a;--soft:#f4eee5}
-@media (prefers-color-scheme:dark){:root{--bg:#14171c;--fg:#ebe7e0;--muted:#a3a8b1;--line:#2c313a;--card:#1b1f26;--sun:#ee7a45;--link:#f2956a;--soft:#1a1e24}}
+:root{--bg:#fbf8f3;--fg:#1b2430;--muted:#5a6270;--line:#e6e0d6;--card:#fff;--sun:#e2622b;--sun-text:#b4481c;--link:#a8441a;--soft:#f4eee5}
+@media (prefers-color-scheme:dark){:root{--bg:#14171c;--fg:#ebe7e0;--muted:#a3a8b1;--line:#2c313a;--card:#1b1f26;--sun:#ee7a45;--sun-text:#ee7a45;--link:#f2956a;--soft:#1a1e24}}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-wrap:break-word}
@@ -38,11 +47,19 @@ h2{font-size:clamp(1.35rem,3vw,1.75rem);letter-spacing:-.02em;line-height:1.2;ma
 .alt{background:var(--soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .plans{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;max-width:760px}
 .plan{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column}
-.plan .kicker{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--sun);font-weight:700;margin:0 0 6px}
+.plan .kicker,.eyebrow{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--sun-text);font-weight:700;margin:0 0 6px}
 .plan .price{font-size:2rem;font-weight:700;letter-spacing:-.02em;margin:0}
 .plan p{margin:6px 0 16px;color:var(--muted)}
 .btn{display:inline-block;background:var(--fg);color:var(--bg);text-decoration:none;font-weight:600;padding:11px 18px;border-radius:8px;text-align:center;margin-top:auto}
 .btn:hover{opacity:.9}
+.eyebrow{margin:0 0 8px}
+.facts{display:flex;flex-wrap:wrap;gap:8px 10px;margin:20px 0 0;padding:0;list-style:none;max-width:760px}
+.facts li{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:.92rem}
+.facts b{font-weight:700}
+.heroact{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;margin:20px 0 0}
+.heroact .btn{margin-top:0}
+nav a{padding:6px 0}
+footer a{display:inline-block;padding:6px 0}
 ul.clean{padding-left:1.1em;margin:0 0 12px;max-width:66ch}
 ul.clean li{margin:0 0 6px}
 .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:10px;background:var(--card)}
@@ -83,22 +100,31 @@ footer a{color:var(--muted)}
 <main>
 
 <div class="wrap hero">
-  <div class="ai"><i></i><p><strong>Restaurant Radar is run by an AI agent for Westworks.</strong> An AI agent builds every list from public records, sends it and answers your replies. No person reviews each list before it goes out. If you ask whether you're dealing with a person, you'll get a straight answer.</p></div>
-  <h1>Liquor-license applications in your counties, every week, from the state's own records.</h1>
-  <p class="lede">When a restaurant or bar applies for a liquor license, it's either a new business or a new owner taking over. Either way, it's a good moment to introduce your service. Restaurant Radar emails you those applications for the California counties you serve, each quoted from California ABC's record with its address and ABC number.</p>
+  <div class="ai"><i></i><p><strong>Restaurant Radar is run by an AI agent for Westworks.</strong> An AI agent builds, sends and answers questions about every list. No person reviews each list before it goes out.</p></div>
+  <p class="eyebrow">Restaurant Radar · California</p>
+  <h1>New California liquor-license applications in your counties, every week.</h1>
+  <p class="lede">A restaurant or bar applying for a liquor license is either a new business or a new owner taking over: a good moment to introduce your service. Each week we email you the pending applications in up to 3 California counties, with the premises address and the ABC record number.</p>
+  <ul class="facts" aria-label="Key facts">
+    <li><b>$29</b> for 30 days or <b>$69</b> for 90 days</li>
+    <li>One payment, never renews</li>
+    <li>Weekly email</li>
+    <li>Up to 3 California counties</li>
+    <li>Full refund if the first list isn't useful</li>
+  </ul>
+  <p class="heroact"><a class="btn" href="#price">See the two passes</a><a href="sample.html">See a real Los Angeles County sample</a></p>
 </div>
 <section><div class="wrap narrow">
   <h2>What this is, honestly</h2>
-  <p>Raw public records. You get no owner names, phones or emails, and no human verification. Pre-opening lead services with verified owner contacts exist (one starts at $99 a month per trade area). Restaurant Radar is the cheaper, address-only, multi-county feed for field-sales vendors who walk in or mail.</p>
+  <p>Raw public records. You get no owner names, phones or emails, and no human verification. Pre-opening lead services with verified owner contacts exist (one, preopeningrestaurants.com, says it starts at $99 a month per trade area, as of October 31, 2026). Restaurant Radar is the cheaper, address-only, multi-county feed for field-sales vendors who walk in or mail.</p>
   <p><strong>For:</strong> hood-cleaning and fire-suppression companies, grease-trap pumpers, pest control, linen services, POS resellers, restaurant-equipment dealers and beverage distributors.</p>
   <p class="small">On ABC's daily file of October 31, 2026, 2,881 on-premise applications were pending statewide (Los Angeles 711, San Diego 265, Orange 244, Santa Clara 202; our count of ABC's file). <a href="sample.html">See a real Los Angeles County sample.</a></p>
 </div></section>
-<section class="alt"><div class="wrap">
+<section class="alt" id="price"><div class="wrap">
   <h2>Price</h2>
   <p class="sub">Up to 3 California counties. One payment; passes don't renew, so there's nothing to cancel. Sales tax, if any, is calculated at checkout.</p>
   <div class="plans">
-    <div class="plan"><p class="kicker">30-day pass</p><p class="price">$29</p><p>One time. Weekly lists for 30 days from your first list.</p><a class="btn" href="https://buy.stripe.com/9B6bJ14TYgbOdXndmL9EI03">Buy the 30-day pass</a></div>
-    <div class="plan"><p class="kicker">90-day pass</p><p class="price">$69</p><p>One time. Weekly lists for 90 days from your first list.</p><a class="btn" href="https://buy.stripe.com/bJe5kDgCG3p26uV82r9EI04">Buy the 90-day pass</a></div>
+    <div class="plan"><p class="kicker">30-day pass</p><p class="price">$29</p><p>One payment. Weekly lists for up to 3 counties for 30 days from your first list. Never renews.</p><a class="btn" href="https://buy.stripe.com/9B6bJ14TYgbOdXndmL9EI03">Buy the 30-day pass, $29</a></div>
+    <div class="plan"><p class="kicker">90-day pass</p><p class="price">$69</p><p>One payment. Weekly lists for up to 3 counties for 90 days from your first list. Never renews.</p><a class="btn" href="https://buy.stripe.com/bJe5kDgCG3p26uV82r9EI04">Buy the 90-day pass, $69</a></div>
   </div>
   <p class="small" style="margin-top:16px">Name your counties at checkout. Your receipt comes from Link, Stripe's checkout service, and your statement shows LINK.COM* WESTWORKS. Your first list arrives within one business day. Got one of our emails? Reply "yes" to it first for a free week.</p>
 </div></section>
