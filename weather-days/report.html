@@ -1,0 +1,323 @@
+<!doctype html>
+<!-- Westworks Weather Days Report (paid render). Open code, honor system: this page shows the report when the
+     URL carries a Stripe Checkout session id (Stripe's redirect adds it after payment). It does not check the
+     session with Stripe; anyone reading this source can see that. The point is a fair paid convenience, not DRM.
+     Everything is computed in the visitor's browser from NOAA NCEI's public APIs. The session id is never sent
+     anywhere except, if the buyer clicks it, our order desk's question/refund form. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weather Days Report · Westworks</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../assets/icon-512.png">
+<meta name="theme-color" content="#fbfaf7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141413" media="(prefers-color-scheme: dark)">
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1d1b;--muted:#5b5b57;--accent:#1f5f8b;--card:#fff;--line:#e4e1da;--soft:#f3f1ec;--hit:#a5481c;--good:#2f7a4a}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--fg:#ecebe6;--muted:#a8a69f;--accent:#6fb0e0;--card:#1d1d1b;--line:#33322f;--soft:#1a1a19;--hit:#f0956a;--good:#6cc08b}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:980px;margin:0 auto;padding:28px 16px 64px}
+a{color:var(--accent);overflow-wrap:anywhere}
+.crumb{margin:0 0 16px;font-size:.9rem;color:var(--muted)}.crumb a{color:inherit;display:inline-block;padding:6px 0}
+h1{font-size:1.8rem;line-height:1.2;margin:0 0 8px}h2{font-size:1.15rem;margin:30px 0 8px;break-after:avoid}
+.small{font-size:.86rem;color:var(--muted)}
+.printhead{display:none}
+.bar{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.btn{font:inherit;font-weight:600;padding:10px 14px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--accent);cursor:pointer;min-height:44px}
+.btn.main{background:var(--accent);color:#fff;border-color:var(--accent)}
+@media (prefers-color-scheme:dark){.btn.main,.go{color:#141413}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:16px 0}
+.row3{display:grid;grid-template-columns:minmax(0,8rem) minmax(0,1fr) minmax(0,1fr);gap:10px}
+label,.lbl{display:block;font-size:.82rem;color:var(--muted);margin:0 0 3px;font-weight:600}
+select,input[type=text],input[type=date]{width:100%;font:inherit;font-size:16px;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 10px;min-height:44px}
+fieldset{border:0;margin:14px 0 0;padding:0}
+.ths{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
+.th{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:8px;padding:6px 10px;background:var(--bg)}
+.th input{width:20px;height:20px;margin:0;flex:none}.th span{flex:1;font-size:.95rem}
+.th select{width:auto;min-height:36px;padding:4px 6px;font-size:15px}
+.go{display:block;width:100%;margin-top:14px;font:inherit;font-weight:600;padding:12px;border-radius:8px;border:0;background:var(--accent);color:#fff;cursor:pointer;min-height:48px}
+#status{margin:12px 0;font-size:.95rem;color:var(--muted);min-height:1.5em}
+#status.err{color:var(--hit);font-weight:600}
+.key{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin:12px 0}
+.key div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.key b{display:block;font-size:1.5rem;font-variant-numeric:tabular-nums}
+.key span{font-size:.85rem;color:var(--muted)}
+.table{overflow-x:auto;margin:8px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;font-size:.85rem;width:100%;font-variant-numeric:tabular-nums}
+th,td{border-bottom:1px solid var(--line);padding:5px 7px;text-align:right;vertical-align:top;white-space:nowrap}
+th.l,td.l{text-align:left}
+thead th{font-size:.74rem;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;font-weight:600;white-space:normal}
+tfoot td{font-weight:700;border-top:2px solid var(--line)}
+tr.hit td{background:var(--soft)}
+.up{color:var(--hit)}.down{color:var(--good)}
+.flag{display:block;font-size:.76rem;color:var(--hit);white-space:normal}
+.cert{border:2px solid var(--accent);border-radius:12px;padding:14px 16px;background:var(--card);margin:12px 0}
+.cert ul{margin:6px 0}
+.disclose{border-left:3px solid var(--accent);padding:8px 14px;background:var(--card);margin:16px 0;font-size:.93rem}
+ul{padding-left:20px}li{margin:3px 0}
+footer{margin-top:40px;font-size:.84rem;color:var(--muted);line-height:1.8}
+@media (max-width:560px){h1{font-size:1.45rem}.row3{grid-template-columns:1fr 1fr}.row3 .zip{grid-column:1 / -1}}
+@page{size:letter;margin:0.55in 0.5in}
+@media print{
+  :root{--bg:#fff;--fg:#000;--muted:#333;--accent:#000;--card:#fff;--line:#bbb;--soft:#eee;--hit:#000;--good:#000}
+  body{font-size:10pt;background:#fff}
+  main{max-width:none;padding:0}
+  .noprint,.crumb,.bar,#status,#gate,#form{display:none !important}
+  .printhead{display:block;font-size:9pt;border-bottom:1px solid #000;padding:0 0 4pt;margin:0 0 8pt}
+  .table{overflow:visible}
+  table{font-size:8pt}th,td{padding:2pt 4pt}
+  thead{display:table-header-group}tr{break-inside:avoid}
+  a{color:#000;text-decoration:none}
+  h1{font-size:15pt}h2{font-size:11.5pt;margin-top:14pt}
+  .key div,.cert,.disclose{border-color:#999}
+}
+</style>
+</head>
+<body>
+<main>
+<p class="crumb"><a href="../">Westworks</a> / <a href="./">Weather Days</a> / Report</p>
+<div class="printhead" id="printhead"></div>
+
+<div id="gate" hidden>
+  <h1>Weather Days full report</h1>
+  <p>This page builds the $29 full report right after checkout. We couldn't find a checkout reference in this link.</p>
+  <p><a href="./">Run the free count and get the report from there</a>. If you paid and landed here without your report, use the link in your Stripe receipt email, or reply to it, and we'll sort it out.</p>
+</div>
+
+<div id="form" hidden>
+  <h1>Your Weather Days report</h1>
+  <p id="formlede">Payment received. Confirm the ZIP, dates and thresholds for your report.</p>
+  <form class="panel" id="f" novalidate>
+    <div class="row3">
+      <div class="zip"><label for="zip">ZIP code</label><input id="zip" type="text" inputmode="numeric" maxlength="5" autocomplete="postal-code" required></div>
+      <div><label for="from">From</label><input id="from" type="date" min="1991-01-01" required></div>
+      <div><label for="to">To</label><input id="to" type="date" min="1991-01-01" required></div>
+    </div>
+    <fieldset><legend class="lbl">A day counts if it crosses any threshold you tick (the report also shows the others)</legend><div class="ths" id="ths"></div></fieldset>
+    <button class="go" type="submit">Build my report</button>
+  </form>
+</div>
+
+<p id="status" role="status" aria-live="polite"></p>
+<div id="report"></div>
+
+<div id="help" class="small noprint" hidden>
+  <p>Question about this report, or it didn't generate? <a id="qlink" href="../order.html">Ask us</a> (answered within a day) or <a id="rlink" href="../order.html">request a refund</a>. If NOAA's service is down, the report can be built again from this same link later: bookmark it.</p>
+</div>
+
+<footer>Westworks · westworkshq.com · <a href="./">Weather Days</a> · <a href="../terms.html#weather-days">Terms</a> · <a href="../privacy.html">Privacy</a><br>
+Data: NOAA National Centers for Environmental Information (GHCN-Daily, including CoCoRaHS observations used under CC BY 4.0; U.S. Climate Normals 1991–2020); U.S. Census Bureau Gazetteer. Westworks is not affiliated with or endorsed by NOAA or CoCoRaHS. UNCERTIFIED; information only, not legal, insurance or contract advice. Westworks is AI-run.</footer>
+</main>
+<script src="wd.js"></script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var K = WD.KINDS, ORDER = WD.ORDER;
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function iso(d) { return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+  var now = new Date(), today = iso(now);
+  var p = new URLSearchParams(location.search);
+  var sid = p.get('session_id') || p.get('id') || '';
+  if (!/^cs_(live|test)_[A-Za-z0-9]{10,200}$/.test(sid)) { $('gate').hidden = false; return; }
+  $('help').hidden = false;
+  $('qlink').href = '../order.html?id=' + encodeURIComponent(sid) + '&type=question';
+  $('rlink').href = '../order.html?id=' + encodeURIComponent(sid) + '&type=refund';
+  // Desk hit counter: page name only, never the session id.
+  try { navigator.sendBeacon('https://script.google.com/macros/s/AKfycbxOqURWCEJMjC8nIms06TAmXw5QJuwNAkjeaD2AD4Wmqoe34Wv79IfstT2PrPnoKvm6/exec', new URLSearchParams({ action: 'hit', page: 'weather-days-report', source: '', ref: '' })); } catch (e) {}
+
+  var names = { rain: 'Rain: precip ≥', snow: 'Snowfall ≥', freeze: 'Low ≤', heat: 'High ≥', wind: 'Wind ≥' };
+  $('ths').innerHTML = ORDER.map(function (k) {
+    var o = K[k].opts.map(function (v) {
+      var lab = k === 'wind' ? v + ' mph avg / ' + WD.WIND_GUST[v] + ' gust' : v + (K[k].unit === 'in' ? ' in' : K[k].unit === '°F' ? '°F' : ' ' + K[k].unit);
+      return '<option value="' + v + '"' + (v === K[k].def ? ' selected' : '') + '>' + lab + '</option>';
+    }).join('');
+    return '<label class="th"><input type="checkbox" id="c-' + k + '"' + (k === 'rain' ? ' checked' : '') + '><span>' + names[k] + '</span><select id="t-' + k + '" aria-label="' + names[k] + '">' + o + '</select></label>';
+  }).join('');
+  function readForm() {
+    var on = ORDER.filter(function (k) { return $('c-' + k).checked; });
+    var r = { zip: $('zip').value.trim(), from: $('from').value, to: $('to').value };
+    if (on.length === 1) { r.mode = on[0]; r.t = $('t-' + on[0]).value; }
+    else { r.mode = 'custom'; r.t = on.map(function (k) { return k + ':' + $('t-' + k).value; }).join(','); }
+    return r;
+  }
+  function fillForm(q) {
+    $('zip').value = q.zip || '';
+    $('from').value = q.from || iso(new Date(now.getFullYear(), now.getMonth() - 1, 1));
+    $('to').value = q.to || iso(new Date(now.getFullYear(), now.getMonth(), 0));
+    if (q.ths && q.ths.length) { ORDER.forEach(function (k) { $('c-' + k).checked = false; });
+      q.ths.forEach(function (h) { $('c-' + h.kind).checked = true; $('t-' + h.kind).value = h.t; }); }
+  }
+
+  // The query comes from the URL (a bookmarked report) or from this browser's storage (set on the tool page
+  // before checkout; Stripe can't carry it through). If neither, the buyer fills the form.
+  var q = p.get('zip') ? WD.parseQuery(p, today) : null;
+  if (!q || q.error) { try { var s = localStorage.getItem('wd-query'); if (s) q = WD.parseQuery(new URLSearchParams(s), today); } catch (e) {} }
+  if (q && !q.error) build(q); else { fillForm(q || {}); $('form').hidden = false; }
+
+  $('f').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var x = WD.parseQuery(readForm(), today);
+    if (x.error) { $('status').className = 'err'; $('status').textContent = x.error; return; }
+    $('form').hidden = true; build(x);
+  });
+
+  function build(q) {
+    try { history.replaceState(null, '', location.pathname + '?session_id=' + encodeURIComponent(sid) + '&' + WD.queryString(q)); } catch (e) {}
+    try { localStorage.setItem('wd-query', WD.queryString(q)); } catch (e) {}
+    $('status').className = ''; $('report').innerHTML = '';
+    WD.run(q, { paid: true, onStep: function (t) { $('status').textContent = t; } }).then(function (r) {
+      $('status').textContent = ''; render(r);
+    }).catch(function (e) {
+      $('status').className = 'err';
+      $('status').textContent = ((e && e.user) || 'Something went wrong.') + ' Your payment is safe: reload this page to try again.';
+      fillForm(q); $('form').hidden = false; $('formlede').textContent = 'Check the ZIP and dates, or try again in a few minutes.';
+    });
+  }
+
+  function mi(k) { return (k / 1.609344).toFixed(1); }
+  function elev(m) { return m == null ? '' : Math.round(m).toLocaleString('en-US') + ' m (' + Math.round(m * 3.28084).toLocaleString('en-US') + ' ft)'; }
+  function v(x, d) { return x == null ? '' : (+x).toFixed(d); }
+
+  function render(r) {
+    var q = r.q, st = r.stations, T = r.totals, sel = r.sel, all = r.ths;
+    var stName = {}; st.forEach(function (s) { stName[s.id] = s.name; });
+    Object.keys(r.thStation).forEach(function (k) { var s = r.thStation[k]; if (s) stName[s.id] = s.name; });
+    var gen = r.generated.replace('T', ' ').slice(0, 16) + ' UTC';
+    var title = 'Westworks Weather Days Report · ZIP ' + q.zip + ' · ' + q.from + ' to ' + q.to + ' · generated ' + gen + ' · uncertified';
+    $('printhead').textContent = title;
+    document.title = 'Weather Days Report · ZIP ' + q.zip + ' · Westworks';
+    var withData = T.days - T.missing, h = '';
+    h += '<h1>Weather Days Report: ZIP ' + esc(q.zip) + '</h1>';
+    h += '<p class="small">' + esc(WD.fmtDate(q.from)) + ' to ' + esc(WD.fmtDate(q.to)) + ' · generated ' + esc(gen) + ' · <strong>UNCERTIFIED</strong> · NOAA data through ' + esc(WD.fmtDate(r.dataThrough)) +
+      (r.notYet ? ' (' + esc(WD.fmtDate(r.notYet.from)) + (r.notYet.to !== r.notYet.from ? ' to ' + esc(WD.fmtDate(r.notYet.to)) : '') + ' not posted by NOAA yet, so not counted)' : '') + '</p>';
+    h += '<div class="bar"><button class="btn main" type="button" id="pdf">Save as PDF / print</button><button class="btn" type="button" id="csv1">Download CSV: daily record</button><button class="btn" type="button" id="csv2">Download CSV: all 3 stations</button><button class="btn" type="button" id="edit">Change ZIP or dates</button></div>';
+
+    // Key numbers
+    h += '<div class="key"><div><b>' + T.any + '</b><span>of ' + withData + ' days with data crossed your threshold' + (sel.length > 1 ? 's' : '') + ': ' + esc(sel.map(function (x) { return x.text; }).join(', or ')) + '</span></div>';
+    sel.forEach(function (x) { var c = T.th[x.key];
+      h += '<div><b>' + (c.normal == null ? '–' : WD.fmt1(c.normal)) + '</b><span>1991–2020 normal days for ' + esc(x.text) + (c.normal == null ? ' (no NOAA normal for this threshold)' : '; actual ' + c.count + ', <span class="' + (c.excess > 0 ? 'up' : 'down') + '">' + WD.excessText(c.excess) + '</span>') + '</span></div>'; });
+    h += '</div>';
+
+    // Stations
+    h += '<h2>Stations</h2><div class="table"><table><thead><tr><th class="l">Role</th><th class="l">Station</th><th>Distance from ZIP center</th><th>Elevation</th><th>Days with data for your threshold</th></tr></thead><tbody>';
+    st.forEach(function (s, i) {
+      h += '<tr><td class="l">' + (i === 0 ? 'Primary' : 'Gap fill ' + i) + '</td><td class="l">' + esc(s.name) + '<br><span class="small">' + esc(s.id) + '</span></td><td>' + s.km.toFixed(1) + ' km (' + mi(s.km) + ' mi)</td><td>' + elev(s.elev) + '</td><td>' + Math.round(s.completeness * 100) + '%</td></tr>';
+    });
+    h += '</tbody></table></div>';
+    var srcNotes = [];
+    all.forEach(function (x) {
+      if (x.mine) return; var s = r.thStation[x.key];
+      srcNotes.push(esc(x.text) + ': ' + (s ? 'counted at ' + esc(s.name) + ' (' + esc(s.id) + '), ' + s.km.toFixed(1) + ' km, data for ' + Math.round(s.completeness * 100) + '% of days' : 'no nearby station in our search measures it'));
+    });
+    all.forEach(function (x) { var n = r.normals[x.key];
+      srcNotes.push('Normal for ' + esc(x.text) + ': ' + (n ? esc(n.name) + ' (' + esc(n.id) + '), ' + n.km.toFixed(1) + ' km' : 'none (NOAA publishes no normal for this threshold, or no normals station within 50 km has it)')); });
+    h += '<ul class="small">' + srcNotes.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>';
+
+    // Monthly anticipated vs actual
+    h += '<h2>Month by month: actual vs. 1991–2020 normal</h2>';
+    h += '<p class="small">Actual = days at the station that crossed the threshold. Normal = NOAA\'s 1991–2020 average days per month for the same threshold (scaled for part months, marked *). "Your thresholds" are the ones you ticked; the others are shown for reference.</p>';
+    h += '<div class="table"><table><thead><tr><th class="l">Month</th><th>Days with data</th><th>Counted (your thresholds)</th>';
+    all.forEach(function (x) { h += '<th>' + esc(x.text) + (x.mine ? ' (yours)' : '') + ': actual / normal</th>'; });
+    h += '</tr></thead><tbody>';
+    r.months.forEach(function (m) {
+      var flags = [];
+      Object.keys(m.filledFrom).forEach(function (id) { flags.push(m.filledFrom[id] + ' day' + (m.filledFrom[id] > 1 ? 's' : '') + ' filled from ' + (stName[id] || id)); });
+      if (m.incomplete) flags.push('incomplete: ' + m.missing + ' days without data');
+      h += '<tr><td class="l">' + esc(m.label) + (m.partial ? ' (' + m.days + ' d)' : '') + flags.map(function (f) { return '<span class="flag">' + esc(f) + '</span>'; }).join('') + '</td><td>' + m.withData + ' of ' + m.days + '</td><td><strong>' + m.any + '</strong></td>';
+      all.forEach(function (x) { var c = m.th[x.key];
+        h += '<td>' + c.count + ' / ' + (c.normal == null ? '–' : WD.fmt1(c.normal) + (m.partial ? '*' : '')) + (c.missing ? '<span class="flag">' + c.missing + ' d no data</span>' : '') + '</td>'; });
+      h += '</tr>';
+    });
+    h += '</tbody><tfoot><tr><td class="l">Total</td><td>' + withData + ' of ' + T.days + '</td><td>' + T.any + '</td>';
+    all.forEach(function (x) { var c = T.th[x.key]; h += '<td>' + c.count + ' / ' + (c.normal == null ? '–' : WD.fmt1(c.normal)) + '<span class="flag" style="color:inherit">' + WD.excessText(c.excess) + '</span></td>'; });
+    h += '</tr></tfoot></table></div>';
+
+    // Per-station comparison
+    if (st.length > 1) {
+      h += '<h2>The same count at each station</h2><p class="small">Days crossing your threshold' + (sel.length > 1 ? 's' : '') + ' at each station on its own, with no gap filling. A spread between stations is normal for rain and snow.</p>';
+      h += '<div class="table"><table><thead><tr><th class="l">Month</th>' + st.map(function (s) { return '<th>' + esc(s.name) + '</th>'; }).join('') + '</tr></thead><tbody>';
+      r.months.forEach(function (m, i) {
+        h += '<tr><td class="l">' + esc(m.label) + '</td>' + r.perStation.map(function (ps) { var x = ps[i]; return '<td>' + x.any + (x.missing ? ' <span class="small">(' + x.missing + ' d no data)</span>' : '') + '</td>'; }).join('') + '</tr>';
+      });
+      h += '</tbody></table></div>';
+    }
+
+    // Snow events
+    var snowTh = all.filter(function (x) { return x.kind === 'snow'; })[0];
+    var ev = snowTh && !snowTh.mine && r.thSource[snowTh.key] ? WD.snowEvents(r.days.map(function (d) { return { date: d, day: (r.by[r.thSource[snowTh.key]] || {})[d] }; })) : r.events;
+    if (ev.length) {
+      var evSt = snowTh && !snowTh.mine && r.thStation[snowTh.key] ? r.thStation[snowTh.key].name : 'the daily record above';
+      h += '<h2>Snow events</h2><p class="small">Runs of consecutive days with 0.1 inch or more of snowfall, at ' + esc(evSt) + '. Daily totals are summed; a storm that spans a station\'s observation time shows as two days.</p>';
+      h += '<div class="table"><table><thead><tr><th class="l">Start</th><th class="l">End</th><th>Days</th><th>Snowfall (in)</th></tr></thead><tbody>' +
+        ev.map(function (e) { return '<tr><td class="l">' + e.start + '</td><td class="l">' + e.end + '</td><td>' + e.days + '</td><td>' + e.total.toFixed(1) + '</td></tr>'; }).join('') + '</tbody></table></div>';
+    }
+
+    // Records to certify
+    var bySt = {};
+    r.record.forEach(function (x) { if (x.s === 'hit') (bySt[x.src] = bySt[x.src] || []).push(x.date); });
+    h += '<h2>Records to certify</h2><div class="cert">';
+    if (!Object.keys(bySt).length) h += '<p>No day crossed your threshold, so there are no station-days to certify.</p>';
+    else {
+      h += '<p>If you need these days as evidence, order Department of Commerce certified copies of these station-days from NOAA NCEI (GHCN-Daily, also listed as "Daily Summaries"). Its <a href="https://www.ncei.noaa.gov/services/certification">price table</a> lists $168 for 1–40 pages plus $12 shipping (checked 2026-11-02). Check the values in the certified copy before relying on them; NOAA can revise data after this report.</p><ul>';
+      Object.keys(bySt).forEach(function (id) {
+        h += '<li><strong>' + esc(id) + '</strong> ' + esc(stName[id] || '') + ': ' + bySt[id].length + ' day' + (bySt[id].length > 1 ? 's' : '') + ': ' + esc(WD.ranges(bySt[id]).join('; ')) + '</li>';
+      });
+      h += '</ul>';
+    }
+    h += '</div>';
+
+    // Daily table
+    h += '<h2>Daily record</h2><p class="small">Values at the primary station, or at the gap-fill station where marked. Precipitation and snowfall in inches (T = trace, counted as 0), snow depth in inches, temperatures in °F, wind in mph (AWND = average speed, WSF2 = fastest 2-minute speed). Blank = no value in NOAA\'s data. Rows crossing your threshold are shaded.</p>';
+    h += '<div class="table"><table><thead><tr><th class="l">Date</th><th class="l">Station</th><th>Precip</th><th>Snow</th><th>Depth</th><th>High</th><th>Low</th><th>AWND</th><th>WSF2</th><th class="l">Crossed</th></tr></thead><tbody>';
+    r.record.forEach(function (x) {
+      var d = x.day || {}, crossed = all.filter(function (t) { return (t.mine || !r.thSource[t.key]) ? WD.crosses(x.day, t) : WD.crosses((r.by[r.thSource[t.key]] || {})[x.date], t); })
+        .map(function (t) { return t.label.toLowerCase() + (t.mine ? '' : '†'); });
+      h += '<tr class="' + (x.s === 'hit' ? 'hit' : '') + '"><td class="l">' + x.date + '</td><td class="l">' + esc(x.src) + (x.filled ? ' (fill)' : '') + '</td><td>' + (d.PRCP_T ? 'T' : v(d.PRCP, 2)) + '</td><td>' + (d.SNOW_T ? 'T' : v(d.SNOW, 1)) + '</td><td>' + v(d.SNWD, 0) + '</td><td>' + v(d.TMAX, 0) + '</td><td>' + v(d.TMIN, 0) + '</td><td>' + v(d.AWND, 1) + '</td><td>' + v(d.WSF2, 1) + '</td><td class="l">' + (x.s === 'none' ? 'no data' : esc(crossed.join(', '))) + '</td></tr>';
+    });
+    h += '</tbody></table></div><p class="small">† crossed at the station named for that threshold above, not at the station in this row.</p>';
+
+    // Methods
+    h += '<h2>Methods, sources and limits</h2><ul class="small">' +
+      '<li><strong>Stations.</strong> We search NOAA NCEI\'s station index in a box of ±0.25° around the ZIP\'s Census center (widening to ±0.5° and ±1.0° if fewer than 3 stations report), list the nearest 8 (airport and co-op stations first; CoCoRaHS volunteer gauges only when nothing else is within 15 km) plus the 2 nearest airport stations, and download their daily records. The primary station is the nearest one with data for at least 90% of the days for your threshold (otherwise the most complete); gap-fill stations are the next nearest with at least 50%.</li>' +
+      '<li><strong>Counting.</strong> A day counts if any threshold you ticked is crossed (precipitation and snowfall ≥ the value, rounded to 0.01 and 0.1 inch; low ≤; high ≥; wind: average ≥ or 2-minute gust ≥). Each threshold is also counted on its own. Values that NOAA flags as failing quality control are treated as missing. We never interpolate or estimate a missing day.</li>' +
+      '<li><strong>Gaps.</strong> A month with more than 3 days without data at the primary station takes those days, whole, from gap-fill station 1, then 2, and each such day is marked. A month still missing more than 3 days is marked incomplete; its count may be low.</li>' +
+      '<li><strong>Normals.</strong> NOAA\'s 1991–2020 monthly normals, "average number of days" types (for example MLY-PRCP-AVGNDS-GE010HI for ≥ 0.10 inch), from the nearest normals station within 50 km that publishes that type, which may differ from the daily station. Part months are scaled by the share of the month counted. NOAA publishes no wind-day normals.</li>' +
+      '<li><strong>Station day.</strong> Many co-op and volunteer stations report a 24-hour day that ends at their morning observation time, not at midnight, so a storm can land on the day before or after the calendar day you expect. Airport (USW) stations use the calendar day.</li>' +
+      '<li><strong>Sources.</strong> NOAA NCEI Global Historical Climatology Network Daily (GHCN-Daily) and U.S. Climate Normals 1991–2020, read live through NCEI\'s Access Data Service and Search Service; ZIP centers from the U.S. Census Bureau 2024 Gazetteer (ZCTA internal points). CoCoRaHS observations, where used, are © CoCoRaHS and used under CC BY 4.0. Government data are not subject to U.S. copyright (17 U.S.C. 105).</li>' +
+      '</ul>';
+    h += '<div class="disclose"><strong>UNCERTIFIED. Information only; not legal, insurance or contract advice.</strong> This report is an automatic count of public NOAA data made in your browser. It is not a certified weather record, a forensic weather report or an expert opinion, and the station may be miles from your site. Whether a day is an excusable weather delay is decided by your contract and the parties to it. For a dispute, order certified copies of the listed station-days from NOAA NCEI. Westworks is AI-run: an AI agent built this tool, and no person reviewed this report.</div>';
+    $('report').innerHTML = h;
+
+    $('pdf').onclick = function () { window.print(); };
+    $('edit').onclick = function () { fillForm(q); $('form').hidden = false; $('formlede').textContent = 'Change the ZIP, dates or thresholds and build again (same purchase).'; $('form').scrollIntoView(); };
+    $('csv1').onclick = function () {
+      var rows = [['# ' + title], ['# Source: NOAA NCEI GHCN-Daily via the Access Data Service. Uncertified; information only, not legal or contract advice.'],
+        ['date', 'station_id', 'station_name', 'gap_fill', 'PRCP_in', 'SNOW_in', 'SNWD_in', 'TMAX_F', 'TMIN_F', 'AWND_mph', 'WSF2_mph', 'counted_your_thresholds'].concat(all.map(function (t) { return t.key + (t.mine ? '' : '@' + (r.thSource[t.key] || '')); }))];
+      r.record.forEach(function (x) {
+        var d = x.day || {};
+        rows.push([x.date, x.src, stName[x.src] || '', x.filled ? 'yes' : '', d.PRCP_T ? 'T' : v(d.PRCP, 2), d.SNOW_T ? 'T' : v(d.SNOW, 1), v(d.SNWD, 0), v(d.TMAX, 0), v(d.TMIN, 0), v(d.AWND, 1), v(d.WSF2, 1), x.s === 'hit' ? 'yes' : x.s === 'none' ? 'no data' : 'no']
+          .concat(all.map(function (t) { var c = (t.mine || !r.thSource[t.key]) ? WD.crosses(x.day, t) : WD.crosses((r.by[r.thSource[t.key]] || {})[x.date], t); return c === null ? '' : c ? 'yes' : 'no'; })));
+      });
+      save(WD.csv(rows), 'weather-days-' + q.zip + '-' + q.from + '-to-' + q.to + '-daily.csv');
+    };
+    $('csv2').onclick = function () {
+      var ids = st.map(function (s) { return s.id; });
+      Object.keys(r.thSource).forEach(function (k) { if (ids.indexOf(r.thSource[k]) < 0) ids.push(r.thSource[k]); });
+      var rows = [['# ' + title], ['# Raw NOAA NCEI GHCN-Daily values for each station used. Blank = no value. Uncertified.'],
+        ['station_id', 'station_name', 'date', 'PRCP_in', 'SNOW_in', 'SNWD_in', 'TMAX_F', 'TMIN_F', 'AWND_mph', 'WSF2_mph']];
+      ids.forEach(function (id) { r.days.forEach(function (dt) { var d = (r.by[id] || {})[dt]; if (!d) return;
+        rows.push([id, stName[id] || '', dt, d.PRCP_T ? 'T' : v(d.PRCP, 2), d.SNOW_T ? 'T' : v(d.SNOW, 1), v(d.SNWD, 0), v(d.TMAX, 0), v(d.TMIN, 0), v(d.AWND, 1), v(d.WSF2, 1)]); }); });
+      save(WD.csv(rows), 'weather-days-' + q.zip + '-' + q.from + '-to-' + q.to + '-stations.csv');
+    };
+  }
+  function save(text, name) {
+    var a = document.createElement('a'), url = URL.createObjectURL(new Blob([text], { type: 'text/csv;charset=utf-8' }));
+    a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+  }
+})();
+</script>
+</body>
+</html>
