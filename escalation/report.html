@@ -1,0 +1,304 @@
+<!doctype html>
+<!-- Westworks Escalation backup worksheet (paid render). Stripe redirects here with ?session_id={CHECKOUT_SESSION_ID}.
+     Built in the buyer's browser from BLS data (data/series.json + BLS public API v1). Notes: experiments/candidates/escalation/. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Escalation Backup Worksheet · Westworks</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../assets/icon-512.png">
+<meta name="theme-color" content="#fbfaf7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141413" media="(prefers-color-scheme: dark)">
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1d1b;--muted:#5b5b57;--accent:#1f5f8b;--card:#fff;--line:#e4e1da;--soft:#f3f1ec;--hit:#a5481c;--good:#2f7a4a}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--fg:#ecebe6;--muted:#a8a69f;--accent:#6fb0e0;--card:#1d1d1b;--line:#33322f;--soft:#1a1a19;--hit:#f0956a;--good:#6cc08b}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:960px;margin:0 auto;padding:24px 16px 64px}
+a{color:var(--accent);overflow-wrap:anywhere}
+.crumb{margin:0 0 18px;font-size:.9rem;color:var(--muted)}.crumb a{color:inherit;display:inline-block;padding:6px 0}
+h1{font-size:1.8rem;line-height:1.2;margin:0 0 10px}h2{font-size:1.15rem;margin:30px 0 8px}h3{font-size:1rem;margin:22px 0 6px}
+.small{font-size:.86rem;color:var(--muted)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin:16px 0}
+label,.lbl{display:block;font-size:.8rem;color:var(--muted);margin:0 0 3px;font-weight:600}
+select,input[type=text]{width:100%;font:inherit;font-size:16px;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 9px;min-height:42px}
+select:focus,input:focus{outline:2px solid var(--accent);outline-offset:1px}
+.line{border:1px solid var(--line);border-radius:10px;padding:10px;margin:0 0 10px;background:var(--bg)}
+.lgrid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,2fr) minmax(0,1fr);gap:8px}
+.lgrid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;gap:8px;margin-top:8px;align-items:end}
+.ym{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:4px}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.radios{display:flex;flex-wrap:wrap;gap:4px 14px}.radios label{display:flex;align-items:center;gap:6px;font-weight:400;color:var(--fg);font-size:.92rem;margin:0;min-height:34px}
+.btn{font:inherit;font-size:.92rem;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--accent);cursor:pointer;min-height:40px}
+.go{display:block;width:100%;margin-top:12px;font:inherit;font-weight:600;padding:12px;border-radius:8px;border:0;background:var(--accent);color:#fff;cursor:pointer;min-height:48px}
+@media (prefers-color-scheme:dark){.go{color:#141413}}
+.go:disabled{opacity:.6;cursor:wait}
+#status{margin:12px 0 6px;font-size:.95rem;color:var(--muted);min-height:1.5em}
+#status.err{color:var(--hit);font-weight:600}
+.bar{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.table{overflow-x:auto;margin:8px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;font-size:.86rem;width:100%;font-variant-numeric:tabular-nums}
+th,td{border-bottom:1px solid var(--line);padding:6px 7px;text-align:right;vertical-align:top;white-space:nowrap}
+th:first-child,td:first-child{text-align:left;white-space:normal}
+td.l{text-align:left;white-space:normal}
+thead th{font-size:.74rem;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;font-weight:600;white-space:normal}
+tfoot td{font-weight:700;border-top:2px solid var(--line)}
+.steps{background:var(--soft);border-radius:8px;padding:8px 12px 8px 28px;margin:6px 0;font-size:.88rem;font-variant-numeric:tabular-nums}
+.chart{width:100%;height:auto;max-width:640px;display:block;margin:6px 0}
+.cols{columns:3 9rem;column-gap:16px;font-size:.84rem;font-variant-numeric:tabular-nums;margin:6px 0}
+.cols div{break-inside:avoid;display:flex;justify-content:space-between;gap:8px;border-bottom:1px dotted var(--line);padding:1px 0}
+.disclose{border-left:3px solid var(--accent);padding:8px 14px;background:var(--card);margin:16px 0;font-size:.92rem}
+.printhead{display:none}
+footer{margin-top:40px;font-size:.84rem;color:var(--muted);line-height:1.8}
+@media (max-width:640px){h1{font-size:1.4rem}.lgrid,.lgrid2{grid-template-columns:1fr}.grid4{grid-template-columns:1fr 1fr}}
+@page{size:letter;margin:0.55in 0.5in}
+@media print{
+  :root{--bg:#fff;--fg:#000;--muted:#333;--accent:#000;--card:#fff;--line:#bbb;--soft:#f2f2f2;--hit:#000;--good:#000}
+  body{font-size:10pt;background:#fff}
+  main{max-width:none;padding:0}
+  .noprint,.crumb,.bar,#status,#gate,#form,#unpaid{display:none !important}
+  .printhead{display:block;font-size:9pt;border-bottom:1px solid #000;padding:0 0 4pt;margin:0 0 8pt}
+  .table{overflow:visible}table{font-size:8pt}th,td{padding:2pt 4pt}
+  thead{display:table-header-group}tr{break-inside:avoid}
+  a{color:#000;text-decoration:none}
+  h1{font-size:15pt}h2{font-size:11.5pt;margin-top:14pt}.sec{break-inside:avoid-page}
+  .chart{max-width:5.5in}
+}
+</style>
+</head>
+<body>
+<main>
+<p class="crumb"><a href="../">Westworks</a> / <a href="./">Price Escalation</a> / Worksheet</p>
+<div class="printhead" id="printhead"></div>
+
+<div id="gate" hidden>
+  <h1>Escalation backup worksheet</h1>
+  <p>This page builds the $29 worksheet right after checkout. We couldn't find a checkout reference in this link.</p>
+  <p><a href="./">Use the free calculator and get the worksheet from there</a>. If you paid and landed here without your worksheet, use the link in your Stripe receipt email, or reply to it, and we'll sort it out.</p>
+</div>
+
+<div id="unpaid" hidden>
+  <h1>Escalation backup worksheet</h1>
+  <p>We couldn't confirm a completed payment for this checkout reference with Stripe. If checkout is still finishing, reload this page in a minute.</p>
+  <p>If you paid and still see this, <a id="uqlink" href="../order.html">tell us</a> and we'll sort it out, or <a href="./">use the free calculator</a>.</p>
+</div>
+
+<div id="form" hidden>
+  <h1>Your escalation backup worksheet</h1>
+  <p class="small">Payment received. Add up to 10 line items, each with the index your contract names, its base month and the dollar amount it applies to. The trigger, cap and direction below apply to every line.</p>
+  <form class="panel" id="f" novalidate>
+    <div class="grid4">
+      <div style="grid-column:1 / span 2"><label for="title">Worksheet title (optional)</label><input id="title" type="text" maxlength="120" placeholder="e.g. Elm St. job, CO request #4"></div>
+      <div><label for="trig">Trigger (%)</label><input id="trig" type="text" inputmode="decimal" placeholder="0 = none"></div>
+      <div><label for="cap">Cap (%)</label><input id="cap" type="text" inputmode="decimal" placeholder="0 = none"></div>
+    </div>
+    <div class="radios" style="margin:8px 0 2px"><span class="lbl" style="margin:8px 4px 0 0">Past the trigger:</span><label><input type="radio" name="mode" value="excess" checked> only the part beyond it</label><label><input type="radio" name="mode" value="full"> the whole change</label></div>
+    <div class="radios" style="margin:0 0 10px"><span class="lbl" style="margin:8px 4px 0 0">Direction:</span><label><input type="radio" name="dir" value="both" checked> increases and decreases</label><label><input type="radio" name="dir" value="up"> increases only</label></div>
+    <div id="lines"></div>
+    <button type="button" class="btn" id="add">+ Add a line</button>
+    <button class="go" id="go" type="submit">Build the worksheet</button>
+  </form>
+</div>
+
+<p id="status" role="status" aria-live="polite"></p>
+<div id="report"></div>
+
+<div id="help" class="small noprint" hidden>
+  <p>Question about this worksheet, or it didn't generate? <a id="qlink" href="../order.html">Ask us</a> (answered within a day) or <a id="rlink" href="../order.html">request a refund</a>. You can rebuild or edit the worksheet from this same link later: bookmark it.</p>
+</div>
+
+<footer>Westworks · westworkshq.com · <a href="./">Price Escalation</a> · <a href="../terms.html">Terms</a> · <a href="../privacy.html">Privacy</a><br>
+Data: U.S. Bureau of Labor Statistics (Producer Price Index, Consumer Price Index). Westworks is not affiliated with or endorsed by BLS or the U.S. Department of Labor. Information only, not legal, contract, accounting or tax advice. Westworks is AI-run.</footer>
+</main>
+<script src="esc.js"></script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  var BEACON = 'https://script.google.com/macros/s/AKfycbxOqURWCEJMjC8nIms06TAmXw5QJuwNAkjeaD2AD4Wmqoe34Wv79IfstT2PrPnoKvm6/exec';
+  var MAXL = 10, p = new URLSearchParams(location.search), snap = null, thisYear = new Date().getFullYear();
+  var sid = p.get('session_id') || p.get('id') || '';
+  if (!/^cs_(live|test)_[A-Za-z0-9]{10,200}$/.test(sid)) { $('gate').hidden = false; return; }
+
+  // Same optional paid check as Weather Days (UNLOCK-V2): OFF while PAID_CHECK_URL is ''. Any failure falls back to the honor system.
+  var PAID_CHECK_URL = '';
+  function checkPaid() {
+    if (!PAID_CHECK_URL) return Promise.resolve('skip');
+    var ctl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctl) ctl.abort(); }, 8000);
+    return fetch(PAID_CHECK_URL + '?action=paid&exp=escalation&id=' + encodeURIComponent(sid), ctl ? { signal: ctl.signal } : {})
+      .then(function (r) { return r.json(); })
+      .then(function (j) { clearTimeout(timer); return j && j.ok === true ? (j.paid === true ? 'paid' : 'unpaid') : 'unknown'; },
+            function () { clearTimeout(timer); return 'unknown'; });
+  }
+  if (PAID_CHECK_URL) $('status').textContent = 'Checking your payment with Stripe…';
+  checkPaid().then(function (v) {
+    $('status').textContent = '';
+    if (v === 'unpaid') { $('unpaid').hidden = false; $('uqlink').href = '../order.html?id=' + encodeURIComponent(sid) + '&type=question&p=escalation'; return; }
+    ESC.loadSnapshot('data/series.json').then(function (j) { snap = j; start(); }, function () { $('status').className = 'err'; $('status').textContent = 'The index list didn\'t load. Please reload the page.'; });
+  });
+
+  var optsHtml = '';
+  function ymSel(cls, label) {
+    var m = ESC.MONTHS.map(function (n, i) { return '<option value="' + ('0' + (i + 1)).slice(-2) + '">' + n.slice(0, 3) + '</option>'; }).join('');
+    var y = ''; for (var k = thisYear; k >= 2005; k--) y += '<option>' + k + '</option>';
+    return '<div class="ym"><select class="' + cls + 'm" aria-label="' + label + ' month">' + m + '</select><select class="' + cls + 'y" aria-label="' + label + ' year">' + y + '</select></div>';
+  }
+  function addLine(L) {
+    var n = $('lines').children.length; if (n >= MAXL) return;
+    var d = document.createElement('div'); d.className = 'line';
+    d.innerHTML = '<div class="lgrid"><div><label>Line description</label><input type="text" class="desc" maxlength="80" placeholder="e.g. Rebar"></div>' +
+      '<div><label>Index</label><select class="ser">' + optsHtml + '</select><input type="text" class="oth" placeholder="BLS series ID" maxlength="24" hidden style="margin-top:4px"></div>' +
+      '<div><label>Amount ($)</label><input type="text" class="amt" inputmode="decimal" placeholder="e.g. 50000"></div></div>' +
+      '<div class="lgrid2"><div><span class="lbl">Base month</span>' + ymSel('b', 'Base') + '</div><div><span class="lbl">Current month</span>' + ymSel('c', 'Current') + '</div>' +
+      '<div><button type="button" class="btn rm" aria-label="Remove this line">Remove</button></div></div>';
+    $('lines').appendChild(d);
+    var q = d.querySelector.bind(d);
+    q('.ser').addEventListener('change', function () { q('.oth').hidden = this.value !== '__other'; var s = snap.byId[this.value]; if (s) setYM(d, 'c', s.last); });
+    q('.rm').addEventListener('click', function () { if ($('lines').children.length > 1) d.remove(); });
+    L = L || {};
+    var id = L.id || 'WPU1017';
+    if (snap.byId[id]) q('.ser').value = id; else { q('.ser').value = '__other'; q('.oth').hidden = false; q('.oth').value = id; }
+    var lastM = snap.byId[id] ? snap.byId[id].last : snap.byId.WPU1017.last;
+    setYM(d, 'b', L.base || ESC.addMonths(lastM, -12)); setYM(d, 'c', L.cur || lastM);
+    if (L.amount != null && isFinite(L.amount)) q('.amt').value = L.amount;
+    if (L.desc) q('.desc').value = L.desc;
+  }
+  function setYM(d, k, m) { if (!ESC.isMonth(m)) return; d.querySelector('.' + k + 'm').value = m.slice(5); d.querySelector('.' + k + 'y').value = m.slice(0, 4); }
+  function getYM(d, k) { return d.querySelector('.' + k + 'y').value + '-' + d.querySelector('.' + k + 'm').value; }
+
+  function readForm() {
+    var dir = document.querySelector('input[name=dir]:checked').value, mode = document.querySelector('input[name=mode]:checked').value;
+    var w = { title: $('title').value.trim().slice(0, 120), trigger: ESC.num($('trig').value), cap: ESC.num($('cap').value), direction: dir, mode: mode, lines: [] };
+    Array.prototype.forEach.call($('lines').children, function (d) {
+      var v = d.querySelector('.ser').value;
+      w.lines.push({ desc: d.querySelector('.desc').value.trim().slice(0, 80), id: (v === '__other' ? d.querySelector('.oth').value : v).trim().toUpperCase(),
+                     amount: ESC.num(d.querySelector('.amt').value), base: getYM(d, 'b'), cur: getYM(d, 'c') });
+    });
+    return w;
+  }
+  function fillForm(w) {
+    $('title').value = w.title || ''; if (w.trigger) $('trig').value = w.trigger; if (w.cap) $('cap').value = w.cap;
+    if (w.direction === 'up') document.querySelector('input[name=dir][value=up]').checked = true;
+    if (w.mode === 'full') document.querySelector('input[name=mode][value=full]').checked = true;
+    $('lines').innerHTML = ''; (w.lines && w.lines.length ? w.lines : [{}]).slice(0, MAXL).forEach(addLine);
+  }
+  function encodeW(w) { try { return btoa(unescape(encodeURIComponent(JSON.stringify(w)))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); } catch (e) { return ''; } }
+  function decodeW(s) { try { s = s.replace(/-/g, '+').replace(/_/g, '/'); return JSON.parse(decodeURIComponent(escape(atob(s)))); } catch (e) { return null; } }
+
+  function start() {
+    $('help').hidden = false;
+    $('qlink').href = '../order.html?id=' + encodeURIComponent(sid) + '&type=question&p=escalation';
+    $('rlink').href = '../order.html?id=' + encodeURIComponent(sid) + '&type=refund&p=escalation';
+    try { navigator.sendBeacon(BEACON, new URLSearchParams({ action: 'hit', page: 'escalation-report', source: '', ref: '' })); } catch (e) {}
+    var groups = [], by = {};
+    snap.series.forEach(function (s) { if (!by[s.group]) { by[s.group] = []; groups.push(s.group); } by[s.group].push(s); });
+    optsHtml = groups.map(function (g) { return '<optgroup label="' + esc(g) + '">' + by[g].map(function (s) { return '<option value="' + s.id + '">' + esc(s.label) + ' (' + s.id + ')</option>'; }).join('') + '</optgroup>'; }).join('') + '<option value="__other">Other BLS series ID…</option>';
+    $('add').addEventListener('click', function () { addLine(); });
+    $('f').addEventListener('submit', function (ev) { ev.preventDefault(); build(readForm(), true); });
+    // The worksheet comes from the URL (a bookmarked worksheet), or from the query the free tool stored before checkout.
+    var w = p.get('w') ? decodeW(p.get('w')) : null;
+    if (!w) { try { var s = localStorage.getItem('esc-query'); if (s) { var q = ESC.parseQuery(new URLSearchParams(s)); w = { trigger: q.trigger, cap: q.cap, direction: q.direction, mode: q.mode, lines: [{ id: q.id, base: q.base, cur: q.cur, amount: q.amount }] }; } } catch (e) {} }
+    $('form').hidden = false;
+    fillForm(w || {});
+    if (w && p.get('w')) build(w, false);
+  }
+
+  function fail(msg) { $('status').className = 'err'; $('status').textContent = msg; }
+  function build(w, push) {
+    if (w.trigger !== null && isNaN(w.trigger)) return fail('The trigger has to be a number of percent, or blank.');
+    if (w.cap !== null && isNaN(w.cap)) return fail('The cap has to be a number of percent, or blank.');
+    var terms = { direction: w.direction, mode: w.mode, trigger: w.trigger || 0, cap: w.cap || 0 };
+    for (var i = 0; i < w.lines.length; i++) {
+      var L = w.lines[i], e = ESC.validate({ id: L.id, base: L.base, cur: L.cur, amount: L.amount, trigger: terms.trigger, cap: terms.cap });
+      if (e) return fail('Line ' + (i + 1) + ': ' + e);
+    }
+    if (push) try { history.replaceState(null, '', location.pathname + '?session_id=' + encodeURIComponent(sid) + '&w=' + encodeW(w)); } catch (e) {}
+    $('status').className = ''; $('status').textContent = 'Asking BLS for the latest values…'; $('report').innerHTML = ''; $('go').disabled = true;
+    ESC.getSeries(w.lines.map(function (L) { return L.id; })).then(function (all) {
+      var res = w.lines.map(function (L) {
+        var s = all[L.id];
+        if (!s.first) return { L: L, error: 'BLS returned no values for ' + L.id + '.' };
+        var r = ESC.computeLine({ id: L.id, base: L.base, cur: L.cur, amount: L.amount, direction: terms.direction, trigger: terms.trigger, mode: terms.mode, cap: terms.cap }, s);
+        r.L = L; return r;
+      });
+      $('status').textContent = ''; render(w, terms, res, all);
+    }).catch(function () { fail('Something went wrong. Please try again.'); }).then(function () { $('go').disabled = false; });
+  }
+
+  function chart(s, from, to) {
+    var ms = ESC.monthsBetween(from, to), pts = [];
+    ms.forEach(function (m, i) { var v = ESC.parseV(s.v[m]); if (v) pts.push([i, v.v]); });
+    if (pts.length < 2) return '';
+    var W = 640, H = 180, L = 46, R = 10, T = 10, B = 26;
+    var lo = Math.min.apply(null, pts.map(function (x) { return x[1]; })), hi = Math.max.apply(null, pts.map(function (x) { return x[1]; }));
+    if (hi === lo) { hi += 1; lo -= 1; } var pad = (hi - lo) * 0.08; lo -= pad; hi += pad;
+    var X = function (i) { return L + (W - L - R) * (ms.length === 1 ? 0 : i / (ms.length - 1)); }, Y = function (v) { return T + (H - T - B) * (1 - (v - lo) / (hi - lo)); };
+    var d = pts.map(function (q, k) { return (k ? 'L' : 'M') + X(q[0]).toFixed(1) + ' ' + Y(q[1]).toFixed(1); }).join(' ');
+    var g = '';
+    [lo + pad, (lo + hi) / 2, hi - pad].forEach(function (v) { g += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + Y(v).toFixed(1) + '" y2="' + Y(v).toFixed(1) + '" stroke="currentColor" stroke-opacity=".15"/><text x="' + (L - 6) + '" y="' + (Y(v) + 4).toFixed(1) + '" text-anchor="end" font-size="11" fill="currentColor" fill-opacity=".7">' + v.toFixed(1) + '</text>'; });
+    g += '<text x="' + L + '" y="' + (H - 6) + '" font-size="11" fill="currentColor" fill-opacity=".7">' + ESC.shortMonth(from) + '</text><text x="' + (W - R) + '" y="' + (H - 6) + '" text-anchor="end" font-size="11" fill="currentColor" fill-opacity=".7">' + ESC.shortMonth(to) + '</text>';
+    var f = pts[0], l = pts[pts.length - 1];
+    return '<svg class="chart" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + esc(s.meta.label) + ' index, ' + ESC.shortMonth(from) + ' to ' + ESC.shortMonth(to) + '">' + g +
+      '<path d="' + d + '" fill="none" stroke="var(--accent)" stroke-width="2"/><circle cx="' + X(f[0]).toFixed(1) + '" cy="' + Y(f[1]).toFixed(1) + '" r="3.5" fill="var(--accent)"/><circle cx="' + X(l[0]).toFixed(1) + '" cy="' + Y(l[1]).toFixed(1) + '" r="3.5" fill="var(--hit)"/></svg>';
+  }
+
+  function render(w, terms, res, all) {
+    var gen = new Date().toISOString().replace('T', ' ').slice(0, 16) + ' UTC';
+    $('printhead').textContent = 'Westworks escalation backup worksheet' + (w.title ? ' · ' + w.title : '') + ' · generated ' + gen + ' · BLS data · information only';
+    var tot = 0, totAmt = 0, anyAmt = false, h = '';
+    h += '<h1>' + esc(w.title || 'Escalation backup worksheet') + '</h1>';
+    h += '<p class="small">Generated ' + esc(gen) + ' from U.S. Bureau of Labor Statistics index values. Terms applied to every line: ' +
+      (terms.trigger ? terms.trigger + '% trigger (' + (terms.mode === 'full' ? 'whole change once past it' : 'only the part beyond it') + ')' : 'no trigger') + ', ' +
+      (terms.cap ? terms.cap + '% cap' : 'no cap') + ', ' + (terms.direction === 'up' ? 'increases only' : 'increases and decreases') + '.</p>';
+    h += '<div class="bar noprint"><button type="button" class="btn" id="print">Print or save as PDF</button><button type="button" class="btn" id="csv">Download CSV</button><button type="button" class="btn" id="edit">Edit lines</button></div>';
+    h += '<h2>Summary</h2><div class="table"><table><thead><tr><th>#</th><th>Line</th><th>Index</th><th>Base</th><th>Base value</th><th>Current</th><th>Current value</th><th>Index change</th><th>Applied</th><th>Amount</th><th>Adjustment</th></tr></thead><tbody>';
+    res.forEach(function (r, i) {
+      var L = r.L;
+      if (r.error) { h += '<tr><td>' + (i + 1) + '</td><td class="l">' + esc(L.desc || '') + '</td><td class="l">' + esc(L.id) + '</td><td class="l" colspan="8">' + esc(r.error) + '</td></tr>'; return; }
+      if (L.amount != null) { anyAmt = true; tot += r.adjustment; totAmt += L.amount; }
+      h += '<tr><td>' + (i + 1) + '</td><td class="l">' + esc(L.desc || '') + '</td><td class="l">' + esc(r.series.meta.label) + '<br><span class="small">' + esc(L.id) + '</span></td><td>' + ESC.shortMonth(L.base) + '</td><td>' + esc(r.baseV.raw) + (r.baseV.prelim ? ' P' : '') + '</td><td>' + ESC.shortMonth(L.cur) + '</td><td>' + esc(r.curV.raw) + (r.curV.prelim ? ' P' : '') + '</td><td>' + ESC.pct(r.change, 2) + '</td><td>' + ESC.pct(r.applied, 2) + '</td><td>' + (L.amount != null ? ESC.money(L.amount) : '–') + '</td><td>' + (r.adjustment != null ? ESC.money(r.adjustment) : '–') + '</td></tr>';
+    });
+    h += '</tbody>' + (anyAmt ? '<tfoot><tr><td></td><td class="l" colspan="8">Total</td><td>' + ESC.money(totAmt) + '</td><td>' + ESC.money(Math.round(tot * 100) / 100) + '</td></tr></tfoot>' : '') + '</table></div>';
+    h += '<p class="small">P = preliminary: BLS considers PPI values for the latest three months interim and final from the fourth month (<a href="https://www.bls.gov/ppi/publications/price-adjustment-guide-for-contracting-parties.htm">BLS price adjustment guide</a>). Percents are rounded for display; adjustments use the unrounded percent and are rounded to the cent.</p>';
+
+    h += '<h2>Line detail</h2>';
+    res.forEach(function (r, i) {
+      if (r.error) return;
+      var L = r.L, s = r.series, m = s.meta;
+      h += '<div class="sec"><h3>Line ' + (i + 1) + (L.desc ? ': ' + esc(L.desc) : '') + '</h3>';
+      h += '<p class="small">' + esc(m.title) + ' · series ' + esc(s.id) + (m.base ? ' · index base ' + esc(m.base) : '') + ' · <a href="https://data.bls.gov/timeseries/' + encodeURIComponent(s.id) + '">data.bls.gov/timeseries/' + esc(s.id) + '</a></p>';
+      h += '<ol class="steps">' + r.steps.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ol>';
+      h += chart(s, L.base, L.cur);
+      h += '<div class="cols">' + ESC.monthsBetween(L.base, L.cur).map(function (mm) { var v = ESC.parseV(s.v[mm]); return '<div><span>' + ESC.shortMonth(mm) + '</span><span>' + (v ? esc(v.raw) + (v.prelim ? ' P' : '') : 'no value') + (s.revised.indexOf(mm) >= 0 ? ' R' : '') + '</span></div>'; }).join('') + '</div>';
+      h += '<p class="small">' + (s.live ? 'Checked live with BLS at generation; latest month: ' + ESC.monthLabel(s.last) + '.' : 'BLS\'s public service didn\'t answer' + (s.liveWhy === 'limit' ? ' (daily limit for your network)' : '') + '; values from Westworks\' copy of BLS data built ' + esc(snap.built) + '. Rebuild later from this link to pick up revisions.') +
+        (s.revised.length ? ' R = BLS revised this month since our copy (' + s.revised.map(ESC.shortMonth).join(', ') + '); the live value is used.' : '') + '</p></div>';
+    });
+    h += '<div class="disclose"><strong>Information only.</strong> Arithmetic on public BLS index values, not legal, contract, accounting or tax advice. The contract decides the index, months, release and how any trigger or cap works; this worksheet applies the terms entered above. A national index can differ from actual supplier prices; many reviewers also ask for dated supplier quotes or invoices. Westworks is AI-run; no person checked this worksheet.</div>';
+    h += '<h2>Sources</h2><ul class="small"><li>U.S. Bureau of Labor Statistics, Producer Price Index and Consumer Price Index, not seasonally adjusted, via the BLS Public Data API v1 (api.bls.gov) and BLS time-series files (download.bls.gov/pub/time.series/).</li><li>BLS, <a href="https://www.bls.gov/ppi/publications/price-adjustment-guide-for-contracting-parties.htm">Price Adjustment Guide for Contracting Parties</a>; BLS, <a href="https://www.bls.gov/cpi/factsheets/escalation.htm">How to use the CPI for escalation</a>.</li></ul>';
+    $('report').innerHTML = h;
+    $('form').hidden = true;
+    $('print').addEventListener('click', function () { window.print(); });
+    $('edit').addEventListener('click', function () { $('form').hidden = false; $('report').innerHTML = ''; });
+    $('csv').addEventListener('click', function () { downloadCsv(w, res); });
+  }
+
+  function csvCell(x) { var s = String(x == null ? '' : x); return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; }
+  function downloadCsv(w, res) {
+    var rows = [['line', 'description', 'series_id', 'series_title', 'base_month', 'base_value', 'base_prelim', 'current_month', 'current_value', 'current_prelim', 'index_change_pct', 'applied_pct', 'amount', 'adjustment']];
+    res.forEach(function (r, i) {
+      if (r.error) { rows.push([i + 1, r.L.desc, r.L.id, r.error]); return; }
+      rows.push([i + 1, r.L.desc, r.L.id, r.series.meta.title, r.L.base, r.baseV.raw, r.baseV.prelim ? 'P' : '', r.L.cur, r.curV.raw, r.curV.prelim ? 'P' : '', r.change.toFixed(4), r.applied.toFixed(4), r.L.amount == null ? '' : r.L.amount, r.adjustment == null ? '' : r.adjustment.toFixed(2)]);
+    });
+    rows.push([]); rows.push(['series_id', 'month', 'value', 'preliminary', 'revised_since_copy']);
+    var seen = {};
+    res.forEach(function (r) { if (r.error || seen[r.L.id + r.L.base + r.L.cur]) return; seen[r.L.id + r.L.base + r.L.cur] = 1;
+      ESC.monthsBetween(r.L.base, r.L.cur).forEach(function (m) { var v = ESC.parseV(r.series.v[m]); rows.push([r.L.id, m, v ? v.raw : '', v && v.prelim ? 'P' : '', r.series.revised.indexOf(m) >= 0 ? 'R' : '']); }); });
+    var blob = new Blob([rows.map(function (r) { return r.map(csvCell).join(','); }).join('\r\n')], { type: 'text/csv' });
+    var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'escalation-worksheet.csv'; document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+  }
+})();
+</script>
+</body>
+</html>

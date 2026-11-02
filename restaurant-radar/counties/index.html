@@ -1,0 +1,152 @@
+<!doctype html>
+<!-- Built by experiments/EXP-004/ops/build_county_pages.py from data/snapshots/. Do not edit by hand. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>California liquor-license applications by county · Restaurant Radar</title>
+<meta name="description" content="Pending on-premise liquor-license applications in every California county, from California ABC data as of November 2, 2026.">
+<link rel="icon" href="../../assets/icon-512.png">
+<link rel="apple-touch-icon" href="../../assets/icon-512.png">
+<link rel="canonical" href="https://westworkshq.com/restaurant-radar/counties/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Westworks">
+<meta property="og:url" content="https://westworkshq.com/restaurant-radar/counties/">
+<meta property="og:title" content="California liquor-license applications by county · Restaurant Radar">
+<meta property="og:description" content="Pending on-premise liquor-license applications in every California county, from California ABC data as of November 2, 2026.">
+<meta property="og:image" content="https://westworkshq.com/assets/icon-512.png">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#fbf8f3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14171c" media="(prefers-color-scheme: dark)">
+<style>
+:root{--bg:#fbf8f3;--fg:#1b2430;--muted:#5a6270;--line:#e6e0d6;--card:#fff;--sun:#e2622b;--sun-text:#b4481c;--link:#a8441a;--soft:#f4eee5}
+@media (prefers-color-scheme:dark){:root{--bg:#14171c;--fg:#ebe7e0;--muted:#a3a8b1;--line:#2c313a;--card:#1b1f26;--sun:#ee7a45;--sun-text:#ee7a45;--link:#f2956a;--soft:#1a1e24}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-wrap:break-word}
+a{color:var(--link);text-underline-offset:2px}
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px}
+.narrow>*{max-width:760px}
+.mark{width:34px;height:34px;flex:none}
+header.top{border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px 20px;flex-wrap:wrap;padding-top:14px;padding-bottom:14px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--fg);text-decoration:none;font-weight:700;font-size:1.2rem;letter-spacing:-.01em}
+nav{display:flex;gap:4px 18px;flex-wrap:wrap;font-size:.95rem}
+nav a{color:var(--muted);text-decoration:none}
+nav a:hover,nav a[aria-current]{color:var(--fg)}
+.hero{padding-top:56px;padding-bottom:28px}
+h1{font-size:clamp(1.9rem,4.6vw,3rem);line-height:1.1;letter-spacing:-.025em;margin:0 0 18px;max-width:22ch}
+.lede{font-size:clamp(1.05rem,2vw,1.2rem);color:var(--muted);max-width:62ch;margin:0}
+.ai{display:flex;gap:12px;align-items:flex-start;margin:0 0 26px;padding:14px 16px;border:1px solid var(--line);border-left:4px solid var(--sun);border-radius:10px;background:var(--card);max-width:760px}
+.ai i{width:9px;height:9px;border-radius:50%;background:var(--sun);display:inline-block;flex:none;margin-top:9px}
+.ai p{margin:0}
+section{padding:36px 0}
+h2{font-size:clamp(1.35rem,3vw,1.75rem);letter-spacing:-.02em;line-height:1.2;margin:0 0 10px}
+.sub{color:var(--muted);margin:0 0 22px;max-width:64ch}
+.alt{background:var(--soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.plans{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;max-width:760px}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column}
+.plan .kicker,.eyebrow{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--sun-text);font-weight:700;margin:0 0 6px}
+.plan .price{font-size:2rem;font-weight:700;letter-spacing:-.02em;margin:0}
+.plan p{margin:6px 0 16px;color:var(--muted)}
+.btn{display:inline-block;background:var(--fg);color:var(--bg);text-decoration:none;font-weight:600;padding:11px 18px;border-radius:8px;text-align:center;margin-top:auto}
+.btn:hover{opacity:.9}
+.eyebrow{margin:0 0 8px}
+.facts{display:flex;flex-wrap:wrap;gap:8px 10px;margin:20px 0 0;padding:0;list-style:none;max-width:760px}
+.facts li{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:.92rem}
+.facts b{font-weight:700}
+.heroact{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;margin:20px 0 0}
+.heroact .btn{margin-top:0}
+nav a{padding:6px 0}
+footer a{display:inline-block;padding:6px 0}
+ul.clean{padding-left:1.1em;margin:0 0 12px;max-width:66ch}
+ul.clean li{margin:0 0 6px}
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;background:var(--soft)}
+tr:last-child td{border-bottom:0}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.small{font-size:.9rem;color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:0 0 22px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card b{display:block;font-size:1.6rem;letter-spacing:-.02em}
+label{display:block;font-weight:600;margin:18px 0 6px}
+input,textarea{width:100%;font:inherit;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+textarea{min-height:160px}
+button{margin-top:18px;padding:13px 22px;background:var(--fg);color:var(--bg);border:0;border-radius:8px;font:inherit;font-weight:600;cursor:pointer}
+button:disabled{opacity:.6;cursor:default}
+.done{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+[hidden]{display:none!important}
+footer{padding:32px 0 48px;color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);margin-top:24px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px 24px;flex-wrap:wrap}
+footer a{color:var(--muted)}
+@media (max-width:680px){
+  .wrap{padding:0 16px}
+  .hero{padding-top:36px;padding-bottom:20px}
+  section{padding:28px 0}
+  .plans,.cards{grid-template-columns:1fr}
+  nav{width:100%;gap:4px 16px}
+  th,td{padding:7px 8px}
+}
+.bar{display:inline-block;height:8px;border-radius:4px;background:var(--sun);vertical-align:middle;margin-right:8px}.cards{grid-template-columns:repeat(4,1fr)}@media (max-width:860px){.cards{grid-template-columns:repeat(2,1fr)}}@media (max-width:420px){.cards{grid-template-columns:1fr}}.card b.na{font-size:1.1rem;color:var(--muted)}</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="../../" aria-label="Westworks home"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><path d="M26 60a24 24 0 0 1 48 0z" fill="#e2622b"/><rect x="6" y="64" width="88" height="7" rx="3.5" fill="currentColor"/><rect x="22" y="78" width="56" height="7" rx="3.5" fill="currentColor"/></svg>Westworks</a>
+  <nav aria-label="Pages"><a href="../">Restaurant Radar</a><a href="../sample.html">Sample list</a><a href="./" aria-current="page">Counties</a><a href="../../">Westworks</a></nav>
+</div></header>
+<main>
+<div class="wrap hero">
+  <div class="ai"><i></i><p><strong>Restaurant Radar is run by an AI agent for Westworks.</strong> An AI agent builds, sends and answers questions about every list. No person reviews each list before it goes out.</p></div>
+  <p class="eyebrow">California · as of November 2, 2026</p>
+  <h1>Pending liquor-license applications by California county</h1>
+  <p class="lede">How many on-premise applications (restaurants, bars, hotels, clubs) are waiting on California ABC in each
+    county, from ABC's public daily file. Counties with 25 or more have their own page with license types, cities
+    and older applications.</p>
+</div>
+<section style="padding-top:0"><div class="wrap">
+  <div class="cards">
+    <div class="card"><b>3,537</b>pending on-premise applications statewide</div>
+    <div class="card"><b>2,882</b>with a premises county in ABC's file, across 54 counties</div>
+    <div class="card"><b>655</b>with no premises county in ABC's file (not placed in any county)</div>
+    <div class="card"><b>23</b>county pages</div>
+  </div>
+  <p class="small">Our daily archive of ABC&#x27;s file has 3 snapshots, from October 31, 2026 to November 2, 2026 (2 days). ABC&#x27;s file has no filing date, so &quot;new&quot; means a file number that wasn&#x27;t in an earlier snapshot. Applications already pending on October 31, 2026 count as pending, not new.</p>
+  <div class="tablewrap" style="max-width:620px"><table>
+    <thead><tr><th>County</th><th>Pending</th><th>New since October 31, 2026</th></tr></thead>
+    <tbody><tr><td><a href="los-angeles.html">Los Angeles</a></td><td class="num">712</td><td class="num">1</td></tr><tr><td><a href="san-diego.html">San Diego</a></td><td class="num">265</td><td class="num">0</td></tr><tr><td><a href="orange.html">Orange</a></td><td class="num">244</td><td class="num">0</td></tr><tr><td><a href="santa-clara.html">Santa Clara</a></td><td class="num">202</td><td class="num">0</td></tr><tr><td><a href="riverside.html">Riverside</a></td><td class="num">145</td><td class="num">0</td></tr><tr><td><a href="san-francisco.html">San Francisco</a></td><td class="num">134</td><td class="num">0</td></tr><tr><td><a href="san-bernardino.html">San Bernardino</a></td><td class="num">121</td><td class="num">0</td></tr><tr><td><a href="alameda.html">Alameda</a></td><td class="num">111</td><td class="num">0</td></tr><tr><td><a href="sacramento.html">Sacramento</a></td><td class="num">100</td><td class="num">0</td></tr><tr><td><a href="kern.html">Kern</a></td><td class="num">65</td><td class="num">0</td></tr><tr><td><a href="contra-costa.html">Contra Costa</a></td><td class="num">60</td><td class="num">0</td></tr><tr><td><a href="san-mateo.html">San Mateo</a></td><td class="num">59</td><td class="num">0</td></tr><tr><td><a href="san-joaquin.html">San Joaquin</a></td><td class="num">58</td><td class="num">0</td></tr><tr><td><a href="fresno.html">Fresno</a></td><td class="num">53</td><td class="num">0</td></tr><tr><td><a href="ventura.html">Ventura</a></td><td class="num">45</td><td class="num">0</td></tr><tr><td><a href="monterey.html">Monterey</a></td><td class="num">40</td><td class="num">0</td></tr><tr><td><a href="sonoma.html">Sonoma</a></td><td class="num">40</td><td class="num">0</td></tr><tr><td><a href="santa-barbara.html">Santa Barbara</a></td><td class="num">39</td><td class="num">0</td></tr><tr><td><a href="stanislaus.html">Stanislaus</a></td><td class="num">38</td><td class="num">0</td></tr><tr><td><a href="solano.html">Solano</a></td><td class="num">33</td><td class="num">0</td></tr><tr><td><a href="placer.html">Placer</a></td><td class="num">32</td><td class="num">0</td></tr><tr><td><a href="san-luis-obispo.html">San Luis Obispo</a></td><td class="num">30</td><td class="num">0</td></tr><tr><td><a href="santa-cruz.html">Santa Cruz</a></td><td class="num">25</td><td class="num">0</td></tr><tr><td>Napa</td><td class="num">24</td><td class="num">0</td></tr><tr><td>El Dorado</td><td class="num">19</td><td class="num">0</td></tr><tr><td>Tulare</td><td class="num">18</td><td class="num">0</td></tr><tr><td>Madera</td><td class="num">17</td><td class="num">0</td></tr><tr><td>Marin</td><td class="num">16</td><td class="num">0</td></tr><tr><td>Shasta</td><td class="num">15</td><td class="num">0</td></tr><tr><td>Humboldt</td><td class="num">14</td><td class="num">0</td></tr><tr><td>Butte</td><td class="num">13</td><td class="num">0</td></tr><tr><td>Merced</td><td class="num">11</td><td class="num">0</td></tr><tr><td>Yolo</td><td class="num">10</td><td class="num">0</td></tr><tr><td>Imperial</td><td class="num">9</td><td class="num">0</td></tr><tr><td>Nevada</td><td class="num">9</td><td class="num">0</td></tr><tr><td>Amador</td><td class="num">7</td><td class="num">0</td></tr><tr><td>Mendocino</td><td class="num">7</td><td class="num">0</td></tr><tr><td>Kings</td><td class="num">5</td><td class="num">0</td></tr><tr><td>Calaveras</td><td class="num">4</td><td class="num">0</td></tr><tr><td>Inyo</td><td class="num">4</td><td class="num">0</td></tr><tr><td>San Benito</td><td class="num">4</td><td class="num">0</td></tr><tr><td>Yuba</td><td class="num">4</td><td class="num">0</td></tr><tr><td>Lake</td><td class="num">3</td><td class="num">0</td></tr><tr><td>Mariposa</td><td class="num">3</td><td class="num">0</td></tr><tr><td>Sutter</td><td class="num">3</td><td class="num">0</td></tr><tr><td>Modoc</td><td class="num">2</td><td class="num">0</td></tr><tr><td>Mono</td><td class="num">2</td><td class="num">0</td></tr><tr><td>Siskiyou</td><td class="num">2</td><td class="num">0</td></tr><tr><td>Colusa</td><td class="num">1</td><td class="num">0</td></tr><tr><td>Glenn</td><td class="num">1</td><td class="num">0</td></tr><tr><td>Lassen</td><td class="num">1</td><td class="num">0</td></tr><tr><td>Plumas</td><td class="num">1</td><td class="num">0</td></tr><tr><td>Sierra</td><td class="num">1</td><td class="num">0</td></tr><tr><td>Trinity</td><td class="num">1</td><td class="num">0</td></tr></tbody>
+  </table></div>
+</div></section>
+<section class="alt"><div class="wrap narrow">
+  <h2>The fresh list, every week</h2>
+  <p class="sub">Restaurant Radar is for vendors who serve new restaurants: hood cleaning, grease, pest control, linen,
+    refrigeration and POS. Each week it sends the applications that are new in your counties, with business name,
+    premises address, license type and ABC link. Up to 3 California counties: $29 for 30 days or $69 for 90 days, no renewal.</p>
+  <p class="heroact"><a class="btn" href="../">See Restaurant Radar</a> <a href="../sample.html">Look at a real sample list</a></p>
+</div></section>
+<section><div class="wrap narrow">
+  <h2 style="margin-top:24px">Where these numbers come from</h2>
+  <ul class="clean small">
+    <li><strong>Source:</strong> California Department of Alcoholic Beverage Control (ABC), daily data export
+      (<a href="https://www.abc.ca.gov/licensing/licensing-reports/">ABC licensing reports</a>), file header "Updated Monday 2nd of November 2026 02:50:23 AM".
+      ABC's Conditions of Use: its information "is considered in the public domain". Counts are Westworks's tally of that file.</li>
+    <li><strong>Counted:</strong> applications (not issued licenses) with ABC status PEND, for fixed-premises on-sale
+      license types (restaurants, bars, hotels, clubs, brewpubs and similar). One per ABC file number, placed by premises county.</li>
+    <li><strong>History:</strong> Our daily archive of ABC&#x27;s file has 3 snapshots, from October 31, 2026 to November 2, 2026 (2 days). ABC&#x27;s file has no filing date, so &quot;new&quot; means a file number that wasn&#x27;t in an earlier snapshot. Applications already pending on October 31, 2026 count as pending, not new.</li>
+    <li><strong>"On file at least 30 days":</strong> ABC numbers its files in sequence. ABC's own record for file <a href="https://www.abc.ca.gov/licensing/license-lookup/single-license/?RPTTYPE=12&amp;LICENSE=683100">683100</a> shows status date September 30, 2026 (read November 2, 2026), so every pending file numbered 683,100 or lower was filed on or before that date. Newer files are left off this page; they go to subscribers.</li>
+    <li><strong>Names:</strong> only business names (DBA or company) are shown, and only where the licensee is clearly a
+      company. Owners who may be individuals are never stored or shown. Names that suggest a hospital, clinic,
+      senior-living facility, school or children's facility are screened out before storage.</li>
+    <li><strong>Applications, not openings.</strong> Some are new restaurants, some are new owners of existing ones, and
+      some will be withdrawn or denied. Each ABC number links to ABC's own record.</li>
+  </ul>
+</div></section>
+</main>
+<footer><div class="wrap">
+  <span>© 2026 Westworks · Run by an AI agent</span>
+  <span><a href="../../terms.html">Terms</a> · <a href="../../privacy.html">Privacy</a></span>
+</div></footer>
+<script>try { var q = new URLSearchParams(location.search), r = document.referrer ? new URL(document.referrer).hostname : ''; navigator.sendBeacon('https://script.google.com/macros/s/AKfycbxOqURWCEJMjC8nIms06TAmXw5QJuwNAkjeaD2AD4Wmqoe34Wv79IfstT2PrPnoKvm6/exec', new URLSearchParams({ action: 'hit', page: 'restaurant-radar-counties', source: q.get('utm_source') || '', ref: r })); } catch (e) {}</script>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!doctype html>
+<!-- Westworks Price Escalation Calculator (free tool). Source and notes: experiments/candidates/escalation/ in the ops repo.
+     Index values come from BLS: a static copy in data/series.json plus BLS's public API, called from the visitor's browser.
+     Nothing typed is sent to Westworks. PAY below stays '' until the operator creates the Stripe payment link. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Material Price Escalation Calculator (BLS PPI and CPI) · Westworks</title>
+<meta name="description" content="Free: work out a price escalation from BLS Producer Price Index or CPI values. Steel, copper, aluminum, lumber, concrete, asphalt, diesel and more, with trigger and cap. Information only; AI-built.">
+<link rel="canonical" href="https://westworkshq.com/escalation/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Westworks">
+<meta property="og:url" content="https://westworkshq.com/escalation/">
+<meta property="og:title" content="Price escalation from BLS index values, with the math shown">
+<meta property="og:description" content="Free: work out a price escalation from BLS Producer Price Index or CPI values. Steel, copper, aluminum, lumber, concrete, asphalt, diesel and more, with trigger and cap. Information only; AI-built.">
+<meta property="og:image" content="https://westworkshq.com/assets/icon-512.png">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="../assets/icon-512.png">
+<link rel="apple-touch-icon" href="../assets/icon-512.png">
+<meta name="theme-color" content="#fbfaf7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141413" media="(prefers-color-scheme: dark)">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Price Escalation Calculator", "url": "https://westworkshq.com/escalation/", "applicationCategory": "BusinessApplication", "operatingSystem": "Any (web browser)", "description": "Computes the percent change in a U.S. Bureau of Labor Statistics Producer Price Index or Consumer Price Index series between two months and applies it to a dollar amount, with an optional trigger and cap. Information only.", "isBasedOn": "https://www.bls.gov/ppi/", "creator": {"@type": "Organization", "@id": "https://westworkshq.com/#org", "name": "Westworks", "url": "https://westworkshq.com/"}, "offers": [{"@type": "Offer", "price": "0", "priceCurrency": "USD", "name": "Free single-index calculation"}, {"@type": "Offer", "price": "29.00", "priceCurrency": "USD", "name": "Escalation backup worksheet"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Which index should I use?", "acceptedAnswer": {"@type": "Answer", "text": "The one your contract names. Escalation clauses usually name a specific BLS series, such as Steel mill products (WPU1017), and a base month. If yours doesn't, that's a question for the parties or a lawyer, not for a calculator. This tool is information, not legal or contract advice."}}, {"@type": "Question", "name": "What does the P next to a number mean?", "acceptedAnswer": {"@type": "Answer", "text": "Preliminary. BLS says Producer Price Index values are subject to revision up to four months after first publication. If your contract fixes the value as first published, keep a dated copy; if it uses final values, wait four months or recheck."}}, {"@type": "Question", "name": "How is the adjustment worked out?", "acceptedAnswer": {"@type": "Answer", "text": "Percent change = (current index ÷ base index − 1) × 100. If you set a trigger, either only the part beyond the trigger counts or the whole change counts once the trigger is passed, as you choose. A cap limits the percent. The adjustment is that percent times the dollar amount you enter. Every step is printed with the result."}}, {"@type": "Question", "name": "Who runs this?", "acceptedAnswer": {"@type": "Answer", "text": "Westworks, an AI-run company. An AI agent built this tool; the index values come from the U.S. Bureau of Labor Statistics."}}]}]}
+</script>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1d1b;--muted:#5b5b57;--accent:#1f5f8b;--card:#fff;--line:#e4e1da;--soft:#f3f1ec;--hit:#a5481c;--good:#2f7a4a}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--fg:#ecebe6;--muted:#a8a69f;--accent:#6fb0e0;--card:#1d1d1b;--line:#33322f;--soft:#1a1a19;--hit:#f0956a;--good:#6cc08b}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:820px;margin:0 auto;padding:28px 16px 64px}
+a{color:var(--accent);overflow-wrap:anywhere}
+.crumb{margin:0 0 20px;font-size:.9rem;color:var(--muted)}.crumb a{color:inherit;display:inline-block;padding:6px 0}
+h1{font-size:2rem;line-height:1.2;margin:0 0 12px}h2{font-size:1.2rem;margin:36px 0 8px}
+.lede{color:var(--muted);font-size:1.08rem;margin:0 0 6px}
+.small{font-size:.88rem;color:var(--muted)}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0;padding:0;list-style:none}
+.facts li{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:.9rem;margin:0}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:22px 0 10px}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.full{grid-column:1 / -1}
+.ym{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:6px}
+label,.lbl{display:block;font-size:.82rem;color:var(--muted);margin:0 0 3px;font-weight:600}
+select,input[type=text]{width:100%;font:inherit;font-size:16px;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 10px;min-height:44px}
+select:focus,input:focus,summary:focus{outline:2px solid var(--accent);outline-offset:1px}
+details{margin:14px 0 0;border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:var(--bg)}
+summary{cursor:pointer;font-weight:600;font-size:.95rem;min-height:32px;display:list-item}
+.radios{display:flex;flex-wrap:wrap;gap:6px 16px;margin:2px 0 0}
+.radios label{display:flex;align-items:center;gap:6px;font-weight:400;color:var(--fg);font-size:.95rem;margin:0;min-height:36px}
+.radios input{width:18px;height:18px;margin:0}
+.go{display:block;width:100%;margin-top:14px;font:inherit;font-weight:600;padding:12px;border-radius:8px;border:0;background:var(--accent);color:#fff;cursor:pointer;min-height:48px}
+@media (prefers-color-scheme:dark){.go,.cta{color:#141413}}
+.go:disabled{opacity:.6;cursor:wait}
+#status{margin:12px 0 6px;font-size:.95rem;color:var(--muted);min-height:1.5em}
+#status.err{color:var(--hit);font-weight:600}
+.answer{font-size:1.15rem;margin:8px 0 6px}
+.answer strong{color:var(--hit)}
+.steps{background:var(--soft);border-radius:8px;padding:10px 14px 10px 30px;margin:10px 0;font-size:.93rem;font-variant-numeric:tabular-nums}
+.table{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;font-size:.9rem;width:100%;font-variant-numeric:tabular-nums}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:right;vertical-align:top;white-space:nowrap}
+th:first-child,td:first-child{text-align:left;white-space:normal}
+thead th{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;font-weight:600;white-space:normal}
+.buy{background:var(--card);border:2px solid var(--accent);border-radius:12px;padding:18px;margin:22px 0}
+.buy h2{margin:0 0 6px}.price{font-size:1.9rem;font-weight:700;margin:2px 0 6px}
+.buy p{margin:6px 0}
+.cta{display:block;text-align:center;padding:13px 18px;background:var(--accent);color:#fff;border-radius:8px;text-decoration:none;font-weight:600;margin-top:12px}
+.cta.off{background:var(--line);color:var(--muted);pointer-events:none}
+.disclose{border-left:3px solid var(--accent);padding:8px 14px;background:var(--card);margin:16px 0;font-size:.95rem}
+.faq dt{font-weight:600;margin-top:14px}.faq dd{margin:4px 0 0}
+ul{padding-left:20px}li{margin:4px 0}
+footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
+@media (max-width:560px){h1{font-size:1.55rem}.grid{grid-template-columns:1fr}th,td{padding:6px 5px}}
+</style>
+</head>
+<body>
+<main>
+<p class="crumb"><a href="../">Westworks</a> / Price Escalation</p>
+<h1>Price escalation from BLS index values, with the math shown</h1>
+<p class="lede">Pick the Producer Price Index or CPI series your contract names, a base month and a current month. We pull the published values from the U.S. Bureau of Labor Statistics, work out the change, apply your trigger and cap, and show every step. Free, no sign-up.</p>
+<ul class="facts" aria-label="Key facts">
+<li>41 BLS series: steel, copper, aluminum, lumber, concrete, asphalt, diesel, CPI</li>
+<li>Monthly values 2005 to the latest release</li>
+<li>Free single index · backup worksheet $29</li>
+<li>Run by an AI agent (<a href="#ai">why we say so</a>)</li>
+</ul>
+
+<form class="panel" id="f" novalidate>
+  <div class="grid">
+    <div class="full"><label for="series">Index (BLS series)</label><select id="series" required><option value="">Loading the list…</option></select></div>
+    <div class="full" id="otherwrap" hidden><label for="other">BLS series ID</label><input id="other" type="text" autocapitalize="characters" spellcheck="false" placeholder="e.g. WPU10170502" maxlength="24"><p class="small" style="margin:4px 0 0">Any BLS series ID works for roughly the last three years (BLS's public service returns that much without a key).</p></div>
+    <div><span class="lbl" id="lb">Base month</span><div class="ym"><select id="bm" aria-labelledby="lb"></select><select id="by" aria-label="Base year"></select></div></div>
+    <div><span class="lbl" id="lc">Current month</span><div class="ym"><select id="cm" aria-labelledby="lc"></select><select id="cy" aria-label="Current year"></select></div></div>
+    <div class="full"><label for="amt">Dollar amount subject to adjustment (optional)</label><input id="amt" type="text" inputmode="decimal" placeholder="e.g. 50000"></div>
+  </div>
+  <details id="terms">
+    <summary>Contract terms: trigger, cap, direction (optional)</summary>
+    <div class="grid" style="margin-top:8px">
+      <div><label for="trig">Trigger (%)</label><input id="trig" type="text" inputmode="decimal" placeholder="0 = none"></div>
+      <div><label for="cap">Cap (%)</label><input id="cap" type="text" inputmode="decimal" placeholder="0 = none"></div>
+      <div class="full"><span class="lbl">Past the trigger, adjust by</span><div class="radios"><label><input type="radio" name="mode" value="excess" checked> only the part beyond the trigger</label><label><input type="radio" name="mode" value="full"> the whole change</label></div></div>
+      <div class="full"><span class="lbl">Direction</span><div class="radios"><label><input type="radio" name="dir" value="both" checked> increases and decreases</label><label><input type="radio" name="dir" value="up"> increases only</label></div></div>
+    </div>
+  </details>
+  <button class="go" id="go" type="submit">Work it out</button>
+  <p class="small" style="margin:8px 0 0">BLS publishes Producer Price Index values about mid-month for the month before, and may revise them for four months.</p>
+</form>
+<noscript><p class="small">This tool needs JavaScript. The same values are free from BLS at <a href="https://data.bls.gov/PDQWeb/wp">data.bls.gov</a>.</p></noscript>
+
+<p id="status" role="status" aria-live="polite"></p>
+<div id="out"></div>
+
+<div class="buy" id="buy">
+  <h2>Escalation backup worksheet</h2>
+  <div class="price">$29</div>
+  <p>Up to 10 line items, each with its own index, base month and amount, in one printable worksheet: every monthly index value from base to current, a chart per index, the trigger and cap math per line, totals, preliminary and revised values marked, and a source link for each series. PDF (print) + CSV. Built in your browser; no account.</p>
+  <ul class="small">
+    <li>For attaching to a change-order request, a pay application or a lease CPI notice, or for checking one you received.</li>
+    <li>One payment for one worksheet. It never renews.</li>
+    <li>Refund within 14 days if the worksheet fails to generate.</li>
+  </ul>
+  <a class="cta off" id="buylink" aria-disabled="true">Checkout opens soon</a>
+  <p class="small" id="buynote">The free result above is complete for one index. The worksheet adds the line items, monthly tables and print layout.</p>
+</div>
+
+<div class="disclose"><strong>Information only.</strong> This is arithmetic on public BLS index values, not legal, contract, accounting or tax advice. Your contract decides which index, which months, which release (preliminary or final), and how any trigger or cap works; we apply what you enter. A national price index can differ from what your supplier charged you.</div>
+
+<h2>Questions</h2>
+<dl class="faq">
+<dt>Which index should I use?</dt>
+<dd>The one your contract names. Escalation clauses usually name a specific BLS series, such as Steel mill products (WPU1017), and a base month, often the bid or contract month. If yours doesn't, that's a question for the parties or a lawyer, not for a calculator. The <a href="https://www.consensusdocs.org/">ConsensusDocs</a> 200.1 amendment and many public-agency specs are common sources of clause language.</dd>
+<dt>What does the P next to a number mean?</dt>
+<dd>Preliminary. BLS says Producer Price Index values "are subject to monthly revisions up to four months after original publication." If your contract fixes the value as first published, keep a dated copy (the share link re-runs against BLS's latest values, which can change). If it uses final values, wait four months or recheck.</dd>
+<dt>How is the adjustment worked out?</dt>
+<dd>Percent change = (current index ÷ base index − 1) × 100. With a trigger, either only the part beyond the trigger counts, or the whole change counts once the trigger is passed, as you choose. A cap limits the percent after that. The adjustment is that percent times your dollar amount, rounded to the cent. Every step is printed with the result.</dd>
+<dt>Why does a month say "no value"?</dt>
+<dd>BLS skips some months: it published no October 2025 CPI after the 2025 federal shutdown, and it withholds some PPI values that don't meet its publication standards. We never fill a missing month; pick the month your contract says to use instead.</dd>
+<dt>Where do the numbers come from, exactly?</dt>
+<dd>From the U.S. Bureau of Labor Statistics. The page carries a copy of each series from 2005 onward (built from BLS's published data files), and asks BLS's public data service for the latest three years of the series you pick. When BLS answers, its values win and any revision since our copy is flagged. When it doesn't, the result says so and uses our copy, with its date.</dd>
+<dt>Who runs this?</dt>
+<dd>Westworks, an AI-run company. An AI agent built this tool; the numbers are BLS's.</dd>
+</dl>
+
+<div class="disclose" id="ai"><strong>Westworks is AI-run.</strong> An AI agent built this page. Your choices go from your browser straight to the Bureau of Labor Statistics' public data service; nothing you type is sent to us. No person checks each result. We tell you because it's true, and because California's bot-disclosure law (SB 1001) asks for it.</div>
+
+<h2 id="sources">Where the data comes from</h2>
+<ul class="small">
+<li>Producer Price Indexes (commodity, not seasonally adjusted): U.S. Bureau of Labor Statistics, <a href="https://www.bls.gov/ppi/">PPI program</a>.</li>
+<li>Consumer Price Indexes (CPI-U and CPI-W, not seasonally adjusted): U.S. Bureau of Labor Statistics, <a href="https://www.bls.gov/cpi/">CPI program</a>.</li>
+<li>Live values: BLS <a href="https://www.bls.gov/developers/">Public Data API</a> (version 1). Copy: BLS <a href="https://download.bls.gov/pub/time.series/">time-series data files</a>, <span id="snapdate">built 2026-11-02</span>.</li>
+<li>BLS on using indexes in contracts: <a href="https://www.bls.gov/ppi/publications/price-adjustment-guide-for-contracting-parties.htm">PPI price-adjustment guide</a> and <a href="https://www.bls.gov/cpi/factsheets/escalation.htm">CPI escalation fact sheet</a>.</li>
+</ul>
+
+<footer><a href="../">Westworks</a> · westworkshq.com · <a href="../terms.html">Terms</a> · <a href="../privacy.html">Privacy</a><br>
+Data: U.S. Bureau of Labor Statistics (Producer Price Index, Consumer Price Index). BLS data are in the public domain. Westworks is not affiliated with or endorsed by BLS or the U.S. Department of Labor. Information only, not legal, contract, accounting or tax advice.<br>
+Free tools: <a href="../c2-budgets/">E-Rate C2 budget lookup</a> · <a href="../weather-days/">Weather days calculator</a> · <a href="../escalation/">Price escalation calculator</a> · <a href="../refrigerant/">Refrigerant leak rate calculator</a> · <a href="../crew/">Weekly toolbox talk</a></footer>
+</main>
+<script src="esc.js"></script>
+<script>
+(function () {
+  // Stays '' until the operator creates the Stripe payment link (https://buy.stripe.com/...). Until then the button is off.
+  var PAY = '';
+  var BEACON = 'https://script.google.com/macros/s/AKfycbxOqURWCEJMjC8nIms06TAmXw5QJuwNAkjeaD2AD4Wmqoe34Wv79IfstT2PrPnoKvm6/exec';
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  var snap = null, last = null;
+
+  // Month pickers: two selects each (input type=month isn't supported in desktop Safari)
+  var thisYear = new Date().getFullYear();
+  function fillYM(mId, yId) {
+    $(mId).innerHTML = ESC.MONTHS.map(function (n, i) { return '<option value="' + ('0' + (i + 1)).slice(-2) + '">' + n + '</option>'; }).join('');
+    var h = ''; for (var y = thisYear; y >= 2005; y--) h += '<option>' + y + '</option>'; $(yId).innerHTML = h;
+  }
+  fillYM('bm', 'by'); fillYM('cm', 'cy');
+  function setYM(prefix, m) { if (!ESC.isMonth(m)) return; $(prefix + 'm').value = m.slice(5); $(prefix + 'y').value = m.slice(0, 4); }
+  function getYM(prefix) { return $(prefix + 'y').value + '-' + $(prefix + 'm').value; }
+
+  function seriesId() { var v = $('series').value; return v === '__other' ? $('other').value.trim().toUpperCase() : v; }
+  $('series').addEventListener('change', function () {
+    $('otherwrap').hidden = this.value !== '__other';
+    var s = snap && snap.byId[this.value];
+    if (s) { setYM('c', s.last); setYM('b', ESC.addMonths(s.last, -12)); }
+  });
+
+  function readForm() {
+    var dir = document.querySelector('input[name=dir]:checked'), mode = document.querySelector('input[name=mode]:checked');
+    return { id: seriesId(), base: getYM('b'), cur: getYM('c'), amount: ESC.num($('amt').value),
+             trigger: ESC.num($('trig').value) || 0, cap: ESC.num($('cap').value) || 0,
+             trigRaw: ESC.num($('trig').value), capRaw: ESC.num($('cap').value),
+             direction: dir ? dir.value : 'both', mode: mode ? mode.value : 'excess' };
+  }
+  function fillForm(q) {
+    if (snap && snap.byId[q.id]) $('series').value = q.id;
+    else if (q.id) { $('series').value = '__other'; $('otherwrap').hidden = false; $('other').value = q.id; }
+    setYM('b', q.base); setYM('c', q.cur);
+    if (q.amount != null && isFinite(q.amount)) $('amt').value = q.amount;
+    if (q.trigger) $('trig').value = q.trigger;
+    if (q.cap) $('cap').value = q.cap;
+    if (q.direction === 'up') document.querySelector('input[name=dir][value=up]').checked = true;
+    if (q.mode === 'full') document.querySelector('input[name=mode][value=full]').checked = true;
+    if (q.trigger || q.cap || q.direction === 'up') $('terms').open = true;
+  }
+
+  function setBuy() {
+    var a = $('buylink');
+    if (!/^https:\/\/buy\.stripe\.com\//.test(PAY)) { a.className = 'cta off'; a.textContent = 'Checkout opens soon'; a.removeAttribute('href'); a.setAttribute('aria-disabled', 'true'); return; }
+    a.className = 'cta'; a.removeAttribute('aria-disabled'); a.href = PAY; a.textContent = 'Get the backup worksheet, $29';
+  }
+  $('buylink').addEventListener('click', function () {
+    // Stripe can't carry the query through checkout, so the worksheet page reads it back from this browser.
+    if (last) try { localStorage.setItem('esc-query', ESC.queryString(last)); } catch (e) {}
+  });
+
+  function render(q, r) {
+    var s = r.series, m = s.meta;
+    var dirWord = r.change > 0 ? 'rose' : r.change < 0 ? 'fell' : 'was unchanged';
+    var h = '<p class="answer">' + esc(m.label) + ' ' + dirWord + (r.change !== 0 ? ' <strong>' + ESC.pct(Math.abs(r.change)).replace(/^\+/, '') + '</strong>' : '') +
+      ' from ' + ESC.monthLabel(q.base) + ' to ' + ESC.monthLabel(q.cur) + '.';
+    if (r.adjustment != null) h += ' On ' + ESC.money(q.amount) + ', the adjustment is <strong>' + ESC.money(r.adjustment) + '</strong>' + (r.applied !== r.change ? ' (' + ESC.pct(r.applied, 2) + ' after your terms)' : '') + '.';
+    h += '</p>';
+    h += '<div class="table"><table><thead><tr><th>Series</th><th>' + esc(ESC.shortMonth(q.base)) + '</th><th>' + esc(ESC.shortMonth(q.cur)) + '</th><th>Change</th></tr></thead><tbody>';
+    h += '<tr><td>' + esc(m.title) + '<br><span class="small">' + esc(s.id) + (m.base ? ' · ' + esc(m.base) : '') + ' · <a href="https://data.bls.gov/timeseries/' + encodeURIComponent(s.id) + '">BLS page</a></span></td>' +
+      '<td>' + esc(r.baseV.raw) + (r.baseV.prelim ? ' P' : '') + '</td><td>' + esc(r.curV.raw) + (r.curV.prelim ? ' P' : '') + '</td><td>' + ESC.pct(r.change) + '</td></tr></tbody></table></div>';
+    h += '<ol class="steps">' + r.steps.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ol>';
+    var notes = [];
+    if (r.prelim) notes.push('P = preliminary. BLS may revise it for up to four months after first publication.');
+    if (r.revised.length) notes.push('BLS has revised ' + r.revised.map(ESC.monthLabel).join(' and ') + ' since our copy; the live BLS value is used.');
+    notes.push(s.live ? 'Values checked live with BLS just now; latest month for this series: ' + ESC.monthLabel(s.last) + '.'
+                      : (s.liveWhy === 'limit' ? 'BLS\'s public service has hit its daily limit for your network, ' : 'BLS\'s public service didn\'t answer, ') + 'so these values are from our copy of BLS data built ' + esc(snap.built) + '. Recheck later for revisions.');
+    h += '<ul class="small">' + notes.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>';
+    var link = location.origin + location.pathname + '?' + ESC.queryString(q);
+    h += '<p class="small share">Share or cite this result: <a href="' + esc(link) + '">' + esc(link) + '</a> <button type="button" id="copylink" style="font:inherit;font-size:.85rem;padding:4px 10px;margin:4px 0;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--accent);cursor:pointer;min-height:32px">Copy link</button><br>Anyone opening the link re-runs it against BLS\'s latest values, so a preliminary number can change. Information only, not legal or contract advice.</p>';
+    $('out').innerHTML = h;
+    $('copylink').addEventListener('click', function () {
+      var b = this, done = function (ok) { b.textContent = ok ? 'Copied' : 'Select the link to copy'; setTimeout(function () { b.textContent = 'Copy link'; }, 2500); };
+      try { navigator.clipboard.writeText(link).then(function () { done(true); }, function () { done(false); }); } catch (e) { done(false); }
+    });
+  }
+
+  function fail(msg) { $('status').className = 'err'; $('status').textContent = msg; }
+  function go(push) {
+    var q = readForm();
+    if (q.trigRaw !== null && isNaN(q.trigRaw)) return fail('The trigger has to be a number of percent, or blank.');
+    if (q.capRaw !== null && isNaN(q.capRaw)) return fail('The cap has to be a number of percent, or blank.');
+    delete q.trigRaw; delete q.capRaw;
+    var err = ESC.validate(q); if (err) return fail(err);
+    if (push) try { history.replaceState(null, '', location.pathname + '?' + ESC.queryString(q)); } catch (e) {}
+    $('status').className = ''; $('status').textContent = 'Asking BLS for the latest values…'; $('out').innerHTML = ''; $('go').disabled = true;
+    ESC.getSeries([q.id]).then(function (all) {
+      var s = all[q.id];
+      if (!s.first) throw { user: 'BLS returned no values for ' + q.id + '. Check the series ID' + (s.liveWhy === 'limit' ? ', or try tomorrow: BLS\'s daily limit for your network is used up.' : '.') };
+      var r = ESC.computeLine(q, s);
+      if (r.error) throw { user: r.error };
+      last = q; $('status').textContent = ''; render(q, r);
+      try { navigator.sendBeacon(BEACON, new URLSearchParams({ action: 'hit', page: 'escalation-run', source: '', ref: '' })); } catch (e) {}
+    }).catch(function (e) { fail((e && e.user) || 'Something went wrong. Please try again.'); })
+      .then(function () { $('go').disabled = false; });
+  }
+  $('f').addEventListener('submit', function (ev) { ev.preventDefault(); go(true); });
+  setBuy();
+
+  ESC.loadSnapshot('data/series.json').then(function (j) {
+    snap = j; $('snapdate').textContent = 'built ' + j.built;
+    var groups = [], by = {};
+    j.series.forEach(function (s) { if (!by[s.group]) { by[s.group] = []; groups.push(s.group); } by[s.group].push(s); });
+    $('series').innerHTML = '<option value="">Choose an index…</option>' + groups.map(function (g) {
+      return '<optgroup label="' + esc(g) + '">' + by[g].map(function (s) { return '<option value="' + s.id + '">' + esc(s.label) + ' (' + s.id + ')</option>'; }).join('') + '</optgroup>';
+    }).join('') + '<option value="__other">Other BLS series ID…</option>';
+    var p = new URLSearchParams(location.search);
+    if (p.get('s')) { fillForm(ESC.parseQuery(p)); go(false); }
+    else { $('series').value = 'WPU1017'; var s = j.byId.WPU1017; setYM('c', s.last); setYM('b', ESC.addMonths(s.last, -12)); }
+  }, function () { fail('The index list didn\'t load. Please reload the page.'); });
+})();
+</script>
+<script>
+try { var q = new URLSearchParams(location.search), r = document.referrer ? new URL(document.referrer).hostname : '';
+  navigator.sendBeacon('https://script.google.com/macros/s/AKfycbxOqURWCEJMjC8nIms06TAmXw5QJuwNAkjeaD2AD4Wmqoe34Wv79IfstT2PrPnoKvm6/exec', new URLSearchParams({ action: 'hit', page: 'escalation', source: q.get('utm_source') || '', ref: r })); } catch (e) {}
+</script>
+</body>
+</html>

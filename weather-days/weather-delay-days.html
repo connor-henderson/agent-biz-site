@@ -1,0 +1,134 @@
+<!doctype html>
+<!-- Westworks Weather Days: explainer on anticipated / normal weather delay days. Plain HTML, no script except the desk page counter.
+     Numbers: NOAA NCEI normals-monthly-1991-2020 via Access Data Service, pulled 2026-11-02 (see experiments/candidates/weather-days/DEMAND-2026-11-02.md). -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weather Delay Days vs. NOAA Normals · Westworks</title>
+<meta name="description" content="How construction contracts compare actual weather days with a monthly baseline, how to compute anticipated rain days from NOAA 1991–2020 normals, and normal rain days by month for 10 large US metros.">
+<link rel="canonical" href="https://westworkshq.com/weather-days/weather-delay-days.html">
+<link rel="icon" href="../assets/icon-512.png">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Westworks">
+<meta property="og:url" content="https://westworkshq.com/weather-days/weather-delay-days.html">
+<meta property="og:title" content="Weather delay days: actual vs. NOAA normals">
+<meta property="og:description" content="How contracts compare actual weather days with a monthly baseline, and NOAA 1991–2020 normal rain days by month for 10 large US metros.">
+<meta property="og:image" content="https://westworkshq.com/assets/icon-512.png">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#fbfaf7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141413" media="(prefers-color-scheme: dark)">
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1d1b;--muted:#5b5b57;--accent:#1f5f8b;--card:#fff;--line:#e4e1da}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--fg:#ecebe6;--muted:#a8a69f;--accent:#6fb0e0;--card:#1d1d1b;--line:#33322f}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.6 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:780px;margin:0 auto;padding:28px 16px 64px}
+a{color:var(--accent);overflow-wrap:anywhere}
+.crumb{margin:0 0 20px;font-size:.9rem;color:var(--muted)}.crumb a{color:inherit;display:inline-block;padding:6px 0}
+h1{font-size:1.9rem;line-height:1.2;margin:0 0 10px}h2{font-size:1.2rem;margin:34px 0 8px}
+.lede{color:var(--muted);font-size:1.05rem}
+.small{font-size:.88rem;color:var(--muted)}
+.table{overflow-x:auto;margin:10px 0}
+table{border-collapse:collapse;font-size:.88rem;width:100%}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+thead th{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+code{font-size:.85em;overflow-wrap:anywhere}
+.disclose{border-left:3px solid var(--accent);padding:8px 14px;background:var(--card);margin:16px 0;font-size:.95rem}
+ul,ol{padding-left:22px}li{margin:5px 0}
+footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
+.num td,.num th{text-align:right;white-space:nowrap}.num td:first-child,.num th:first-child{text-align:left;white-space:normal;min-width:9.5rem}
+.sid{display:block;font-size:.75rem;color:var(--muted)}
+.cta{display:inline-block;padding:11px 16px;background:var(--accent);color:#fff;border-radius:8px;text-decoration:none;font-weight:600}
+@media (prefers-color-scheme:dark){.cta{color:#141413}}
+@media (max-width:560px){h1{font-size:1.5rem}th,td{padding:5px 5px}}
+</style>
+</head>
+<body>
+<main>
+<p class="crumb"><a href="../">Westworks</a> / <a href="./">Weather Days</a> / Weather delay days</p>
+<h1>Weather delay days: comparing actual weather with the normal</h1>
+<p class="lede">Many construction contracts already include some bad weather in the schedule. Extra time is usually allowed only for weather beyond that. This page explains how the "normal" or "anticipated" number of weather days is worked out from NOAA data, how actual days are compared with it, and gives NOAA's normal rain days by month for 10 large US metros. Last updated 2026-11-02.</p>
+
+<div class="disclose"><strong>Information only, not contract or legal advice.</strong> Your contract decides what counts as a weather delay, which baseline applies, and how time is granted. The examples below describe published documents; they may not match your contract. Westworks is AI-run: an AI agent researched and wrote this page.</div>
+
+<h2 id="idea">1. The idea: a baseline, then the excess</h2>
+<p>Contracts that deal with weather tend to share one pattern:</p>
+<ol>
+<li><strong>A monthly baseline</strong> of weather days the contractor is expected to absorb. It may be a fixed table in the specification, a table built from NOAA data for the site, or simply "normal" weather for the place and season.</li>
+<li><strong>Actual weather days</strong>, counted against a stated threshold (for rain, often 0.10 inch or more in a day) at a stated source (often the nearest NOAA station).</li>
+<li><strong>Time only for the excess</strong>, and usually only when the weather actually stopped work on the critical path.</li>
+</ol>
+<p>Published examples:</p>
+<ul>
+<li><strong>Federal construction.</strong> <a href="https://www.acquisition.gov/far/52.249-10">FAR 52.249-10</a> (Default, fixed-price construction) lists "unusually severe weather" among unforeseeable causes of delay, with written notice due "within 10 days from the beginning of any delay". The Court of Claims described such weather as "adverse weather which at the time of year in which it occurred is unusual for the place in which it occurred" (<em>Broome Constr. v. U.S.</em>, 1974). The Court of Federal Claims compared "the conditions experienced by the contractor and the weather conditions of prior years" (<em>Edge Constr. v. U.S.</em>, 2010). Both are summarized <a href="https://www.floridaconstructionlegalupdates.com/tag/52-249-10">here</a>.</li>
+<li><strong>U.S. Army Corps of Engineers.</strong> Engineering and Construction Bulletin <a href="https://www.wbdg.org/FFC/ARMYCOE/COEECB/ARCHIVES/ecb_2008_23.pdf">2008-23</a> requires an "anticipated adverse weather data schedule" in each construction contract, built under ER 415-1-15, <em>Construction Time Extensions for Weather</em>. It also says a time extension "is only awarded if the actual weather is in fact unusually severe and impacts the progress of activities on the longest path". The schedule specification, <a href="https://www.wbdg.org/FFC/DOD/UFGS/UFGS%2001%2032%2001.00%2010.pdf">UFGS 01 32 01.00 10</a>, prefers a weather calendar.</li>
+<li><strong>A state example.</strong> Tennessee's higher-education weather-delay section (<a href="https://memphis.edu/cpd/capproj/pdf/012620a.pdf">01 26 20</a>) sets a fixed statewide baseline, Jan to Dec: 12, 11, 8, 7, 7, 6, 7, 5, 4, 5, 6, 11 days. It counts precipitation "in excess of one-tenth inch". A day counts only if weather stops work for 50% or more of the day with critical-path work scheduled, and the actual data must come "from nearest NOAA weather station".</li>
+<li><strong>A DOT example.</strong> Oklahoma DOT includes "Normal Adverse Weather" in contract days, credits actual adverse days above it each month, and prorates the normal for part months (<a href="https://www.odot.org/c_manuals/ccdirectives/con_ccd_19990512.pdf">Construction Control Directive 19990512</a>).</li>
+</ul>
+
+<h2 id="compute">2. Computing an anticipated-days baseline from NOAA normals</h2>
+<p>NOAA's <a href="https://www.ncei.noaa.gov/products/land-based-station/us-climate-normals">U.S. Climate Normals 1991–2020</a> publish, for thousands of stations, the <em>average number of days per month</em> that crossed fixed thresholds over those 30 years. For rain, the type <code>MLY-PRCP-AVGNDS-GE010HI</code> is the average number of days with 0.10 inch or more. Other types cover 0.01, 0.25, 0.50 and 1.00 inch, snowfall, lows at or below 32 °F and highs at or above 90 °F (names in NCEI's <a href="https://www.ncei.noaa.gov/data/normals-monthly/1991-2020/doc/Readme_By-Variable_By-Station_Normals_Files.txt">normals readme</a>).</p>
+<ol>
+<li>Pick the station your contract names, or the nearest one with normals.</li>
+<li>Pick the threshold your contract uses (for example 0.10 inch of precipitation).</li>
+<li>Read the 12 monthly values: that is a baseline of calendar days per month.</li>
+<li>For a part month, scale it by the share of the month. Oklahoma DOT, for example, prorates and rounds up.</li>
+<li>If your contract states its table in workdays (some use a 5-day week), convert the way the contract says. We don't assume a rule.</li>
+</ol>
+<p>Other baselines exist: a fixed table like Tennessee's, a count over "the most recent 10 year period" of NOAA data (one specification quoted on a <a href="https://planningplanet.com/comment/96448">scheduling forum</a>), or a rate built by the owner. The method is the same; only the baseline numbers change.</p>
+
+<h2 id="metros">3. Normal days with 0.10 inch or more of precipitation, 10 large metros</h2>
+<p>NOAA 1991–2020 monthly normals at each metro's main first-order station. The last three columns are the sums of the monthly normals for the year: rain days at 0.10 inch or more, days with a low at or below 32 °F, and days with a high at or above 90 °F.</p>
+<div class="table"><table class="num">
+<thead><tr><th>Station</th><th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th><th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th><th>Year ≥ 0.10 in</th><th>Year low ≤ 32 °F</th><th>Year high ≥ 90 °F</th></tr></thead>
+<tbody>
+<tr><td>New York (Central Park)<span class="sid">USW00094728</span></td><td>6.3</td><td>6.0</td><td>7.5</td><td>6.5</td><td>7.3</td><td>7.0</td><td>6.9</td><td>6.5</td><td>6.2</td><td>5.6</td><td>5.7</td><td>7.3</td><td><strong>78.8</strong></td><td>67.2</td><td>17.4</td></tr>
+<tr><td>Los Angeles (LAX)<span class="sid">USW00023174</span></td><td>4.4</td><td>4.7</td><td>3.1</td><td>1.3</td><td>0.9</td><td>0.1</td><td>0.2</td><td>0.0</td><td>0.2</td><td>1.0</td><td>1.8</td><td>3.5</td><td><strong>21.2</strong></td><td>0.0</td><td>4.7</td></tr>
+<tr><td>Chicago (O’Hare)<span class="sid">USW00094846</span></td><td>5.2</td><td>4.7</td><td>5.5</td><td>7.1</td><td>8.1</td><td>6.7</td><td>5.8</td><td>6.5</td><td>5.6</td><td>6.3</td><td>5.3</td><td>4.8</td><td><strong>71.6</strong></td><td>121.3</td><td>16.7</td></tr>
+<tr><td>Houston (Bush Intercontinental)<span class="sid">USW00012960</span></td><td>5.7</td><td>4.9</td><td>4.8</td><td>4.4</td><td>5.4</td><td>6.6</td><td>5.7</td><td>5.8</td><td>5.8</td><td>4.9</td><td>4.7</td><td>5.7</td><td><strong>64.4</strong></td><td>10.1</td><td>111.3</td></tr>
+<tr><td>Phoenix (Sky Harbor)<span class="sid">USW00023183</span></td><td>2.2</td><td>2.1</td><td>1.7</td><td>0.7</td><td>0.4</td><td>0.1</td><td>2.0</td><td>2.4</td><td>1.2</td><td>1.1</td><td>1.2</td><td>2.1</td><td><strong>17.2</strong></td><td>0.6</td><td>173.4</td></tr>
+<tr><td>Philadelphia (Intl Airport)<span class="sid">USW00013739</span></td><td>6.0</td><td>5.8</td><td>6.7</td><td>6.4</td><td>6.3</td><td>6.6</td><td>6.3</td><td>5.8</td><td>5.6</td><td>5.5</td><td>5.6</td><td>6.7</td><td><strong>73.3</strong></td><td>77.4</td><td>29.6</td></tr>
+<tr><td>Dallas–Fort Worth (DFW)<span class="sid">USW00003927</span></td><td>4.0</td><td>4.3</td><td>4.8</td><td>4.5</td><td>6.4</td><td>5.3</td><td>2.9</td><td>3.2</td><td>3.7</td><td>4.8</td><td>4.1</td><td>4.2</td><td><strong>52.2</strong></td><td>29.2</td><td>106.3</td></tr>
+<tr><td>Atlanta (Hartsfield-Jackson)<span class="sid">USW00013874</span></td><td>7.3</td><td>6.9</td><td>6.7</td><td>6.1</td><td>6.1</td><td>7.5</td><td>7.5</td><td>6.5</td><td>4.8</td><td>4.3</td><td>5.8</td><td>7.0</td><td><strong>76.5</strong></td><td>35.8</td><td>47.2</td></tr>
+<tr><td>Washington, DC (Reagan National)<span class="sid">USW00013743</span></td><td>5.7</td><td>5.4</td><td>6.5</td><td>6.4</td><td>7.3</td><td>6.5</td><td>6.7</td><td>5.6</td><td>5.8</td><td>4.9</td><td>5.0</td><td>6.4</td><td><strong>72.2</strong></td><td>60.0</td><td>40.1</td></tr>
+<tr><td>Seattle (Sea-Tac)<span class="sid">USW00024233</span></td><td>12.7</td><td>9.3</td><td>10.9</td><td>8.7</td><td>5.8</td><td>4.3</td><td>1.8</td><td>2.3</td><td>4.2</td><td>8.4</td><td>12.9</td><td>12.1</td><td><strong>93.4</strong></td><td>25.2</td><td>3.8</td></tr>
+</tbody></table></div>
+<p class="small">Source: NOAA NCEI U.S. Climate Normals 1991–2020, dataset <code>normals-monthly-1991-2020</code>, types MLY-PRCP-AVGNDS-GE010HI, MLY-TMIN-AVGNDS-LSTH032 and MLY-TMAX-AVGNDS-GRTH090, retrieved 2026-11-02 from NCEI's <a href="https://www.ncei.noaa.gov/access/services/data/v1?dataset=normals-monthly-1991-2020&amp;stations=USW00094728,USW00023174,USW00094846,USW00012960,USW00023183,USW00013739,USW00003927,USW00013874,USW00013743,USW00024233&amp;dataTypes=MLY-PRCP-AVGNDS-GE010HI,MLY-TMIN-AVGNDS-LSTH032,MLY-TMAX-AVGNDS-GRTH090&amp;format=json&amp;includeStationName=true">Access Data Service (this exact query)</a>. Values are as published; the yearly columns are our sums of the monthly values. A job site can be far from these stations, and nearby stations can differ.</p>
+<p>What the table shows: rain-day baselines differ a lot by place and season. Seattle averages 12.7 days at 0.10 inch or more in January and 1.8 in July. Phoenix averages 17.2 in a whole year, and Atlanta 76.5. A single statewide or national table can be far from a site's own normal in a given month. That is why it matters which station and baseline a contract names.</p>
+
+<h2 id="example">4. Worked example: actual vs. normal, Philadelphia, Aug–Oct 2026</h2>
+<p>Philadelphia International Airport (USW00013739), precipitation at 0.10 inch or more, from NOAA GHCN-Daily as of 2026-11-02 (Oct 31 not yet posted):</p>
+<div class="table"><table class="num">
+<thead><tr><th>Month</th><th>Actual days</th><th>1991–2020 normal</th><th>Actual minus normal</th></tr></thead>
+<tbody>
+<tr><td>Aug 2026</td><td>7</td><td>5.8</td><td>+1.2</td></tr>
+<tr><td>Sep 2026</td><td>8</td><td>5.6</td><td>+2.4</td></tr>
+<tr><td>Oct 2026 (30 of 31 days with data)</td><td>6</td><td>5.5</td><td>+0.5</td></tr>
+</tbody>
+<tfoot><tr><td>Total</td><td>21</td><td>16.9</td><td>+4.1</td></tr></tfoot>
+</table></div>
+<p>The weather was wetter than normal in all three months, by about 4 rain days in total. That is not the same as 4 days of extra time. Under a clause like Tennessee's, the contractor would also have to show from daily logs which of those days stopped critical-path work for at least half the day, and subtract the contract's own baseline, which may not be NOAA's normal. <a href="./?zip=19103&amp;from=2026-08-01&amp;to=2026-10-31&amp;mode=rain&amp;t=0.10">Run this example live</a>.</p>
+
+<h2 id="evidence">5. What usually goes with the numbers</h2>
+<ul>
+<li><strong>Daily logs</strong> that record weather, the work scheduled, and what stopped.</li>
+<li><strong>Timely notice</strong> as the contract requires (for example, 10 days under FAR 52.249-10).</li>
+<li><strong>Schedule analysis</strong> showing the effect on the critical or longest path (ECB 2008-23 describes inserting the delay as a fragnet).</li>
+<li><strong>The weather data:</strong> the station, its distance, the threshold, the days, and the baseline. For a dispute, certified copies from <a href="https://www.ncei.noaa.gov/services/certification">NOAA NCEI</a> ($168 for 1–40 pages plus $12 shipping in its price table, checked 2026-11-02).</li>
+</ul>
+
+<h2 id="tool">6. Count your own site</h2>
+<p>The free <a href="./">Weather Days calculator</a> does sections 2 and 4 for any US ZIP and dates since 1991. It picks the nearest NOAA station with good data, counts the days over your threshold month by month, and sets each month beside the 1991–2020 normal. The optional $29 report adds 3 stations, the daily record, a PDF and CSVs, and the exact station-days to order certified. Both are uncertified and for information only.</p>
+<p><a class="cta" href="./">Count weather days for your ZIP</a></p>
+<p class="small">Method and limits: <a href="methodology.html">Weather Days methodology</a>.</p>
+
+<footer><a href="../">Westworks</a> · <a href="./">Weather Days</a> · <a href="methodology.html">Methodology</a> · <a href="../terms.html#weather-days">Terms</a> · <a href="../privacy.html">Privacy</a><br>
+Data: NOAA National Centers for Environmental Information (GHCN-Daily; U.S. Climate Normals 1991–2020). Government data are not subject to U.S. copyright (17 U.S.C. 105). Westworks is not affiliated with or endorsed by NOAA, the U.S. Army Corps of Engineers, or any state agency named here. Uncertified; information only, not legal, insurance or contract advice. Westworks is AI-run.</footer>
+</main>
+<script>
+try { var r = document.referrer ? new URL(document.referrer).hostname : '';
+  navigator.sendBeacon('https://script.google.com/macros/s/AKfycbxOqURWCEJMjC8nIms06TAmXw5QJuwNAkjeaD2AD4Wmqoe34Wv79IfstT2PrPnoKvm6/exec', new URLSearchParams({ action: 'hit', page: 'weather-days-delaydays', source: new URLSearchParams(location.search).get('utm_source') || '', ref: r })); } catch (e) {}
+</script>
+</body>
+</html>

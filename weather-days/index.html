@@ -107,9 +107,20 @@ footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
 <div class="buy" id="buy">
   <h2>Full report</h2>
   <div class="price">$29</div>
-  <p>Daily table for up to 3 nearby NOAA stations, every threshold, month-by-month vs. 1991–2020 normal, PDF + CSV, and the exact station-days to order certified from NOAA. Instant in your browser; no account.</p>
+  <p>The free count shows one station, month by month. The full report is the document you attach to a monthly weather log or a time-extension request. It is built in your browser in a few seconds, for the same ZIP, dates and thresholds.</p>
+  <p class="lbl" style="margin-top:12px">What's in it</p>
+  <ul class="small inc">
+    <li><strong>Up to 3 NOAA stations</strong> near your ZIP, each with ID, distance, elevation and % of days with data, so you can show the nearest gauge and a cross-check.</li>
+    <li><strong>Every threshold:</strong> your own plus the defaults for rain, snowfall, freeze, heat and wind, each month set beside the 1991–2020 normal and the difference.</li>
+    <li><strong>The same count at each station</strong> on its own, side by side.</li>
+    <li><strong>Gaps filled from the next station</strong> and marked day by day. Nothing is estimated or interpolated.</li>
+    <li><strong>The full daily record:</strong> precipitation, snowfall, snow depth, high, low and wind for every day, with the days that crossed a threshold shaded.</li>
+    <li><strong>Snow events</strong> (runs of snowfall days with totals).</li>
+    <li><strong>"Records to certify":</strong> the exact station and dates to order as certified copies from NOAA NCEI, with the link and price.</li>
+    <li><strong>A print-ready PDF</strong> (one button, using your browser's Save as PDF; letter size, headed with the ZIP, the date run and "uncertified") <strong>and two CSVs</strong> (daily record; all 3 stations) for your spreadsheet or scheduling software.</li>
+    <li>Methods, sources and limits, in the report itself.</li>
+  </ul>
   <ul class="small">
-    <li>Gaps at the nearest station are filled from the next station and marked; nothing is estimated or interpolated.</li>
     <li>One payment for one ZIP and date range (up to 24 months). It never renews.</li>
     <li>Refund within 14 days if the report fails to generate for a valid US ZIP and range.</li>
   </ul>
@@ -118,6 +129,36 @@ footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
 </div>
 
 <div class="disclose"><strong>UNCERTIFIED, information only.</strong> This is an automatic count from public NOAA data, not a certified weather record or an expert opinion, and not legal or contract advice. The station can be miles from your site. Whether a day is a weather delay under your contract is set by the contract. For a dispute, order certified copies of the listed station-days from NOAA NCEI.</div>
+
+<h2 id="who">Who uses this, and how</h2>
+<p>Many construction contracts already include some weather in the schedule: a monthly baseline of "normal" or "anticipated" adverse weather days. Extra time is usually allowed only for weather beyond that baseline that actually stopped critical work. Some examples:</p>
+<ul>
+<li>Federal construction: <a href="https://www.acquisition.gov/far/52.249-10">FAR 52.249-10</a> lists "unusually severe weather" as an excusable delay, with written notice due within 10 days. U.S. Army Corps of Engineers contracts add a monthly table of anticipated adverse weather days (<a href="https://www.wbdg.org/FFC/ARMYCOE/COEECB/ARCHIVES/ecb_2008_23.pdf">ECB 2008-23</a>, citing ER 415-1-15).</li>
+<li>Courts compare the weather the contractor met with prior years' weather at that place and time of year (<a href="https://www.floridaconstructionlegalupdates.com/tag/52-249-10"><em>Broome</em>, 1974; <em>Edge</em>, 2010</a>). That data usually comes from NOAA.</li>
+<li>One state example: the Tennessee higher-education weather-delay section sets a baseline of 4 to 12 days a month, counts precipitation over 0.10 inch, and asks for "actual weather data … from nearest NOAA weather station" (<a href="https://memphis.edu/cpd/capproj/pdf/012620a.pdf">Section 01 26 20</a>). Oklahoma DOT credits adverse days above the "normal adverse weather" in the spec (<a href="https://www.odot.org/c_manuals/ccdirectives/con_ccd_19990512.pdf">directive</a>).</li>
+</ul>
+<p>Who it's for, and what they do with it:</p>
+<ul>
+<li><strong>Project managers and schedulers</strong>, for the monthly weather log that goes in with a pay application, and for the numbers behind a time-extension request.</li>
+<li><strong>Subcontractors</strong> (roofing, concrete, paving, site work, landscaping), to show a GC how many rain or freeze days a month really had.</li>
+<li><strong>Estimators</strong>, to check an owner's anticipated-days table against NOAA's normals before bidding. Our <a href="weather-delay-days.html">weather delay days explainer</a> shows the normals for 10 large metros.</li>
+<li><strong>Event and outdoor businesses</strong>, to see whether a season was really wetter or hotter than normal.</li>
+</ul>
+<p>A typical workflow: (1) set the threshold your contract uses, (2) count each month against the normal here, (3) match the counted days with your daily logs to find the ones that actually stopped critical-path work, and (4) for a dispute, order certified copies of those station-days from NOAA.</p>
+
+<h2 id="example">Worked example: Philadelphia, August to October 2026</h2>
+<p>ZIP 19103 (Center City), rain at 0.10 inch or more. The tool picks Philadelphia International Airport (NOAA station USW00013739), 10.0 km (6.2 mi) from the ZIP's center, and compares it with that station's own 1991–2020 normal.</p>
+<div class="table"><table>
+<thead><tr><th>Month</th><th>Days with data</th><th>Days ≥ 0.10 in</th><th>1991–2020 normal</th><th>Difference</th></tr></thead>
+<tbody>
+<tr><td>Aug 2026</td><td>31 of 31</td><td>7</td><td>5.8</td><td>+1.2</td></tr>
+<tr><td>Sep 2026</td><td>30 of 30</td><td>8</td><td>5.6</td><td>+2.4</td></tr>
+<tr><td>Oct 2026</td><td>30 of 31</td><td>6</td><td>5.5</td><td>+0.5</td></tr>
+</tbody>
+<tfoot><tr><td>Total</td><td>91 of 92</td><td>21</td><td>16.9</td><td>+4.1</td></tr></tfoot>
+</table></div>
+<p class="small">Source: NOAA NCEI GHCN-Daily and U.S. Climate Normals 1991–2020 (MLY-PRCP-AVGNDS-GE010HI), read through NCEI's Access Data Service on 2026-11-02. We checked the tool's counts against a direct API call for the same station and dates, and they matched. The rain days were Aug 2, 3, 5, 16, 20, 23, 27; Sep 1, 3, 13, 20, 22, 26, 27, 28; Oct 2, 4, 11, 12, 16, 17. Oct 31 was not yet posted for this station. <a href="./?zip=19103&amp;from=2026-08-01&amp;to=2026-10-31&amp;mode=rain&amp;t=0.10">Run this example</a> (it re-runs live, so it may change once NOAA posts or revises a value).</p>
+<p>How to read it: September had 8 days at or above 0.10 inch where about 5.6 are normal. That is a fact about the weather. Whether any of those days earns time depends on your contract: its baseline (which may be a fixed table, not NOAA's normal), whether rain stopped work for the required part of the day, and whether critical-path work was scheduled. The tool counts weather days; it doesn't decide delay days.</p>
 
 <h2>Questions</h2>
 <dl class="faq">
@@ -129,6 +170,16 @@ footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
 <dd>NOAA records weather at stations, not at every address. We use the nearest station with data for at least 90% of your days, and print its distance from the center of your ZIP. Rain and snow can differ a lot over a few miles. If you need a site-specific opinion, hire a forensic meteorologist.</dd>
 <dt>What is the "normal"?</dt>
 <dd>NOAA's 1991–2020 Climate Normals: the average number of days per month that crossed the same threshold over those 30 years, at the same station we count at when NOAA publishes normals for it, otherwise at the nearest normals station within 50 km (the result names it). For a part month we scale the normal by the share of the month in your range. Not every threshold has a NOAA normal (wind, and 6 inches of snow, don't). The full method is on the <a href="methodology.html">methodology page</a>.</dd>
+<dt>Is a rain day the same as a delay day?</dt>
+<dd>No. We count days when the weather crossed a threshold at a NOAA station. Most contracts grant time only when weather actually stopped work (often for at least half of the workday) on critical-path activities, and only beyond the baseline already in the schedule. Pair our count with your daily logs.</dd>
+<dt>My contract has its own table of anticipated weather days. Is this still useful?</dt>
+<dd>Yes. Compare the actual days in our monthly table with your contract's number for each month instead of NOAA's normal. The "Normal" column is there for contracts that point to historical averages, and to sanity-check a table at bid time.</dd>
+<dt>The station is at an airport miles away. Will that be accepted?</dt>
+<dd>That's for your contract and the owner to say. Some specs name the nearest NOAA station; some ask you to agree on a source at the start of the job. We print the distance, and the full report shows up to 3 stations side by side, so you can see whether the count holds across nearby gauges. If the site's own conditions matter, an on-site weather station or a forensic meteorologist is the stronger evidence.</dd>
+<dt>NOAA's data is free. Why pay $29?</dt>
+<dd>It is free, and you can get it yourself from NOAA's <a href="https://www.ncei.noaa.gov/cdo-web/">Climate Data Online</a>. The free count here already does the counting. The $29 saves the rest of the work: finding a usable station, cross-checking 3 stations, filling gaps without guessing, pulling the matching normals, and producing a clean PDF, the daily CSV and the list of station-days to certify.</dd>
+<dt>Will this win my claim?</dt>
+<dd>We can't promise that, and nobody honest can. It gives you sourced, checkable numbers. Entitlement depends on your contract, notice, schedule impact and the owner's review. For legal questions, ask a construction attorney.</dd>
 <dt>Who runs this?</dt>
 <dd>Westworks, an AI-run company. An AI agent built this tool; NOAA's data is computed live in your browser.</dd>
 </dl>
