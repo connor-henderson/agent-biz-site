@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<title>Estimate preview · Westworks</title>
+<style>
+:root {
+  --bg: #f6f7f9; --card: #ffffff; --ink: #16181d; --muted: #5b6270; --line: #dde1e7;
+  --accent: #1f5fbf; --accent-ink: #ffffff; --warn-bg: #fff3cc; --warn-ink: #4a3700; --warn-line: #e3c25a;
+  --focus: #1a73e8;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111317; --card: #1a1d23; --ink: #eef0f3; --muted: #a3aab6; --line: #2c313a;
+    --warn-bg: #3a3017; --warn-ink: #f4e2b0; --warn-line: #6b5a26;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111317; --card: #1a1d23; --ink: #eef0f3; --muted: #a3aab6; --line: #2c313a;
+  --warn-bg: #3a3017; --warn-ink: #f4e2b0; --warn-line: #6b5a26;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink);
+  font: 16px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; padding-bottom: 96px; }
+.wrap { max-width: 680px; margin: 0 auto; padding: 16px; }
+.demo { background: var(--warn-bg); color: var(--warn-ink); border: 1px solid var(--warn-line); border-radius: 10px; padding: 10px 12px; font-size: 14px; margin-bottom: 14px; }
+.demo strong { display: block; font-size: 15px; margin-bottom: 2px; }
+.msg { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px; margin-top: 24px; }
+h1 { font-size: 24px; margin: 4px 0 2px; }
+.sub { color: var(--muted); margin: 0 0 16px; }
+fieldset { border: 1px solid var(--line); background: var(--card); border-radius: 12px; margin: 0 0 14px; padding: 12px 14px 6px; min-width: 0; }
+legend { font-weight: 700; padding: 0 6px; }
+.blurb { color: var(--muted); font-size: 14px; margin: 0 0 8px; }
+.row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; border-top: 1px solid var(--line); }
+.row:first-of-type { border-top: 0; }
+.lbl { flex: 1; min-width: 0; }
+.lbl small { display: block; color: var(--muted); font-size: 13px; }
+.price { color: var(--muted); font-size: 14px; white-space: nowrap; }
+.seg { display: flex; flex-wrap: wrap; gap: 6px; padding: 4px 0 10px; }
+.seg button, .step button { min-width: 44px; min-height: 44px; border: 1px solid var(--line); background: var(--bg); color: var(--ink);
+  border-radius: 10px; font: inherit; cursor: pointer; padding: 6px 10px; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.seg button small { display: block; font-size: 12px; opacity: .85; }
+.step { display: flex; align-items: center; gap: 6px; }
+.step output { min-width: 24px; text-align: center; font-weight: 600; }
+input[type=checkbox] { width: 24px; height: 24px; accent-color: var(--accent); flex: none; }
+button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+#summary { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px; }
+#summary h2 { font-size: 18px; margin: 0 0 8px; }
+#lines { list-style: none; padding: 0; margin: 0 0 8px; }
+#lines li { display: flex; justify-content: space-between; gap: 12px; padding: 4px 0; }
+#lines li.call { color: var(--muted); }
+.total { display: flex; justify-content: space-between; gap: 12px; font-size: 20px; font-weight: 800; border-top: 1px solid var(--line); padding-top: 8px; }
+.note { color: var(--muted); font-size: 13px; margin: 8px 0 0; }
+.actions { display: grid; gap: 8px; margin-top: 12px; }
+.actions a, .actions button { display: block; text-align: center; padding: 13px; border-radius: 10px; font: inherit; font-weight: 600;
+  text-decoration: none; border: 1px solid var(--accent); cursor: pointer; }
+.primary { background: var(--accent); color: var(--accent-ink); }
+.secondary { background: transparent; color: var(--ink); }
+.bar { position: fixed; left: 0; right: 0; bottom: 0; background: var(--card); border-top: 1px solid var(--line); }
+.bar .wrap { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; }
+.bar strong { font-size: 20px; }
+.bar a { background: var(--accent); color: var(--accent-ink); padding: 10px 16px; border-radius: 10px; text-decoration: none; font-weight: 600; }
+footer { color: var(--muted); font-size: 12px; text-align: center; margin: 18px 0; }
+footer a { color: inherit; }
+[hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="msg" class="msg" hidden></div>
+  <noscript><div class="msg">This estimate page needs JavaScript.</div></noscript>
+  <div id="app" hidden>
+    <div id="demo" class="demo" hidden></div>
+    <h1 id="h1"></h1>
+    <p class="sub" id="sub"></p>
+    <form id="form" onsubmit="return false"></form>
+    <section id="summary" aria-labelledby="sumh">
+      <h2 id="sumh">Your estimate</h2>
+      <ul id="lines"></ul>
+      <div class="total"><span>Estimated total</span><span id="total" aria-live="polite">$0</span></div>
+      <p class="note" id="foot"></p>
+      <p class="note" id="actnote" hidden></p>
+      <div class="actions" id="actions"></div>
+    </section>
+    <footer id="credit"></footer>
+  </div>
+</div>
+<div class="bar" id="bar" aria-hidden="true" hidden><div class="wrap"><span>Estimate <strong id="bartotal">$0</strong></span><a href="#summary" tabindex="-1">See estimate</a></div></div>
+<script type="application/json" id="cfg">null</script>
+<script>
+// BEGIN PRICING (pure; the build script runs this same code under Node for its selftest)
+function money(n) { return "$" + (Math.round(n * 100) / 100).toFixed(n % 1 ? 2 : 0); }
+function moneyRange(lo, hi) { return hi > lo ? money(lo) + "–" + money(hi) : money(lo); }
+function priceOf(cfg, state) {
+  var lines = [], calls = [], total = 0, hi = 0;
+  function add(label, lo, h) { lines.push({label: label, amount: lo, hi: h}); total += lo; hi += h; }
+  cfg.groups.forEach(function (g) {
+    g.items.forEach(function (it) {
+      var v = state[it.id];
+      if (it.type === "tier") {
+        if (v === "over") { calls.push(it.over_max); return; }
+        var n = +v || 0;
+        if (n > 0) { var p = it.tiers[String(n)]; add((it.tier_labels && it.tier_labels[String(n)]) || (it.label + " x" + n), p, p); }
+      } else if (it.type === "choice") {
+        if (v === "over") { calls.push(it.over_max); return; }
+        var k = +v || 0;
+        if (k > 0) { var o = it.options[k - 1]; add(it.line_prefix ? it.line_prefix + o.label : o.label, o.price, o.price); }
+      } else if (it.type === "qty") {
+        var q = +v || 0;
+        if (q > 0) add(it.label + (q > 1 ? " x" + q : ""), it.price * q, it.price * q);
+      } else if (it.type === "range") {
+        var r = +v || 0;
+        if (r > 0) add(it.label + (r > 1 ? " x" + r : ""), it.price_lo * r, it.price_hi * r);
+      } else if (it.type === "toggle") {
+        if (v) {
+          var price = it.price, line = it.line || it.label;
+          if (it.if_zero && !(+state[it.if_zero.ref] || state[it.if_zero.ref] === "over")) { price = it.if_zero.price; line = it.if_zero.line; }
+          add(line, price, price);
+        }
+      } else if (it.type === "call") {
+        if (v) calls.push(it.label + ": " + it.note);
+      }
+    });
+  });
+  return {lines: lines, calls: calls, total: total, total_hi: hi};
+}
+function estimateText(cfg, r) {
+  var out = ["Estimate request for " + cfg.business.name, ""];
+  r.lines.forEach(function (l) { out.push("- " + l.label + ": " + moneyRange(l.amount, l.hi)); });
+  r.calls.forEach(function (c) { out.push("- " + c); });
+  out.push("", "Estimated total: " + moneyRange(r.total, r.total_hi) + (r.calls.length ? " plus items priced at the visit" : ""));
+  out.push("(From the prices on your website. Please confirm.)", "", "My name:", "Address or ZIP:", "Best days and times:");
+  return out.join("\n");
+}
+// END PRICING
+// BEGIN PREVIEW (pure; hosted previews are AES-GCM encrypted, the key lives only in the link's #fragment,
+// which browsers never send to the server. The build script encrypts with this same code under Node.)
+var PREVIEW_ID_RE = /^[a-z0-9]{12}$/, PREVIEW_KEY_RE = /^[A-Za-z0-9_-]{22}$/;
+function b64u(bytes) { var s = ""; bytes.forEach(function (b) { s += String.fromCharCode(b); }); return btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); }
+function unb64u(s) { s = s.replace(/-/g, "+").replace(/_/g, "/"); while (s.length % 4) s += "="; var bin = atob(s), out = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i); return out; }
+function previewAad(id, expires) { return new TextEncoder().encode("westworks-iqp:v1:" + id + ":" + expires); }
+function todayIso(d) { d = d || new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
+function isExpired(expires, today) { return !!expires && (today || todayIso()) > expires; }
+function parseFragment(hash) {
+  var m = /^#?p=([a-z0-9]{12})\.([A-Za-z0-9_-]{22})$/.exec(hash || "");
+  return m ? {id: m[1], key: m[2]} : null;
+}
+async function sealPreview(cfg, id, keyB64, ivBytes) {
+  var key = await crypto.subtle.importKey("raw", unb64u(keyB64), "AES-GCM", false, ["encrypt"]);
+  var expires = cfg.preview.expires;
+  var ct = await crypto.subtle.encrypt({name: "AES-GCM", iv: ivBytes, additionalData: previewAad(id, expires)}, key,
+    new TextEncoder().encode(JSON.stringify(cfg)));
+  return {v: 1, id: id, expires: expires, iv: b64u(ivBytes), ct: b64u(new Uint8Array(ct))};
+}
+async function openPreview(env, frag, today) {
+  if (!env || env.v !== 1 || env.id !== frag.id) return {error: "missing"};
+  if (isExpired(env.expires, today)) return {error: "expired"};
+  var key = await crypto.subtle.importKey("raw", unb64u(frag.key), "AES-GCM", false, ["decrypt"]);
+  var pt;
+  try { pt = await crypto.subtle.decrypt({name: "AES-GCM", iv: unb64u(env.iv), additionalData: previewAad(env.id, env.expires)}, key, unb64u(env.ct)); }
+  catch (e) { return {error: "key"}; }
+  var cfg = JSON.parse(new TextDecoder().decode(pt));
+  if (!cfg.preview || cfg.preview.expires !== env.expires) return {error: "key"};
+  return {cfg: cfg};
+}
+// END PREVIEW
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var el = function (tag, attrs, text) { var e = document.createElement(tag); for (var k in (attrs || {})) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; return e; };
+  var MSGS = {
+    missing: "This preview link is no longer active. Previews are removed after their end date or when the business asks.",
+    expired: "This preview has ended. Previews built by Westworks expire automatically.",
+    key: "This preview link is incomplete or has been changed. Please open the full link from the email.",
+    none: "Nothing to show here."
+  };
+  function showMsg(kind) {
+    var m = $("msg"); m.hidden = false; m.textContent = MSGS[kind] || MSGS.none;
+    m.appendChild(el("br")); m.appendChild(el("br"));
+    m.appendChild(document.createTextNode("Westworks · "));
+    m.appendChild(el("a", {href: "https://westworkshq.com"}, "westworkshq.com"));
+  }
+  var raw = $("cfg").textContent.trim();
+  if (raw && raw !== "null") {
+    var inline = JSON.parse(raw);
+    if (inline.preview && isExpired(inline.preview.expires)) return showMsg("expired");
+    return render(inline);
+  }
+  var frag = parseFragment(location.hash);
+  if (!frag) return showMsg("key");
+  fetch("p/" + frag.id + ".json", {cache: "no-store"})
+    .then(function (res) { return res.ok ? res.json() : null; })
+    .then(function (env) { return env ? openPreview(env, frag) : {error: "missing"}; })
+    .then(function (r) { if (r.error) showMsg(r.error); else render(r.cfg); })
+    .catch(function () { showMsg("missing"); });
+
+  function render(cfg) {
+    var state = {}, b = cfg.business, isPreview = !!(cfg.demo || cfg.preview);
+    $("app").hidden = false; $("bar").hidden = false;
+    document.title = (isPreview ? "Preview: " : "") + b.name + " instant estimate";
+    $("h1").textContent = isPreview ? "Instant estimate (preview)" : "Instant estimate";
+    $("sub").textContent = b.name + (b.area ? " · " + b.area : "") + ". Pick what you need and see the price right away.";
+    if (isPreview) {
+      var d = $("demo"); d.hidden = false;
+      d.appendChild(el("strong", null, "Private preview built by Westworks for " + b.name));
+      d.appendChild(document.createTextNode("Made only from the prices published at " + cfg.source.url.replace(/^https?:\/\/(www\.)?/, "") +
+        " on " + cfg.source.fetched + ". Not affiliated with or endorsed by " + b.name + ", and not their official page. Prices may have changed since then." +
+        (cfg.preview && cfg.preview.expires ? " This preview ends on " + cfg.preview.expires + "." : "")));
+      var an = $("actnote"); an.hidden = false;
+      var dest = ["phone"]; if (b.sms_tel) dest.push("text line"); if (b.email) dest.push("email"); if (b.booking_url) dest.push("booking page");
+      an.textContent = "Preview note: the buttons below go to " + b.name + "'s real " + (dest.length > 1 ? dest.slice(0, -1).join(", ") + " and " + dest[dest.length - 1] : dest[0]) + ", as published on its website.";
+    }
+    $("foot").textContent = cfg.footnote;
+    var credit = $("credit");
+    credit.appendChild(document.createTextNode("Instant estimate page by "));
+    credit.appendChild(el("a", {href: "https://westworkshq.com"}, "Westworks"));
+    if (isPreview) {
+      credit.appendChild(el("br"));
+      credit.appendChild(document.createTextNode("Want this preview taken down now? Reply \"take it down\" to the email we sent you, and we take it down within 24 hours."));
+    }
+    function segment(fs, it, opts) {
+      // opts: [{value, text, sub}]
+      var seg = el("div", {"class": "seg", role: "group", "aria-labelledby": "l_" + it.id});
+      state[it.id] = 0;
+      opts.forEach(function (o) {
+        var btn = el("button", {type: "button", "aria-pressed": o.value === 0 ? "true" : "false"}, o.text);
+        if (o.sub) btn.appendChild(el("small", null, o.sub));
+        btn.addEventListener("click", function () {
+          state[it.id] = o.value;
+          seg.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-pressed", x === btn ? "true" : "false"); });
+          update();
+        });
+        seg.appendChild(btn);
+      });
+      fs.appendChild(seg);
+    }
+    function stepper(row, it) {
+      var st = el("div", {"class": "step"}), minus = el("button", {type: "button", "aria-label": "Fewer: " + it.label}, "−"),
+          out = el("output", {"aria-live": "polite"}, "0"), plus = el("button", {type: "button", "aria-label": "More: " + it.label}, "+");
+      state[it.id] = 0;
+      minus.addEventListener("click", function () { state[it.id] = Math.max(0, state[it.id] - 1); out.textContent = state[it.id]; update(); });
+      plus.addEventListener("click", function () { state[it.id] = Math.min(it.max || 20, state[it.id] + 1); out.textContent = state[it.id]; update(); });
+      st.appendChild(minus); st.appendChild(out); st.appendChild(plus); row.appendChild(st);
+    }
+    cfg.groups.forEach(function (g) {
+      var fs = el("fieldset"); fs.appendChild(el("legend", null, g.title));
+      if (g.blurb) fs.appendChild(el("p", {"class": "blurb"}, g.blurb));
+      g.items.forEach(function (it) {
+        var row = el("div", {"class": "row"}), lbl = el("div", {"class": "lbl"});
+        lbl.appendChild(el("span", {id: "l_" + it.id}, it.label));
+        if (it.help) lbl.appendChild(el("small", null, it.help));
+        row.appendChild(lbl);
+        if (it.type === "tier") {
+          fs.appendChild(row);
+          var t = [{value: 0, text: "None"}];
+          for (var i = 1; i <= it.max; i++) t.push({value: i, text: i + " · " + money(it.tiers[String(i)])});
+          if (it.over_max) t.push({value: "over", text: (it.max + 1) + "+"});
+          return segment(fs, it, t);
+        }
+        if (it.type === "choice") {
+          fs.appendChild(row);
+          var c = [{value: 0, text: "None"}];
+          it.options.forEach(function (o, k) { c.push({value: k + 1, text: o.label + " · " + money(o.price), sub: o.note}); });
+          if (it.over_max) c.push({value: "over", text: it.over_label || "Bigger job", sub: "call for a price"});
+          return segment(fs, it, c);
+        }
+        if (it.type === "qty") {
+          row.appendChild(el("span", {"class": "price"}, money(it.price) + " each"));
+          stepper(row, it);
+        } else if (it.type === "range") {
+          row.appendChild(el("span", {"class": "price"}, moneyRange(it.price_lo, it.price_hi) + " each"));
+          stepper(row, it);
+        } else if (it.type === "toggle" || it.type === "call") {
+          row.appendChild(el("span", {"class": "price"}, it.type === "call" ? "priced at visit" : money(it.price)));
+          var cb = el("input", {type: "checkbox", "aria-labelledby": "l_" + it.id});
+          state[it.id] = false;
+          cb.addEventListener("change", function () { state[it.id] = cb.checked; update(); });
+          row.appendChild(cb);
+        }
+        fs.appendChild(row);
+      });
+      $("form").appendChild(fs);
+    });
+    var acts = $("actions");
+    var book = b.booking_url ? el("a", {"class": "primary", href: b.booking_url, target: "_blank", rel: "noopener noreferrer"}, b.booking_label || "Book online") : null;
+    var mail = b.email ? el("a", {"class": book ? "secondary" : "primary"}, "Email this estimate to " + b.name) : null;
+    var sms = b.sms_tel ? el("a", {"class": book || mail ? "secondary" : "primary"}, "Text this estimate to " + b.name) : null;
+    var call = b.phone ? el("a", {"class": book || mail || sms ? "secondary" : "primary", href: "tel:" + (b.phone_tel || b.phone)}, "Call " + b.phone) : null;
+    var copy = el("button", {type: "button", "class": "secondary"}, "Copy estimate");
+    [book, mail, sms, call, copy].forEach(function (x) { if (x) acts.appendChild(x); });
+    copy.addEventListener("click", function () {
+      var t = estimateText(cfg, priceOf(cfg, state));
+      try { navigator.clipboard.writeText(t).then(function () { copy.textContent = "Copied"; setTimeout(function () { copy.textContent = "Copy estimate"; }, 1500); }); }
+      catch (e) { window.prompt("Copy your estimate:", t); }
+    });
+    function update() {
+      var r = priceOf(cfg, state), ul = $("lines");
+      ul.innerHTML = "";
+      if (!r.lines.length && !r.calls.length) ul.appendChild(el("li", {"class": "call"}, "Nothing picked yet."));
+      r.lines.forEach(function (l) { var li = el("li"); li.appendChild(el("span", null, l.label)); li.appendChild(el("span", null, moneyRange(l.amount, l.hi))); ul.appendChild(li); });
+      r.calls.forEach(function (c) { ul.appendChild(el("li", {"class": "call"}, c)); });
+      var tt = moneyRange(r.total, r.total_hi) + (r.calls.length ? " +" : "");
+      $("total").textContent = tt; $("bartotal").textContent = tt;
+      var body = estimateText(cfg, r);
+      if (mail) mail.href = "mailto:" + b.email + "?subject=" + encodeURIComponent("Estimate request: " + moneyRange(r.total, r.total_hi)) + "&body=" + encodeURIComponent(body);
+      if (sms) sms.href = "sms:" + b.sms_tel + "?&body=" + encodeURIComponent(body);
+    }
+    update();
+  }
+})();
+</script>
+</body>
+</html>

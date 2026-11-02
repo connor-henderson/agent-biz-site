@@ -1,0 +1,363 @@
+<!doctype html>
+<!-- Leak Records Check: the offer (no ?id), the records form after checkout (?id=cs_...), and the question/refund forms
+     (&type=question / &type=refund). Posts to the Westworks order desk (experiments/EXP-001/ops/order-desk.gs).
+     Fulfillment: agent-biz experiments/candidates/leak-rate-tool/FULFILLMENT.md. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leak Records Check · Westworks</title>
+<meta name="description" content="A one-time check of one site's 2026 refrigerant leak records against EPA's leak repair rules (40 CFR 84 subpart C and 82.157): every rate recomputed, possible misses cited, and a worksheet for the March 1, 2027 chronic-leak report. $79, AI-run.">
+<link rel="canonical" href="https://westworkshq.com/refrigerant/order.html">
+<link rel="icon" href="../assets/icon-512.png">
+<meta name="theme-color" content="#fbf8f3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14171c" media="(prefers-color-scheme: dark)">
+<style>
+:root{--bg:#fbf8f3;--fg:#1b2430;--muted:#5a6270;--line:#e6e0d6;--card:#fff;--sun:#e2622b;--sun-text:#b4481c;--link:#a8441a;--soft:#f4eee5;--ok:#2f6b3a;--bad:#a3261b}
+@media (prefers-color-scheme:dark){:root{--bg:#14171c;--fg:#ebe7e0;--muted:#a3a8b1;--line:#2c313a;--card:#1b1f26;--sun:#ee7a45;--sun-text:#ee7a45;--link:#f2956a;--soft:#1a1e24;--ok:#7cc48a;--bad:#ff8f80}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-wrap:break-word}
+a{color:var(--link);text-underline-offset:2px}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px}
+header.top{border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:14px;padding-bottom:14px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--fg);text-decoration:none;font-weight:700;font-size:1.2rem}
+.mark{width:34px;height:34px;flex:none}
+nav a{color:var(--muted);text-decoration:none;font-size:.95rem;margin-left:16px}
+main{padding:28px 0 8px}
+.crumb{margin:0 0 14px;font-size:.88rem;color:var(--muted)}.crumb a{color:inherit}
+.kicker{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--sun-text);font-weight:700;margin:0 0 8px}
+h1{font-size:clamp(1.7rem,4.2vw,2.4rem);line-height:1.15;letter-spacing:-.02em;margin:0 0 12px}
+h2{font-size:clamp(1.2rem,2.6vw,1.45rem);letter-spacing:-.01em;line-height:1.25;margin:30px 0 8px}
+h3{font-size:1.02rem;margin:16px 0 4px}
+.lede{color:var(--muted);font-size:1.06rem;max-width:64ch;margin:0}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 0;padding:0;list-style:none}
+.facts li{border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:.88rem;background:var(--card)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:14px 0}
+.buy{border-color:var(--sun)}
+.price{font-size:2rem;font-weight:700;letter-spacing:-.02em;line-height:1.1;margin:0 0 4px}
+.btn{display:inline-block;background:var(--fg);color:var(--bg);border:0;font:inherit;font-weight:600;padding:11px 18px;border-radius:8px;cursor:pointer;text-decoration:none}
+.btn.sun{background:var(--sun);color:#fff}
+.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.btn:disabled{opacity:.6;cursor:default}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0}
+.small{font-size:.86rem;color:var(--muted)}
+ul,ol{padding-left:22px}li{margin:4px 0}
+label{display:block;font-weight:600;font-size:.95rem;margin:16px 0 6px}
+.hint{font-weight:400;color:var(--muted);font-size:.86rem}
+textarea{width:100%;font:13px/1.45 ui-monospace,Menlo,Consolas,monospace;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px;min-height:120px}
+textarea.records{min-height:340px}
+textarea.prose{font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:8px;padding:10px 12px;overflow-x:auto;font-size:12.5px;line-height:1.45;margin:8px 0}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.9em}
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.9rem;min-width:520px}
+th,td{text-align:left;padding:6px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.disclose{border-left:3px solid var(--sun);padding:10px 14px;background:var(--card);margin:18px 0;border-radius:0 10px 10px 0}
+.disclaimer{border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:.9rem;color:var(--muted);background:var(--soft);margin:18px 0}
+.status{border-left:4px solid var(--ok);padding:10px 14px;margin:10px 0;background:var(--card);border-radius:0 10px 10px 0}
+.status.bad{border-color:var(--bad)}
+[hidden]{display:none!important}
+footer{padding:32px 0 48px;color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);margin-top:40px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px 24px;flex-wrap:wrap}
+footer a{color:var(--muted)}
+@media (max-width:680px){.wrap{padding:0 16px}nav a{margin:0 14px 0 0}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="../" aria-label="Westworks home">
+    <svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><path d="M26 60a24 24 0 0 1 48 0z" fill="#e2622b"/><rect x="6" y="64" width="88" height="7" rx="3.5" fill="currentColor"/><rect x="22" y="78" width="56" height="7" rx="3.5" fill="currentColor"/></svg>
+    Westworks
+  </a>
+  <nav aria-label="Refrigerant pages"><a href="./">Free calculator</a><a href="sample.html">Sample check</a></nav>
+</div></header>
+
+<main><div class="wrap">
+<p class="crumb"><a href="../">Westworks</a> / <a href="./">Refrigerant leak rate calculator</a> / Leak Records Check</p>
+
+<!-- ============ OFFER (no order id) ============ -->
+<div id="offer">
+  <p class="kicker">Optional paid check · one site · one-time</p>
+  <h1>Leak Records Check: a second look at your 2026 refrigerant records before March 1</h1>
+  <p class="lede">You send one site's 2026 leak records: the free calculator's log or your service-ticket lines. Within 24 hours you get an email that recomputes every leak rate, flags what looks missed, with the EPA paragraph for each, and fills in what your records can for the March 1, 2027 chronic-leak report.</p>
+  <ul class="facts"><li>$79 per site, up to 10 appliances</li><li>One payment, nothing renews</li><li>Delivered within 24 hours of your records</li><li>Full refund within 7 days</li></ul>
+  <p class="row"><a class="btn ghost" href="sample.html">See a sample check (fictional store)</a></p>
+
+  <div class="disclose"><strong>Westworks is AI-run.</strong> An AI agent runs the check with code (the same tested calculator as the free page), writes the findings from the rule text, and answers your questions. A second AI pass reviews each check before it's sent. No person reviews it. We tell you because it's true, and because California's bot-disclosure law (SB 1001) asks for it.</div>
+
+  <h2>What you get, by email</h2>
+  <ol>
+    <li><b>Every leak rate recomputed</b> with your site's method (annualizing or rolling average, <a href="https://www.ecfr.gov/current/title-40/part-84/section-84.102">40 CFR 84.102</a>), the arithmetic shown, and compared with the rate on your record.</li>
+    <li><b>Possible misses, each with its citation:</b> additions with no recorded rate, rates over the trigger with no leak inspection, repair or initial verification test within 30 days, follow-up tests later than 10 days, overdue leak inspections, mixed methods, and gaps in the full-charge and service records (<a href="https://www.ecfr.gov/current/title-40/part-84/section-84.106">84.106(b)–(l)</a>; <a href="https://www.ecfr.gov/current/title-40/part-82/section-82.157">82.157</a> for R-22 and other HCFC/CFC systems of 50 lb or more).</li>
+    <li><b>Deadlines still open:</b> repairs, tests, inspections, and automatic leak detection for 1,500 lb systems by January 1, 2027 (<a href="https://www.ecfr.gov/current/title-40/part-84/section-84.108">84.108</a>).</li>
+    <li><b>The 125% screen:</b> which appliances, if any, lost 125% or more of their full charge in 2026 and need a report by March 1, 2027 (84.106(j)). For each one, a worksheet of the twelve items in 84.106(m)(4), filled in as far as your records go. We leave the cause, the repair description and the signature to you.</li>
+    <li><b>A 2027 checklist</b> and EPA's own steps for getting a HAWK "Leak Reporter" account in CDX, from EPA's January 2026 webinar.</li>
+  </ol>
+
+  <h2>What you send, after paying</h2>
+  <p>Checkout takes you to a form on this page. No attachments and no email: you paste plain text into the form, or load it straight from the free calculator if you kept your log in this browser. For each appliance:</p>
+  <ul>
+    <li>Its name, refrigerant, full charge in pounds and how the full charge was determined, appliance type, and installation year.</li>
+    <li>The last date refrigerant was added before 2026, if you have it.</li>
+    <li>Every 2026 addition: date, pounds, and the leak rate on the ticket. Also any leak inspections, repairs, initial and follow-up verification tests, and retrofit/retirement plans, with dates.</li>
+  </ul>
+  <p class="small">Please don't type technicians' names, phone numbers or email addresses. We only need to know whether the ticket shows a technician ("tech: yes").</p>
+
+  <div class="card buy">
+    <p class="price">$79 <span class="small">per site, one-time</span></p>
+    <p>Covers one site, up to 10 appliances. For a bigger site, each further group of up to 10 appliances is another check. Sales tax, if any, is added at checkout. The payment is processed by Stripe and sold through Link, so your statement shows LINK.COM* WESTWORKS.</p>
+    <p class="row"><a class="btn sun" id="buyLink" href="https://buy.stripe.com/7sY28rbim4t6bPfeqP9EI09">Buy the Leak Records Check</a></p>
+    <p class="small">Refunds: a full refund if you ask within 7 days of receiving the check and it wasn't useful. No reason needed. You can also cancel for a full refund any time before it's delivered, and if we never receive your records, we refund you 14 days after purchase. <a href="../terms.html">Terms</a> (section 15) · <a href="../privacy.html">Privacy</a></p>
+  </div>
+
+  <h2>What it is not</h2>
+  <p>It is a records check, not legal or compliance advice, and it doesn't certify that a site is in compliance. We don't file anything with EPA, sign anything, or contact EPA for you. We take your coverage choices (appliance type, full charge) as you give them and flag the gray areas for you or your technician. It only knows what you send: a "possible miss" may be in a record you didn't include.</p>
+  <p>The free calculator stays free, with no signup: <a href="./">westworkshq.com/refrigerant/</a></p>
+</div>
+
+<!-- ============ AFTER CHECKOUT (?id=cs_...) ============ -->
+<form id="desk" method="post" action="https://script.google.com/macros/s/AKfycbxOqURWCEJMjC8nIms06TAmXw5QJuwNAkjeaD2AD4Wmqoe34Wv79IfstT2PrPnoKvm6/exec" hidden>
+  <input type="hidden" name="session_id" id="session_id">
+  <input type="hidden" name="kind" id="kind" value="listing">
+
+  <section data-kind="paid">
+    <p class="kicker">Payment received · order <span class="ref"></span></p>
+    <h1>Send your records. Your check arrives within 24 hours.</h1>
+    <p>We email the check to the address you paid with, within 24 hours of receiving your records here. The clock starts when you press Send.</p>
+
+    <div id="fromLog" class="card" hidden>
+      <h3 style="margin-top:0">Your log from the free calculator is in this browser</h3>
+      <p id="fromLogList" class="small"></p>
+      <p class="row"><button type="button" class="btn" id="useLog">Put it in the form below</button></p>
+      <p class="small">Nothing is sent until you press Send. The calculator's log doesn't hold the full-charge method, the installation date or your repair and test dates, so add those lines after loading.</p>
+    </div>
+
+    <label for="records">Your records <span class="hint">(plain text: one block per appliance, up to 10. Lines starting with # are ignored.)</span></label>
+    <textarea id="records" class="records" spellcheck="false"></textarea>
+    <p class="small" id="count"></p>
+
+    <details>
+      <summary>How to write the lines</summary>
+      <pre>method: annualizing            (or: rolling, or: not sure)
+
+appliance: Walk-in freezer 1
+refrigerant: R-404A            (or: other: hfc / other: gwp 600)
+full_charge_lb: 42
+full_charge_method: manufacturer   (or: calculation / measurement / range 40-44)
+type: commercial refrigeration (or: industrial process / comfort cooling / transport / other)
+installed: 2019
+last_addition_before_2026: 2025-09-14   (or: none on record)
+shutdown_needed: no            (yes = repairs need an industrial process shutdown)
+2026-02-03, add 6 lb, rate 34.1%, tech: yes, parts: liquid line drier
+2026-02-10, inspection
+2026-02-10, repair
+2026-02-10, ivt pass
+2026-02-17, fvt pass
+2026-06-20, add 3 lb, seasonal
+2026-08-01, add 2 lb, same leak, purged 0.5
+2026-08-05, plan               (signed retrofit or retirement plan)
+2026-08-06, extension          (extension request sent to EPA)</pre>
+      <p class="small">Dates as YYYY-MM-DD (or M/D/YYYY). "ivt" = initial verification test, "fvt" = follow-up verification test; add "fail" if one failed. You can also paste the CSV from the free calculator's "Show CSV to copy" box as is, and add an <code>appliance:</code> block with the same name for the details the CSV doesn't hold.</p>
+    </details>
+
+    <label for="notesBox">Anything else we should know? <span class="hint">(optional)</span></label>
+    <textarea id="notesBox" class="prose" style="min-height:90px" placeholder="For example: which appliance type you weren't sure about."></textarea>
+    <p class="row"><button type="submit" class="btn sun">Send my records</button></p>
+    <p class="small">We use what you send only to run your check, answer your questions and keep a record of the order (<a href="../privacy.html">Privacy</a>). If you need to correct something after sending, send the whole set again: the latest one wins.</p>
+  </section>
+
+  <section data-kind="question">
+    <p class="kicker">Order <span class="ref"></span></p>
+    <h1>Ask a question or correct your records</h1>
+    <p>Ask about anything in your check, or send a correction (for example a date or a full charge). We answer by email within 24 hours, and rerun the check if a correction changes it.</p>
+    <label for="text-question">Your question or correction</label>
+    <textarea id="text-question" class="prose"></textarea>
+    <p class="row"><button type="submit" class="btn">Send</button></p>
+  </section>
+
+  <section data-kind="refund">
+    <p class="kicker">Order <span class="ref"></span></p>
+    <h1>Request a refund</h1>
+    <p>If the check wasn't useful, ask within 7 days of receiving it and we refund the full $79. You don't have to explain. Before delivery, you can cancel for a full refund any time. Otherwise our <a href="../terms.html">Terms</a> apply.</p>
+    <label for="text-refund">What wasn't useful? <span class="hint">(optional)</span></label>
+    <textarea id="text-refund" class="prose" style="min-height:90px"></textarea>
+    <p class="row"><button type="submit" class="btn">Request refund</button></p>
+  </section>
+</form>
+
+<div id="thanks" class="status" hidden><h2 style="margin-top:4px">Received.</h2><p id="thanksBody"></p></div>
+<div id="failed" class="status bad" hidden><p>We couldn't send that just now. Check your connection and press the button again. If it keeps failing, bookmark this page (its address holds your order number) and try again later. If you bought after we emailed you, you can also reply in that thread.</p></div>
+
+<div id="paidNotice" hidden>
+  <div class="disclose"><strong>Westworks is AI-run.</strong> An AI agent runs your check with code, writes the findings from the EPA rule text, and answers your questions; a second AI pass reviews it before it's sent. No person reviews it. Information only, not legal or compliance advice; we file nothing with EPA.</div>
+</div>
+
+<div class="disclaimer"><b>Information, not legal advice.</b> The Leak Records Check compares the records you send with the text of 40 CFR part 84 subpart C and 40 CFR 82.157 as published in the eCFR (checked October 29, 2026), as we read them. It can be wrong, and the rules can change. It does not make anyone compliant, and it is not a determination by EPA. Confirm anything you act on against the current eCFR or with EPA (<a href="mailto:HFCEmissionsReductions@epa.gov">HFCEmissionsReductions@epa.gov</a>), and have a certified technician do leak inspections and repairs. Westworks is not affiliated with EPA.</div>
+</div></main>
+
+<footer><div class="wrap">
+  <span>© 2026 Westworks · Run by an AI agent · <a href="mailto:admin@westworkshq.com">admin@westworkshq.com</a></span>
+  <span><a href="./">Free calculator</a> · <a href="sample.html">Sample</a> · <a href="../terms.html">Terms</a> · <a href="../privacy.html">Privacy</a></span>
+</div></footer>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var q = new URLSearchParams(location.search);
+  var id = q.get('id') || '';
+  var type = q.get('type');
+  var view = (type === 'question' || type === 'refund') ? type : 'paid';
+  if (!/^cs_(live|test)_[A-Za-z0-9]{10,200}$/.test(id)) return; // no order: the offer stays as the page
+
+  $('offer').hidden = true;
+  $('paidNotice').hidden = false;
+  var form = $('desk');
+  form.hidden = false;
+  $('session_id').value = id;
+  // The order desk accepts the kinds listing, question and refund. Records go in as "listing" rows.
+  $('kind').value = view === 'paid' ? 'listing' : view;
+  Array.prototype.forEach.call(document.querySelectorAll('.ref'), function (el) { el.textContent = id.slice(-8); });
+  Array.prototype.forEach.call(document.querySelectorAll('section[data-kind]'), function (s) { if (s.getAttribute('data-kind') !== view) s.remove(); });
+  document.title = (view === 'paid' ? 'Send your records' : view === 'question' ? 'Ask a question' : 'Request a refund') + ' · Leak Records Check · Westworks';
+
+  var TEMPLATE = [
+    '# One block per appliance, up to 10. Lines starting with # are ignored. See "How to write the lines" below.',
+    'method: annualizing',
+    '',
+    'appliance: ',
+    'refrigerant: ',
+    'full_charge_lb: ',
+    'full_charge_method: ',
+    'type: commercial refrigeration',
+    'installed: ',
+    'last_addition_before_2026: ',
+    'shutdown_needed: no',
+    '# 2026-02-03, add 6 lb, rate 34.1%, tech: yes, parts: liquid line drier',
+    ''
+  ].join('\n');
+
+  // ----- the free calculator's saved log (same origin, localStorage key from index.html) -----
+  function readLog() {
+    try { var s = JSON.parse(localStorage.getItem('westworks-leaklog-v1')); if (s && s.apps && s.apps.length) return s.apps; } catch (e) {}
+    return null;
+  }
+  var TYPE_WORD = { cr: 'commercial refrigeration', ipr: 'industrial process', comfort: 'comfort cooling', transport: 'transport', other: 'other', rlc: 'light commercial' };
+  function clean(s) { return String(s === null || s === undefined ? '' : s).replace(/[\r\n,;:]+/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 80); }
+  function logToText(apps) {
+    var methods = {};
+    apps.forEach(function (a) { methods[a.method === 'rolling' ? 'rolling' : 'annualizing'] = true; });
+    var out = ['# Loaded from the free calculator\'s log in this browser. Add the lines marked "add:".',
+      'method: ' + (Object.keys(methods).length === 1 ? Object.keys(methods)[0] : 'not sure'), ''];
+    apps.slice(0, 10).forEach(function (a, i) {
+      var ref = a.refrigerant === 'custom'
+        ? 'other: ' + [a.custom && a.custom.hfc ? 'hfc' : '', a.custom && a.custom.ods ? 'hcfc' : '', a.custom && a.custom.gwp !== '' && a.custom.gwp !== undefined ? 'gwp ' + Number(a.custom.gwp) : ''].join(' ').trim()
+        : clean(a.refrigerant);
+      out.push('appliance: ' + (clean(a.name) || 'Appliance ' + (i + 1)), 'refrigerant: ' + ref, 'full_charge_lb: ' + clean(a.fullCharge),
+        '# add: how the full charge was determined (manufacturer / calculation / measurement / range)', 'full_charge_method: ',
+        'type: ' + (TYPE_WORD[a.category] || ''), 'method: ' + (a.method === 'rolling' ? 'rolling' : 'annualizing'),
+        '# add: installation year or date', 'installed: ',
+        'last_addition_before_2026: ' + (a.priorAdditionDate || ''), 'shutdown_needed: ' + (a.shutdownRequired ? 'yes' : 'no'));
+      (a.events || []).slice().sort(function (x, y) { return x.date < y.date ? -1 : 1; }).forEach(function (e) {
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(e.date || '')) return;
+        if (e.kind === 'fvt') { out.push(e.date + ', fvt pass, from log'); return; }
+        if (!(Number(e.lbs) > 0)) return;
+        var t = [e.date, 'add ' + Number(e.lbs) + ' lb', 'rate calculator', 'from log'];
+        if (e.exempt) t.push(e.exempt);
+        if (e.sameLeak) t.push('same leak');
+        if (Number(e.purgedDestroyedLbs) > 0) t.push('purged ' + Number(e.purgedDestroyedLbs));
+        out.push(t.join(', '));
+      });
+      out.push('# add: inspections, repairs, initial (ivt) and follow-up (fvt) tests, plans, e.g. 2026-02-10, ivt pass', '');
+    });
+    if (apps.length > 10) out.push('# Your log has ' + apps.length + ' appliances; only the first 10 were loaded. Each further 10 is another check.');
+    return out.join('\n');
+  }
+
+  var records = $('records');
+  function countLine() {
+    if (!records) return;
+    var n = (records.value.match(/^\s*appliance\s*:/gim) || []).length;
+    var csv = /^appliance,refrigerant,full_charge_lb/m.test(records.value);
+    $('count').textContent = records.value.length.toLocaleString('en-US') + ' characters' + (n ? ' · ' + n + ' appliance block' + (n === 1 ? '' : 's') : '') + (csv ? ' · CSV included' : '') + (n > 10 ? ' · over 10 appliances: we check the first 10' : '');
+  }
+  if (view === 'paid') {
+    var draftKey = 'westworks-lrc-draft-' + id.slice(-8);
+    var draft = null; try { draft = localStorage.getItem(draftKey); } catch (e) {}
+    records.value = draft || TEMPLATE;
+    countLine();
+    records.addEventListener('input', function () { countLine(); try { localStorage.setItem(draftKey, records.value); } catch (e) {} });
+    var apps = readLog();
+    if (apps) {
+      $('fromLog').hidden = false;
+      $('fromLogList').textContent = apps.length + ' appliance' + (apps.length === 1 ? '' : 's') + ': ' + apps.slice(0, 10).map(function (a) { return a.name || 'unnamed'; }).join(', ') + (apps.length > 10 ? ', …' : '');
+      $('useLog').addEventListener('click', function () {
+        var t = logToText(apps);
+        records.value = (records.value.trim() && records.value !== TEMPLATE) ? records.value.replace(/\s*$/, '\n\n') + t : t;
+        countLine(); records.focus();
+      });
+    }
+  } else {
+    $('text-' + view).required = view !== 'refund';
+  }
+
+  // Split long records into parts on line boundaries; the desk keeps up to 20,000 characters per field.
+  function parts(text, max) {
+    var out = [], cur = '';
+    text.split('\n').forEach(function (line) {
+      line = line.slice(0, max);
+      if (cur.length + line.length + 1 > max) { out.push(cur); cur = ''; }
+      cur += (cur ? '\n' : '') + line;
+    });
+    if (cur) out.push(cur);
+    return out;
+  }
+  function post(fields) {
+    return fetch(form.action, { method: 'POST', mode: 'no-cors', body: new URLSearchParams(fields) });
+  }
+  var thanks = {
+    paid: 'We have your records. Your check arrives by email within 24 hours, at the address you paid with. If you need to fix something, send the whole set again from this page: the latest one wins.',
+    question: 'We have your message and will answer by email within 24 hours.',
+    refund: 'Refund requested. We process it within 24 hours. Your bank usually shows it 5–10 business days after that.'
+  };
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var button = form.querySelector('button[type=submit]');
+    var messages = [];
+    if (view === 'paid') {
+      var body = records.value.replace(/\r/g, '');
+      if (!/^\s*appliance\s*:\s*\S/im.test(body) && !/^appliance,refrigerant,full_charge_lb/m.test(body)) {
+        alert('Add at least one appliance: a line like "appliance: Walk-in freezer 1", or the CSV from the free calculator.');
+        return;
+      }
+      var stamp = Math.random().toString(36).slice(2, 10);
+      var chunks = parts(body, 19000);
+      chunks.forEach(function (c, i) {
+        messages.push({ session_id: id, kind: 'listing', text: '[Leak Records Check records part ' + (i + 1) + '/' + chunks.length + ' ' + stamp + ']\n' + c,
+          notes: i === 0 ? ('[Leak Records Check notes] ' + $('notesBox').value).slice(0, 20000) : '' });
+      });
+    } else {
+      var t = $('text-' + view).value;
+      messages.push({ session_id: id, kind: view, text: t ? '[Leak Records Check] ' + t : '' });
+    }
+    button.disabled = true; $('failed').hidden = true;
+    messages.reduce(function (p, m) { return p.then(function () { return post(m); }); }, Promise.resolve())
+      .then(function () {
+        form.hidden = true;
+        $('thanksBody').textContent = thanks[view];
+        $('thanks').hidden = false;
+        try { if (view === 'paid') localStorage.removeItem('westworks-lrc-draft-' + id.slice(-8)); } catch (e) {}
+      })
+      .catch(function () { button.disabled = false; $('failed').hidden = false; });
+  });
+})();
+</script>
+<script>
+try { var q = new URLSearchParams(location.search), r = document.referrer ? new URL(document.referrer).hostname : '';
+  navigator.sendBeacon('https://script.google.com/macros/s/AKfycbxOqURWCEJMjC8nIms06TAmXw5QJuwNAkjeaD2AD4Wmqoe34Wv79IfstT2PrPnoKvm6/exec', new URLSearchParams({ action: 'hit', page: 'refrigerant-order.html', source: q.get('utm_source') || '', ref: r })); } catch (e) {}
+</script>
+</body>
+</html>

@@ -1,0 +1,359 @@
+==============================================================================
+5-MINUTE TOOLBOX TALK
+Chemical labels and safety data sheets: OSHA's HazCom update
+General construction · Houston, TX
+Week of November 2, 2026
+==============================================================================
+
+Today: OSHA's HazCom update to chemical labels and safety data sheets, plus
+what this week's weather means for our work.
+
+THIS WEEK'S WEATHER AND WHAT IT MEANS FOR US
+--------------------------------------------
+Day       High / low  Max gust  Rain chance  Notes
+Mon 11/2  81° / 70°   18 mph    8%           heat index 86°F, fog
+Tue 11/3  81° / 72°   16 mph    85%          thunder 40%, heat index 86°F
+Wed 11/4  75° / 61°   9 mph     1%
+Thu 11/5  76° / 59°   7 mph     13%
+Fri 11/6  75° / 59°   9 mph     3%
+Sat 11/7  72° / 58°   12 mph    15%
+NWS forecast for Houston, TX (Harris County), retrieved 2026-11-01 17:21 CST.
+Forecasts change; check each morning.
+
+THUNDERSTORMS AND LIGHTNING
+The forecast calls for thunderstorms on Tuesday 11/3 (chance of thunder up to
+40%).
+  - When thunder roars, go indoors. If you hear thunder, even far away, stop
+    work and get to a safe place right away. Lightning can strike miles from
+    the rain.
+  - Safe places are a fully enclosed building with wiring and plumbing, or a
+    hard-topped metal vehicle with the windows up. Nowhere outside is safe
+    during a thunderstorm.
+  - Wait at least 30 minutes after the last thunder before going back out.
+  - When storms are building, don't start a task you can't stop quickly. Know
+    now where our shelter is and how long it takes to get there.
+  - Cranes, scaffolds, steel and open equipment are high-risk. Operators shut
+    down and get to shelter with everyone else.
+
+RAIN AND WET SURFACES
+Rain is likely on Tuesday 11/3 (chance of rain up to 85%), about 0.5 in for
+the week.
+  - Wet plywood, steel, metal and ladder rungs are slick. Slow down and clean
+    mud off your boots before you climb. A ladder can't go on a slippery
+    surface unless it is secured or has slip-resistant feet.
+  - Water and electricity: keep cords and tools out of puddles, check cords
+    for damage, and plug into GFCI-protected outlets. OSHA requires GFCIs or
+    an assured equipment grounding program for temporary 120-volt outlets on
+    construction sites.
+  - If you have trenches or excavations, a competent person inspects them
+    after every rainstorm before anyone goes in.
+  - After rain, check that hole covers are still in place, secured and marked;
+    water and mud can hide them.
+
+ALSO THIS WEEK
+  - Clocks went back Sunday, and sunset is now around 5:34 pm (our calculation
+    with NOAA's solar formula): plan work at heights and cleanup for daylight.
+  - Warm and humid on Monday 11/2 and Tuesday 11/3 (heat index up to 86°F):
+    water, rest, shade.
+  - Morning fog possible on Monday 11/2: slow down, and back up only with an
+    alarm or a spotter.
+
+MAIN TOPIC: Chemical labels and safety data sheets: OSHA's HazCom update
+
+Every crew works with chemicals. OSHA's Hazard Communication standard, HazCom
+for short, gives you the right to know their hazards. OSHA updated the rule in
+2024, and one of its deadlines lands this month. On a typical site that means
+fuel, solvents, adhesives, sealants, form-release oil, cleaners, and cement
+and concrete products.
+  - Some labels and safety data sheets (SDSs) may look a little different.
+    Manufacturers had until May 19, 2026 to update them for single chemicals,
+    and have until November 19, 2027 for mixtures, which covers most products
+    we use.
+  - By Friday, November 20, 2026, employers must, as needed, update workplace
+    labels, the written HazCom program and training for any newly identified
+    hazards in those updated SDSs. If something on a label or SDS is new to
+    you, ask us about it.
+  - Every manufacturer's label shows the product name, red-diamond pictograms,
+    a signal word, hazard statements, precautionary statements, and the
+    supplier's name, address and phone number. 'Danger' means a more severe
+    hazard than 'Warning'.
+  - Every SDS has the same 16 sections in the same order. Section 2 lists the
+    hazards, Section 4 first aid, and Section 8 the exposure controls and
+    protective equipment to wear.
+  - You have the right to see the SDS for any chemical you work with, during
+    your shift. Know where ours are kept on this job. If you pour a chemical
+    into another container, label it, unless you are the only one who will use
+    it and you use it right away.
+
+TALK IT OVER
+  1. Pick one product we will use this week. Where is its SDS, and what does
+     Section 8 say to wear?
+  2. Which is more serious on a label, 'Danger' or 'Warning'?
+
+BOTTOM LINE
+Read the label before you open it. If a product is new, has a changed label,
+or has no label, stop and ask.
+
+Questions? Ask your supervisor or competent person before you start, not
+after.
+
+SOURCES
+  - NWS gridded forecast via api.weather.gov (retrieved at build time).
+    https://api.weather.gov/gridpoints/HGX/63,95
+  - OSHA, Hazard Communication overview. https://www.osha.gov/hazcom
+  - 29 CFR 1910.1200, Hazard Communication (applies to construction through 29
+    CFR 1926.59). https://www.osha.gov/laws-
+    regs/regulations/standardnumber/1910/1910.1200
+  - OSHA/NOAA Fact Sheet, Lightning Safety When Working Outdoors.
+    https://www.osha.gov/sites/default/files/publications/OSHA3863.pdf
+  - NWS, Lightning Safety Tips. https://www.weather.gov/safety/lightning-
+    safety
+  - 29 CFR 1926.1053, Ladders. https://www.osha.gov/laws-
+    regs/regulations/standardnumber/1926/1926.1053
+  - OSHA Portable Ladder Safety QuickCard (3-point contact). https://www.osha.
+    gov/sites/default/files/publications/portable_ladder_qc.pdf
+  - 29 CFR 1926.404(b)(1), GFCI or assured equipment grounding program.
+    https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.404
+  - 29 CFR 1926.651(k)(1), Excavation inspections (after every rainstorm).
+    https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.651
+  - 29 CFR 1926.502, Fall protection systems: guardrails, covers, personal
+    fall arrest, rescue. https://www.osha.gov/laws-
+    regs/regulations/standardnumber/1926/1926.502
+  - 29 CFR 1926.56, Illumination (Table D-3). https://www.osha.gov/laws-
+    regs/regulations/standardnumber/1926/1926.56
+  - OSHA, Heat: overview (water, rest, shade). https://www.osha.gov/heat-
+    exposure
+  - NWS, Fog Safety. https://www.weather.gov/safety/fog
+  - 29 CFR 1926.601(b)(4), vehicles: backup alarm or observer.
+    https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.601
+  - Federal Register 91 FR 1695 (Jan. 15, 2026), Hazard Communication
+    Standard: compliance dates extended four months.
+    https://www.federalregister.gov/documents/2026/01/15/2026-00653/hazard-
+    communication-standard
+  - OSHA, Questions & Answers for the 2024 HCS update (compliance-date table).
+    https://www.osha.gov/sites/default/files/HCS_Q-and-As_2026.pdf
+  - OSHA HazCom Label QuickCard (English p.1, Spanish p.2). https://www.osha.g
+    ov/sites/default/files/publications/OSHA3492QuickCardLabel.pdf
+  - OSHA Safety Data Sheet QuickCard. https://www.osha.gov/sites/default/files
+    /publications/OSHA3493QuickCardSafetyDataSheet.pdf
+  - OSHA, Hojas de Datos de Seguridad (QuickCard en español).
+    https://www.osha.gov/sites/default/files/publications/OSHA3518HCSsafety-
+    data-sheets-quickcard-spanish.pdf
+
+Informational safety talk only. It is not legal or regulatory advice, and it
+does not replace your company's safety program, a competent person's judgment
+on site, manufacturer instructions, or any training OSHA requires. Weather is
+the National Weather Service forecast at the time this talk was built and can
+change. Prepared by Westworks, an AI-run service, from public OSHA and NWS
+sources; not affiliated with or endorsed by OSHA, the U.S. Department of Labor
+or the National Weather Service. The NWS forecast data and quoted federal
+regulation text are U.S. Government works not subject to copyright (17 U.S.C.
+105).
+
+Free weekly bilingual toolbox talks: westworkshq.com/crew · Westworks (AI-run)
+
+
+==============================================================================
+CHARLA DE SEGURIDAD DE 5 MINUTOS
+Etiquetas de productos químicos y hojas de datos de seguridad: la actualización de HazCom de OSHA
+Construcción en general · Houston, TX
+Semana del 2 de noviembre de 2026
+==============================================================================
+
+Hoy: la actualización de HazCom de OSHA sobre etiquetas y hojas de datos de
+seguridad, y lo que el clima de esta semana significa para nuestro trabajo.
+
+EL CLIMA DE ESTA SEMANA Y LO QUE SIGNIFICA PARA NOSOTROS
+--------------------------------------------------------
+Día        Máx. / mín.  Ráfaga máx.  Prob. de lluvia  Notas
+lun 2 nov  81° / 70°    18 mph       8%               índice de calor 86°F,
+                                                      neblina
+mar 3 nov  81° / 72°    16 mph       85%              truenos 40%, índice de
+                                                      calor 86°F
+mié 4 nov  75° / 61°    9 mph        1%
+jue 5 nov  76° / 59°    7 mph        13%
+vie 6 nov  75° / 59°    9 mph        3%
+sáb 7 nov  72° / 58°    12 mph       15%
+Pronóstico del NWS para Houston, TX (condado de Harris), consultado el
+2026-11-01 17:21 CST. Los pronósticos cambian; revíselo cada mañana.
+
+TORMENTAS ELÉCTRICAS Y RAYOS
+El pronóstico indica tormentas eléctricas el martes 3 (probabilidad de truenos
+de hasta 40%).
+  - Si truena, a refugiarse. Si oye un trueno, aunque se oiga lejos, pare el
+    trabajo y vaya de inmediato a un lugar seguro. Un rayo puede caer a varias
+    millas de donde está lloviendo.
+  - Los lugares seguros son un edificio completamente cerrado, con instalación
+    eléctrica y de plomería, o un vehículo de metal con techo duro y las
+    ventanas cerradas. Afuera no hay ningún lugar seguro durante una tormenta
+    eléctrica.
+  - Espere por lo menos 30 minutos después del último trueno antes de volver a
+    salir.
+  - Si se está formando una tormenta, no empiece una tarea que no pueda parar
+    rápido. Sepa desde ahora dónde está nuestro refugio y cuánto tiempo se
+    tarda en llegar.
+  - Las grúas, los andamios, la estructura de acero y el equipo abierto son de
+    alto riesgo. Los operadores apagan el equipo y se refugian con todos los
+    demás.
+
+LLUVIA Y SUPERFICIES MOJADAS
+Es probable que llueva el martes 3 (probabilidad de lluvia de hasta 85%), unas
+0.5 pulgadas en la semana.
+  - El triplay (plywood), el acero, el metal y los peldaños mojados resbalan.
+    Vaya más despacio y límpiese el lodo de las botas antes de subir. No se
+    puede poner una escalera sobre una superficie resbalosa a menos que esté
+    asegurada o tenga patas antideslizantes.
+  - Agua y electricidad: mantenga las extensiones y herramientas fuera de los
+    charcos, revise que las extensiones no estén dañadas y conéctelas en
+    contactos (tomacorrientes) con protección GFCI (interruptor de circuito
+    por falla a tierra). OSHA exige GFCI o un programa de conexión a tierra
+    asegurada del equipo para los contactos temporales de 120 voltios en la
+    obra.
+  - Si hay zanjas o excavaciones, una persona competente debe inspeccionarlas
+    después de cada tormenta de lluvia antes de que alguien entre.
+  - Después de la lluvia, revisen que las tapas de los hoyos sigan en su
+    lugar, aseguradas y marcadas; el agua y el lodo las pueden esconder.
+
+TAMBIÉN ESTA SEMANA
+  - El domingo se atrasaron los relojes y ahora el sol se pone alrededor de
+    las 5:34 p. m. (cálculo nuestro con la fórmula solar de NOAA): planeen el
+    trabajo en alturas y la limpieza con luz de día.
+  - Calor y humedad el lunes 2 y el martes 3 (índice de calor de hasta 86°F):
+    agua, descanso y sombra.
+  - Posible neblina por la mañana el lunes 2: despacio, y reversa solo con
+    alarma o señalero.
+
+TEMA PRINCIPAL: Etiquetas de productos químicos y hojas de datos de seguridad: la actualización de HazCom de OSHA
+
+Toda cuadrilla trabaja con productos químicos. La norma de Comunicación de
+Peligros de OSHA, conocida como HazCom, le da el derecho de conocer sus
+peligros. OSHA actualizó la norma en 2024, y uno de sus plazos se cumple este
+mes. En una obra típica eso incluye combustible, solventes, adhesivos,
+selladores, desmoldante, limpiadores y productos de cemento y concreto.
+  - Algunas etiquetas y hojas de datos de seguridad (SDS, por sus siglas en
+    inglés) pueden verse un poco distintas. Los fabricantes tenían hasta el 19
+    de mayo de 2026 para actualizarlas en las sustancias puras, y tienen hasta
+    el 19 de noviembre de 2027 para las mezclas, que son la mayoría de los
+    productos que usamos.
+  - A más tardar el viernes 20 de noviembre de 2026, los empleadores deben,
+    según sea necesario, actualizar las etiquetas en el lugar de trabajo, el
+    programa escrito de HazCom y la capacitación sobre cualquier peligro nuevo
+    que aparezca en esas SDS actualizadas. Si algo en una etiqueta o una SDS
+    es nuevo para usted, pregúntenos.
+  - Toda etiqueta del fabricante muestra el nombre del producto, pictogramas
+    en forma de rombo rojo, una palabra de advertencia, indicaciones de
+    peligro, consejos de prudencia, y el nombre, la dirección y el teléfono
+    del proveedor. 'Danger' (Peligro) indica un peligro más grave que
+    'Warning' (Atención).
+  - Toda SDS tiene las mismas 16 secciones, en el mismo orden. La sección 2
+    indica los peligros, la sección 4 los primeros auxilios, y la sección 8
+    los controles de exposición y el equipo de protección personal (EPP) que
+    hay que usar.
+  - Usted tiene derecho a ver la SDS de cualquier producto químico con el que
+    trabaje, durante su turno. Sepa dónde las guardamos en esta obra. Si pasa
+    un producto químico a otro recipiente, póngale etiqueta, a menos que solo
+    usted lo vaya a usar y de inmediato.
+
+PARA PLATICAR
+  1. Escojan un producto que vayamos a usar esta semana. ¿Dónde está su SDS y
+     qué dice la sección 8 sobre el equipo de protección?
+  2. En una etiqueta, ¿qué es más grave: 'Danger' o 'Warning'?
+
+LO MÁS IMPORTANTE
+Lea la etiqueta antes de abrir el producto. Si el producto es nuevo, su
+etiqueta cambió o no tiene etiqueta, pare y pregunte.
+
+¿Preguntas? Pregunte a su supervisor o a la persona competente antes de
+empezar, no después.
+
+FUENTES
+Las fuentes oficiales están en inglés salvo donde se indica.
+  - NWS gridded forecast via api.weather.gov (retrieved at build time).
+    https://api.weather.gov/gridpoints/HGX/63,95
+  - OSHA, Hazard Communication overview. https://www.osha.gov/hazcom
+  - 29 CFR 1910.1200, Hazard Communication (applies to construction through 29
+    CFR 1926.59). https://www.osha.gov/laws-
+    regs/regulations/standardnumber/1910/1910.1200
+  - OSHA/NOAA Fact Sheet, Lightning Safety When Working Outdoors.
+    https://www.osha.gov/sites/default/files/publications/OSHA3863.pdf
+  - NWS, Lightning Safety Tips. https://www.weather.gov/safety/lightning-
+    safety
+  - 29 CFR 1926.1053, Ladders. https://www.osha.gov/laws-
+    regs/regulations/standardnumber/1926/1926.1053
+  - OSHA Portable Ladder Safety QuickCard (3-point contact). https://www.osha.
+    gov/sites/default/files/publications/portable_ladder_qc.pdf
+  - 29 CFR 1926.404(b)(1), GFCI or assured equipment grounding program.
+    https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.404
+  - 29 CFR 1926.651(k)(1), Excavation inspections (after every rainstorm).
+    https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.651
+  - 29 CFR 1926.502, Fall protection systems: guardrails, covers, personal
+    fall arrest, rescue. https://www.osha.gov/laws-
+    regs/regulations/standardnumber/1926/1926.502
+  - 29 CFR 1926.56, Illumination (Table D-3). https://www.osha.gov/laws-
+    regs/regulations/standardnumber/1926/1926.56
+  - OSHA, Heat: overview (water, rest, shade). https://www.osha.gov/heat-
+    exposure
+  - NWS, Fog Safety. https://www.weather.gov/safety/fog
+  - 29 CFR 1926.601(b)(4), vehicles: backup alarm or observer.
+    https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.601
+  - Federal Register 91 FR 1695 (Jan. 15, 2026), Hazard Communication
+    Standard: compliance dates extended four months.
+    https://www.federalregister.gov/documents/2026/01/15/2026-00653/hazard-
+    communication-standard
+  - OSHA, Questions & Answers for the 2024 HCS update (compliance-date table).
+    https://www.osha.gov/sites/default/files/HCS_Q-and-As_2026.pdf
+  - OSHA HazCom Label QuickCard (English p.1, Spanish p.2). https://www.osha.g
+    ov/sites/default/files/publications/OSHA3492QuickCardLabel.pdf
+  - OSHA Safety Data Sheet QuickCard. https://www.osha.gov/sites/default/files
+    /publications/OSHA3493QuickCardSafetyDataSheet.pdf
+  - OSHA, Hojas de Datos de Seguridad (QuickCard en español).
+    https://www.osha.gov/sites/default/files/publications/OSHA3518HCSsafety-
+    data-sheets-quickcard-spanish.pdf
+
+Charla de seguridad solo con fines informativos. No es asesoría legal ni
+normativa, y no sustituye el programa de seguridad de su empresa, el criterio
+de la persona competente en la obra, las instrucciones del fabricante ni
+ninguna capacitación que exija OSHA. El clima corresponde al pronóstico del
+Servicio Meteorológico Nacional (NWS) al momento de preparar esta charla y
+puede cambiar. Preparada por Westworks, un servicio operado por IA, a partir
+de fuentes públicas de OSHA y del NWS; sin afiliación ni respaldo de OSHA, del
+Departamento del Trabajo de EE. UU. ni del NWS. Los datos del pronóstico del
+NWS y el texto citado de reglamentos federales son obras del Gobierno de EE.
+UU. no sujetas a derechos de autor (17 U.S.C. 105). Traducción preparada por
+IA; aún no revisada por un hablante nativo. En caso de duda, siga la versión
+en inglés y las fuentes citadas.
+
+Free weekly bilingual toolbox talks: westworkshq.com/crew · Westworks (AI-run)
+
+
+==============================================================================
+TOOLBOX TALK SIGN-IN / HOJA DE FIRMAS DE LA CHARLA DE SEGURIDAD
+==============================================================================
+Topic / Tema: Chemical labels and safety data sheets: OSHA's HazCom update / Etiquetas de productos químicos y hojas de datos de seguridad: la actualización de HazCom de OSHA
+General construction · Houston, TX | Week of November 2, 2026
+Company / Empresa: ________________________________________
+Jobsite / address / Obra / dirección: ________________________________________
+Date and time / Fecha y hora: ________________________________________
+Presented by / Presentada por: ________________________________________
+Language(s) used / Idioma(s) usado(s): ________________________________________
+
+#   Printed name / Nombre (letra de molde) | Signature / Firma | Company / crew / Empresa / cuadrilla
+1   ______________________________  ____________________  ____________________
+2   ______________________________  ____________________  ____________________
+3   ______________________________  ____________________  ____________________
+4   ______________________________  ____________________  ____________________
+5   ______________________________  ____________________  ____________________
+6   ______________________________  ____________________  ____________________
+7   ______________________________  ____________________  ____________________
+8   ______________________________  ____________________  ____________________
+9   ______________________________  ____________________  ____________________
+10  ______________________________  ____________________  ____________________
+11  ______________________________  ____________________  ____________________
+12  ______________________________  ____________________  ____________________
+13  ______________________________  ____________________  ____________________
+14  ______________________________  ____________________  ____________________
+15  ______________________________  ____________________  ____________________
+
+Attendance record for an informational safety talk. It is not a certificate of training.
+Registro de asistencia a una charla informativa de seguridad. No es un certificado de capacitación. Español preparado por IA, aún no revisado por un hablante nativo.
+Free weekly bilingual toolbox talks: westworkshq.com/crew · Westworks (AI-run)

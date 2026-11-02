@@ -3,8 +3,9 @@
      publish to westworkshq.com/refrigerant/ (index.html + leakcore.js). No external requests: nothing typed leaves the browser.
      Rule facts verified against eCFR as of 2026-10-29 (see README.md; independent review in reviews/r2.md, 2026-11-01).
      Re-verify before each republish.
-     PAID SECTION: hidden by default. It lives in <template id="paidSection"> below and is shown only when
-     SHOW_PAID_SECTION (top of the script) is true. Flip it only after refrigerant/order.html and the Stripe link exist. -->
+     PAID SECTION: lives in <template id="paidSection"> below and is shown only when SHOW_PAID_SECTION (top of the script)
+     is true. refrigerant/order.html holds the offer, the Stripe link (plink_1UX7ubGkQMg1Yetz62u3PBiz) and the records form.
+     Activate the payment link before publishing with the flag on (see leak-rate-tool/LAUNCH-2026-11-01.md). -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -182,17 +183,17 @@ footer a{color:var(--muted)}
   <p class="small">Records you must keep for 3 years include each appliance's full charge and how it was determined, and for every service: the date, the parts serviced, the technician, pounds and type of refrigerant added, and the leak rate and method (<a href="https://www.ecfr.gov/current/title-40/part-84/section-84.106#p-84.106(l)">84.106(l)</a>). This log covers the numbers; keep the technicians' service records with it.</p>
 </div></section>
 
-<!-- PAID SECTION (hidden): see SHOW_PAID_SECTION in the script. Inert until enabled; order.html does not exist yet. -->
+<!-- PAID SECTION: see SHOW_PAID_SECTION in the script. The offer, checkout link and records form are in order.html. -->
 <div id="paidSlot"></div>
 <template id="paidSection">
 <section id="records"><div class="wrap">
   <div class="card" style="border-color:var(--sun)">
     <p class="kicker">Optional paid check</p>
     <h2>Want a second pair of eyes on your 2026 records before March 1?</h2>
-    <p>Export the log for each appliance (or paste in your service-ticket lines) and send it to us. Within 24 hours you get back, in plain text: every leak rate recomputed, any calculation or repair deadline that looks missed, which appliances (if any) cross 125% for 2026 and need a report by March 1, 2027, a worksheet with the twelve items EPA's chronic-leak report asks for, and a list of the records that are missing.</p>
-    <p><b>$79 per site</b> (up to 10 appliances), one-time, nothing renews. Full refund within 7 days if it isn't useful. It's a records check, not legal advice, and we don't file anything with EPA for you.</p>
-    <p class="row"><a class="btn sun" href="order.html">See how the records check works</a></p>
-    <p class="small">The calculator on this page stays free, with no signup and no email required.</p>
+    <p>The Leak Records Check: after checkout you load this page's log (or paste your service-ticket lines) into a form. Within 24 hours you get back by email: every leak rate recomputed, any calculation, repair or test deadline that looks missed (with the EPA paragraph), which appliances (if any) cross 125% for 2026 and need a report by March 1, 2027, a worksheet with the twelve items EPA's chronic-leak report asks for, and the records that look missing.</p>
+    <p><b>$79 per site</b> (up to 10 appliances), one-time, nothing renews. Full refund within 7 days if it isn't useful. It's a records check, not legal advice, and we don't file anything with EPA for you. Westworks is AI-run: an AI agent runs the check and answers your questions.</p>
+    <p class="row"><a class="btn sun" href="order.html">See how the records check works</a> <a class="btn ghost" href="sample.html">Sample check</a></p>
+    <p class="small">The calculator on this page stays free, with no signup and no email required. Nothing you type here is sent anywhere unless you buy the check and press Send on the order page.</p>
   </div>
 </div></section>
 </template>
@@ -249,7 +250,7 @@ footer a{color:var(--muted)}
 <script>
 (function () {
   'use strict';
-  var SHOW_PAID_SECTION = false; // the one switch for the paid "Leak Records Check" section (needs refrigerant/order.html first)
+  var SHOW_PAID_SECTION = true; // the one switch for the paid "Leak Records Check" section (order.html + payment link plink_1UX7ubGkQMg1Yetz62u3PBiz)
   var L = window.LeakCore;
   if (SHOW_PAID_SECTION) { var tpl = document.getElementById('paidSection'); if (tpl) document.getElementById('paidSlot').appendChild(tpl.content.cloneNode(true)); }
   var $ = function (id) { return document.getElementById(id); };

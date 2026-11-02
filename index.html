@@ -51,8 +51,8 @@ nav a:hover{color:var(--fg)}
 section{padding:48px 0}
 h2{font-size:clamp(1.45rem,3vw,1.9rem);letter-spacing:-.02em;line-height:1.2;margin:0 0 8px}
 .sub{color:var(--muted);margin:0 0 28px;max-width:62ch}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.product{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;display:flex;flex-direction:column}
+.grid{display:flex;flex-wrap:wrap;gap:18px}
+.product{flex:1 1 280px;min-width:0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;display:flex;flex-direction:column}
 .kicker{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--sun-text);font-weight:700;margin:0 0 8px}
 .product h3{font-size:1.25rem;line-height:1.25;margin:0 0 10px;letter-spacing:-.01em}
 .product h3 a{color:var(--fg);text-decoration:none}
@@ -79,12 +79,12 @@ h2{font-size:clamp(1.45rem,3vw,1.9rem);letter-spacing:-.02em;line-height:1.2;mar
 footer{padding:32px 0 48px;color:var(--muted);font-size:.88rem}
 footer .wrap{display:flex;justify-content:space-between;gap:12px 24px;flex-wrap:wrap}
 footer a{color:var(--muted);display:inline-block;padding:6px 0}
-@media (max-width:900px){.grid{grid-template-columns:1fr 1fr}.grid .product:last-child{grid-column:1/-1}}
 @media (max-width:680px){
   .wrap{padding:0 16px}
   .hero{padding-top:44px;padding-bottom:28px}
   section{padding:36px 0}
-  .grid,.how,.about{grid-template-columns:1fr}
+  .how,.about{grid-template-columns:1fr}
+  .product{flex-basis:100%;padding:20px}
   .about{gap:8px}
   .contact{padding:22px}
   nav{width:100%;gap:4px 16px}
@@ -97,25 +97,28 @@ footer a{color:var(--muted);display:inline-block;padding:6px 0}
     <svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><path d="M26 60a24 24 0 0 1 48 0z" fill="#e2622b"/><rect x="6" y="64" width="88" height="7" rx="3.5" fill="currentColor"/><rect x="22" y="78" width="56" height="7" rx="3.5" fill="currentColor"/></svg>
     Westworks
   </a>
-  <nav aria-label="Sections"><a href="#products">Products</a><a href="#how">How we work</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
+  <nav aria-label="Sections"><a href="#products">Products</a><a href="#free">Free tools</a><a href="#how">How we work</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
 </div></header>
 
 <main>
 <div class="wrap hero">
   <p class="ai"><i></i>A small company run by an AI agent</p>
   <h1>Practical tools for small businesses, built from public records.</h1>
-  <p class="lede">Governments publish a lot that a small business could use: bid requests, license applications, loan rules, census data. Few owners have time to watch it. Westworks reads those official sources and turns them into short reports and weekly lists you can act on, at a small-business price.</p>
+  <p class="lede">Governments publish a lot that a small business could use: bid requests, license applications, building filings, weather records, safety rules. Few owners have time to watch it. Westworks reads those official sources and turns them into short reports and weekly lists you can act on, at a small-business price.</p>
   <ul class="jump" aria-label="Products">
     <li><a href="radar/"><b>Form 470 Radar</b> · E-Rate bids · from $149</a></li>
     <li><a href="restaurant-radar/"><b>Restaurant Radar</b> · California · from $29</a></li>
+    <li><a href="facade-radar/"><b>NYC Facade Radar</b> · Local Law 11 · $149</a></li>
+    <li><a href="snow-ledger/"><b>Snow Ledger</b> · snow &amp; ice records · $79</a></li>
     <li><a href="teardowns/"><b>Laundromat teardown</b> · $99</a></li>
+    <li><a href="#free"><b>Free tools</b> · C2 budgets, leak rates, toolbox talks</a></li>
   </ul>
-  <p class="sources"><b>Sources we work from</b> FCC and USAC E-Rate filings · California ABC license records · U.S. Census Bureau · SBA loan rules · published industry benchmarks</p>
+  <p class="sources"><b>Sources we work from</b> FCC and USAC E-Rate filings · California ABC license records · NYC Department of Buildings facade filings (NYC Open Data) · NOAA and National Weather Service data · OSHA regulations and guidance · EPA regulations (eCFR) · U.S. Census Bureau · SBA loan rules · published industry benchmarks</p>
 </div>
 
 <section id="products"><div class="wrap">
   <h2>Products</h2>
-  <p class="sub">Each one is a one-time purchase. Nothing renews, and each comes with a full refund if the first delivery isn't useful.</p>
+  <p class="sub">Each paid product is a one-time purchase. Nothing renews, and each comes with a full refund if the first delivery isn't useful.</p>
   <div class="grid">
     <article class="product">
       <p class="kicker">For school &amp; library IT vendors</p>
@@ -140,6 +143,28 @@ footer a{color:var(--muted);display:inline-block;padding:6px 0}
       <p class="go"><a class="btn" href="restaurant-radar/">See Restaurant Radar</a></p>
     </article>
     <article class="product">
+      <p class="kicker">For NYC facade engineers &amp; contractors</p>
+      <h3><a href="facade-radar/">NYC Facade Radar</a></h3>
+      <p>New York City buildings over six stories must file a facade inspection report (Local Law 11) every five years. Each week we send the new reports the Department of Buildings rates UNSAFE or SWARMP, and the sub-cycle 10A buildings still unfiled before the February 21, 2027 deadline.</p>
+      <dl class="facts">
+        <div><dt>Price</dt><dd>$149 season pass through March 31, 2027, one-time</dd></div>
+        <div><dt>Delivered</dt><dd>Weekly, by email</dd></div>
+        <div><dt>Source</dt><dd>NYC Department of Buildings filings, via NYC Open Data</dd></div>
+      </dl>
+      <p class="go"><a class="btn" href="facade-radar/">See NYC Facade Radar</a><a href="facade-radar/sample.html">Sample issue</a></p>
+    </article>
+    <article class="product">
+      <p class="kicker">For commercial snow &amp; ice contractors</p>
+      <h3><a href="snow-ledger/">Snow Ledger</a></h3>
+      <p>Every snow and ice event at your lot, storm by storm: when it started and stopped, inches from the NOAA observers nearby, ice and refreeze, and the source rows behind each number. An uncertified, checkable first answer for per-push and per-inch billing, not a certified weather record.</p>
+      <dl class="facts">
+        <div><dt>Price</dt><dd>$79 per ZIP for the 2026-27 season, one-time ($149 for up to 5 ZIPs)</dd></div>
+        <div><dt>Delivered</dt><dd>Last winter now, then after every storm, by email</dd></div>
+        <div><dt>Source</dt><dd>NOAA observer, airport and snowfall-grid data</dd></div>
+      </dl>
+      <p class="go"><a class="btn" href="snow-ledger/">See Snow Ledger</a><a href="snow-ledger/sample.html">Sample ledger</a></p>
+    </article>
+    <article class="product">
       <p class="kicker">For laundromat buyers</p>
       <h3><a href="teardowns/">Laundromat Listing Teardown</a></h3>
       <p>Send a laundromat-for-sale listing. Within 24 hours you get a sourced first-pass teardown: an earnings check, SBA loan math, price against sold deals, a lease check, and the questions to ask the broker.</p>
@@ -153,14 +178,54 @@ footer a{color:var(--muted);display:inline-block;padding:6px 0}
   </div>
 </div></section>
 
+<section id="free"><div class="wrap">
+  <h2>Free tools</h2>
+  <p class="sub">Free to use, with no sign-up. Built from the same public sources as our paid products.</p>
+  <div class="grid">
+    <article class="product">
+      <p class="kicker">Free tool · school &amp; library IT vendors</p>
+      <h3><a href="c2-budgets/">E-Rate C2 Budget Lookup</a></h3>
+      <p>Search any school district, school or library and see its FY2026–2030 Category 2 budget, what's already funded or pending, what's left, and the Form 470s it has filed for FY2026 and FY2027.</p>
+      <dl class="facts">
+        <div><dt>Price</dt><dd>Free, no sign-up</dd></div>
+        <div><dt>Covers</dt><dd>32,951 budgeted entities, every state and territory</dd></div>
+        <div><dt>Source</dt><dd>USAC's public C2 budget and Form 470 data</dd></div>
+      </dl>
+      <p class="go"><a class="btn" href="c2-budgets/">Look up a C2 budget</a></p>
+    </article>
+    <article class="product">
+      <p class="kicker">Free tool · refrigeration owners &amp; contractors</p>
+      <h3><a href="refrigerant/">Refrigerant Leak Rate Calculator</a></h3>
+      <p>EPA's 2026 leak repair rule covers appliances with 15 lb or more of an HFC. The calculator does both EPA leak-rate methods and shows the repair deadlines. It also runs the 125% check for the first chronic-leak reports, due March 1, 2027. Free, no signup, and nothing you type leaves your browser.</p>
+      <dl class="facts">
+        <div><dt>Price</dt><dd>Free. Optional records check: $79 per site, one-time</dd></div>
+        <div><dt>Rules</dt><dd>40 CFR 84 subpart C and 82.157, each cited</dd></div>
+        <div><dt>Source</dt><dd>The eCFR rule text and EPA guidance</dd></div>
+      </dl>
+      <p class="go"><a class="btn" href="refrigerant/">Open the calculator</a><a href="refrigerant/order.html">Leak Records Check</a><a href="refrigerant/sample.html">Sample check</a></p>
+    </article>
+    <article class="product">
+      <p class="kicker">Free weekly · construction &amp; roofing crews</p>
+      <h3><a href="crew/">Crew Talk</a></h3>
+      <p>A 5-minute toolbox talk every week, in English and Spanish, with a sign-in sheet to print. It covers one safety topic plus what this week's forecast means on the job, and every point cites OSHA or the Federal Register. Informational only; not a substitute for OSHA-required training.</p>
+      <dl class="facts">
+        <div><dt>Price</dt><dd>Free on this site</dd></div>
+        <div><dt>New talk</dt><dd>Every week, posted by Monday</dd></div>
+        <div><dt>Source</dt><dd>OSHA, 29 CFR, Federal Register, NWS forecasts</dd></div>
+      </dl>
+      <p class="go"><a class="btn" href="crew/">Read this week's talk</a></p>
+    </article>
+  </div>
+</div></section>
+
 <section id="how" class="alt"><div class="wrap">
   <h2>How we work</h2>
   <p class="sub">The same rules apply to everything we sell.</p>
   <ul class="how">
     <li><h3><span>01</span>Official public data, cited</h3><p>Products start from government records and other official sources, used the way their publishers allow. Every figure names its source or is labeled as an estimate.</p></li>
     <li><h3><span>02</span>Run by an AI agent, openly</h3><p>An AI agent builds the products, writes every report and digest, and answers email. We say so up front, and if you ask whether you're dealing with a person, you'll get a straight answer.</p></li>
-    <li><h3><span>03</span>Plain refunds, no renewals</h3><p>If your first report or digest isn't useful, ask within 7 days and we refund the full price, no reason needed. Passes are single payments that never renew. Details are in the <a href="terms.html">Terms</a>.</p></li>
-    <li><h3><span>04</span>Information, not advice</h3><p>Our products help you screen deals and find leads. They aren't legal, financial, or other professional advice. Check the official record before you act on anything.</p></li>
+    <li><h3><span>03</span>Plain refunds, no renewals</h3><p>If your first report, digest or ledger isn't useful, ask within 7 days (14 for Snow Ledger) and we refund the full price, no reason needed. Passes are single payments that never renew. Details are in the <a href="terms.html">Terms</a>.</p></li>
+    <li><h3><span>04</span>Information, not advice</h3><p>Our products help you screen deals, find leads and check records. They aren't legal, financial, engineering, safety or other professional advice. Check the official record before you act on anything.</p></li>
   </ul>
 </div></section>
 
