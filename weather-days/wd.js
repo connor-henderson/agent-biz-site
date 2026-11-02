@@ -219,13 +219,18 @@
     });
     return out;
   }
-  // For each threshold, the nearest normals station within 50 km that publishes its type.
-  function pickNormals(ths, normStations, maxKm) {
+  // For each threshold: the counting station's own normals when NOAA publishes that type for it (prefer =
+  // {thresholdKey: stationId}), so actual and normal come from the same gauge; otherwise the nearest normals
+  // station within 50 km that publishes the type. (QA 2026-11-02: Miami ZIP 33101 counted heat days at Miami
+  // airport but compared them with Miami Beach's normal, 59 vs. the airport's own 183 over 24 months.)
+  function pickNormals(ths, normStations, maxKm, prefer) {
     var out = {};
     ths.forEach(function (th) {
       if (!th.normalType) { out[th.key] = null; return; }
-      var s = normStations.filter(function (n) { return n.km <= (maxKm || 50) && n.types.indexOf(th.normalType) >= 0; })[0];
-      out[th.key] = s ? { id: s.id, name: s.name, km: s.km, type: th.normalType } : null;
+      var ok = normStations.filter(function (n) { return n.km <= (maxKm || 50) && n.types.indexOf(th.normalType) >= 0; });
+      var want = prefer && prefer[th.key];
+      var s = (want && ok.filter(function (n) { return n.id === want; })[0]) || ok[0];
+      out[th.key] = s ? { id: s.id, name: s.name, km: s.km, type: th.normalType, same: !!want && s.id === want } : null;
     });
     return out;
   }
@@ -413,7 +418,9 @@
       var url = NCEI_SEARCH + '?dataset=normals-monthly-1991-2020&bbox=' + bbox(res.lat, res.lon, 0.5) + '&limit=1000';
       return fetchJSON(url).then(function (j) {
         var ns = parseSearch(j, res.lat, res.lon);
-        res.normals = pickNormals(ths, ns, 50);
+        var prefer = {};
+        ths.forEach(function (h) { prefer[h.key] = res.thSource[h.key] || res.stations[0].id; });
+        res.normals = pickNormals(ths, ns, 50, prefer);
         var ids = {}, typ = {};
         ths.forEach(function (h) { var n = res.normals[h.key]; if (n) { ids[n.id] = 1; typ[h.normalType] = 1; } });
         if (!Object.keys(ids).length) return [];

@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Westworks C2 Prospect CSV, order page. Open code: the CSV is built in the buyer's browser
+     from USAC Open Data by c2csv.js. The payment link (PAY below) is INACTIVE until the operator
+     publishes it; see experiments/candidates/c2-prospect-csv/README.md in the agent-biz repo. -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Every E-Rate school, district and library in a state, ranked by C2 budget left, with C2 discount, vendors since FY2021 and Form 470 status. $49 one-time.">
+<link rel="canonical" href="https://westworkshq.com/c2-budgets/csv.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Westworks">
+<meta property="og:url" content="https://westworkshq.com/c2-budgets/csv.html">
+<meta property="og:title" content="E-Rate C2 Prospect CSV by state · Westworks">
+<meta property="og:description" content="Every E-Rate entity in a state, ranked by Category 2 budget left, joined with discount rate, last cycle's C2 use, C2 vendors since FY2021 and Form 470 status. From USAC Open Data.">
+<meta property="og:image" content="https://westworkshq.com/assets/icon-512.png">
+<meta name="twitter:card" content="summary">
+<title>E-Rate C2 Prospect CSV by State · Westworks</title>
+<link rel="icon" href="../assets/icon-512.png">
+<meta name="theme-color" content="#fbfaf7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141413" media="(prefers-color-scheme: dark)">
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1d1b;--muted:#5b5b57;--accent:#1f5f8b;--card:#fff;--line:#e4e1da;--soft:#f3f1ec;--good:#2f7a4a;--warn:#a5481c}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--fg:#ecebe6;--muted:#a8a69f;--accent:#6fb0e0;--card:#1d1d1b;--line:#33322f;--soft:#1a1a19;--good:#6cc08b;--warn:#f0956a}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:820px;margin:0 auto;padding:28px 16px 64px}
+a{color:var(--accent);overflow-wrap:anywhere}
+.crumb{margin:0 0 20px;font-size:.9rem;color:var(--muted)}.crumb a{color:inherit;display:inline-block;padding:6px 0}
+h1{font-size:2rem;line-height:1.2;margin:0 0 12px}h2{font-size:1.2rem;margin:36px 0 8px}
+.lede{color:var(--muted);font-size:1.08rem;margin:0 0 6px}
+.small{font-size:.88rem;color:var(--muted)}
+.buy{background:var(--card);border:2px solid var(--accent);border-radius:12px;padding:18px;margin:22px 0}
+.buy h2{margin:0 0 6px}.price{font-size:1.9rem;font-weight:700;margin:2px 0 6px}
+.buy p{margin:8px 0}
+label{display:block;font-size:.82rem;color:var(--muted);margin:0 0 3px;font-weight:600}
+select{width:100%;font:inherit;font-size:16px;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 10px;min-height:44px}
+.cta{display:block;text-align:center;font-weight:700;text-decoration:none;background:var(--accent);color:#fff;border-radius:10px;padding:13px 16px;margin:12px 0 4px;min-height:48px}
+.cta[aria-disabled=true]{opacity:.5;pointer-events:none}
+@media (prefers-color-scheme:dark){.cta{color:#141413}}
+#stinfo{font-size:.95rem;min-height:1.5em}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:10px;margin:10px 0;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:.84rem;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.76rem;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+dl.cols dt{font-weight:600;margin-top:10px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88rem;overflow-wrap:anywhere}
+dl.cols dd{margin:0;color:var(--muted);font-size:.93rem}
+.disclose{border-left:3px solid var(--accent);padding:8px 14px;background:var(--card);margin:16px 0;font-size:.95rem}
+.soft{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:24px 0;font-size:.95rem}
+details{border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:8px 0;background:var(--card)}
+summary{font-weight:600;cursor:pointer}
+ul{padding-left:20px}li{margin:4px 0}
+footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
+@media (max-width:560px){h1{font-size:1.55rem}}
+</style>
+</head>
+<body>
+<main>
+<p class="crumb"><a href="../">Westworks</a> / <a href="./">C2 Budget Lookup</a> / Prospect CSV</p>
+<h1>E-Rate C2 prospect list for one state, as a CSV</h1>
+<p class="lede">Every school, district and library in the state with a FY2026–2030 Category 2 budget, ranked by how much is left. Each row adds the entity's C2 discount rate, how much of last cycle's budget it used, its C2 vendors since FY2021, its consultant's CRN, and whether it has a Form 470 out for FY2027. Built in your browser from USAC's public data the moment you pay.</p>
+
+<div class="buy" id="buy">
+  <h2>One state, $49</h2>
+  <p class="price">$49 <span class="small">one-time, never renews</span></p>
+  <label for="st">State</label>
+  <select id="st"><option value="">Choose a state…</option></select>
+  <p id="stinfo" aria-live="polite"></p>
+  <a class="cta" id="buylink" href="#" aria-disabled="true">Get the CSV, $49</a>
+  <p class="small" id="buynote">Payment is by Stripe. After paying you land on the download page, which pulls the latest USAC data and saves the CSV (opens in Excel, Sheets or any CRM import). No account. By buying, you agree to our <a href="../terms.html#c2-csv">Terms</a>. Sales tax, if any, is calculated at checkout.</p>
+</div>
+
+<p>The free <a href="./">C2 Budget Lookup</a> stays free: search any entity's budget, funded, pending and left, and its own Form 470s. The CSV is for when you want the whole state in a spreadsheet with the joins already done.</p>
+
+<h2>Sample rows (Delaware, top 3 of 92, USAC data pulled 2026-11-02)</h2>
+<div class="tbl"><table>
+<thead><tr><th>Rank</th><th>Entity</th><th>Left</th><th>Discount</th><th>Est. E-Rate share of left</th><th>Last cycle used</th><th>C2 vendors since FY2021 (pre-discount)</th><th>Latest 470</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>RED CLAY SCHOOL DISTRICT<br><span class="small">School District · WILMINGTON · BEN 126297 · Forecast</span></td><td>$2,804,443</td><td>80%</td><td>$2,243,555</td><td>100%</td><td>CDW Government LLC ($2,283,315); Arugie Enterprises Corporation ($689,452); Gator Networking Services Inc. ($170,657)</td><td>#260010100</td></tr>
+<tr><td>2</td><td>CHRISTINA SCHOOL DISTRICT<br><span class="small">School District · NEWARK · BEN 126284 · Forecast</span></td><td>$2,527,083</td><td>85%</td><td>$2,148,021</td><td>96.9%</td><td>CDW Government LLC ($2,167,727)</td><td>none under its BEN</td></tr>
+<tr><td>3</td><td>APPOQUINIMINK SCHOOL DISTRICT<br><span class="small">School District · ODESSA · BEN 126290 · Confirmed</span></td><td>$2,096,619</td><td>60%</td><td>$1,257,971</td><td>86.8%</td><td>CDW Government LLC ($1,546,353); WiFi Intergrators for Innovation ($472,690); GRAYBAR ELECTRIC COMPANY, INC. ($168,881)</td><td>#260021933</td></tr>
+</tbody></table></div>
+<p class="small">The CSV has 36 columns per row (listed below). Vendor names are spelled as USAC publishes them. Dollar figures are USAC's; the E-Rate share is our estimate (left × discount).</p>
+
+<h2>What's in each row</h2>
+<dl class="cols">
+<dt>rank, ben, entity_name, entity_type, city, state, budget_status</dt><dd>USAC's Billed Entity Number (BEN), name, type (School District, School, Library, Library System), city, and budget status (Forecast, Preliminary, Confirmed). Sorted by budget left, largest first.</dd>
+<dt>full_time_students, library_sq_ft, child_entities</dt><dd>The inputs USAC bases the budget on, and how many schools or branches sit under the entity.</dd>
+<dt>c2_budget_fy2026_2030, funded, pending, left, pct_left</dt><dd>USAC's five-year pre-discount C2 budget and its own funded, pending and available figures.</dd>
+<dt>c2_discount_pct, c2_discount_from_fy, est_erate_share_of_left</dt><dd>The discount on the entity's latest funded or pending C2 funding request filed under its own BEN, the year it came from, and our estimate of what E-Rate would pay on the rest of the budget (left × discount). Blank when the entity hasn't filed a C2 request under its own BEN since FY2021.</dd>
+<dt>prev_cycle_budget_fy2021_2025, prev_cycle_funded, prev_cycle_used_pct</dt><dd>Last cycle's budget and how much of it was funded: a quick read on whether the entity actually spends its C2 money.</dd>
+<dt>c2_frns_fy2021_on, last_c2_frn_fy, c2_vendors_fy2021_on, latest_c2_contract_end</dt><dd>Funded or pending C2 funding requests (FRNs) filed under the BEN since FY2021, the latest year, the top 3 service providers by pre-discount amount, and the latest contract expiration date on those FRNs.</dd>
+<dt>consultant_crn</dt><dd>The Consultant Registration Number USAC lists on the entity's budget record, if any. Look it up in USAC's data if you need the firm. We don't put names of people in the file.</dd>
+<dt>flags</dt><dd><code>forecast_not_validated</code>, <code>requests_exceed_budget</code>, <code>large_single_school_forecast</code>: the same caveats the free lookup shows.</dd>
+<dt>f470_fy2026_count, f470_fy2027_count, latest_470_*, fy2027_c2_470_bidding_open</dt><dd>Certified Form 470s filed under the BEN for FY2026 and FY2027, the newest one's number, year, categories, certified date and allowable contract date, and <code>yes</code> when a FY2027 Form 470 that includes Category 2 still has its 28-day bidding window open on the day you download.</dd>
+<dt>usac_data_pulled_utc</dt><dd>When your browser pulled the data from USAC.</dd>
+</dl>
+
+<h2>Questions</h2>
+<details><summary>Where does the data come from?</summary><p>Three USAC Open Data datasets, queried live from your browser: <a href="https://opendata.usac.org/d/6brt-5pbv">C2 Budget Tool Data FY2021+</a> (6brt-5pbv), <a href="https://opendata.usac.org/d/qdmp-ygft">Form 471 FRN Status</a> (qdmp-ygft), and <a href="https://opendata.usac.org/d/jt8s-3q52">FCC Form 470 Tool Data</a> (jt8s-3q52). USAC publishes all three under a Public Domain license. Westworks is not affiliated with, or endorsed by, USAC or the FCC.</p></details>
+<details><summary>Are there contact names or emails?</summary><p>No. The CSV carries entity names, types, cities, BENs, budget figures, form numbers, and service providers' business names as USAC publishes them, and nothing about individual people. USAC states that email harvesting is not an authorized use of its open data. Find the right contact through the entity's own website or its Form 470.</p></details>
+<details><summary>Couldn't I build this myself?</summary><p>Yes. Everything comes from public USAC data, and the code that builds it (<a href="c2csv.js">c2csv.js</a>) is open. The $49 pays for the joins: this cycle's budget, last cycle's use, the C2 discount, vendors and Form 470 status in one row per entity, refreshed every time you download. The download page doesn't check your payment with Stripe; it trusts the checkout link, so please be fair.</p></details>
+<details><summary>How fresh is it?</summary><p>As fresh as USAC's data at the moment you download. When we checked on 2026-11-02, USAC's metadata showed all three datasets updated within the previous two days. You can rebuild the same state's CSV from your download link later.</p></details>
+<details><summary>What if it doesn't work?</summary><p>If the CSV fails to generate for your state, ask for a refund within 14 days from the link on the download page and we refund the full price. If USAC's service is down, try the same link later.</p></details>
+<details><summary>Who runs this?</summary><p>Westworks, an AI-run company. An AI agent built this tool. The CSV is computed in your browser from USAC's data; no person checks each row.</p></details>
+
+<div class="disclose"><strong>Information only.</strong> Figures are copied from USAC's public data as published, can lag or change, and are not procurement, legal or E-Rate compliance advice. Verify any number in USAC's <a href="https://opendata.usac.org/E-Rate/E-Rate-C2-Budget-Tool-FY2021-/8z69-hkn7">C2 Budget Tool</a> before you rely on it. Follow the FCC's competitive bidding rules when you respond to a Form 470.</div>
+
+<footer><a href="../">Westworks</a> · westworkshq.com · <a href="./">C2 Budget Lookup</a> · <a href="../terms.html#c2-csv">Terms</a> · <a href="../privacy.html">Privacy</a><br>
+Data: Universal Service Administrative Company (USAC) Open Data, licensed Public Domain. Westworks is not affiliated with, or endorsed by, USAC or the FCC. Westworks is AI-run.</footer>
+<script>
+(function () {
+  // Stripe payment link. INACTIVE until the operator publishes it (Stripe shows its own
+  // "no longer available" page meanwhile). Set to '' to disable the button entirely.
+  var PAY = ''; // inactive link: https://buy.stripe.com/aFaaEXaei8Jm6uVeqP9EI0b (activate, then restore)
+  var NAMES = {AK:'Alaska',AL:'Alabama',AR:'Arkansas',AS:'American Samoa',AZ:'Arizona',CA:'California',CO:'Colorado',CT:'Connecticut',DC:'District of Columbia',DE:'Delaware',FL:'Florida',GA:'Georgia',GU:'Guam',HI:'Hawaii',IA:'Iowa',ID:'Idaho',IL:'Illinois',IN:'Indiana',KS:'Kansas',KY:'Kentucky',LA:'Louisiana',MA:'Massachusetts',MD:'Maryland',ME:'Maine',MI:'Michigan',MN:'Minnesota',MO:'Missouri',MP:'Northern Mariana Islands',MS:'Mississippi',MT:'Montana',NC:'North Carolina',ND:'North Dakota',NE:'Nebraska',NH:'New Hampshire',NJ:'New Jersey',NM:'New Mexico',NV:'Nevada',NY:'New York',OH:'Ohio',OK:'Oklahoma',OR:'Oregon',PA:'Pennsylvania',PR:'Puerto Rico',RI:'Rhode Island',SC:'South Carolina',SD:'South Dakota',TN:'Tennessee',TX:'Texas',UT:'Utah',VA:'Virginia',VI:'U.S. Virgin Islands',VT:'Vermont',WA:'Washington',WI:'Wisconsin',WV:'West Virginia',WY:'Wyoming'};
+  var $ = function (id) { return document.getElementById(id); };
+  var st = $('st'), a = $('buylink'), idx = null;
+  function short(v) { var x = Math.abs(v); return '$' + (x >= 1e9 ? (x / 1e9).toFixed(2) + 'B' : x >= 1e6 ? (x / 1e6).toFixed(1) + 'M' : Math.round(x / 1e3) + 'K'); }
+  function upd() {
+    var s = st.value, live = /^https:\/\/buy\.stripe\.com\//.test(PAY);
+    if (!s) { $('stinfo').textContent = ''; a.setAttribute('aria-disabled', 'true'); a.href = '#'; a.textContent = 'Choose a state first'; return; }
+    var d = idx && idx.states[s];
+    $('stinfo').textContent = d ? (NAMES[s] || s) + ': ' + d.n.toLocaleString('en-US') + ' rows, about ' + short(d.available) + ' of C2 budget left (USAC figures from our ' + String(idx.pulled_utc || '').slice(0, 10) + ' pull; your CSV uses the live data).' : '';
+    if (!live) { a.setAttribute('aria-disabled', 'true'); a.href = '#'; a.textContent = 'Checkout opens soon'; return; }
+    a.removeAttribute('aria-disabled'); a.href = PAY; a.textContent = 'Get the ' + (NAMES[s] || s) + ' CSV, $49';
+  }
+  Object.keys(NAMES).sort(function (x, y) { return NAMES[x].localeCompare(NAMES[y]); }).forEach(function (c) {
+    var o = document.createElement('option'); o.value = c; o.textContent = NAMES[c]; st.appendChild(o);
+  });
+  var p0 = (new URLSearchParams(location.search).get('state') || '').toUpperCase();
+  if (NAMES[p0]) st.value = p0;
+  st.addEventListener('change', function () { upd(); try { history.replaceState(null, '', location.pathname + (st.value ? '?state=' + st.value : '')); } catch (e) {} });
+  a.addEventListener('click', function (e) {
+    if (!st.value || a.getAttribute('aria-disabled') === 'true') { e.preventDefault(); return; }
+    try { localStorage.setItem('c2csv-state', st.value); } catch (err) {}
+  });
+  upd();
+  fetch('data/index.json').then(function (r) { return r.json(); }).then(function (d) {
+    idx = d;
+    Array.prototype.forEach.call(st.options, function (o) { if (o.value && d.states[o.value]) o.textContent = NAMES[o.value] + ' (' + d.states[o.value].n.toLocaleString('en-US') + ')'; });
+    upd();
+  }).catch(function () {});
+})();
+</script>
+<script>
+try { var q = new URLSearchParams(location.search), r = document.referrer ? new URL(document.referrer).hostname : '';
+  navigator.sendBeacon('https://script.google.com/macros/s/AKfycbxOqURWCEJMjC8nIms06TAmXw5QJuwNAkjeaD2AD4Wmqoe34Wv79IfstT2PrPnoKvm6/exec', new URLSearchParams({ action: 'hit', page: 'c2-csv', source: q.get('utm_source') || '', ref: r })); } catch (e) {}
+</script>
+</main>
+</body>
+</html>

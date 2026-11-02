@@ -86,6 +86,12 @@ footer{margin-top:40px;font-size:.84rem;color:var(--muted);line-height:1.8}
   <p><a href="./">Run the free count and get the report from there</a>. If you paid and landed here without your report, use the link in your Stripe receipt email, or reply to it, and we'll sort it out.</p>
 </div>
 
+<div id="unpaid" hidden>
+  <h1>Weather Days full report</h1>
+  <p>We couldn't confirm a completed Weather Days payment for this checkout reference with Stripe. If checkout is still finishing, reload this page in a minute.</p>
+  <p>If you paid and still see this, <a id="uqlink" href="../order.html">tell us</a> and we'll sort it out, or <a href="./">run the free count</a>.</p>
+</div>
+
 <div id="form" hidden>
   <h1>Your Weather Days report</h1>
   <p id="formlede">Payment received. Confirm the ZIP, dates and thresholds for your report.</p>
@@ -121,11 +127,29 @@ Data: NOAA National Centers for Environmental Information (GHCN-Daily, including
   var p = new URLSearchParams(location.search);
   var sid = p.get('session_id') || p.get('id') || '';
   if (!/^cs_(live|test)_[A-Za-z0-9]{10,200}$/.test(sid)) { $('gate').hidden = false; return; }
-  $('help').hidden = false;
-  $('qlink').href = '../order.html?id=' + encodeURIComponent(sid) + '&type=question';
-  $('rlink').href = '../order.html?id=' + encodeURIComponent(sid) + '&type=refund';
-  // Desk hit counter: page name only, never the session id.
-  try { navigator.sendBeacon('https://script.google.com/macros/s/AKfycbxOqURWCEJMjC8nIms06TAmXw5QJuwNAkjeaD2AD4Wmqoe34Wv79IfstT2PrPnoKvm6/exec', new URLSearchParams({ action: 'hit', page: 'weather-days-report', source: '', ref: '' })); } catch (e) {}
+
+  // UNLOCK-V2 (experiments/candidates/weather-days/UNLOCK-V2.md), OFF while PAID_CHECK_URL is ''. When set to the
+  // order desk's /exec URL, the page asks the desk (action=paid) whether Stripe shows this session as paid
+  // through the Weather Days payment link. A clear "not paid" shows the #unpaid box. Anything else (desk not
+  // deployed, no key yet, busy, slow, offline) falls back to the honor system below, so a buyer is never
+  // locked out by our own outage.
+  var PAID_CHECK_URL = '';
+  function checkPaid() {
+    if (!PAID_CHECK_URL) return Promise.resolve('skip');
+    var ctl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctl) ctl.abort(); }, 8000);
+    return fetch(PAID_CHECK_URL + '?action=paid&exp=weather-days&id=' + encodeURIComponent(sid), ctl ? { signal: ctl.signal } : {})
+      .then(function (r) { return r.json(); })
+      .then(function (j) { clearTimeout(timer); return j && j.ok === true ? (j.paid === true ? 'paid' : 'unpaid') : 'unknown'; },
+            function () { clearTimeout(timer); return 'unknown'; });
+  }
+  if (PAID_CHECK_URL) $('status').textContent = 'Checking your payment with Stripe…';
+  checkPaid().then(function (v) {
+    $('status').textContent = '';
+    if (v === 'unpaid') { $('unpaid').hidden = false; $('uqlink').href = '../order.html?id=' + encodeURIComponent(sid) + '&type=question&p=weather-days'; return; }
+    start();
+  });
+
 
   var names = { rain: 'Rain: precip ≥', snow: 'Snowfall ≥', freeze: 'Low ≤', heat: 'High ≥', wind: 'Wind ≥' };
   $('ths').innerHTML = ORDER.map(function (k) {
@@ -150,11 +174,18 @@ Data: NOAA National Centers for Environmental Information (GHCN-Daily, including
       q.ths.forEach(function (h) { $('c-' + h.kind).checked = true; $('t-' + h.kind).value = h.t; }); }
   }
 
+  function start() {
+  $('help').hidden = false;
+  $('qlink').href = '../order.html?id=' + encodeURIComponent(sid) + '&type=question&p=weather-days';
+  $('rlink').href = '../order.html?id=' + encodeURIComponent(sid) + '&type=refund&p=weather-days';
+  // Desk hit counter: page name only, never the session id.
+  try { navigator.sendBeacon('https://script.google.com/macros/s/AKfycbxOqURWCEJMjC8nIms06TAmXw5QJuwNAkjeaD2AD4Wmqoe34Wv79IfstT2PrPnoKvm6/exec', new URLSearchParams({ action: 'hit', page: 'weather-days-report', source: '', ref: '' })); } catch (e) {}
   // The query comes from the URL (a bookmarked report) or from this browser's storage (set on the tool page
   // before checkout; Stripe can't carry it through). If neither, the buyer fills the form.
   var q = p.get('zip') ? WD.parseQuery(p, today) : null;
   if (!q || q.error) { try { var s = localStorage.getItem('wd-query'); if (s) q = WD.parseQuery(new URLSearchParams(s), today); } catch (e) {} }
   if (q && !q.error) build(q); else { fillForm(q || {}); $('form').hidden = false; }
+  }
 
   $('f').addEventListener('submit', function (ev) {
     ev.preventDefault();
@@ -283,9 +314,10 @@ Data: NOAA National Centers for Environmental Information (GHCN-Daily, including
       '<li><strong>Stations.</strong> We search NOAA NCEI\'s station index in a box of ±0.25° around the ZIP\'s Census center (widening to ±0.5° and ±1.0° if fewer than 3 stations report), list the nearest 8 (airport and co-op stations first; CoCoRaHS volunteer gauges only when nothing else is within 15 km) plus the 2 nearest airport stations, and download their daily records. The primary station is the nearest one with data for at least 90% of the days for your threshold (otherwise the most complete); gap-fill stations are the next nearest with at least 50%.</li>' +
       '<li><strong>Counting.</strong> A day counts if any threshold you ticked is crossed (precipitation and snowfall ≥ the value, rounded to 0.01 and 0.1 inch; low ≤; high ≥; wind: average ≥ or 2-minute gust ≥). Each threshold is also counted on its own. Values that NOAA flags as failing quality control are treated as missing. We never interpolate or estimate a missing day.</li>' +
       '<li><strong>Gaps.</strong> A month with more than 3 days without data at the primary station takes those days, whole, from gap-fill station 1, then 2, and each such day is marked. A month still missing more than 3 days is marked incomplete; its count may be low.</li>' +
-      '<li><strong>Normals.</strong> NOAA\'s 1991–2020 monthly normals, "average number of days" types (for example MLY-PRCP-AVGNDS-GE010HI for ≥ 0.10 inch), from the nearest normals station within 50 km that publishes that type, which may differ from the daily station. Part months are scaled by the share of the month counted. NOAA publishes no wind-day normals.</li>' +
+      '<li><strong>Normals.</strong> NOAA\'s 1991–2020 monthly normals, "average number of days" types (for example MLY-PRCP-AVGNDS-GE010HI for ≥ 0.10 inch), from the station the threshold is counted at when NOAA publishes that normal for it; otherwise from the nearest normals station within 50 km that does, which is named above and is a different gauge. Part months are scaled by the share of the month counted. NOAA publishes no wind-day normals.</li>' +
       '<li><strong>Station day.</strong> Many co-op and volunteer stations report a 24-hour day that ends at their morning observation time, not at midnight, so a storm can land on the day before or after the calendar day you expect. Airport (USW) stations use the calendar day.</li>' +
       '<li><strong>Sources.</strong> NOAA NCEI Global Historical Climatology Network Daily (GHCN-Daily) and U.S. Climate Normals 1991–2020, read live through NCEI\'s Access Data Service and Search Service; ZIP centers from the U.S. Census Bureau 2024 Gazetteer (ZCTA internal points). CoCoRaHS observations, where used, are © CoCoRaHS and used under CC BY 4.0. Government data are not subject to U.S. copyright (17 U.S.C. 105).</li>' +
+      '<li><strong>More.</strong> The full methodology, with the exact NOAA data types and the known limits, is at <a href="https://westworkshq.com/weather-days/methodology.html">westworkshq.com/weather-days/methodology.html</a>.</li>' +
       '</ul>';
     h += '<div class="disclose"><strong>UNCERTIFIED. Information only; not legal, insurance or contract advice.</strong> This report is an automatic count of public NOAA data made in your browser. It is not a certified weather record, a forensic weather report or an expert opinion, and the station may be miles from your site. Whether a day is an excusable weather delay is decided by your contract and the parties to it. For a dispute, order certified copies of the listed station-days from NOAA NCEI. Westworks is AI-run: an AI agent built this tool, and no person reviewed this report.</div>';
     $('report').innerHTML = h;

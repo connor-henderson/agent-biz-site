@@ -1,0 +1,118 @@
+<!doctype html>
+<!-- Westworks Weather Days: methodology. Plain HTML, no script except the desk page counter.
+     Keep in step with wd.js (rules) and experiments/candidates/weather-days/QA-*.md (verification log). -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weather Days Methodology: NOAA Data, Normals, Thresholds · Westworks</title>
+<meta name="description" content="How the Weather Days calculator counts rain, snow, freeze, heat and wind days by ZIP from NOAA GHCN-Daily, compares them with NOAA 1991–2020 normals, and where it can be wrong.">
+<link rel="canonical" href="https://westworkshq.com/weather-days/methodology.html">
+<link rel="icon" href="../assets/icon-512.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Westworks">
+<meta property="og:url" content="https://westworkshq.com/weather-days/methodology.html">
+<meta property="og:title" content="Weather Days Methodology: NOAA Data, Normals, Thresholds">
+<meta property="og:description" content="How the Weather Days calculator counts rain, snow, freeze, heat and wind days by ZIP from NOAA GHCN-Daily, compares them with NOAA 1991–2020 normals, and where it can be wrong.">
+<meta property="og:image" content="https://westworkshq.com/assets/icon-512.png">
+<meta name="twitter:card" content="summary">
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1d1b;--muted:#5b5b57;--accent:#1f5f8b;--card:#fff;--line:#e4e1da}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--fg:#ecebe6;--muted:#a8a69f;--accent:#6fb0e0;--card:#1d1d1b;--line:#33322f}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.6 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:780px;margin:0 auto;padding:28px 16px 64px}
+a{color:var(--accent);overflow-wrap:anywhere}
+.crumb{margin:0 0 20px;font-size:.9rem;color:var(--muted)}.crumb a{color:inherit;display:inline-block;padding:6px 0}
+h1{font-size:1.9rem;line-height:1.2;margin:0 0 10px}h2{font-size:1.2rem;margin:34px 0 8px}
+.lede{color:var(--muted);font-size:1.05rem}
+.small{font-size:.88rem;color:var(--muted)}
+.table{overflow-x:auto;margin:10px 0}
+table{border-collapse:collapse;font-size:.88rem;width:100%}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+thead th{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+code{font-size:.85em;overflow-wrap:anywhere}
+.disclose{border-left:3px solid var(--accent);padding:8px 14px;background:var(--card);margin:16px 0;font-size:.95rem}
+ul,ol{padding-left:22px}li{margin:5px 0}
+footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
+@media (max-width:560px){h1{font-size:1.5rem}th,td{padding:5px 5px}}
+</style>
+</head>
+<body>
+<main>
+<p class="crumb"><a href="../">Westworks</a> / <a href="./">Weather Days</a> / Methodology</p>
+<h1>How Weather Days counts weather days</h1>
+<p class="lede">The <a href="./">Weather Days calculator</a> counts the days at a NOAA weather station near a US ZIP code that crossed a rain, snow, freeze, heat or wind threshold, and sets each month beside NOAA's 1991–2020 normal for the same threshold. This page is the complete method: where the data comes from, how a station is chosen, how a day is counted, and where the answer can be wrong. Last updated 2026-11-02.</p>
+
+<div class="disclose"><strong>Uncertified, information only.</strong> The counts are made automatically from public NOAA data. They are not a certified weather record or an expert opinion, and not legal or contract advice. Whether a day is an excusable weather delay is set by your contract. Westworks is AI-run: an AI agent built this tool and wrote this page.</div>
+
+<h2 id="sources">1. Data sources</h2>
+<ul>
+<li><strong>Daily observations:</strong> NOAA NCEI <a href="https://www.ncei.noaa.gov/products/land-based-station/global-historical-climatology-network-daily">Global Historical Climatology Network Daily (GHCN-Daily)</a>, the "Daily Summaries" dataset, read live from NCEI's <a href="https://www.ncei.noaa.gov/support/access-data-service-api-user-documentation">Access Data Service</a> each time you run a count. Elements used: <code>PRCP</code> (precipitation), <code>SNOW</code> (snowfall), <code>SNWD</code> (snow depth, report only), <code>TMAX</code>, <code>TMIN</code>, <code>AWND</code> (average wind speed) and <code>WSF2</code> (fastest 2-minute wind), in US units.</li>
+<li><strong>Station list:</strong> NCEI's Search Service for the same dataset, searched in a box around the ZIP for stations with data in your dates.</li>
+<li><strong>Normals:</strong> NOAA NCEI <a href="https://www.ncei.noaa.gov/products/land-based-station/us-climate-normals">U.S. Climate Normals 1991–2020</a>, monthly "average number of days" values (type names in the table below, as documented in NCEI's <a href="https://www.ncei.noaa.gov/data/normals-monthly/1991-2020/doc/Readme_By-Variable_By-Station_Normals_Files.txt">normals readme</a>).</li>
+<li><strong>ZIP location:</strong> U.S. Census Bureau 2024 Gazetteer, the internal point of each ZIP Code Tabulation Area (ZCTA). PO-box-only ZIPs have no ZCTA, so the tool asks for the ZIP of the street address instead.</li>
+<li>Some GHCN-Daily stations are CoCoRaHS volunteer gauges; their data is © CoCoRaHS, used under CC BY 4.0. NOAA data are U.S. government works (17 U.S.C. 105). Westworks is not affiliated with NOAA or CoCoRaHS.</li>
+</ul>
+
+<h2 id="thresholds">2. Thresholds and the NOAA normal for each</h2>
+<p>A day counts if it crosses <em>any</em> threshold you tick. Each threshold is also counted on its own.</p>
+<div class="table"><table>
+<thead><tr><th>Threshold</th><th>Day counts when</th><th>NOAA 1991–2020 normal used</th></tr></thead>
+<tbody>
+<tr><td>Rain (precipitation)</td><td>PRCP ≥ 0.01, 0.10, 0.25, 0.50 or 1.00 in (rounded to 0.01 in; rain and melted snow both count)</td><td><code>MLY-PRCP-AVGNDS-GE001HI</code> … <code>GE100HI</code></td></tr>
+<tr><td>Snowfall</td><td>SNOW ≥ 0.1, 1, 2, 3, 5 or 6 in (rounded to 0.1 in)</td><td><code>MLY-SNOW-AVGNDS-GE001TI</code> … <code>GE050TI</code>; none for 6 in</td></tr>
+<tr><td>Freezing</td><td>TMIN ≤ 32 °F or ≤ 40 °F</td><td><code>MLY-TMIN-AVGNDS-LSTH032</code>, <code>LSTH040</code></td></tr>
+<tr><td>Heat</td><td>TMAX ≥ 90 °F or ≥ 100 °F</td><td><code>MLY-TMAX-AVGNDS-GRTH090</code>, <code>GRTH100</code></td></tr>
+<tr><td>Wind</td><td>AWND ≥ 15 mph or WSF2 ≥ 25 mph; or AWND ≥ 20 mph or WSF2 ≥ 35 mph</td><td>None: NOAA publishes no wind-day normals</td></tr>
+</tbody></table></div>
+<p class="small">Trace amounts (NOAA's "T" flag) are recorded as 0 and never cross a threshold.</p>
+
+<h2 id="stations">3. Choosing the station</h2>
+<ol>
+<li>Search NCEI's station index in a box of ±0.25° latitude around the ZIP's Census point (longitude scaled for latitude), widening to ±0.5° and then ±1.0° if fewer than 3 stations report the first threshold's element in your dates.</li>
+<li>Sort by straight-line distance. Airport (USW), cooperative (USC) and other non-volunteer stations come first; CoCoRaHS volunteer gauges (US1) are used only if no other station is within 15 km.</li>
+<li>Download the daily records of the nearest 8, plus the 2 nearest airport stations (they are the only ones that measure wind), in one request.</li>
+<li>The <strong>primary station</strong> is the nearest one with usable data for at least 90% of the days for your thresholds; if none reaches 90%, the most complete one. Its name, NOAA ID, distance from the ZIP's center and data completeness are printed with every result.</li>
+</ol>
+
+<h2 id="counting">4. Counting and missing days</h2>
+<ul>
+<li>Values NOAA flags as failing quality control (a non-empty quality flag) are treated as missing. Nothing is interpolated or estimated.</li>
+<li>A day where no ticked threshold was crossed but one of them has no value is "no data", not a dry day.</li>
+<li>A month with more than 3 no-data days is marked <strong>incomplete</strong>: its count may be low. The free summary uses the primary station only. The paid report fills those days, whole, from the next nearest stations with at least 50% data, and marks each filled day with its station.</li>
+<li>NOAA posts station data a few days to weeks after the fact. Days after the latest date any nearby station has posted are shown as "not posted by NOAA yet" and left out of both the count and the normal.</li>
+<li>Many cooperative and volunteer stations report a 24-hour day that ends at their morning observation time, not midnight, so a storm can land on the day before or after the calendar date you expect. Airport (USW) stations use the calendar day.</li>
+</ul>
+
+<h2 id="normals">5. The normal</h2>
+<ul>
+<li>The normal is NOAA's 1991–2020 average number of days in that calendar month that crossed the same threshold.</li>
+<li>It comes from <strong>the same station the days are counted at</strong> whenever NOAA publishes that normal for it, so actual and normal are from one gauge. If it doesn't, the nearest station within 50 km that publishes it is used, and the result says so and names it. A normal from a different gauge can differ a lot: in our 2026-11-02 check, for ZIP 33101 over 24 months, Miami International Airport's own 1991–2020 normal is 183 days ≥ 90 °F, while the normal at Miami Beach, on the coast 7 km from the ZIP's center (the airport is 12 km), is 59.</li>
+<li>For a part month, the normal is scaled by the share of the month counted (for example, 15 of 30 days = half the monthly normal).</li>
+<li>"Above normal" is simply actual minus normal. It is not a statistical significance test; with small counts, a few days either way is ordinary year-to-year variation.</li>
+</ul>
+
+<h2 id="limits">6. Limits</h2>
+<ul>
+<li><strong>Station ≠ site.</strong> The station can be several miles from your site and at a different elevation; summer rain and lake-effect snow can differ a lot over that distance. The ZIP's center is a Census point, and large rural ZIPs can be far from your site.</li>
+<li><strong>Not a delay rule.</strong> A weather day for a contract may need the weather to stop work for part of the day, or may count only working days, or compare against a contract's own table of anticipated days. The tool counts calendar days at a threshold; your contract decides what is excusable.</li>
+<li><strong>Data can change.</strong> NOAA revises GHCN-Daily after quality review. A shared link re-runs the count from NOAA's current data, so a number can change slightly later. For evidence, order certified copies of the listed station-days from <a href="https://www.ncei.noaa.gov/services/certification">NOAA NCEI</a> ($168 for 1–40 pages plus $12 shipping in its price table, checked 2026-11-02).</li>
+<li><strong>Coverage.</strong> Dates from 1991-01-01, up to 24 months per run, US ZIPs including Alaska, Hawaii and Puerto Rico where NOAA has stations.</li>
+</ul>
+
+<h2 id="verification">7. How we check it</h2>
+<p>On 2026-11-02 we ran the live tool in a browser for five ZIPs in different climates (Minneapolis 55401, Denver 80202, Miami 33101, Seattle 98101, Boston 02108) over 24 months, November 2024 to October 2026, with rain ≥ 0.10 in, snowfall ≥ 1 in, low ≤ 32 °F and high ≥ 90 °F. For each station and month, the page's counts and missing days matched an independent count from NCEI's Access Data Service exactly (480 station-month-threshold cells), and matched a second source, RCC-ACIS, in 479 of 480 (one Denver day differs between the two NOAA-fed services). That check is what found the normals-station issue in section 5, fixed the same day.</p>
+
+<h2 id="cite">8. Citing a result</h2>
+<p>Each result has a link that re-runs the same count, for example <a href="./?zip=55401&amp;from=2024-11-01&amp;to=2026-10-31&amp;mode=rain&amp;t=0.10">ZIP 55401, Nov 2024 to Oct 2026, precipitation ≥ 0.10 in</a>. Please cite the station, not us, as the source of the observations: "NOAA NCEI GHCN-Daily, station [ID], counted with Westworks Weather Days (uncertified), [date run]".</p>
+
+<footer><a href="../">Westworks</a> · <a href="./">Weather Days</a> · <a href="../terms.html#weather-days">Terms</a> · <a href="../privacy.html">Privacy</a><br>
+Data: NOAA National Centers for Environmental Information (GHCN-Daily; U.S. Climate Normals 1991–2020); U.S. Census Bureau Gazetteer. Uncertified; information only, not legal, insurance or contract advice. Westworks is AI-run.</footer>
+</main>
+<script>
+try { var r = document.referrer ? new URL(document.referrer).hostname : '';
+  navigator.sendBeacon('https://script.google.com/macros/s/AKfycbxOqURWCEJMjC8nIms06TAmXw5QJuwNAkjeaD2AD4Wmqoe34Wv79IfstT2PrPnoKvm6/exec', new URLSearchParams({ action: 'hit', page: 'weather-days-method', source: new URLSearchParams(location.search).get('utm_source') || '', ref: r })); } catch (e) {}
+</script>
+</body>
+</html>

@@ -57,7 +57,7 @@ footer{margin-top:48px;font-size:.85rem;color:var(--muted)}
 
   <section data-kind="refund">
     <h1>Request a refund</h1>
-    <p>If the report wasn't useful, you get your $99 back. Ask within 7 days of delivery. You don't have to explain, but if you tell us what was missing, we'll fix it for the next buyer.</p>
+    <p id="refund-policy">If the report wasn't useful, you get your $99 back. Ask within 7 days of delivery. You don't have to explain, but if you tell us what was missing, we'll fix it for the next buyer.</p>
     <label for="text-refund">What wasn't useful? (optional)</label>
     <textarea id="text-refund" style="min-height:120px"></textarea>
     <button type="submit">Request refund</button>
@@ -72,8 +72,8 @@ footer{margin-top:48px;font-size:.85rem;color:var(--muted)}
   <p id="thanks-body"></p>
 </div>
 
-<div class="disclose"><strong>Westworks is an AI-run service.</strong> An AI agent writes each report, and a second AI review, run separately from the writer, checks it before it's sent. Reports are informational only: not an appraisal, and not legal, tax, or investment advice.</div>
-<p class="small">We use the email from your checkout only to deliver your report, answer your questions, and handle refunds. We keep your listing and report on file so we can answer follow-up questions. We never contact the seller or the broker.</p>
+<div class="disclose" id="ai-note"><strong>Westworks is an AI-run service.</strong> An AI agent writes each report, and a second AI review, run separately from the writer, checks it before it's sent. Reports are informational only: not an appraisal, and not legal, tax, or investment advice.</div>
+<p class="small" id="data-note">We use the email from your checkout only to deliver your report, answer your questions, and handle refunds. We keep your listing and report on file so we can answer follow-up questions. We never contact the seller or the broker.</p>
 
 <footer>Westworks · westworkshq.com · admin@westworkshq.com · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a></footer>
 </main>
@@ -94,6 +94,20 @@ footer{margin-top:48px;font-size:.85rem;color:var(--muted)}
   document.querySelectorAll('section[data-kind]').forEach(function (s) {
     if (s.getAttribute('data-kind') !== kind) s.remove();
   });
+  // Self-serve products link here with &p=… so the refund terms and AI note match what was bought
+  // (terms.html sections 16 and 17). Without p, the page keeps the Laundromat Listing Teardown wording.
+  var PRODUCTS = {
+    'weather-days': { name: 'Weather Days Report', refund: 'If the report failed to generate for a valid US ZIP and date range, ask within 14 days of purchase and we refund the full price (Terms, section 16). Tell us the ZIP and dates if you can.', ai: '<strong>Westworks is an AI-run service.</strong> An AI agent built the Weather Days tool and answers these messages. No person reviews a report. Reports are uncertified and informational only, not legal or contract advice.' },
+    'c2-csv': { name: 'C2 Prospect CSV', refund: 'If the CSV failed to generate for your state, or a figure in it doesn\'t match USAC\'s data as published that day, ask within 14 days of purchase and we refund the full price (Terms, section 17). Tell us the state and what went wrong if you can.', ai: '<strong>Westworks is an AI-run service.</strong> An AI agent built the C2 Prospect CSV tool and answers these messages. No person checks each row. The CSV is informational only, not procurement, legal or E-Rate compliance advice.' }
+  };
+  var prod = PRODUCTS[q.get('p')];
+  if (prod) {
+    var rp = document.getElementById('refund-policy'); if (rp) rp.textContent = prod.refund;
+    document.getElementById('ai-note').innerHTML = prod.ai;
+    document.getElementById('data-note').textContent = 'We use the email from your checkout only to answer your questions and handle refunds. We never sell it or add you to a mailing list.';
+    var rl = document.querySelector('label[for="text-refund"]'); if (rl) rl.textContent = 'What went wrong? (optional)';
+    var qh = document.querySelector('section[data-kind="question"] h1'); if (qh) qh.textContent = 'Ask a question about your ' + prod.name;
+  }
   var textBox = document.getElementById('text-' + kind);
   if (kind === 'listing') textBox.required = true;
   if (kind === 'question') textBox.required = true;

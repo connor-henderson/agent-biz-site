@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Every new FCC Form 470 in your state and E-Rate categories, with the incumbent, last bid count, contract end and Category 2 budget left. FY2027 season pass: $149 for one state, one payment.">
+<meta name="description" content="Every new FCC Form 470 in your state and E-Rate categories, with incumbent, last bid count, contract end and C2 budget left. FY2027 season pass from $149.">
 <link rel="canonical" href="https://westworkshq.com/radar/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Westworks">
@@ -12,11 +12,14 @@
 <meta property="og:description" content="Every new FCC Form 470 in your state and E-Rate categories, with the incumbent, last bid count, contract end and Category 2 budget left. FY2027 season pass: $149 for one state, one payment.">
 <meta property="og:image" content="https://westworkshq.com/assets/icon-512.png">
 <meta name="twitter:card" content="summary">
-<title>Form 470 Radar · Westworks</title>
+<title>Form 470 Radar: New E-Rate Form 470s by State · Westworks</title>
 <link rel="icon" href="../assets/icon-512.png">
 <link rel="apple-touch-icon" href="../assets/icon-512.png">
 <meta name="theme-color" content="#fbfaf7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#141413" media="(prefers-color-scheme: dark)">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "Product", "name": "Form 470 Radar, FY2027 season pass", "url": "https://westworkshq.com/radar/", "description": "A weekly or daily email of new FCC Form 470 filings (E-Rate bid requests) in your states and categories, with the incumbent vendor in USAC records, last bid count, contract end and Category 2 budget left. One payment, no renewal. Built by an AI agent from USAC Open Data.", "brand": {"@type": "Brand", "name": "Westworks"}, "offers": [{"@type": "Offer", "name": "One state", "price": "149.00", "priceCurrency": "USD", "url": "https://westworkshq.com/radar/"}, {"@type": "Offer", "name": "Multi-state", "price": "299.00", "priceCurrency": "USD", "url": "https://westworkshq.com/radar/"}]}
+</script>
 <style>
 :root{--bg:#fbfaf7;--fg:#1d1d1b;--muted:#5b5b57;--accent:#1f5f8b;--card:#fff;--line:#e4e1da}
 @media (prefers-color-scheme:dark){:root{--bg:#141413;--fg:#ecebe6;--muted:#a8a69f;--accent:#6fb0e0;--card:#1d1d1b;--line:#33322f}}
@@ -50,12 +53,14 @@ footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
 <p class="lede">Form 470 Radar is a weekly email of every FCC Form 470 newly certified in your state and E-Rate categories. Each form comes with what USAC's public records show about the applicant's current deal: the incumbent provider, how many bids it took last time, when the contract ends, what it costs, and how much Category 2 budget is left.</p>
 <ul class="facts" aria-label="Key facts">
 <li><strong>$149</strong> one state · <strong>$299</strong> multi-state</li>
+<li>Any US state</li>
 <li>One payment, never renews</li>
 <li>Weekly or daily email until March 31, 2027</li>
 <li>Full refund if the first digest isn't useful</li>
 <li>Built and sent by an AI agent (<a href="#ai">why we say so</a>)</li>
 </ul>
-<p class="samplelink"><a href="sample.html">See a real issue first: Texas, October 1–30, 2026 (108 forms)</a></p>
+<p class="samplelink"><a href="sample.html">See a real issue first: Texas, October 3–November 1, 2026 (106 forms)</a></p>
+<div class="card" id="free"><strong>Got an email from us?</strong> You don't need to buy anything here. Reply "yes" to that email and next week's list for your state is free, with no card and nothing to cancel. Come back for a season pass only if the free week was worth it.</div>
 
 <div class="disclose" id="ai"><strong>Westworks is AI-run.</strong> An AI agent builds every digest from USAC's public data with code, and answers email. No person reviews a digest before you get it. We tell you because it's true, and because California's bot-disclosure law (SB 1001) asks for it.</div>
 
@@ -78,7 +83,7 @@ footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
 <p class="small">Source for the median: USAC Open Data dataset <a href="https://opendata.usac.org/d/qdmp-ygft">qdmp-ygft</a> (FRN status), query <code>funding_year='2026' AND state='TX'</code>, one row per funding request (the current version where USAC has one), status Funded, service type Internal Connections; median of <code>total_pre_discount_costs</code> and of <code>bid_count</code>.</p>
 <p class="small">By buying, you agree to our <a href="../terms.html">Terms</a>. At checkout you enter your state(s), your categories (Category 1, Category 2 or both) and weekly or daily. Your first digest arrives by email within 24 hours. Stripe processes the payment through Link, so your statement shows <strong>LINK.COM* WESTWORKS</strong>. Sales tax is calculated at checkout.</p>
 
-<p><a href="sample.html"><strong>See a real issue:</strong> the Texas sample for October 1–30, 2026, with 108 Form 470s</a> (also as a <a href="form-470-radar-texas-2026-10-01-to-2026-10-30.csv">CSV</a>).</p>
+<p><a href="sample.html"><strong>See a real issue:</strong> the Texas sample for October 3–November 1, 2026, with 106 Form 470s</a> (also as a <a href="form-470-radar-texas-2026-10-03-to-2026-11-01.csv">CSV</a>).</p>
 
 <h2>What you get</h2>
 <div class="card"><ul>
@@ -94,7 +99,7 @@ footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
 <li><strong>The same rows as plain-text CSV inside the email</strong>, ready to paste into a spreadsheet. (File attachments come later, when our mail desk supports them.)</li>
 <li><strong>Your first digest</strong> also lists every FY2027 form in your state that is still inside its bid period.</li>
 </ul></div>
-<p>In the Texas sample, 97 of the 120 category requests matched a same-category FY2026 incumbent, and the 52 Category 2 applicants had $75.5M of FY2026–30 Category 2 budget left between them (USAC Open Data, pulled 2026-10-31).</p>
+<p>In the Texas sample, 95 of the 116 category requests matched a same-category FY2026 incumbent, and the 48 Category 2 applicants had $70.7M of FY2026–30 Category 2 budget left between them (USAC Open Data, pulled 2026-11-02).</p>
 
 <h2>Why a season pass</h2>
 <p>Form 470 volume peaks in January and February. In FY2026, 11,545 of the year's 22,754 Form 470s (51%) were certified in those two months (USAC Open Data, distinct forms, pulled 2026-10-31). The pass covers the whole FY2027 peak and ends on March 31, 2027. Nothing to cancel.</p>

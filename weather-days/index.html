@@ -6,14 +6,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Weather Days at Your Job Site vs. the 30-Year Normal · Westworks</title>
-<meta name="description" content="Free: count the rain, snow, freeze, heat and wind days at any US ZIP for any dates since 1991, month by month against NOAA's 1991–2020 normals. Live NOAA station data. Uncertified; built by an AI agent.">
+<title>Weather Days Calculator by ZIP vs. NOAA Normals · Westworks</title>
+<meta name="description" content="Free: count rain, snow, freeze, heat and wind days at any US ZIP for any dates since 1991, month by month vs. NOAA 1991–2020 normals. Uncertified; AI-built.">
 <link rel="canonical" href="https://westworkshq.com/weather-days/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Westworks">
 <meta property="og:url" content="https://westworkshq.com/weather-days/">
-<meta property="og:title" content="Weather days at your job site, against the 30-year normal · Westworks">
-<meta property="og:description" content="Count rain, snow, freeze, heat and wind days at any US ZIP, month by month against NOAA's 1991–2020 normals. Free; live NOAA data.">
+<meta property="og:title" content="Weather days at your job site, against the 30-year normal">
+<meta property="og:description" content="Free: count rain, snow, freeze, heat and wind days at any US ZIP for any dates since 1991, month by month vs. NOAA 1991–2020 normals. Uncertified; AI-built.">
 <meta property="og:image" content="https://westworkshq.com/assets/icon-512.png">
 <meta name="twitter:card" content="summary">
 <link rel="icon" href="../assets/icon-512.png">
@@ -21,7 +21,7 @@
 <meta name="theme-color" content="#fbfaf7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#141413" media="(prefers-color-scheme: dark)">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebApplication","name":"Weather Days Report","url":"https://westworkshq.com/weather-days/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","description":"Counts days at the nearest NOAA weather stations that cross rain, snow, freeze, heat or wind thresholds for a US ZIP and date range, against NOAA's 1991-2020 monthly normals. Uncertified; information only.","isBasedOn":"https://www.ncei.noaa.gov/cdo-web/","creator":{"@type":"Organization","name":"Westworks","url":"https://westworkshq.com/"},"offers":[{"@type":"Offer","price":"0","priceCurrency":"USD","name":"Free monthly summary"},{"@type":"Offer","price":"29.00","priceCurrency":"USD","name":"Full report"}]}
+{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Weather Days Report", "url": "https://westworkshq.com/weather-days/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any (web browser)", "description": "Counts days at the nearest NOAA weather stations that cross rain, snow, freeze, heat or wind thresholds for a US ZIP and date range, against NOAA's 1991-2020 monthly normals. Uncertified; information only.", "isBasedOn": "https://www.ncei.noaa.gov/cdo-web/", "creator": {"@type": "Organization", "@id": "https://westworkshq.com/#org", "name": "Westworks", "url": "https://westworkshq.com/"}, "offers": [{"@type": "Offer", "price": "0", "priceCurrency": "USD", "name": "Free monthly summary"}, {"@type": "Offer", "price": "29.00", "priceCurrency": "USD", "name": "Full report"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How many rain days count as a weather delay?", "acceptedAnswer": {"@type": "Answer", "text": "That's set by your contract, not by us. Many specs count a day with 0.10 inch or more of precipitation; some require the weather to stop at least half of the workday, and federal (USACE) contracts compare actual days with a table of anticipated days. Set the threshold your contract uses and we count exactly that. This is information, not legal or contract advice."}}, {"@type": "Question", "name": "Is this the same as a certified copy from NOAA NCEI?", "acceptedAnswer": {"@type": "Answer", "text": "No. It's an uncertified count from NOAA's public data. NOAA NCEI sells Department of Commerce certified copies of station records: $168 for 1–40 pages plus $12 shipping, per its price table (checked 2026-11-02). The full report lists the exact station and days to order."}}, {"@type": "Question", "name": "Why the nearest station and not my exact site?", "acceptedAnswer": {"@type": "Answer", "text": "NOAA records weather at stations, not at every address. We use the nearest station with data for at least 90% of your days, and print its distance from the center of your ZIP. Rain and snow can differ a lot over a few miles. If you need a site-specific opinion, hire a forensic meteorologist."}}, {"@type": "Question", "name": "What is the \"normal\"?", "acceptedAnswer": {"@type": "Answer", "text": "NOAA's 1991–2020 Climate Normals: the average number of days per month that crossed the same threshold over those 30 years, at the same station we count at when NOAA publishes normals for it, otherwise at the nearest normals station within 50 km (the result names it). For a part month we scale the normal by the share of the month in your range. Not every threshold has a NOAA normal (wind, and 6 inches of snow, don't). The full method is on the methodology page."}}, {"@type": "Question", "name": "Who runs this?", "acceptedAnswer": {"@type": "Answer", "text": "Westworks, an AI-run company. An AI agent built this tool; NOAA's data is computed live in your browser."}}]}]}
 </script>
 <style>
 :root{--bg:#fbfaf7;--fg:#1d1d1b;--muted:#5b5b57;--accent:#1f5f8b;--card:#fff;--line:#e4e1da;--soft:#f3f1ec;--hit:#a5481c;--good:#2f7a4a}
@@ -128,22 +128,24 @@ footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
 <dt>Why the nearest station and not my exact site?</dt>
 <dd>NOAA records weather at stations, not at every address. We use the nearest station with data for at least 90% of your days, and print its distance from the center of your ZIP. Rain and snow can differ a lot over a few miles. If you need a site-specific opinion, hire a forensic meteorologist.</dd>
 <dt>What is the "normal"?</dt>
-<dd>NOAA's 1991–2020 Climate Normals: the average number of days per month that crossed the same threshold over those 30 years, at the nearest normals station within 50 km. For a part month we scale the normal by the share of the month in your range. Not every threshold has a NOAA normal (wind, and 6 inches of snow, don't).</dd>
+<dd>NOAA's 1991–2020 Climate Normals: the average number of days per month that crossed the same threshold over those 30 years, at the same station we count at when NOAA publishes normals for it, otherwise at the nearest normals station within 50 km (the result names it). For a part month we scale the normal by the share of the month in your range. Not every threshold has a NOAA normal (wind, and 6 inches of snow, don't). The full method is on the <a href="methodology.html">methodology page</a>.</dd>
 <dt>Who runs this?</dt>
 <dd>Westworks, an AI-run company. An AI agent built this tool; NOAA's data is computed live in your browser.</dd>
 </dl>
 
 <div class="disclose" id="ai"><strong>Westworks is AI-run.</strong> An AI agent built this page. Your ZIP and dates go from your browser straight to NOAA's public data service; nothing you type is sent to us. No person checks each count. We tell you because it's true, and because California's bot-disclosure law (SB 1001) asks for it.</div>
 
-<h2>Where the data comes from</h2>
+<h2 id="sources">Where the data comes from</h2>
 <ul class="small">
 <li>Daily values: NOAA NCEI <a href="https://www.ncei.noaa.gov/products/land-based-station/global-historical-climatology-network-daily">Global Historical Climatology Network Daily</a> (GHCN-Daily), read live through NCEI's <a href="https://www.ncei.noaa.gov/support/access-data-service-api-user-documentation">Access Data Service</a>. Values NOAA flags as failing quality control are left out.</li>
 <li>Normals: NOAA NCEI <a href="https://www.ncei.noaa.gov/products/land-based-station/us-climate-normals">U.S. Climate Normals 1991–2020</a>, monthly "average number of days" types such as MLY-PRCP-AVGNDS-GE010HI.</li>
 <li>ZIP locations: U.S. Census Bureau 2024 Gazetteer, ZIP Code Tabulation Area internal points.</li>
+<li>How stations are chosen, how days are counted, and the limits: <a href="methodology.html">Weather Days methodology</a>.</li>
 </ul>
 
-<footer>Westworks · westworkshq.com · <a href="../snow-ledger/">Snow Ledger</a> · <a href="../terms.html">Terms</a> · <a href="../privacy.html">Privacy</a><br>
-Data: NOAA National Centers for Environmental Information (GHCN-Daily, including CoCoRaHS observations used under CC BY 4.0; U.S. Climate Normals 1991–2020); U.S. Census Bureau Gazetteer. Government data are not subject to U.S. copyright (17 U.S.C. 105). Westworks is not affiliated with or endorsed by NOAA or CoCoRaHS. Uncertified; information only, not legal, insurance or contract advice.</footer>
+<footer><a href="../">Westworks</a> · westworkshq.com · <a href="../snow-ledger/">Snow Ledger</a> · <a href="../terms.html">Terms</a> · <a href="../privacy.html">Privacy</a><br>
+Data: NOAA National Centers for Environmental Information (GHCN-Daily, including CoCoRaHS observations used under CC BY 4.0; U.S. Climate Normals 1991–2020); U.S. Census Bureau Gazetteer. Government data are not subject to U.S. copyright (17 U.S.C. 105). Westworks is not affiliated with or endorsed by NOAA or CoCoRaHS. Uncertified; information only, not legal, insurance or contract advice.<br>
+Free tools: <a href="../c2-budgets/">E-Rate C2 budget lookup</a> · <a href="../weather-days/">Weather days calculator</a> · <a href="../refrigerant/">Refrigerant leak rate calculator</a> · <a href="../crew/">Weekly toolbox talk</a></footer>
 </main>
 <script src="wd.js"></script>
 <script>
@@ -220,13 +222,18 @@ Data: NOAA National Centers for Environmental Information (GHCN-Daily, including
     th.forEach(function (x) {
       var c = T.th[x.key], n = r.normals[x.key];
       notes.push(esc(x.text) + ': ' + c.count + ' days, ' + (c.normal == null ? (n ? 'normal not available for every month' : 'no NOAA normal for this threshold') : '<span class="' + (c.excess > 0 ? 'up' : 'down') + '">' + WD.excessText(c.excess) + '</span>') +
-        (n ? ' (normals from ' + esc(n.name) + ', ' + n.km.toFixed(1) + ' km)' : ''));
+        (n ? (n.same ? ' (vs. this station\'s own 1991–2020 normal)' : ' (normal from ' + esc(n.name) + ', ' + n.km.toFixed(1) + ' km away; this station has no NOAA normal for it)') : ''));
     });
     h += '<ul class="small">' + notes.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>';
     if (r.months.some(function (m) { return m.partial; })) h += '<p class="small">* Part month: the normal is scaled to the days counted.</p>';
     if (r.months.some(function (m) { return m.incomplete; })) h += '<p class="small"><strong>Incomplete months</strong> have more than 3 days without data at this station, so the count may be low. The full report fills those days from the next nearest stations, and marks each one.</p>';
-    h += '<p class="small">Share this result: <a href="' + esc(location.pathname + '?' + WD.queryString(q)) + '">link to these settings</a>. Uncertified; information only, not legal or contract advice.</p>';
+    var link = location.origin + location.pathname + '?' + WD.queryString(q);
+    h += '<p class="small share">Share or cite this result: <a href="' + esc(link) + '">' + esc(link) + '</a> <button type="button" id="copylink" style="font:inherit;font-size:.85rem;padding:4px 10px;margin:4px 0;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--accent);cursor:pointer;min-height:32px">Copy link</button><br>Anyone opening the link re-runs the same free count from NOAA\'s live data, so a number can change if NOAA revises a value. <a href="methodology.html">How we count</a>. Uncertified; information only, not legal or contract advice.</p>';
     $('out').innerHTML = h;
+    $('copylink').addEventListener('click', function () {
+      var b = this, done = function (ok) { b.textContent = ok ? 'Copied' : 'Select the link to copy'; setTimeout(function () { b.textContent = 'Copy link'; }, 2500); };
+      try { navigator.clipboard.writeText(link).then(function () { done(true); }, function () { done(false); }); } catch (e) { done(false); }
+    });
   }
 
   function go(push) {
@@ -246,7 +253,11 @@ Data: NOAA National Centers for Environmental Information (GHCN-Daily, including
   var p = new URLSearchParams(location.search), q0 = WD.parseQuery(p, today);
   fillForm(p.get('zip') ? q0 : {});
   setBuy(null);
-  if (p.get('zip') && !q0.error) go(false);
+  if (p.get('zip')) {
+    // A shared link re-runs the free count. A link with bad settings says why instead of doing nothing.
+    if (q0.error) { $('status').className = 'err'; $('status').textContent = 'This link\'s settings can\'t be run: ' + q0.error; }
+    else go(false);
+  }
 })();
 </script>
 <script>
