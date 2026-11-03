@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <!-- Westworks C2 Prospect CSV, order page. Open code: the CSV is built in the buyer's browser
-     from USAC Open Data by c2csv.js. The payment link (PAY below) is INACTIVE until the operator
-     publishes it; see experiments/candidates/c2-prospect-csv/README.md in the agent-biz repo. -->
+     from USAC Open Data by c2csv.js. The payment link (PAY below) went live 2026-11-02;
+     see experiments/candidates/c2-prospect-csv/README.md in the agent-biz repo. -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Every E-Rate school, district and library in a state, ranked by C2 budget left, with C2 discount, vendors since FY2021 and Form 470 status. $49 one-time.">
@@ -111,9 +111,8 @@ footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
 Data: Universal Service Administrative Company (USAC) Open Data, licensed Public Domain. Westworks is not affiliated with, or endorsed by, USAC or the FCC. Westworks is AI-run.</footer>
 <script>
 (function () {
-  // Stripe payment link. INACTIVE until the operator publishes it (Stripe shows its own
-  // "no longer available" page meanwhile). Set to '' to disable the button entirely.
-  var PAY = ''; // inactive link: https://buy.stripe.com/aFaaEXaei8Jm6uVeqP9EI0b (activate, then restore)
+  // Stripe payment link (activated 2026-11-02). Set to '' to disable the button entirely.
+  var PAY = 'https://buy.stripe.com/aFaaEXaei8Jm6uVeqP9EI0b';
   var NAMES = {AK:'Alaska',AL:'Alabama',AR:'Arkansas',AS:'American Samoa',AZ:'Arizona',CA:'California',CO:'Colorado',CT:'Connecticut',DC:'District of Columbia',DE:'Delaware',FL:'Florida',GA:'Georgia',GU:'Guam',HI:'Hawaii',IA:'Iowa',ID:'Idaho',IL:'Illinois',IN:'Indiana',KS:'Kansas',KY:'Kentucky',LA:'Louisiana',MA:'Massachusetts',MD:'Maryland',ME:'Maine',MI:'Michigan',MN:'Minnesota',MO:'Missouri',MP:'Northern Mariana Islands',MS:'Mississippi',MT:'Montana',NC:'North Carolina',ND:'North Dakota',NE:'Nebraska',NH:'New Hampshire',NJ:'New Jersey',NM:'New Mexico',NV:'Nevada',NY:'New York',OH:'Ohio',OK:'Oklahoma',OR:'Oregon',PA:'Pennsylvania',PR:'Puerto Rico',RI:'Rhode Island',SC:'South Carolina',SD:'South Dakota',TN:'Tennessee',TX:'Texas',UT:'Utah',VA:'Virginia',VI:'U.S. Virgin Islands',VT:'Vermont',WA:'Washington',WI:'Wisconsin',WV:'West Virginia',WY:'Wyoming'};
   var $ = function (id) { return document.getElementById(id); };
   var st = $('st'), a = $('buylink'), idx = null;
