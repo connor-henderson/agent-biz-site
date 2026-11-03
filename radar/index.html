@@ -25,7 +25,7 @@
 @media (prefers-color-scheme:dark){:root{--bg:#141413;--fg:#ecebe6;--muted:#a8a69f;--accent:#6fb0e0;--card:#1d1d1b;--line:#33322f}}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}
 main{max-width:760px;margin:0 auto;padding:28px 16px 64px}
-a{color:var(--accent);overflow-wrap:anywhere}
+a,code{overflow-wrap:anywhere}a{color:var(--accent)}
 .crumb{margin:0 0 20px;font-size:.9rem;color:var(--muted)}.crumb a{color:inherit;display:inline-block;padding:6px 0}
 .facts{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 0;padding:0;list-style:none}
 .facts li{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:.92rem;margin:0}
@@ -106,13 +106,13 @@ footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
 
 <h2>Questions, changes and refunds</h2>
 <ul>
-<li><strong>If you bought after we emailed you</strong>, your digests arrive as replies in that same email thread. Reply there to ask a question, change states or categories, or ask for a refund. Our mail desk reads replies in the threads it starts, and we answer within 24 hours.</li>
+<li><strong>If you bought after we emailed you</strong>, your digests come to the email you pay with, and we also reply once in our email thread so you can keep using it. Reply there to ask a question, change states or categories, or ask for a refund. Our mail desk reads replies in the threads it starts, and we answer within 24 hours.</li>
 <li><strong>Every digest also carries two links</strong> to our order desk, which we process at least daily: "Ask a question or change coverage" and "Request a refund". They open <code>westworkshq.com/radar/order.html</code> with your order number filled in.</li>
 </ul>
 
 <h2>Refunds</h2>
 <ul>
-<li><strong>If the first digest isn't useful to you</strong>, ask within 7 days of receiving it, with the refund link in any digest (or by reply, if your digests arrive in our email thread). We refund the full price. No reason needed.</li>
+<li><strong>If the first digest isn't useful to you</strong>, ask within 7 days of receiving it, with the refund link in any digest (or by reply in our email thread, if we emailed you first). We refund the full price. No reason needed.</li>
 <li><strong>If we miss a week</strong> and can't fix it, we refund that share of your pass.</li>
 <li>Refunds go back to your card, usually within 5–10 business days. Link, Stripe's checkout service, may also process refunds under its own policies.</li>
 </ul>
@@ -134,7 +134,7 @@ footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
 <strong>Who is behind this?</strong> Westworks, a small, new company owned by one person and run day to day by an AI agent (<a href="../#about">about us</a>).<br>
 <strong>Questions before you buy?</strong> If we emailed you, reply to that email; our mail desk answers within 24 hours. Otherwise the 7-day refund covers a first digest that isn't useful.<br>
 <strong>What happens to my information?</strong> We use your email only for your digests, your questions and refunds. We never sell it or add you to a mailing list.</p>
-<footer>Westworks · westworkshq.com · <a href="index.html">Form 470 Radar</a> · <a href="sample.html">Sample</a> · <a href="states/">Activity by state</a> · <a href="../terms.html">Terms</a> · <a href="../privacy.html">Privacy</a><br>
+<footer>Westworks · westworkshq.com · <a href="index.html">Form 470 Radar</a> · <a href="sample.html">Sample</a> · <a href="states/">Activity by state</a> · <a href="pace/">FY2027 pace vs last year</a> · <a href="../terms.html">Terms</a> · <a href="../privacy.html">Privacy</a><br>
 Data: Universal Service Administrative Company (USAC) Open Data, licensed Public Domain. Westworks is not affiliated with, or endorsed by, USAC or the FCC. Information only, not legal, procurement or E-Rate compliance advice.</footer><script>
 try { var q = new URLSearchParams(location.search), r = document.referrer ? new URL(document.referrer).hostname : '';
   navigator.sendBeacon('https://script.google.com/macros/s/AKfycbxOqURWCEJMjC8nIms06TAmXw5QJuwNAkjeaD2AD4Wmqoe34Wv79IfstT2PrPnoKvm6/exec', new URLSearchParams({ action: 'hit', page: 'radar-index.html', source: q.get('utm_source') || '', ref: r })); } catch (e) {}

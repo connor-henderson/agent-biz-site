@@ -58,7 +58,7 @@ tr.hit td{background:var(--soft)}
 .disclose{border-left:3px solid var(--accent);padding:8px 14px;background:var(--card);margin:16px 0;font-size:.93rem}
 ul{padding-left:20px}li{margin:3px 0}
 footer{margin-top:40px;font-size:.84rem;color:var(--muted);line-height:1.8}
-@media (max-width:560px){h1{font-size:1.45rem}.row3{grid-template-columns:1fr 1fr}.row3 .zip{grid-column:1 / -1}}
+@media (max-width:560px){h1{font-size:1.45rem}.row3{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.row3 .zip{grid-column:1 / -1}}
 @page{size:letter;margin:0.55in 0.5in}
 @media print{
   :root{--bg:#fff;--fg:#000;--muted:#333;--accent:#000;--card:#fff;--line:#bbb;--soft:#eee;--hit:#000;--good:#000}
