@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Free E-Rate invoice deadline lookup: funded FRNs with no BEAR or SPI invoice received yet, the last date to invoice and extension status, by school, library or BEN.">
+<link rel="canonical" href="https://westworkshq.com/erate-invoices/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Westworks">
+<meta property="og:url" content="https://westworkshq.com/erate-invoices/">
+<meta property="og:title" content="E-Rate Invoice Deadline Lookup: Funded, Not Yet Invoiced">
+<meta property="og:description" content="Free E-Rate invoice deadline lookup: funded FRNs with no BEAR or SPI invoice received yet, the last date to invoice and extension status, by school, library or BEN.">
+<meta property="og:image" content="https://westworkshq.com/assets/icon-512.png">
+<meta name="twitter:card" content="summary">
+<title>E-Rate Invoice Deadline Lookup: Funded, Not Yet Invoiced</title>
+<link rel="icon" href="../assets/icon-512.png">
+<link rel="apple-touch-icon" href="../assets/icon-512.png">
+<meta name="theme-color" content="#fbfaf7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141413" media="(prefers-color-scheme: dark)">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "WebApplication", "name": "E-Rate Invoice Deadline Lookup", "url": "https://westworkshq.com/erate-invoices/", "description": "Look up a school, district, library or consortium's funded E-Rate requests (FRNs) that USAC shows no invoice for yet, with the last date to invoice and whether an extension is on file. Data from USAC Open Data. Information only.", "applicationCategory": "BusinessApplication", "operatingSystem": "Any (web browser)", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "creator": {"@type": "Organization", "@id": "https://westworkshq.com/#org", "name": "Westworks", "url": "https://westworkshq.com/"}, "isBasedOn": "https://opendata.usac.org/d/qdmp-ygft"}
+</script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "Dataset", "name": "Funded E-Rate requests (FRNs) with no invoice received yet, with last date to invoice", "description": "6,360 funded E-Rate funding requests ($313.5M committed) for which USAC shows no BEAR or SPI invoice received, with each FRN's last date to invoice and whether an invoice deadline extension is on file. Copied by Westworks from USAC Open Data (FRN Status, qdmp-ygft) as of Nov 4, 2026. Information only.", "url": "https://westworkshq.com/erate-invoices/", "creator": {"@type": "Organization", "@id": "https://westworkshq.com/#org", "name": "Westworks", "url": "https://westworkshq.com/"}, "license": {"@type": "CreativeWork", "url": "https://creativecommons.org/publicdomain/mark/1.0/", "name": "Public Domain (the license USAC Open Data gives the source dataset)"}, "isAccessibleForFree": true, "isBasedOn": "https://opendata.usac.org/d/qdmp-ygft", "dateModified": "2026-11-04", "temporalCoverage": "2026-10-20/2027-07-02", "spatialCoverage": {"@type": "Place", "name": "United States"}, "keywords": ["E-Rate", "invoice deadline", "BEAR", "SPI", "FRN", "USAC"], "variableMeasured": ["Committed amount", "Last date to invoice", "Invoice deadline extension on file", "Invoicing ready"]}
+</script>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1d1b;--muted:#5b5b57;--accent:#1f5f8b;--card:#fff;--line:#e4e1da;--soft:#f3f1ec;--good:#2f7a4a;--warn:#a5481c}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141413;--fg:#ecebe6;--muted:#a8a69f;--accent:#6fb0e0;--card:#1d1d1b;--line:#33322f;--soft:#1a1a19;--good:#6cc08b;--warn:#f0956a}}
+:root[data-theme="dark"]{--bg:#141413;--fg:#ecebe6;--muted:#a8a69f;--accent:#6fb0e0;--card:#1d1d1b;--line:#33322f;--soft:#1a1a19;--good:#6cc08b;--warn:#f0956a}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.55 system-ui,-apple-system,Segoe UI,sans-serif;overflow-wrap:break-word}
+main{max-width:820px;margin:0 auto;padding:28px 16px 64px}
+a{color:var(--accent);overflow-wrap:anywhere}
+.crumb{margin:0 0 20px;font-size:.9rem;color:var(--muted)}.crumb a{color:inherit;display:inline-block;padding:6px 0}
+h1{font-size:2rem;line-height:1.2;margin:0 0 12px}h2{font-size:1.2rem;margin:36px 0 8px}
+.lede{color:var(--muted);font-size:1.08rem;margin:0 0 6px}
+.small{font-size:.88rem;color:var(--muted)}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0;padding:0;list-style:none}
+.facts li{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:.9rem;margin:0;max-width:100%}
+.urgent{border:1px solid var(--warn);border-left-width:4px;border-radius:10px;background:var(--card);padding:12px 14px;margin:20px 0 0;font-size:.95rem}
+.linkbtn{font:inherit;font-weight:600;color:var(--accent);background:none;border:0;padding:8px 0 0;cursor:pointer;text-decoration:underline;display:block;min-height:44px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:22px 0 10px}
+.row{display:grid;grid-template-columns:minmax(0,11rem) minmax(0,1fr);gap:10px}
+.row2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
+label{display:block;font-size:.82rem;color:var(--muted);margin:0 0 3px;font-weight:600}
+select,input[type=search]{width:100%;font:inherit;font-size:16px;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 10px;min-height:44px}
+select:focus,input:focus{outline:2px solid var(--accent);outline-offset:1px}
+#status{margin:12px 0 6px;font-size:.95rem;color:var(--muted);min-height:1.5em}
+#summary{margin:0 0 10px;font-size:.92rem}
+.ent{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0}
+.ent h3{font-size:1.04rem;margin:0;line-height:1.3}
+.meta{font-size:.86rem;color:var(--muted);margin:2px 0 10px}
+.nums{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0;font-variant-numeric:tabular-nums}
+.nums div{min-width:0}.nums dt{font-size:.76rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.nums dd{margin:0;font-weight:600;font-size:.98rem;overflow-wrap:anywhere}
+.nums .soon dd{color:var(--warn)}
+.note{font-size:.88rem;margin:8px 0 0}.note.warn{color:var(--warn)}
+.links{margin:8px 0 0;font-size:.86rem}
+.more{display:block;width:100%;font:inherit;font-weight:600;padding:12px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--accent);cursor:pointer;margin:12px 0}
+.disclose{border-left:3px solid var(--accent);padding:8px 14px;background:var(--card);margin:16px 0;font-size:.95rem}
+.soft{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:24px 0;font-size:.95rem}
+.soft button[disabled]{display:block;margin:10px 0 0;font:inherit;font-weight:600;padding:10px 14px;border-radius:8px;border:1px dashed var(--line);background:transparent;color:var(--muted);cursor:not-allowed;min-height:44px;max-width:100%}
+.tbl{width:100%;border-collapse:collapse;font-size:.92rem;font-variant-numeric:tabular-nums}
+.tbl th,.tbl td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)}.tbl th{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.tblwrap{overflow-x:auto;max-width:100%}
+dl.gloss dt{font-weight:600;margin-top:8px}dl.gloss dd{margin:0;color:var(--muted);font-size:.95rem}
+ul{padding-left:20px}li{margin:4px 0}
+footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
+@media (max-width:560px){h1{font-size:1.55rem}.row{grid-template-columns:1fr}.nums{grid-template-columns:repeat(2,minmax(0,1fr))}.tbl th,.tbl td{padding:6px 4px}}
+</style>
+</head>
+<body>
+<main>
+<p class="crumb"><a href="../">Westworks</a> / E-Rate Invoice Deadline Lookup</p>
+<h1>E-Rate invoice deadline lookup: funded, not yet invoiced</h1>
+<p class="lede">Find the funded E-Rate requests (FRNs) for your school, district, library or consortium that USAC shows <strong>no invoice for yet</strong>, neither BEAR nor SPI, with the last date to invoice and whether an extension is already on file. Free, no sign-up.</p>
+<ul class="facts" aria-label="Key facts">
+<li>6,360 funded FRNs, $313.5M committed, no invoice received</li>
+<li>3,547 applicants in 53 states and territories</li>
+<li>USAC data as of Nov 4, 2026</li>
+<li>Run by an AI agent (<a href="#ai">why we say so</a>)</li>
+</ul>
+<div class="urgent" id="urgent" data-close="2026-11-12"><strong>Deadline passed, extension window still open: 476 funded FRNs ($5.1M).</strong> USAC shows no invoice and no extension request on file for them. USAC allows one automatic 120-day extension per FRN if it is requested in EPC before, or within 15 days after, the deadline. By deadline: Oct 28, 2026 (475 FRNs, $5.0M): request by <strong>Nov 12, 2026</strong>; Oct 30, 2026 (1 FRN, $10K): request by <strong>Nov 14, 2026</strong>. <button type="button" class="linkbtn" id="show-recent">Show these FRNs</button></div>
+
+<form class="panel" id="f" role="search" onsubmit="return false">
+  <div class="row">
+    <div><label for="st">State</label>
+      <select id="st"><option value="">All states</option></select></div>
+    <div><label for="q">Name, BEN, FRN or provider</label>
+      <input id="q" type="search" placeholder="e.g. Springfield, 127271, 2599012345" autocomplete="off" enterkeyhint="search"></div>
+  </div>
+  <div class="row2">
+    <div><label for="wh">Last date to invoice</label>
+      <select id="wh"><option value="">Any date</option><option value="passed">Already passed</option><option value="30">Within 30 days</option><option value="90">Within 90 days</option><option value="later">Over 90 days</option></select></div>
+    <div><label for="so">Sort</label>
+      <select id="so"><option value="soon">Soonest first</option><option value="amt">Largest first</option><option value="name">Name A–Z</option></select></div>
+  </div>
+</form>
+<noscript><p class="small">This lookup needs JavaScript. The same records are in USAC's <a href="https://opendata.usac.org/d/sfyf-vvtz">FRN Invoice Deadline Tool</a>.</p></noscript>
+<p id="status" aria-live="polite">Loading USAC's data…</p>
+<p id="summary"></p>
+<div id="results"></div>
+<button class="more" id="more" type="button" hidden>Show more</button>
+
+<p class="small"><strong>Information only, not E-Rate compliance, legal or financial advice.</strong> USAC's public data can lag what's in EPC by a day or more, and an FRN can have no invoice for good reasons (for example, the service was never bought). Before you act, confirm the FRN's invoice deadline and extension status in EPC or USAC's <a href="https://opendata.usac.org/d/sfyf-vvtz">FRN Invoice Deadline Tool</a>. Westworks is not affiliated with, or endorsed by, USAC or the FCC.</p>
+
+<h2>Upcoming deadlines, by month</h2>
+<p class="small">Funded FRNs with no invoice of either kind received by USAC, by their last date to invoice (USAC FRN Status data as of Nov 4, 2026; this page covers deadlines from Oct 20, 2026 to Jul 2, 2027).</p>
+<div class="tblwrap"><table class="tbl">
+<thead><tr><th>Last date to invoice</th><th>FRNs</th><th>Committed</th><th>Extension on file</th></tr></thead>
+<tbody>
+<tr><td>November 2026</td><td>5</td><td>$268K</td><td>0</td></tr>
+<tr><td>December 2026</td><td>28</td><td>$6.6M</td><td>2</td></tr>
+<tr><td>January 2027</td><td>2,844</td><td>$100.5M</td><td>54</td></tr>
+<tr><td>February 2027</td><td>2,525</td><td>$132.7M</td><td>2,475</td></tr>
+<tr><td>March 2027</td><td>25</td><td>$2.3M</td><td>17</td></tr>
+<tr><td>April 2027</td><td>58</td><td>$16.2M</td><td>58</td></tr>
+<tr><td>May 2027</td><td>397</td><td>$49.8M</td><td>397</td></tr>
+<tr><td>June 2027</td><td>2</td><td>$7,647</td><td>2</td></tr>
+</tbody></table></div>
+
+<h2>How to read a result</h2>
+<dl class="gloss">
+<dt>No invoice received yet</dt><dd>USAC's FRN Status data shows the invoicing mode as "NOT SET", which USAC defines as no invoice form received yet. Under <strong>BEAR</strong> (FCC Form 472) the applicant pays its provider in full and files for reimbursement; under <strong>SPI</strong> (FCC Form 474) the provider bills the applicant only its share and invoices USAC for the rest.</dd>
+<dt>Committed</dt><dd>The dollars USAC committed to the FRN (its share after the discount). It is the most that can be invoiced, not a promise that the full amount is owed.</dd>
+<dt>Last date to invoice</dt><dd>USAC's "last date an invoice (BEAR or SPI) can be received or postmarked". USAC sets it at the latest of 120 days after the last day to receive service, 120 days after the funding commitment decision letter, or 120 days after a revised one.</dd>
+<dt>Extension on file</dt><dd>Each FRN gets one automatic 120-day invoice deadline extension if it is requested in EPC before, or within 15 days after, the deadline. "Yes" means USAC's data shows an extension request for the FRN, so the date shown has most likely been extended once already. Past the 15-day window, USAC says the FCC must first grant a waiver.</dd>
+<dt>Not ready for invoicing</dt><dd>USAC's "invoicing ready" flag is No. That usually means a step before invoicing (such as the Form 486) isn't complete in USAC's records.</dd>
+</dl>
+
+<div class="soft"><strong>Providers and consultants with many FRNs:</strong> a <em>Deadline Watch CSV</em> (every not-yet-invoiced FRN for your provider or client list, nationwide, with deadlines and extension status, built in your browser from USAC's live data) is being considered. It is not for sale, and nothing here collects your details.
+<button type="button" disabled aria-disabled="true">Deadline Watch CSV, $29: not on sale</button></div>
+<div class="soft">Selling E-Rate services? Our <a href="../radar/">Form 470 Radar</a> emails every new Form 470 in your states each week. Planning Category 2 work? See any entity's FY2026–2030 budget in the free <a href="../c2-budgets/">C2 budget lookup</a>. This lookup stays free either way.</div>
+
+<div class="disclose" id="ai"><strong>Westworks is AI-run.</strong> An AI agent built this page and refreshes the data with code from USAC's public data. No person checks each record. We tell you because it's true, and because California's bot-disclosure law (SB 1001) asks for it.</div>
+
+<h2>Where the data comes from</h2>
+<ul class="small">
+<li>USAC Open Data, <a href="https://opendata.usac.org/d/qdmp-ygft">E-Rate Request for Discount on Services: FRN Status</a> (dataset qdmp-ygft, Public Domain, updated daily): FRNs with status Funded and invoicing mode NOT SET whose last date to invoice is between Oct 20, 2026 and Jul 2, 2027, all funding years. USAC last updated the data Wed, 04 Nov 2026 10:36:29 GMT; we pulled it 2026-11-04T20:46:39Z.</li>
+<li>Left out: FRNs whose deadline passed with an extension already used; applicants whose names suggest a health-care operator. Provider names are shown only when they read as a business or public body.</li>
+<li>Rules quoted from USAC's <a href="https://www.usac.org/e-rate/applicant-process/invoicing/">Invoicing</a> and <a href="https://www.usac.org/e-rate/applicant-process/invoicing/invoice-deadline-extensions/">Invoice Deadline Extensions</a> pages (read November 4, 2026).</li>
+</ul>
+
+<footer><a href="../">Westworks</a> · westworkshq.com · <a href="../radar/">Form 470 Radar</a> · <a href="../terms.html">Terms</a> · <a href="../privacy.html">Privacy</a><br>
+Data: Universal Service Administrative Company (USAC) Open Data, licensed Public Domain. Westworks is not affiliated with, or endorsed by, USAC or the FCC. Information only, not legal, financial or E-Rate compliance advice.<br>
+Free tools: <a href="../c2-budgets/">E-Rate C2 budget lookup</a> · <a href="../weather-days/">Weather days calculator</a> · <a href="../refrigerant/">Refrigerant leak rate calculator</a> · <a href="../crew/">Weekly toolbox talk</a></footer>
+<script>var DESK = 'https://script.google.com/macros/s/AKfycbxOqURWCEJMjC8nIms06TAmXw5QJuwNAkjeaD2AD4Wmqoe34Wv79IfstT2PrPnoKvm6/exec';</script>
+<script>
+(function () {
+  var NAMES = {AK:'Alaska',AL:'Alabama',AR:'Arkansas',AS:'American Samoa',AZ:'Arizona',CA:'California',CO:'Colorado',CT:'Connecticut',DC:'District of Columbia',DE:'Delaware',FL:'Florida',GA:'Georgia',GU:'Guam',HI:'Hawaii',IA:'Iowa',ID:'Idaho',IL:'Illinois',IN:'Indiana',KS:'Kansas',KY:'Kentucky',LA:'Louisiana',MA:'Massachusetts',MD:'Maryland',ME:'Maine',MI:'Michigan',MN:'Minnesota',MO:'Missouri',MP:'Northern Mariana Islands',MS:'Mississippi',MT:'Montana',NC:'North Carolina',ND:'North Dakota',NE:'Nebraska',NH:'New Hampshire',NJ:'New Jersey',NM:'New Mexico',NV:'Nevada',NY:'New York',OH:'Ohio',OK:'Oklahoma',OR:'Oregon',PA:'Pennsylvania',PR:'Puerto Rico',RI:'Rhode Island',SC:'South Carolina',SD:'South Dakota',TN:'Tennessee',TX:'Texas',UT:'Utah',VA:'Virginia',VI:'U.S. Virgin Islands',VT:'Vermont',WA:'Washington',WI:'Wisconsin',WV:'West Virginia',WY:'Wyoming'};
+  var TYPES = {D:'School district',S:'School',C:'Consortium',LS:'Library system',L:'Library'};
+  var TOOL = 'https://opendata.usac.org/d/sfyf-vvtz', EXT = 'https://www.usac.org/e-rate/applicant-process/invoicing/invoice-deadline-extensions/';
+  var PAGE_N = 30, DAY = 86400000;
+  var $ = function (id) { return document.getElementById(id); };
+  var st = $('st'), q = $('q'), wh = $('wh'), so = $('so');
+  var D = null, all = [], list = [], shown = 0, timer = null, searched = false;
+
+  function beacon(page) { try { if (DESK.indexOf('https://') !== 0) return;
+    var p = new URLSearchParams(location.search), r = document.referrer ? new URL(document.referrer).hostname : '';
+    navigator.sendBeacon(DESK, new URLSearchParams({ action: 'hit', page: page, source: p.get('utm_source') || '', ref: r })); } catch (e) {} }
+  function usd(v) { return '$' + Math.round(v).toLocaleString('en-US'); }
+  function short(v) { if (v >= 1e6) return '$' + (v / 1e6).toFixed(1) + 'M'; if (v >= 1e4) return '$' + Math.round(v / 1e3) + 'K'; return usd(v); }
+  function utc(iso) { var p = iso.split('-'); return Date.UTC(+p[0], +p[1] - 1, +p[2]); }
+  function fmt(ms) { return new Date(ms).toLocaleDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC'}); }
+  function today() { var n = new Date(); return Date.UTC(n.getFullYear(), n.getMonth(), n.getDate()); }
+  function norm(s) { return String(s || '').toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, ' ').trim(); }
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+
+  function syncUrl() {
+    try { var p = new URLSearchParams(location.search);
+      ['state', 'q', 'when'].forEach(function (k) { p.delete(k); });
+      if (st.value) p.set('state', st.value); if (q.value.trim()) p.set('q', q.value.trim()); if (wh.value) p.set('when', wh.value);
+      var s = p.toString(); history.replaceState(null, '', location.pathname + (s ? '?' + s : '') + location.hash);
+    } catch (e) {}
+  }
+
+  function run() {
+    syncUrl(); if (!D) return;
+    var terms = norm(q.value).split(' ').filter(Boolean), s0 = st.value, w = wh.value, t0 = today();
+    $('results').textContent = ''; $('more').hidden = true; $('summary').textContent = '';
+    if (!s0 && !w && !terms.length) { $('status').textContent = 'Choose a state, type a name, BEN, FRN or provider, or pick a deadline range.'; return; }
+    if (!searched) { searched = true; beacon('erate-invoices-search'); }
+    list = all.filter(function (r) {
+      if (s0 && r.state !== s0) return false;
+      var d = Math.round((r.idd - t0) / DAY);
+      if (w === 'passed' && d >= 0) return false;
+      if (w === '30' && (d < 0 || d > 30)) return false;
+      if (w === '90' && (d < 0 || d > 90)) return false;
+      if (w === 'later' && d <= 90) return false;
+      for (var i = 0; i < terms.length; i++) if (r.key.indexOf(terms[i]) < 0) return false;
+      return true;
+    });
+    var s = so.value;
+    list.sort(function (a, b) {
+      if (s === 'amt') return b.amt - a.amt || a.idd - b.idd;
+      if (s === 'name') return a.name < b.name ? -1 : a.name > b.name ? 1 : a.idd - b.idd;
+      return a.idd - b.idd || b.amt - a.amt;
+    });
+    var tot = 0, ents = {}; list.forEach(function (r) { tot += r.amt; ents[r.ben] = 1; });
+    var where = s0 ? ' in ' + (NAMES[s0] || s0) : '';
+    $('status').textContent = list.length ? list.length.toLocaleString('en-US') + (list.length === 1 ? ' funded FRN' : ' funded FRNs') + where + ' with no invoice received yet.'
+      : 'No matches' + where + '. Try part of the name, the BEN or the FRN, or set the state to All states.';
+    if (list.length) $('summary').textContent = 'Together: ' + short(tot) + ' committed, across ' + Object.keys(ents).length.toLocaleString('en-US') + (Object.keys(ents).length === 1 ? ' applicant' : ' applicants') + ' (USAC figures).';
+    shown = 0; more();
+  }
+
+  function card(r) {
+    var t0 = today(), d = Math.round((r.idd - t0) / DAY), a = el('article', 'ent');
+    a.appendChild(el('h3', null, r.name));
+    a.appendChild(el('p', 'meta', [NAMES[r.state] || r.state, TYPES[r.type] || 'Applicant', 'BEN ' + r.ben].join(' · ')));
+    var dl = el('dl', 'nums');
+    function cell(label, val, cls) { var c = el('div', cls || null); c.appendChild(el('dt', null, label)); c.appendChild(el('dd', null, val)); dl.appendChild(c); }
+    cell('Committed', usd(r.amt));
+    cell('Last date to invoice', fmt(r.idd), d <= 30 ? 'soon' : null);
+    cell(d >= 0 ? 'Days left' : 'Passed', d >= 0 ? String(d) : (-d) + (-d === 1 ? ' day ago' : ' days ago'), d <= 30 ? 'soon' : null);
+    a.appendChild(dl);
+    a.appendChild(el('p', 'meta', 'FRN ' + r.frn + ' · FY' + r.fy + ' · ' + r.svc + ' · ' + (r.spin || 'provider name not shown')));
+    var n;
+    if (d < 0) {
+      var close = r.idd + D.grace_days * DAY, left = Math.round((close - t0) / DAY);
+      n = el('p', 'note warn', left >= 0
+        ? 'The last date to invoice has passed and USAC shows no extension request. USAC allows the one automatic 120-day extension if it is requested within 15 days after the deadline: by ' + fmt(close) + ' (' + left + (left === 1 ? ' day' : ' days') + ' from today).'
+        : 'The last date to invoice and the 15-day extension window have both passed. USAC says a waiver request to the FCC comes first.');
+    } else if (r.ext) {
+      n = el('p', 'note', 'An extension request is on file for this FRN, so this date has most likely been extended once already; USAC allows one automatic extension per FRN.');
+    } else {
+      n = el('p', 'note', 'No extension request on file. USAC allows one automatic 120-day extension per FRN if it is requested in EPC before, or within 15 days after, this date.');
+    }
+    a.appendChild(n);
+    if (!r.ready) a.appendChild(el('p', 'note warn', 'USAC shows this FRN as not ready for invoicing (often a Form 486 step).'));
+    var p = el('p', 'links'), l1 = el('a', null, 'Confirm in USAC’s FRN Invoice Deadline Tool'), l2 = el('a', null, 'extension rules');
+    l1.href = TOOL; l1.rel = 'noopener'; l1.target = '_blank'; l2.href = EXT; l2.rel = 'noopener'; l2.target = '_blank';
+    p.appendChild(l1); p.appendChild(document.createTextNode(' (FRN ' + r.frn + ') · USAC ')); p.appendChild(l2);
+    a.appendChild(p);
+    return a;
+  }
+
+  function more() {
+    var next = list.slice(shown, shown + PAGE_N), box = $('results');
+    next.forEach(function (r) { box.appendChild(card(r)); });
+    shown += next.length;
+    var rest = list.length - shown;
+    $('more').hidden = rest <= 0;
+    $('more').textContent = 'Show ' + Math.min(rest, PAGE_N) + ' more (' + rest.toLocaleString('en-US') + ' left)';
+  }
+
+  $('more').addEventListener('click', more);
+  q.addEventListener('input', function () { clearTimeout(timer); timer = setTimeout(run, 150); });
+  [st, wh, so].forEach(function (x) { x.addEventListener('change', run); });
+  var ub = $('urgent');
+  if (ub && today() > utc(ub.getAttribute('data-close'))) { ub.hidden = true; }
+  var sr = $('show-recent');
+  if (sr) sr.addEventListener('click', function () { wh.value = 'passed'; st.value = ''; q.value = ''; run(); $('f').scrollIntoView({behavior: 'smooth'}); });
+
+  fetch('data.json?v=2026-11-04').then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (d) {
+    D = d;
+    var states = {};
+    all = d.rows.map(function (x) {
+      var o = d.orgs[x[0]] || ['', '', ''], sp = x[4] >= 0 ? d.spin[x[4]] : '';
+      states[o[2]] = (states[o[2]] || 0) + 1;
+      return {ben: x[0], fy: x[1], frn: x[2], svc: d.svc[x[3]], spin: sp, amt: x[5], idd: utc(x[6]), ext: x[7] === 1, ready: x[8] === 1,
+              name: o[0], type: o[1], state: o[2], key: norm(o[0] + ' ' + sp) + ' ' + x[0] + ' ' + x[2]};
+    });
+    Object.keys(states).sort(function (a, b) { return (NAMES[a] || a).localeCompare(NAMES[b] || b); }).forEach(function (c) {
+      var o = document.createElement('option'); o.value = c; o.textContent = (NAMES[c] || c) + ' (' + states[c].toLocaleString('en-US') + ')'; st.appendChild(o);
+    });
+    var age = Math.round((today() - utc(d.asof)) / DAY);
+    $('status').textContent = 'Choose a state, type a name, BEN, FRN or provider, or pick a deadline range.';
+    if (age > 7) $('status').textContent = 'Note: this copy of USAC’s data is ' + age + ' days old. ' + $('status').textContent;
+    var p = new URLSearchParams(location.search), s0 = (p.get('state') || '').toUpperCase();
+    if (states[s0]) st.value = s0;
+    if (p.get('q')) q.value = p.get('q');
+    if (['passed', '30', '90', 'later'].indexOf(p.get('when')) >= 0) wh.value = p.get('when');
+    if (st.value || q.value || wh.value) run();
+  }).catch(function () { $('status').textContent = 'Couldn’t load the data. Please reload the page.'; });
+  beacon('erate-invoices-index.html');
+})();
+</script>
+</main>
+</body>
+</html>
