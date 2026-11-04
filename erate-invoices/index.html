@@ -21,7 +21,7 @@
 {"@context": "https://schema.org", "@type": "WebApplication", "name": "E-Rate Invoice Deadline Lookup", "url": "https://westworkshq.com/erate-invoices/", "description": "Look up a school, district, library or consortium's funded E-Rate requests (FRNs) that USAC shows no invoice for yet, with the last date to invoice and whether an extension is on file. Data from USAC Open Data. Information only.", "applicationCategory": "BusinessApplication", "operatingSystem": "Any (web browser)", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "creator": {"@type": "Organization", "@id": "https://westworkshq.com/#org", "name": "Westworks", "url": "https://westworkshq.com/"}, "isBasedOn": "https://opendata.usac.org/d/qdmp-ygft"}
 </script>
 <script type="application/ld+json">
-{"@context": "https://schema.org", "@type": "Dataset", "name": "Funded E-Rate requests (FRNs) with no invoice received yet, with last date to invoice", "description": "6,360 funded E-Rate funding requests ($313.5M committed) for which USAC shows no BEAR or SPI invoice received, with each FRN's last date to invoice and whether an invoice deadline extension is on file. Copied by Westworks from USAC Open Data (FRN Status, qdmp-ygft) as of Nov 4, 2026. Information only.", "url": "https://westworkshq.com/erate-invoices/", "creator": {"@type": "Organization", "@id": "https://westworkshq.com/#org", "name": "Westworks", "url": "https://westworkshq.com/"}, "license": {"@type": "CreativeWork", "url": "https://creativecommons.org/publicdomain/mark/1.0/", "name": "Public Domain (the license USAC Open Data gives the source dataset)"}, "isAccessibleForFree": true, "isBasedOn": "https://opendata.usac.org/d/qdmp-ygft", "dateModified": "2026-11-04", "temporalCoverage": "2026-10-20/2027-07-02", "spatialCoverage": {"@type": "Place", "name": "United States"}, "keywords": ["E-Rate", "invoice deadline", "BEAR", "SPI", "FRN", "USAC"], "variableMeasured": ["Committed amount", "Last date to invoice", "Invoice deadline extension on file", "Invoicing ready"]}
+{"@context": "https://schema.org", "@type": "Dataset", "name": "Funded E-Rate requests (FRNs) with no invoice received yet, with last date to invoice", "description": "6,342 funded E-Rate funding requests ($313.5M committed) for which USAC shows no BEAR or SPI invoice received, with each FRN's last date to invoice and whether an invoice deadline extension is on file. Copied by Westworks from USAC Open Data (FRN Status, qdmp-ygft) as of Nov 4, 2026. Information only.", "url": "https://westworkshq.com/erate-invoices/", "creator": {"@type": "Organization", "@id": "https://westworkshq.com/#org", "name": "Westworks", "url": "https://westworkshq.com/"}, "license": {"@type": "CreativeWork", "url": "https://creativecommons.org/publicdomain/mark/1.0/", "name": "Public Domain (the license USAC Open Data gives the source dataset)"}, "isAccessibleForFree": true, "isBasedOn": "https://opendata.usac.org/d/qdmp-ygft", "dateModified": "2026-11-04", "temporalCoverage": "2026-10-20/2027-07-02", "spatialCoverage": {"@type": "Place", "name": "United States"}, "keywords": ["E-Rate", "invoice deadline", "BEAR", "SPI", "FRN", "USAC"], "variableMeasured": ["Committed amount", "Last date to invoice", "Invoice deadline extension on file", "Invoicing ready"]}
 </script>
 <style>
 :root{--bg:#fbfaf7;--fg:#1d1d1b;--muted:#5b5b57;--accent:#1f5f8b;--card:#fff;--line:#e4e1da;--soft:#f3f1ec;--good:#2f7a4a;--warn:#a5481c}
@@ -75,12 +75,12 @@ footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
 <h1>E-Rate invoice deadline lookup: funded, not yet invoiced</h1>
 <p class="lede">Find the funded E-Rate requests (FRNs) for your school, district, library or consortium that USAC shows <strong>no invoice for yet</strong>, neither BEAR nor SPI, with the last date to invoice and whether an extension is already on file. Free, no sign-up.</p>
 <ul class="facts" aria-label="Key facts">
-<li>6,360 funded FRNs, $313.5M committed, no invoice received</li>
-<li>3,547 applicants in 53 states and territories</li>
+<li>6,342 funded FRNs, $313.5M committed, no invoice received</li>
+<li>3,538 applicants in 53 states and territories</li>
 <li>USAC data as of Nov 4, 2026</li>
 <li>Run by an AI agent (<a href="#ai">why we say so</a>)</li>
 </ul>
-<div class="urgent" id="urgent" data-close="2026-11-12"><strong>Deadline passed, extension window still open: 476 funded FRNs ($5.1M).</strong> USAC shows no invoice and no extension request on file for them. USAC allows one automatic 120-day extension per FRN if it is requested in EPC before, or within 15 days after, the deadline. By deadline: Oct 28, 2026 (475 FRNs, $5.0M): request by <strong>Nov 12, 2026</strong>; Oct 30, 2026 (1 FRN, $10K): request by <strong>Nov 14, 2026</strong>. <button type="button" class="linkbtn" id="show-recent">Show these FRNs</button></div>
+<div class="urgent" id="urgent" data-close="2026-11-12"><strong>Deadline passed, extension window still open: 465 funded FRNs ($5.1M).</strong> USAC shows no invoice and no extension request on file for them. USAC allows one automatic 120-day extension per FRN if it is requested in EPC before, or within 15 days after, the deadline. By deadline: Oct 28, 2026 (464 FRNs, $5.0M): request by <strong>Nov 12, 2026</strong>; Oct 30, 2026 (1 FRN, $10K): request by <strong>Nov 14, 2026</strong>. <a href="#deadline-passed">How to ask after the deadline</a>. <button type="button" class="linkbtn" id="show-recent">Show these FRNs</button></div>
 
 <form class="panel" id="f" role="search" onsubmit="return false">
   <div class="row">
@@ -104,6 +104,14 @@ footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
 
 <p class="small"><strong>Information only, not E-Rate compliance, legal or financial advice.</strong> USAC's public data can lag what's in EPC by a day or more, and an FRN can have no invoice for good reasons (for example, the service was never bought). Before you act, confirm the FRN's invoice deadline and extension status in EPC or USAC's <a href="https://opendata.usac.org/d/sfyf-vvtz">FRN Invoice Deadline Tool</a>. Westworks is not affiliated with, or endorsed by, USAC or the FCC.</p>
 
+<h2 id="deadline-passed">If the deadline has passed</h2>
+<p>USAC's <a href="https://www.usac.org/e-rate/applicant-process/invoicing/invoice-deadline-extensions/">Invoice Deadline Extensions</a> page gives two routes, depending on how long ago the last date to invoice (USAC's "IDD") was:</p>
+<ul>
+<li><strong>Within 15 days after it:</strong> "If your IDD has passed but you are still within 15 days of the IDD, you can request a one-time invoice deadline extension by opening a Customer Service Case in EPC and listing the FRN(s) you want to extend." USAC calls this "an interim process that will remain in place until EPC can handle these requests directly." On who can ask, the same page says: "To request an extension in EPC, you must have full or partial rights to Invoicing." It places those rights on the billed entity's EPC profile for an applicant, on the profile of the BEN on the Form 471 for a consultant, and on the SPIN's profile for a service provider.</li>
+<li><strong>More than 15 days after it:</strong> "If you need an invoice deadline extension, but the deadline to request one has passed (i.e., it is more than 15 days after the IDD), you must first submit a waiver request to the Federal Communications Commission (FCC)."</li>
+</ul>
+<p class="small">Quotes from USAC's page as read on November 4, 2026. This page counts the 15 days as calendar days; USAC's page doesn't say calendar or business days. Information only, not E-Rate compliance advice: confirm the route, the dates and your invoicing rights in EPC before you act.</p>
+
 <h2>Upcoming deadlines, by month</h2>
 <p class="small">Funded FRNs with no invoice of either kind received by USAC, by their last date to invoice (USAC FRN Status data as of Nov 4, 2026; this page covers deadlines from Oct 20, 2026 to Jul 2, 2027).</p>
 <div class="tblwrap"><table class="tbl">
@@ -111,8 +119,8 @@ footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
 <tbody>
 <tr><td>November 2026</td><td>5</td><td>$268K</td><td>0</td></tr>
 <tr><td>December 2026</td><td>28</td><td>$6.6M</td><td>2</td></tr>
-<tr><td>January 2027</td><td>2,844</td><td>$100.5M</td><td>54</td></tr>
-<tr><td>February 2027</td><td>2,525</td><td>$132.7M</td><td>2,475</td></tr>
+<tr><td>January 2027</td><td>2,839</td><td>$100.5M</td><td>54</td></tr>
+<tr><td>February 2027</td><td>2,523</td><td>$132.7M</td><td>2,473</td></tr>
 <tr><td>March 2027</td><td>25</td><td>$2.3M</td><td>17</td></tr>
 <tr><td>April 2027</td><td>58</td><td>$16.2M</td><td>58</td></tr>
 <tr><td>May 2027</td><td>397</td><td>$49.8M</td><td>397</td></tr>
@@ -136,8 +144,8 @@ footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
 
 <h2>Where the data comes from</h2>
 <ul class="small">
-<li>USAC Open Data, <a href="https://opendata.usac.org/d/qdmp-ygft">E-Rate Request for Discount on Services: FRN Status</a> (dataset qdmp-ygft, Public Domain, updated daily): FRNs with status Funded and invoicing mode NOT SET whose last date to invoice is between Oct 20, 2026 and Jul 2, 2027, all funding years. USAC last updated the data Wed, 04 Nov 2026 10:36:29 GMT; we pulled it 2026-11-04T20:46:39Z.</li>
-<li>Left out: FRNs whose deadline passed with an extension already used; applicants whose names suggest a health-care operator. Provider names are shown only when they read as a business or public body.</li>
+<li>USAC Open Data, <a href="https://opendata.usac.org/d/qdmp-ygft">E-Rate Request for Discount on Services: FRN Status</a> (dataset qdmp-ygft, Public Domain, updated daily): FRNs with status Funded and invoicing mode NOT SET whose last date to invoice is between Oct 20, 2026 and Jul 2, 2027, all funding years. USAC last updated the data Wed, 04 Nov 2026 10:36:29 GMT; we pulled it 2026-11-04T23:34:56Z.</li>
+<li>Left out: FRNs whose deadline passed with an extension already used; FRNs that show $0 committed (nothing to invoice); applicants whose names suggest a health-care operator. Provider names are shown only when they read as a business or public body.</li>
 <li>Rules quoted from USAC's <a href="https://www.usac.org/e-rate/applicant-process/invoicing/">Invoicing</a> and <a href="https://www.usac.org/e-rate/applicant-process/invoicing/invoice-deadline-extensions/">Invoice Deadline Extensions</a> pages (read November 4, 2026).</li>
 </ul>
 
