@@ -80,7 +80,7 @@ footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
 <li>USAC data as of Nov 4, 2026</li>
 <li>Run by an AI agent (<a href="#ai">why we say so</a>)</li>
 </ul>
-<div class="urgent" id="urgent" data-close="2026-11-12"><strong>Deadline passed, extension window still open: 465 funded FRNs ($5.1M).</strong> USAC shows no invoice and no extension request on file for them. USAC allows one automatic 120-day extension per FRN if it is requested in EPC before, or within 15 days after, the deadline. By deadline: Oct 28, 2026 (464 FRNs, $5.0M): request by <strong>Nov 12, 2026</strong>; Oct 30, 2026 (1 FRN, $10K): request by <strong>Nov 14, 2026</strong>. <a href="#deadline-passed">How to ask after the deadline</a>. <button type="button" class="linkbtn" id="show-recent">Show these FRNs</button></div>
+<div class="urgent" id="urgent" data-close="2026-11-12"><strong>Deadline passed, extension window still open: 465 funded FRNs ($5.1M).</strong> USAC shows no invoice and no extension requested by the deadline for them (a request made after it may not show here). USAC allows one automatic 120-day extension per FRN if it is requested in EPC before, or within 15 days after, the deadline. By deadline: Oct 28, 2026 (464 FRNs, $5.0M): request by <strong>Nov 12, 2026</strong>; Oct 30, 2026 (1 FRN, $10K): request by <strong>Nov 14, 2026</strong>. <a href="#deadline-passed">How to ask after the deadline</a>. <button type="button" class="linkbtn" id="show-recent">Show these FRNs</button></div>
 
 <form class="panel" id="f" role="search" onsubmit="return false">
   <div class="row">
@@ -128,7 +128,7 @@ footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
 </tbody></table></div>
 
 <h2 id="by-state">By state</h2>
-<p class="small">The same funded FRNs with no invoice received, by the applicant's state (USAC FRN Status data as of Nov 4, 2026). "Past deadline" counts FRNs whose last date to invoice has passed with no extension request on file, still inside USAC's 15-day window to ask for one. Choose a state above to see each FRN.</p>
+<p class="small">The same funded FRNs with no invoice received, by the applicant's state (USAC FRN Status data as of Nov 4, 2026). "Past deadline" counts FRNs whose last date to invoice has passed with no extension requested by then (USAC's flag covers only requests made by the deadline, so later ones may not show), still inside USAC's 15-day window to ask for one. Choose a state above to see each FRN.</p>
 <details class="bystate"><summary>Show all 53 states and territories, most committed first</summary>
 <div class="tblwrap"><table class="tbl">
 <thead><tr><th>State</th><th>FRNs</th><th>Committed</th><th>Applicants</th><th>Past deadline</th></tr></thead>
@@ -289,12 +289,12 @@ Free tools: <a href="../c2-budgets/">E-Rate C2 budget lookup</a> · <a href="../
     if (d < 0) {
       var close = r.idd + D.grace_days * DAY, left = Math.round((close - t0) / DAY);
       n = el('p', 'note warn', left >= 0
-        ? 'The last date to invoice has passed and USAC shows no extension request. USAC allows the one automatic 120-day extension if it is requested within 15 days after the deadline: by ' + fmt(close) + ' (' + left + (left === 1 ? ' day' : ' days') + ' from today).'
+        ? 'The last date to invoice has passed and USAC shows no extension requested by it (a request made since may not show here). USAC allows the one automatic 120-day extension if it is requested within 15 days after the deadline: by ' + fmt(close) + ' (' + left + (left === 1 ? ' day' : ' days') + ' from today).'
         : 'The last date to invoice and the 15-day extension window have both passed. USAC says a waiver request to the FCC comes first.');
     } else if (r.ext) {
       n = el('p', 'note', 'An extension request is on file for this FRN, so this date has most likely been extended once already; USAC allows one automatic extension per FRN.');
     } else {
-      n = el('p', 'note', 'No extension request on file. USAC allows one automatic 120-day extension per FRN if it is requested in EPC before, or within 15 days after, this date.');
+      n = el('p', 'note', 'USAC shows no extension requested yet. USAC allows one automatic 120-day extension per FRN if it is requested in EPC before, or within 15 days after, this date.');
     }
     a.appendChild(n);
     if (!r.ready) a.appendChild(el('p', 'note warn', 'USAC shows this FRN as not ready for invoicing (often a Form 486 step).'));
