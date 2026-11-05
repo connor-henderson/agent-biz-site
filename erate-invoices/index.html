@@ -57,16 +57,27 @@ select:focus,input:focus{outline:2px solid var(--accent);outline-offset:1px}
 .note{font-size:.88rem;margin:8px 0 0}.note.warn{color:var(--warn)}
 .links{margin:8px 0 0;font-size:.86rem}
 .more{display:block;width:100%;font:inherit;font-weight:600;padding:12px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--accent);cursor:pointer;margin:12px 0}
+.more[hidden]{display:none}
 .disclose{border-left:3px solid var(--accent);padding:8px 14px;background:var(--card);margin:16px 0;font-size:.95rem}
 .soft{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:24px 0;font-size:.95rem}
 .soft button[disabled]{display:block;margin:10px 0 0;font:inherit;font-weight:600;padding:10px 14px;border-radius:8px;border:1px dashed var(--line);background:transparent;color:var(--muted);cursor:not-allowed;min-height:44px;max-width:100%}
+.watch{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:28px 0}
+.watch h2{margin:0 0 8px}.watch ul{margin:8px 0}
+.watch .buy{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin:16px 0 8px}
+.watch .price{font-size:1.9rem;font-weight:700;line-height:1}
+.watch .cta{display:inline-block;text-align:center;padding:12px 18px;background:var(--accent);color:#fff;border-radius:8px;text-decoration:none;font-weight:600;min-height:44px;max-width:100%}
+.watch .cta[aria-disabled=true]{opacity:.55;cursor:default}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .watch .cta{color:#141413}}
+:root[data-theme="dark"] .watch .cta{color:#141413}
+.watch details{margin:12px 0 0}.watch summary{cursor:pointer;font-weight:600;color:var(--accent);min-height:44px;padding:10px 0}
+.watch .refunds{list-style:none;padding-left:0}
 .tbl{width:100%;border-collapse:collapse;font-size:.92rem;font-variant-numeric:tabular-nums}
 .tbl th,.tbl td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)}.tbl th{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
 .tblwrap{overflow-x:auto;max-width:100%}
 dl.gloss dt{font-weight:600;margin-top:8px}dl.gloss dd{margin:0;color:var(--muted);font-size:.95rem}
 ul{padding-left:20px}li{margin:4px 0}
 footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
-@media (max-width:560px){h1{font-size:1.55rem}.row{grid-template-columns:1fr}.nums{grid-template-columns:repeat(2,minmax(0,1fr))}.tbl th,.tbl td{padding:6px 4px}}
+@media (max-width:560px){h1{font-size:1.55rem}.row{grid-template-columns:1fr}.nums{grid-template-columns:repeat(2,minmax(0,1fr))}.tbl th,.tbl td{padding:6px 4px}.bystate .tbl th:nth-child(4),.bystate .tbl td:nth-child(4){display:none}}
 </style>
 </head>
 <body>
@@ -107,9 +118,10 @@ footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
 <h2 id="deadline-passed">If the deadline has passed</h2>
 <p>USAC's <a href="https://www.usac.org/e-rate/applicant-process/invoicing/invoice-deadline-extensions/">Invoice Deadline Extensions</a> page gives two routes, depending on how long ago the last date to invoice (USAC's "IDD") was:</p>
 <ul>
-<li><strong>Within 15 days after it:</strong> "If your IDD has passed but you are still within 15 days of the IDD, you can request a one-time invoice deadline extension by opening a Customer Service Case in EPC and listing the FRN(s) you want to extend." USAC calls this "an interim process that will remain in place until EPC can handle these requests directly." On who can ask, the same page says: "To request an extension in EPC, you must have full or partial rights to Invoicing." It places those rights on the billed entity's EPC profile for an applicant, on the profile of the BEN on the Form 471 for a consultant, and on the SPIN's profile for a service provider.</li>
+<li><strong>Within 15 days after it:</strong> "If your IDD has passed but you are still within 15 days of the IDD, you can request a one-time invoice deadline extension by opening a Customer Service Case in EPC and listing the FRN(s) you want to extend." USAC calls this "an interim process that will remain in place until EPC can handle these requests directly."</li>
 <li><strong>More than 15 days after it:</strong> "If you need an invoice deadline extension, but the deadline to request one has passed (i.e., it is more than 15 days after the IDD), you must first submit a waiver request to the Federal Communications Commission (FCC)."</li>
 </ul>
+<p>For a request made in EPC's extension tool (the route while the IDD hasn't passed), the same page says: "To request an extension in EPC, you must have full or partial rights to Invoicing." It places those rights on the billed entity's EPC profile for an applicant, on the profile of the BEN on the Form 471 for a consultant, and on the SPIN's profile for a service provider. It doesn't say who may open the Customer Service Case after the deadline.</p>
 <p class="small">Quotes from USAC's page as read on November 4, 2026. This page counts the 15 days as calendar days; USAC's page doesn't say calendar or business days. Information only, not E-Rate compliance advice: confirm the route, the dates and your invoicing rights in EPC before you act.</p>
 
 <h2>Upcoming deadlines, by month</h2>
@@ -198,11 +210,44 @@ footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
 <dt>Not ready for invoicing</dt><dd>USAC's "invoicing ready" flag is No. That usually means a step before invoicing (such as the Form 486) isn't complete in USAC's records.</dd>
 </dl>
 
-<div class="soft"><strong>Providers and consultants with many FRNs:</strong> a <em>Deadline Watch CSV</em> (every not-yet-invoiced FRN for your provider or client list, nationwide, with deadlines and extension status, built in your browser from USAC's live data) is being considered. It is not for sale, and nothing here collects your details.
-<button type="button" disabled aria-disabled="true">Deadline Watch CSV, $29: not on sale</button></div>
+<section class="watch" id="watch" aria-labelledby="watch-h">
+<h2 id="watch-h">Deadline Watch: one service provider's FRNs, checked every day through June 30, 2027</h2>
+<p>For E-Rate service providers. Give us your SPIN (your 9-digit service provider number). We check its funded FY2025 and FY2026 FRNs, and older ones with a last date to invoice before June 30, 2027, against USAC's FRN Status data each day and email you:</p>
+<ul>
+<li><strong>60, 30 and 7 days before</strong> each last date to invoice up to June 30, 2027 where USAC shows money not yet disbursed;</li>
+<li><strong>inside the 15-day extension window</strong> after one passes with no extension requested by the deadline in USAC's data (a request made after the deadline may not show there);</li>
+<li><strong>when your SPAC (FCC Form 473) isn't on file</strong> in USAC's data for FY2026, or for FY2025 while you still have FY2025 FRNs to invoice;</li>
+<li><strong>when a customer's Form 486 is due within 15 days or past its 120-day deadline</strong>, as computed from USAC's data, for recurring services (internal connections are listed, not alerted);</li>
+<li>a first report within 24 hours of payment, a short status on the first of each month from December through June, and a final report on June 30, 2027.</li>
+</ul>
+<p>In USAC's data today, FY2026 FRNs have a last date to invoice of October 28, 2027 or later, after the Watch ends, so for FY2026 FRNs the Watch covers the SPAC and customers' Form 486s, not invoice dates. Your first report lists which of your dates fall before June 30, 2027.</p>
+<p>Each alert quotes USAC's rule, links USAC's own page and carries a CSV of the SPIN's FRNs.</p>
+<div class="disclose">Westworks is AI-run: an AI agent built the Deadline Watch, and code builds every email from USAC's public data. No person reviews an email before you get it. Information only, not E-Rate compliance, legal or financial advice.</div>
+<div class="buy"><span class="price">$79</span><span>One payment for one SPIN, through June 30, 2027. Nothing renews.</span>
+<a class="cta" id="watchlink" href="https://buy.stripe.com/cNi8wPdqu6BecTjeqP9EI0d">Start a Deadline Watch, $79</a></div>
+<p class="small">Full refund for any reason before your first report or within 14 days after it, and automatically if we're late. Westworks never files, certifies or submits anything in EPC or with USAC for you, and never contacts your customers or USAC. By buying, you agree to our <a href="../terms.html#deadline-watch">Terms (section 19, Deadline Watch)</a>. Stripe processes the payment through Link, so your statement shows <strong>LINK.COM* WESTWORKS</strong>. Sales tax is calculated at checkout.</p>
+<details><summary>What's checked, the refund terms, and what the Watch never does</summary>
+<ul>
+<li><strong>Which FRNs.</strong> Every funded FY2025 and FY2026 FRN on your SPIN, plus any older funded FRN whose last date to invoice falls before June 30, 2027. An FRN still pending at USAC is counted, and watched once it's funded.</li>
+<li><strong>"Money not yet disbursed"</strong> means USAC shows less than the committed amount paid out on the FRN. Not yet disbursed isn't the same as not yet invoiced: USAC's data shows payments, not invoices still in review, and a service that cost less than committed shows a gap too. Each line shows what USAC shows.</li>
+<li><strong>Form 486 dates are our arithmetic</strong> from USAC's data: 120 days after the later of the FCC Form 471 service start date and the FCDL date (or the revised FCDL date when USAC shows no FCDL date), moved past weekends and federal holidays. EPC shows USAC's own date, and USAC notes your deadline may not have passed if service started later than the Form 471 says. Form 486 alerts cover FY2026; FY2025 FRNs with no Form 486 are listed in your first report.</li>
+<li><strong>USAC's data can lag EPC</strong> by a day or more, so a form filed recently may not show yet. Before you act on an alert, check EPC.</li>
+<li><strong>What the Watch never does:</strong> file, certify or submit anything in EPC or with USAC, contact your customers or USAC, or give compliance advice. Whether and how to act stays with you.</li>
+</ul>
+<p>We refund the full price:</p>
+<ul class="refunds">
+<li><strong>(a)</strong> for any reason, if you ask before your first report arrives or within 14 days after it does;</li>
+<li><strong>(b)</strong> automatically, without being asked, if your first report reaches you more than 24 hours after payment, or after you send us a usable SPIN if your order had none (we still send it);</li>
+<li><strong>(c)</strong> automatically, without being asked, once per purchase, if we go more than 3 days in a row without checking your SPIN while USAC's data is available, or send a 60-, 30- or 7-day alert more than 2 days after the day it was due (your Watch continues);</li>
+<li><strong>(d)</strong> at once, if USAC's data shows FRNs for your SPIN but none funded in the Watch's scope on two days in a row before your first report; or 7 days after payment, if by then we have no 9-digit SPIN from you that USAC's data shows any FRN for.</li>
+</ul>
+<p>If USAC stops publishing the data we check, we refund the unused share of the price, by days left to June 30, 2027, and the same if we stop running the Watch before then for any other reason. Link may also process refunds under its own policies.</p>
+<p class="small">Data: USAC Open Data, FRN Status (qdmp-ygft), licensed Public Domain. Westworks is not affiliated with, or endorsed by, USAC or the FCC.</p>
+</details>
+</section>
 <div class="soft">Selling E-Rate services? Our <a href="../radar/">Form 470 Radar</a> emails every new Form 470 in your states each week. Planning Category 2 work? See any entity's FY2026–2030 budget in the free <a href="../c2-budgets/">C2 budget lookup</a>. This lookup stays free either way.</div>
 
-<div class="disclose" id="ai"><strong>Westworks is AI-run.</strong> An AI agent built this page and refreshes the data with code from USAC's public data. No person checks each record. We tell you because it's true, and because California's bot-disclosure law (SB 1001) asks for it.</div>
+<div class="disclose" id="ai"><strong>Westworks is AI-run.</strong> An AI agent built this page and refreshes the data with code from USAC's public data. No person checks each record. We tell you because it's true, and because California's bot-disclosure law (SB 1001) asks for it. A person owns Westworks and sets its rules. If we emailed you, reply to that email: our mail desk answers within a day.</div>
 
 <h2>Where the data comes from</h2>
 <ul class="small">
@@ -211,7 +256,7 @@ footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
 <li>Rules quoted from USAC's <a href="https://www.usac.org/e-rate/applicant-process/invoicing/">Invoicing</a> and <a href="https://www.usac.org/e-rate/applicant-process/invoicing/invoice-deadline-extensions/">Invoice Deadline Extensions</a> pages (read November 4, 2026).</li>
 </ul>
 
-<footer><a href="../">Westworks</a> · westworkshq.com · <a href="../radar/">Form 470 Radar</a> · <a href="../terms.html">Terms</a> · <a href="../privacy.html">Privacy</a><br>
+<footer><a href="../">Westworks</a> · westworkshq.com · <a href="../#about">About</a> · <a href="../#contact">Contact</a> · <a href="../radar/">Form 470 Radar</a> · <a href="../terms.html">Terms</a> · <a href="../privacy.html">Privacy</a><br>
 Data: Universal Service Administrative Company (USAC) Open Data, licensed Public Domain. Westworks is not affiliated with, or endorsed by, USAC or the FCC. Information only, not legal, financial or E-Rate compliance advice.<br>
 Free tools: <a href="../c2-budgets/">E-Rate C2 budget lookup</a> · <a href="../weather-days/">Weather days calculator</a> · <a href="../refrigerant/">Refrigerant leak rate calculator</a> · <a href="../crew/">Weekly toolbox talk</a></footer>
 <script>var DESK = 'https://script.google.com/macros/s/AKfycbxOqURWCEJMjC8nIms06TAmXw5QJuwNAkjeaD2AD4Wmqoe34Wv79IfstT2PrPnoKvm6/exec';</script>
@@ -246,7 +291,9 @@ Free tools: <a href="../c2-budgets/">E-Rate C2 budget lookup</a> · <a href="../
 
   function run() {
     syncUrl(); if (!D) return;
-    var terms = norm(q.value).split(' ').filter(Boolean), s0 = st.value, w = wh.value, t0 = today();
+    var raw = norm(q.value), nums = raw.match(/\b\d{9,12}\b/g);   // FRNs pasted from an email or a card: match any of them
+    var terms = nums || raw.split(' ').filter(function (t) { return t && ['frn', 'frns', 'ben', 'spin'].indexOf(t) < 0; });
+    var s0 = st.value, w = wh.value, t0 = today();
     $('results').textContent = ''; $('more').hidden = true; $('summary').textContent = '';
     if (!s0 && !w && !terms.length) { $('status').textContent = 'Choose a state, type a name, BEN, FRN or provider, or pick a deadline range.'; return; }
     if (!searched) { searched = true; beacon('erate-invoices-search'); }
@@ -257,6 +304,7 @@ Free tools: <a href="../c2-budgets/">E-Rate C2 budget lookup</a> · <a href="../
       if (w === '30' && (d < 0 || d > 30)) return false;
       if (w === '90' && (d < 0 || d > 90)) return false;
       if (w === 'later' && d <= 90) return false;
+      if (nums) return nums.indexOf(r.frn) >= 0;
       for (var i = 0; i < terms.length; i++) if (r.key.indexOf(terms[i]) < 0) return false;
       return true;
     });
@@ -289,7 +337,7 @@ Free tools: <a href="../c2-budgets/">E-Rate C2 budget lookup</a> · <a href="../
     if (d < 0) {
       var close = r.idd + D.grace_days * DAY, left = Math.round((close - t0) / DAY);
       n = el('p', 'note warn', left >= 0
-        ? 'The last date to invoice has passed and USAC shows no extension requested by it (a request made since may not show here). USAC allows the one automatic 120-day extension if it is requested within 15 days after the deadline: by ' + fmt(close) + ' (' + left + (left === 1 ? ' day' : ' days') + ' from today).'
+        ? 'The last date to invoice has passed and USAC shows no extension requested by it (a request made since may not show here). USAC allows one automatic 120-day extension per FRN if it is requested within 15 days after the deadline: by ' + fmt(close) + ', counting calendar days (' + left + (left === 1 ? ' day' : ' days') + ' from today).'
         : 'The last date to invoice and the 15-day extension window have both passed. USAC says a waiver request to the FCC comes first.');
     } else if (r.ext) {
       n = el('p', 'note', 'An extension request is on file for this FRN, so this date has most likely been extended once already; USAC allows one automatic extension per FRN.');
