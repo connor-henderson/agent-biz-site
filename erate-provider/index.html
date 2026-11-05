@@ -112,8 +112,9 @@ footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
 <!-- DEADLINE WATCH SLOT: default OFF. This block stays hidden until WATCH (in the script below) holds a
      https://westworkshq.com/ URL, set by build_provider_check.py --watch-url once the Deadline Watch is on sale;
      publish_backlog.py allows only PROVIDER_WATCH_URL there. No price and no checkout link here: the Watch's own
-     page carries the offer and its terms. -->
-<div class="soft" id="watch-slot" hidden><strong>Want a SPIN checked every day?</strong> The <a id="watch-link">Deadline Watch</a> checks one SPIN's funded FRNs against USAC's data each day through June 30, 2027 and emails alerts. It is a paid service: what it covers, its price and its terms are on its page.</div>
+     page carries the offer and its terms. The FY2026 scope sentence (deadline-watch watch_copy.FY2026_SCOPE, word for
+     word) comes before the link, as on every page that offers the Watch (REVIEW-2026-11-05 M1; page_problems). -->
+<div class="soft" id="watch-slot" hidden><strong>Want a SPIN checked every day?</strong> The Deadline Watch checks one SPIN's funded FRNs against USAC's data each day through June 30, 2027 and emails alerts. In USAC's data today, FY2026 FRNs have a last date to invoice of October 28, 2027 or later, after the Watch ends, so for FY2026 FRNs the Watch covers the SPAC and customers' Form 486s, not invoice dates. Your first report lists which of your dates fall before June 30, 2027. It is a paid service: what it covers, its price and its terms are on the <a id="watch-link">Deadline Watch page</a>.</div>
 
 <h2 id="rules">USAC's rules, in USAC's words</h2>
 <p>This page states no rule of its own. Where a result touches a rule, these are the sentences it refers to, quoted from USAC's pages.</p>
@@ -381,7 +382,7 @@ var PC = (function () {
 (function () {
   'use strict';
   // DEADLINE WATCH SLOT: '' = off (the default). Only build_provider_check.py --watch-url sets it (see #watch-slot).
-  var WATCH = '';
+  var WATCH = 'https://westworkshq.com/erate-invoices/#watch';
   var $ = function (id) { return document.getElementById(id); };
   var form = $('f'), inp = $('spin'), go = $('go'), errEl = $('spin-err'), statusEl = $('status'), out = $('out'), moreBtn = $('more');
   var TOOL = 'https://opendata.usac.org/d/sfyf-vvtz';
