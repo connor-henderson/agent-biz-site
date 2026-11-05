@@ -1,0 +1,760 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Free E-Rate SPIN lookup: a provider's funded FY2025 and FY2026 FRNs live from USAC, with invoicing, disbursed amounts, last date to invoice and FY2026 SPAC status.">
+<link rel="canonical" href="https://westworkshq.com/erate-provider/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Westworks">
+<meta property="og:url" content="https://westworkshq.com/erate-provider/">
+<meta property="og:title" content="E-Rate SPIN Lookup: Funded FRNs, Invoicing and SPAC Status">
+<meta property="og:description" content="Free E-Rate SPIN lookup: a provider's funded FY2025 and FY2026 FRNs live from USAC, with invoicing, disbursed amounts, last date to invoice and FY2026 SPAC status.">
+<meta property="og:image" content="https://westworkshq.com/assets/icon-512.png">
+<meta name="twitter:card" content="summary">
+<title>E-Rate SPIN Lookup: Funded FRNs, Invoicing and SPAC Status</title>
+<link rel="icon" href="../assets/icon-512.png">
+<link rel="apple-touch-icon" href="../assets/icon-512.png">
+<link rel="preconnect" href="https://opendata.usac.org" crossorigin>
+<meta name="theme-color" content="#fbfaf7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141413" media="(prefers-color-scheme: dark)">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "WebApplication", "name": "E-Rate Provider Check (SPIN lookup)", "url": "https://westworkshq.com/erate-provider/", "description": "Enter an E-Rate service provider's SPIN to see its funded FY2025 and FY2026 funding requests (FRNs), read live from USAC Open Data: committed and disbursed amounts, invoicing mode, last date to invoice, extension and invoicing-ready status, and whether a FY2026 SPAC (FCC Form 473) is on file. Information only.", "applicationCategory": "BusinessApplication", "operatingSystem": "Any (web browser)", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "creator": {"@type": "Organization", "@id": "https://westworkshq.com/#org", "name": "Westworks", "url": "https://westworkshq.com/"}, "isBasedOn": ["https://opendata.usac.org/d/qdmp-ygft", "https://opendata.usac.org/d/xcy2-bdid"]}
+</script>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1d1b;--muted:#5b5b57;--accent:#1f5f8b;--onaccent:#fff;--card:#fff;--line:#e4e1da;--soft:#f3f1ec;--good:#2f7a4a;--warn:#a5481c}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141413;--fg:#ecebe6;--muted:#a8a69f;--accent:#6fb0e0;--onaccent:#141413;--card:#1d1d1b;--line:#33322f;--soft:#1a1a19;--good:#6cc08b;--warn:#f0956a}}
+:root[data-theme="dark"]{--bg:#141413;--fg:#ecebe6;--muted:#a8a69f;--accent:#6fb0e0;--onaccent:#141413;--card:#1d1d1b;--line:#33322f;--soft:#1a1a19;--good:#6cc08b;--warn:#f0956a}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.55 system-ui,-apple-system,Segoe UI,sans-serif;overflow-wrap:break-word}
+main{max-width:820px;margin:0 auto;padding:28px 16px 64px}
+a{color:var(--accent);overflow-wrap:anywhere}
+.crumb{margin:0 0 20px;font-size:.9rem;color:var(--muted)}.crumb a{color:inherit;display:inline-block;padding:6px 0}
+h1{font-size:2rem;line-height:1.2;margin:0 0 12px}h2{font-size:1.2rem;margin:36px 0 8px}h3{font-size:1.04rem;margin:20px 0 6px}
+.lede{color:var(--muted);font-size:1.08rem;margin:0 0 6px}
+.small{font-size:.88rem;color:var(--muted)}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0;padding:0;list-style:none}
+.facts li{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:.9rem;margin:0;max-width:100%}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:22px 0 10px}
+.lbl{display:block;font-weight:600;margin:0 0 6px}
+.spinrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px}
+input[type=text],select{width:100%;font:inherit;font-size:16px;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 10px;min-height:44px}
+input[aria-invalid=true]{border-color:var(--warn)}
+input:focus,select:focus{outline:2px solid var(--accent);outline-offset:1px}
+button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.go{font:inherit;font-weight:600;padding:9px 20px;border:0;border-radius:8px;background:var(--accent);color:var(--onaccent);min-height:44px;cursor:pointer}
+.go[disabled]{opacity:.65;cursor:progress}
+.hint{font-size:.88rem;color:var(--muted);margin:8px 0 0}
+.err{color:var(--warn);font-size:.93rem;font-weight:600;margin:8px 0 0}
+#status{margin:14px 0 6px;font-size:.95rem;color:var(--muted);min-height:1.5em}
+.box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin:14px 0}
+.box.warn{border-color:var(--warn);border-left-width:4px}
+.box.good{border-left:4px solid var(--good)}
+.box h3{margin:2px 0 4px}
+.flags{list-style:none;padding:0;margin:0}
+.flags>li{padding:10px 0;border-top:1px solid var(--line);margin:0}.flags>li:first-child{border-top:0}
+.q{color:var(--muted);font-size:.92rem;margin:6px 0 0}
+.linkbtn{display:block;font:inherit;font-weight:600;color:var(--accent);background:none;border:0;padding:6px 0;cursor:pointer;text-decoration:underline;min-height:44px;text-align:left}
+.fys{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}
+.fy{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:.92rem;min-width:0}
+.fy strong{display:block;font-size:1rem}
+.row3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.row3 label{display:block;font-size:.82rem;color:var(--muted);margin:0 0 3px;font-weight:600}
+#count{margin:12px 0 4px;font-size:.92rem}
+.ent{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0}
+.ent h3{font-size:1.04rem;margin:0;line-height:1.3}
+.meta{font-size:.86rem;color:var(--muted);margin:2px 0 10px}
+.nums{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0;font-variant-numeric:tabular-nums}
+.nums div{min-width:0}.nums dt,.kv dt{font-size:.74rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.nums dd{margin:0;font-weight:600;font-size:.98rem;overflow-wrap:anywhere}
+.nums .soon dd{color:var(--warn)}
+.kv{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px 10px;margin:10px 0 0;font-size:.88rem}
+.kv div{min-width:0}.kv dd{margin:0;font-weight:600;overflow-wrap:anywhere}
+.note{font-size:.88rem;margin:8px 0 0}.note.warn{color:var(--warn)}
+.links{margin:8px 0 0;font-size:.86rem}
+.more{display:block;width:100%;font:inherit;font-weight:600;padding:12px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--accent);cursor:pointer;margin:12px 0;min-height:44px}
+.disclose{border-left:3px solid var(--accent);padding:8px 14px;background:var(--card);margin:16px 0;font-size:.95rem}
+.soft{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:24px 0;font-size:.95rem}
+dl.gloss dt{font-weight:600;margin-top:8px}dl.gloss dd{margin:0;color:var(--muted);font-size:.95rem}
+ul{padding-left:20px}li{margin:4px 0}
+footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
+@media (max-width:560px){h1{font-size:1.55rem}.fys,.row3{grid-template-columns:minmax(0,1fr)}.nums,.kv{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<main>
+<p class="crumb"><a href="../">Westworks</a> / E-Rate Provider Check</p>
+<h1>E-Rate provider check: a SPIN's funded FRNs, invoicing and SPAC</h1>
+<p class="lede">For E-Rate service providers and their consultants. Enter a SPIN to see its funded FY2025 and FY2026 FRNs as USAC's data shows them: committed and disbursed, invoicing mode, last date to invoice, and whether the FY2026 SPAC (FCC Form 473) is on file. Free, no sign-up.</p>
+<ul class="facts" aria-label="Key facts">
+<li>Funded FY2025 and FY2026 FRNs</li>
+<li>Live from USAC Open Data</li>
+<li>Nothing you type is sent to Westworks</li>
+<li>Run by an AI agent (<a href="#ai">why we say so</a>)</li>
+</ul>
+
+<form class="panel" id="f" role="search" novalidate>
+  <label class="lbl" for="spin">SPIN (service provider number)</label>
+  <div class="spinrow">
+    <input id="spin" name="spin" type="text" inputmode="numeric" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="20" placeholder="9 digits, e.g. 143012345" aria-describedby="spin-hint spin-err" enterkeyhint="search">
+    <button class="go" id="go" type="submit">Check</button>
+  </div>
+  <p class="hint" id="spin-hint">USAC's 9-digit number for a service provider (also called the 498 ID); most start with 143. Looking for one school, library or FRN? Use the <a href="../erate-invoices/">invoice deadline lookup</a>.</p>
+  <p class="err" id="spin-err" hidden></p>
+</form>
+<noscript><p class="small">This check needs JavaScript: your browser reads USAC's data directly. The same records are in USAC's <a href="https://opendata.usac.org/d/qdmp-ygft">FRN Status data</a>.</p></noscript>
+<p id="status" role="status" aria-live="polite"></p>
+<div id="out"></div>
+<button class="more" id="more" type="button" hidden>Show more</button>
+
+<p class="small"><strong>Information only, not E-Rate compliance, legal or financial advice.</strong> USAC's public data can lag what EPC shows by a day or more, so a form you filed recently may not show yet. EPC shows the current status. Before you act, confirm each FRN's invoice deadline and extension status in EPC or USAC's <a href="https://opendata.usac.org/d/sfyf-vvtz">FRN Invoice Deadline Tool</a>. Westworks is not affiliated with, or endorsed by, USAC or the FCC.</p>
+
+<!-- DEADLINE WATCH SLOT: default OFF. This block stays hidden until WATCH (in the script below) holds a
+     https://westworkshq.com/ URL, set by build_provider_check.py --watch-url once the Deadline Watch is on sale;
+     publish_backlog.py allows only PROVIDER_WATCH_URL there. No price and no checkout link here: the Watch's own
+     page carries the offer and its terms. -->
+<div class="soft" id="watch-slot" hidden><strong>Want a SPIN checked every day?</strong> The <a id="watch-link">Deadline Watch</a> checks one SPIN's funded FRNs against USAC's data each day through June 30, 2027 and emails alerts. It is a paid service: what it covers, its price and its terms are on its page.</div>
+
+<h2 id="rules">USAC's rules, in USAC's words</h2>
+<p>This page states no rule of its own. Where a result touches a rule, these are the sentences it refers to, quoted from USAC's pages.</p>
+<h3>Invoice deadline extensions</h3>
+<ul>
+<li>USAC's <a href="https://www.usac.org/e-rate/applicant-process/invoicing/">Invoicing</a> page: “Upon request, invoice filers are entitled to a one-time, 120-day deadline extension per FRN. The request must be made before, or within 15 days after, the original IDD.”</li>
+<li>USAC's <a href="https://www.usac.org/e-rate/applicant-process/invoicing/invoice-deadline-extensions/">Invoice Deadline Extensions</a> page: “If your IDD has passed but you are still within 15 days of the IDD, you can request a one-time invoice deadline extension by opening a Customer Service Case in EPC and listing the FRN(s) you want to extend.” And: “If you need an invoice deadline extension, but the deadline to request one has passed (i.e., it is more than 15 days after the IDD), you must first submit a waiver request to the Federal Communications Commission (FCC).”</li>
+<li>For a request made in EPC's extension tool (the route while the IDD hasn't passed), the same page says, for service providers: “The requestor must be a full- or partial-rights user on the EPC profile for the Service Provider Identification Number (SPIN) featured on the FRNs.” And: “A service provider can file a single request for FRNs from multiple funding years and/or multiple BENs.” It doesn't say who may open the Customer Service Case after the deadline.</li>
+</ul>
+<p class="small">IDD is USAC's abbreviation for the invoice deadline date, the last date to invoice. This page counts the 15 days as calendar days; USAC's page doesn't say calendar or business days.</p>
+<h3>SPAC (FCC Form 473)</h3>
+<ul>
+<li>USAC's <a href="https://www.usac.org/e-rate/service-providers/step-3-winning-the-bid/fcc-form-473-filing/">File the FCC Form 473</a> page: “Service providers must file their SPAC Form before any FCC Forms 472 (BEAR) or FCC Forms 474 (SPI) invoices can be processed and paid by USAC.” “USAC must have a SPAC on file for the relevant funding year in order to be able to disburse funds for an FRN for that funding year.” “Therefore, the SPAC Form should be filed no later than June 30 of the applicable funding year (i.e., June 30, 2025, for SPINs with FY 2024 FRNs) at issue to allow time for E-Rate participants to submit their requests for reimbursement (i.e., SPI and BEAR requests) for that funding year.”</li>
+<li>The same page: “File this form in the E-Rate Productivity Center (EPC).” And: “View the status of your SPAC for a particular funding year in the Service Provider (SPIN) Download Tool or the Open Data FRN Status Tool FY2016 to verify that USAC has successfully processed your SPAC form.”</li>
+</ul>
+<p class="small">Quotes as read on USAC's pages on November 5, 2026. Information only, not E-Rate compliance advice: confirm the route, the dates and your EPC rights before you act.</p>
+
+<h2>How to read a result</h2>
+<p class="small">Each field is USAC's, with USAC's own note for it from its data dictionary.</p>
+<dl class="gloss">
+<dt>Committed</dt><dd>USAC: “The total amount for the Funding Request (FRN) after discount.” It is the most that can be invoiced on the FRN, not an amount owed.</dd>
+<dt>Disbursed</dt><dd>USAC: “Total net amount disbursed to a service provider or applicant.” Not yet disbursed isn't the same as not yet invoiced: USAC's data shows payments, not invoices still in review, and a service that cost less than committed shows a gap too.</dd>
+<dt>Invoicing mode</dt><dd>BEAR (FCC Form 472) or SPI (FCC Form 474). NOT SET is USAC's value “when no form has been received yet for the FY and therefore no invoicing mode has been set - only applicable for funding years before 2026”. This page reads NOT SET as no invoice received only for FY2025.</dd>
+<dt>Last date to invoice</dt><dd>USAC: “Last date an Invoice (BEAR or SPI) can be received or postmarked”.</dd>
+<dt>Extension requested</dt><dd>USAC: “Indicates whether a one-time, 120-day extension for invoice submission was requested on or before the original deadline.” So a request made after the deadline may not show here.</dd>
+<dt>Invoicing ready</dt><dd>USAC: “Invoicing may begin for the FRN as there is an approved FCC Form 486.”</dd>
+<dt>SPAC filed (on each FRN)</dt><dd>USAC: “Indicates if an FCC Form 473 Service Provider Annual Certification (SPAC) was filed for the Funding Year associated with the FCC Form 471.”</dd>
+<dt>Form 473 years and status (USAC's SPIN data)</dt><dd>USAC: “Lists the funding years for which the service provider has filed an FCC Form 473.” And: “Indicates whether a service provider is labeled active or closed in the E-Rate program.”</dd>
+<dt>Extension window open until</dt><dd>15 calendar days after a last date to invoice that has passed, shown when USAC's data shows no extension requested by the deadline and the FRN isn't fully disbursed.</dd>
+</dl>
+
+<div class="soft">Looking up a school, library or consortium instead? The free <a href="../erate-invoices/">invoice deadline lookup</a> searches funded FRNs with no invoice yet by name, BEN, FRN or provider. Selling E-Rate services? <a href="../radar/">Form 470 Radar</a> emails every new Form 470 in your states each week. This check stays free either way.</div>
+
+<div class="disclose" id="ai"><strong>Westworks is AI-run.</strong> An AI agent built this page. Your SPIN goes from your browser straight to USAC's public data service (opendata.usac.org); nothing you type is sent to Westworks (a shared link with ?spin= in it reaches our web host, GitHub Pages, like any web address). No person checks each result. We tell you because it's true, and because California's bot-disclosure law (SB 1001) asks for it. A person owns Westworks and sets its rules. If we emailed you, reply to that email: our mail desk answers within a day.</div>
+
+<h2>Where the data comes from</h2>
+<ul class="small">
+<li>FRNs: USAC Open Data, <a href="https://opendata.usac.org/d/qdmp-ygft">E-Rate Request for Discount on Services: FRN Status</a> (dataset qdmp-ygft, Public Domain, updated daily). One query per check: the Current version of every FRN with status Funded in funding years 2025 and 2026 whose service provider number (USAC's field epc_organization_id) is the SPIN you enter, 18 named fields, no contact fields. A SPIN with more than 5,000 such FRNs takes one more request per 5,000.</li>
+<li>SPAC years and status: USAC Open Data, <a href="https://opendata.usac.org/d/xcy2-bdid">E-Rate Service Provider Information</a> (dataset xcy2-bdid). One query per check, three fields: spin, status and fcc_form_473_spac_filed.</li>
+<li>"Data as of" is each dataset's last update in USAC's metadata, read once per visit.</li>
+<li>Left out: FRNs that show $0 committed (nothing to invoice) and FRNs whose applicant's name suggests a health-care operator. A provider's name is shown only when it reads as a business or public body.</li>
+<li>Westworks counts visits and checks on this page, never the SPIN.</li>
+</ul>
+
+<footer><a href="../">Westworks</a> · westworkshq.com · <a href="../#about">About</a> · <a href="../#contact">Contact</a> · <a href="../radar/">Form 470 Radar</a> · <a href="../terms.html">Terms</a> · <a href="../privacy.html">Privacy</a><br>
+Data: Universal Service Administrative Company (USAC) Open Data, read live in your browser; FRN Status is licensed Public Domain. Westworks is not affiliated with, or endorsed by, USAC or the FCC. Information only, not legal, financial or E-Rate compliance advice.<br>
+Free tools: <a href="../erate-invoices/">E-Rate invoice deadline lookup</a> · <a href="../c2-budgets/">E-Rate C2 budget lookup</a> · <a href="../weather-days/">Weather days calculator</a> · <a href="../refrigerant/">Refrigerant leak rate calculator</a> · <a href="../crew/">Weekly toolbox talk</a></footer>
+<script>var DESK = 'https://script.google.com/macros/s/AKfycbxOqURWCEJMjC8nIms06TAmXw5QJuwNAkjeaD2AD4Wmqoe34Wv79IfstT2PrPnoKvm6/exec';</script>
+<script id="pc-core">
+// The page's pure logic (no DOM): queries, screens and flags. tests/core_test.js runs it in Node.
+var PC = (function () {
+  'use strict';
+  var HOST = 'https://opendata.usac.org', FRN_ID = 'qdmp-ygft', SPIN_ID = 'xcy2-bdid';
+  var FYS = ['2025', '2026'];
+  // Only these named fields: never a contact or free-text one (build_provider_check.py page_problems checks).
+  var FRN_FIELDS = ['funding_year', 'funding_request_number', 'form_version', 'form_471_frn_status_name',
+    'epc_organization_id', 'spin_name', 'organization_name', 'organization_entity_type_name', 'ben', 'state',
+    'form_471_service_type_name', 'funding_commitment_request', 'total_authorized_disbursement', 'invoicing_mode',
+    'last_date_to_invoice', 'extension_request_for_invoicing', 'invoicing_ready', 'spac_filed'];
+  var SPIN_FIELDS = ['spin', 'status', 'fcc_form_473_spac_filed'];
+  var PAGE = 5000, MAX_PAGES = 10, GRACE = 15, TOL = 1, DAY = 86400000, STALE_DAYS = 3;
+  // invoice-clock's screens (build_invoice_clock.py): HEALTH_RE as is; BUSINESS_RE without its 13 brand-name tokens
+  // (so this page names no firm) plus MOBILITY; ENTITY_RE, PERSONISH_RE and FIRST_NAMES as is.
+  var HEALTH_RE = /\b(HOSPITAL|CLINIC|MEDICAL|HEALTH|NURSING|HOSPICE)\b/i;
+  var EMAIL_RE = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/;
+  var PHONE_RE = /\(?\b\d{3}\)?[-. ]\d{3}[-. ]\d{4}\b/;
+  var BUSINESS_RE = new RegExp('\\b(INC|INCORPORATED|LLC|L\\.L\\.C|LLP|LP|LTD|LIMITED|CORP|CORPO|CORPORATION|CO|COMPANY|' +
+    'COMPANIES|COOPERATIVE|CO-OP|COOP|ASSN|ASSOCIATION|AUTHORITY|DISTRICT|BOARD|BOCES|CITY|COUNTY|STATE|UNIVERSITY|' +
+    'COLLEGE|COUNCIL|COMMISSION|DEPARTMENT|DEPT|TELEPHONE|TEL|TELECOM\\w*|COMMUNICATIONS?|NETWORKS?|NETWORKING|' +
+    'TECHNOLOGY|TECHNOLOGIES|TECH|SYSTEMS?|SOLUTIONS?|SERVICES?|GROUP|ENTERPRISES?|HOLDINGS|PARTNERS|PARTNERSHIP|' +
+    'WIRELESS|BROADBAND|FIBER|FIBRE|CABLE|CABLEVISION|INTERNET|DATA|DATACOM|ELECTRIC\\w*|POWER|ENERGY|UTILITIES|' +
+    'UTILITY|CONSULTING|INTEGRATORS?|INTEGRATIONS?|CONSORTIUM|ALLIANCE|PLC|PLLC|TELCO|ONLINE|DIGITAL|MEDIA|WORKS|' +
+    'SUPPLY|COMPUTERS?|CENTER|CENTRE|ORGANIZATION|WAREHOUSE|INTERNATIONAL|PLANT|ASSOCIATES|MOBILITY)\\b', 'i');
+  var ENTITY_RE = new RegExp('\\b(INC|INCORPORATED|LLC|L\\.L\\.C|LLP|LP|LTD|LIMITED|CORP|CORPO|CORPORATION|CO|COMPANY|' +
+    'COMPANIES|COOPERATIVE|CO-OP|COOP|ASSN|ASSOCIATION|AUTHORITY|DISTRICT|BOARD|BOCES|CITY|COUNTY|STATE|UNIVERSITY|' +
+    'COLLEGE|COUNCIL|COMMISSION|DEPARTMENT|DEPT|PLC|PLLC)\\b', 'i');
+  var PERSON_HEAD = /^([A-Z][a-z]+)\.?\s+(?:[A-Z]\.?\s+)?[A-Z][a-z'’-]+,?\s+(?:&\s+|and\s+)?(.+?)\.?$/;
+  var TRADE_RE = /^(?:consulting|consultants?|services?|solutions?|associates|group|enterprises?|technology|technologies|tech|computers?|systems?|data|works|networking|integrations?|electric|electrical|communications?|cabling|wiring)$/i;
+  var FIRST = {};
+  ('aaron adam alan albert alex alice amanda amy andrew andy angela ann anna anne anthony arthur barbara ben benjamin ' +
+   'beth betty bill billy bob bobby brad brandon brenda brian bruce carl carol caroline carolyn catherine chad charles ' +
+   'charlie chris christine christopher chuck cindy craig dan daniel danny dave david dawn dean debbie deborah dennis ' +
+   'diana diane don donald donna doug douglas ed eddie edward elizabeth emily emma eric frank fred gary george gerald ' +
+   'glenn gloria grace greg gregory harold harry heather helen henry jack james jamie jane janet jason jay jean jeff ' +
+   'jeffrey jennifer jerry jesse jessica jim jimmy joan joe joel john johnny jon jonathan jose joseph josh joshua joyce ' +
+   'juan judy julie justin karen kathleen kathy keith kelly ken kenneth kevin kim kimberly larry laura lauren linda lisa ' +
+   'lori louis margaret maria marie mark martha martin mary matt matthew michael michelle mike nancy nathan nicholas ' +
+   'nick nicole pam pamela pat patricia patrick paul peter phil philip ralph randy ray raymond rebecca rich richard rick ' +
+   'ricky rob robert roger ron ronald rose russell ruth ryan sam samuel sandra sara sarah scott sean sharon shawn ' +
+   'stephanie stephen steve steven sue susan terry thomas tim timothy todd tom tony tracy travis victor vincent walter ' +
+   'wayne william').split(' ').forEach(function (w) { FIRST[w] = 1; });
+
+  function clean(s) { return String(s == null ? '' : s).replace(/\s+/g, ' ').trim(); }
+  function round2(v) { return Math.round(v * 100) / 100; }
+  function num(x) { var v = (x == null || x === '') ? NaN : Number(x); return isFinite(v) ? v : 0; }
+  function utcDay(s) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(s || '')); return m ? Date.UTC(+m[1], +m[2] - 1, +m[3]) : null; }
+  function safeText(s) { s = clean(s); return EMAIL_RE.test(s) || PHONE_RE.test(s) ? '' : s; }
+
+  // A SPIN typed or pasted: spaces, dots and dashes dropped; then exactly 9 digits.
+  function cleanSpin(raw) {
+    var s = String(raw == null ? '' : raw).replace(/^\s*(?:SPIN|498\s*ID)\s*(?:#|no\.?|number)?\s*:?\s*/i, '').replace(/[\s.\-–—‑_#]/g, '');
+    if (!s) return {error: 'Enter a SPIN: the 9-digit number USAC gives each service provider.'};
+    if (!/^\d+$/.test(s)) return {error: 'A SPIN has digits only, 9 of them (for example 143012345).'};
+    if (s.length === 10) return {error: 'A SPIN has 9 digits; that number has 10, like an FRN. To look up one FRN, use the invoice deadline lookup.'};
+    if (s.length !== 9) return {error: 'A SPIN has 9 digits; that number has ' + s.length + '.'};
+    return {spin: s};
+  }
+  function need(spin) { if (!/^\d{9}$/.test(String(spin))) throw new Error('not a 9-digit SPIN'); return spin; }
+  function qs(o) { var u = new URLSearchParams(); Object.keys(o).forEach(function (k) { u.set(k, o[k]); }); return u.toString(); }
+  function frnParams(spin, offset) {
+    return {'$select': FRN_FIELDS.join(','),
+      '$where': "epc_organization_id='" + need(spin) + "' AND funding_year in ('2025','2026') AND form_version='Current' AND form_471_frn_status_name='Funded'",
+      '$order': 'funding_request_number', '$limit': String(PAGE), '$offset': String(offset || 0)};
+  }
+  function frnUrl(spin, offset) { return HOST + '/resource/' + FRN_ID + '.json?' + qs(frnParams(spin, offset)); }
+  function spinUrl(spin) {
+    return HOST + '/resource/' + SPIN_ID + '.json?' + qs({'$select': SPIN_FIELDS.join(','), '$where': "spin='" + need(spin) + "'", '$limit': '10'});
+  }
+  function metaUrl(id) { return HOST + '/api/views/' + id + '.json'; }
+
+  // USAC's SPIN name, shown only when it reads as a business or public body (never a person's own name).
+  function providerName(name) {
+    name = clean(name);
+    if (!name || EMAIL_RE.test(name) || PHONE_RE.test(name) || !BUSINESS_RE.test(name)) return '';
+    var m = PERSON_HEAD.exec(name);
+    if (m && TRADE_RE.test(m[2]) && !ENTITY_RE.test(name) && FIRST[m[1].toLowerCase()]) return '';
+    return name;
+  }
+
+  // Raw USAC rows -> this SPIN's FRNs (one per FRN), plus what was left out. Any row outside the query = wrong.
+  function normalize(rows, spin) {
+    var out = [], seen = {}, names = {}, left = {zero: 0, health: 0, dup: 0, bad: 0}, wrong = 0;
+    if (!Array.isArray(rows)) return {frns: [], left: left, wrong: 1, provider: '', hasName: false};
+    rows.forEach(function (r) {
+      if (!r || typeof r !== 'object' || clean(r.epc_organization_id) !== spin || r.form_version !== 'Current' ||
+          r.form_471_frn_status_name !== 'Funded' || FYS.indexOf(clean(r.funding_year)) < 0) { wrong++; return; }
+      var frn = clean(r.funding_request_number);
+      if (!/^\d{6,12}$/.test(frn)) { left.bad++; return; }
+      if (seen[frn]) { left.dup++; return; }
+      seen[frn] = 1;
+      var raw = r.funding_commitment_request, committed = (raw == null || raw === '') ? NaN : Number(raw);
+      if (!(committed > 0)) { left.zero++; return; }          // as SoQL's funding_commitment_request > 0 reads it
+      var app = clean(r.organization_name);
+      if (HEALTH_RE.test(app)) { left.health++; return; }
+      var sn = clean(r.spin_name);
+      if (sn) names[sn] = (names[sn] || 0) + 1;
+      out.push({fy: +clean(r.funding_year), frn: frn, applicant: safeText(app), etype: clean(r.organization_entity_type_name),
+        ben: clean(r.ben), state: clean(r.state), svc: clean(r.form_471_service_type_name), committed: round2(committed),
+        disbursed: round2(num(r.total_authorized_disbursement)), mode: clean(r.invoicing_mode).toUpperCase(),
+        idd: utcDay(r.last_date_to_invoice), ext: clean(r.extension_request_for_invoicing),
+        ready: clean(r.invoicing_ready), spac: clean(r.spac_filed)});
+    });
+    var top = Object.keys(names).sort(function (a, b) { return names[b] - names[a] || (a < b ? -1 : a > b ? 1 : 0); })[0] || '';
+    return {frns: out, left: left, wrong: wrong, provider: providerName(top), hasName: !!top};
+  }
+
+  // One FRN on day `today` (UTC ms of the visitor's local date).
+  function classify(f, today) {
+    var c = {open: f.committed - f.disbursed > TOL, noinv: f.fy <= 2025 && f.mode === 'NOT SET', extYes: f.ext === 'Yes',
+             days: null, window: false, closed: false, close: null, left: null};
+    if (f.idd != null) {
+      c.days = Math.round((f.idd - today) / DAY);
+      if (c.days < 0 && !c.extYes && (c.open || c.noinv)) {
+        c.close = f.idd + GRACE * DAY;
+        c.left = Math.round((c.close - today) / DAY);
+        c.window = c.left >= 0;
+        c.closed = c.left < 0;
+      }
+    }
+    c.pri = c.window ? 0 : c.noinv ? 1 : c.closed ? 2 : 3;
+    c.note = c.window || c.noinv || c.closed;
+    return c;
+  }
+
+  function years(v) {
+    if (v == null) return [];
+    if (Array.isArray(v)) v = v.join(',');
+    return String(v).split(/[,;\s]+/).filter(Boolean);
+  }
+  function yearsText(ys) {
+    var n = ys.filter(function (y) { return /^\d{4}$/.test(y); }).map(Number).sort(function (a, b) { return a - b; });
+    var other = ys.filter(function (y) { return !/^\d{4}$/.test(y); }), out = [], i = 0;
+    n = n.filter(function (y, k) { return k === 0 || y !== n[k - 1]; });
+    while (i < n.length) { var j = i; while (j + 1 < n.length && n[j + 1] === n[j] + 1) j++;
+      out.push(j > i ? n[i] + '–' + n[j] : String(n[i])); i = j + 1; }
+    return out.concat(other).join(', ');
+  }
+
+  // FY2026 SPAC from both USAC datasets. x = {ok: true, rows: [...]} | {ok: false}. Only "missing" is a flag.
+  function spacState(frns, x) {
+    var fy26 = frns.filter(function (f) { return f.fy === 2026; });
+    var s = {n26: fy26.length, committed26: 0, disbursed26: 0, xok: !!(x && x.ok), xrow: false, status: '', years: [],
+             has26: false, frn: 'none', kind: '', flag: false};
+    fy26.forEach(function (f) { s.committed26 += f.committed; s.disbursed26 += f.disbursed; });
+    s.committed26 = round2(s.committed26); s.disbursed26 = round2(s.disbursed26);
+    if (s.xok) {
+      var mine = (Array.isArray(x.rows) ? x.rows : []).filter(function (r) { return r && clean(r.spin) === x.spin; });
+      if (mine.length) {
+        s.xrow = true;
+        var ys = {}, st = {};
+        mine.forEach(function (r) { years(r.fcc_form_473_spac_filed).forEach(function (y) { ys[y] = 1; });
+          if (clean(r.status)) st[clean(r.status)] = 1; });
+        s.years = Object.keys(ys); s.status = Object.keys(st).sort().join(' / ');
+      }
+    }
+    s.has26 = s.years.indexOf('2026') >= 0;
+    var yes = fy26.filter(function (f) { return f.spac === 'Yes'; }).length;
+    var no = fy26.filter(function (f) { return f.spac === 'No'; }).length;
+    var paid = fy26.some(function (f) { return f.disbursed > 0; });
+    s.frn = !fy26.length ? 'none' : yes === fy26.length ? 'yes' : no === fy26.length ? 'no' : 'mixed';
+    if (s.frn === 'none') s.kind = !s.xok ? 'unknown' : !s.xrow ? 'nospin' : s.has26 ? 'onfile' : 'notlisted';
+    else if (s.frn === 'yes') s.kind = s.xok && s.xrow && !s.has26 ? 'disagree' : 'onfile';
+    else if (s.frn === 'no') s.kind = paid || (s.xok && s.xrow && s.has26) ? 'disagree' : 'missing';
+    else s.kind = 'disagree';
+    s.flag = s.kind === 'missing';
+    return s;
+  }
+
+  // The notes above the list, from classified FRNs (each f.c = classify(f, today)).
+  function summarize(frns) {
+    var s = {window: [], windowN: 0, windowNoinv: 0, windowCommitted: 0, windowNotYet: 0, noinv: {n: 0, committed: 0, dates: []},
+             closed: {n: 0, notYet: 0}, fy: {}}, g = {}, nd = {};
+    frns.forEach(function (f) {
+      var y = s.fy[f.fy] || (s.fy[f.fy] = {n: 0, committed: 0, disbursed: 0, spac: {Yes: 0, No: 0, other: 0}});
+      y.n++; y.committed += f.committed; y.disbursed += f.disbursed;
+      y.spac[f.spac === 'Yes' || f.spac === 'No' ? f.spac : 'other']++;
+      var c = f.c;
+      if (c.window) {
+        var k = g[f.idd] || (g[f.idd] = {idd: f.idd, close: c.close, left: c.left, n: 0, committed: 0, notYet: 0});
+        k.n++; k.committed += f.committed; k.notYet += Math.max(f.committed - f.disbursed, 0);
+        s.windowN++; if (c.noinv) s.windowNoinv++; s.windowCommitted += f.committed; s.windowNotYet += Math.max(f.committed - f.disbursed, 0);
+      }
+      if (c.noinv) {
+        s.noinv.n++; s.noinv.committed += f.committed;
+        var dk = f.idd == null ? 'none' : f.idd; nd[dk] = (nd[dk] || 0) + 1;
+      }
+      if (c.closed) { s.closed.n++; s.closed.notYet += Math.max(f.committed - f.disbursed, 0); }
+    });
+    s.window = Object.keys(g).map(function (k) { return g[k]; }).sort(function (a, b) { return a.idd - b.idd; });
+    s.noinv.dates = Object.keys(nd).map(function (k) { return {idd: k === 'none' ? null : +k, n: nd[k]}; })
+      .sort(function (a, b) { return (a.idd == null) - (b.idd == null) || a.idd - b.idd; });
+    Object.keys(s.fy).forEach(function (k) { s.fy[k].committed = round2(s.fy[k].committed); s.fy[k].disbursed = round2(s.fy[k].disbursed); });
+    s.windowCommitted = round2(s.windowCommitted); s.windowNotYet = round2(s.windowNotYet);
+    s.noinv.committed = round2(s.noinv.committed); s.closed.notYet = round2(s.closed.notYet);
+    return s;
+  }
+
+  function sorter(how) {
+    function byDate(a, b) { return (a.idd == null) - (b.idd == null) || (a.idd || 0) - (b.idd || 0); }
+    function byFrn(a, b) { return a.frn < b.frn ? -1 : a.frn > b.frn ? 1 : 0; }
+    if (how === 'date') return function (a, b) { return byDate(a, b) || byFrn(a, b); };
+    if (how === 'amount') return function (a, b) { return b.committed - a.committed || byFrn(a, b); };
+    if (how === 'name') return function (a, b) { return (a.applicant || '~').localeCompare(b.applicant || '~') || byFrn(a, b); };
+    return function (a, b) { return a.c.pri - b.c.pri || byDate(a, b) || b.committed - a.committed || byFrn(a, b); };
+  }
+
+  return {HOST: HOST, FRN_ID: FRN_ID, SPIN_ID: SPIN_ID, FRN_FIELDS: FRN_FIELDS, SPIN_FIELDS: SPIN_FIELDS, PAGE: PAGE,
+          MAX_PAGES: MAX_PAGES, GRACE: GRACE, DAY: DAY, STALE_DAYS: STALE_DAYS, HEALTH_RE: HEALTH_RE,
+          cleanSpin: cleanSpin, frnParams: frnParams, frnUrl: frnUrl, spinUrl: spinUrl, metaUrl: metaUrl,
+          providerName: providerName, normalize: normalize, classify: classify, years: years, yearsText: yearsText,
+          spacState: spacState, summarize: summarize, sorter: sorter};
+})();
+</script>
+<script>
+(function () {
+  'use strict';
+  // DEADLINE WATCH SLOT: '' = off (the default). Only build_provider_check.py --watch-url sets it (see #watch-slot).
+  var WATCH = '';
+  var $ = function (id) { return document.getElementById(id); };
+  var form = $('f'), inp = $('spin'), go = $('go'), errEl = $('spin-err'), statusEl = $('status'), out = $('out'), moreBtn = $('more');
+  var TOOL = 'https://opendata.usac.org/d/sfyf-vvtz';
+  var INV = 'https://www.usac.org/e-rate/applicant-process/invoicing/';
+  var EXT = 'https://www.usac.org/e-rate/applicant-process/invoicing/invoice-deadline-extensions/';
+  var SPAC = 'https://www.usac.org/e-rate/service-providers/step-3-winning-the-bid/fcc-form-473-filing/';
+  var Q = {  // USAC's sentences, verbatim (experiments/candidates/deadline-watch/ops/watch_copy.py RULES)
+    inv_ext: 'Upon request, invoice filers are entitled to a one-time, 120-day deadline extension per FRN. The request must be made before, or within 15 days after, the original IDD.',
+    ext_grace: 'If your IDD has passed but you are still within 15 days of the IDD, you can request a one-time invoice deadline extension by opening a Customer Service Case in EPC and listing the FRN(s) you want to extend.',
+    ext_waiver: 'If you need an invoice deadline extension, but the deadline to request one has passed (i.e., it is more than 15 days after the IDD), you must first submit a waiver request to the Federal Communications Commission (FCC).',
+    ext_sp: 'A service provider can file a single request for FRNs from multiple funding years and/or multiple BENs.',
+    ext_sp_rights: 'The requestor must be a full- or partial-rights user on the EPC profile for the Service Provider Identification Number (SPIN) featured on the FRNs.',
+    spac_rule: 'Service providers must file their SPAC Form before any FCC Forms 472 (BEAR) or FCC Forms 474 (SPI) invoices can be processed and paid by USAC.',
+    spac_where: 'File this form in the E-Rate Productivity Center (EPC).',
+    spac_status: 'View the status of your SPAC for a particular funding year in the Service Provider (SPIN) Download Tool or the Open Data FRN Status Tool FY2016 to verify that USAC has successfully processed your SPAC form.'
+  };
+  var LAG = 'USAC’s public data can lag what EPC shows by a day or more, so a form you filed recently may not show yet. EPC shows the current status.';
+  var NOT_OWED = 'Not yet disbursed isn’t the same as not yet invoiced: USAC’s data shows payments, not invoices still in review, and a service that cost less than committed shows a gap too.';
+  var NO_EXT = 'USAC’s data shows no extension requested by the deadline (a request made after it may not show here).';
+  var NAMES = {AK:'Alaska',AL:'Alabama',AR:'Arkansas',AS:'American Samoa',AZ:'Arizona',CA:'California',CO:'Colorado',CT:'Connecticut',DC:'District of Columbia',DE:'Delaware',FL:'Florida',GA:'Georgia',GU:'Guam',HI:'Hawaii',IA:'Iowa',ID:'Idaho',IL:'Illinois',IN:'Indiana',KS:'Kansas',KY:'Kentucky',LA:'Louisiana',MA:'Massachusetts',MD:'Maryland',ME:'Maine',MI:'Michigan',MN:'Minnesota',MO:'Missouri',MP:'Northern Mariana Islands',MS:'Mississippi',MT:'Montana',NC:'North Carolina',ND:'North Dakota',NE:'Nebraska',NH:'New Hampshire',NJ:'New Jersey',NM:'New Mexico',NV:'Nevada',NY:'New York',OH:'Ohio',OK:'Oklahoma',OR:'Oregon',PA:'Pennsylvania',PR:'Puerto Rico',RI:'Rhode Island',SC:'South Carolina',SD:'South Dakota',TN:'Tennessee',TX:'Texas',UT:'Utah',VA:'Virginia',VI:'U.S. Virgin Islands',VT:'Vermont',WA:'Washington',WI:'Wisconsin',WV:'West Virginia',WY:'Wyoming'};
+  var PAGE_N = 30, TIMEOUT = 45000;
+  var seq = 0, ctl = null, metaP = null, view = null, list = [], shown = 0, sent = {};
+
+  function beacon(page) { try { if (DESK.indexOf('https://') !== 0 || sent[page]) return; sent[page] = 1;
+    var p = new URLSearchParams(location.search), r = document.referrer ? new URL(document.referrer).hostname : '';
+    navigator.sendBeacon(DESK, new URLSearchParams({ action: 'hit', page: page, source: p.get('utm_source') || '', ref: r })); } catch (e) {} }
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function add(parent, child) { parent.appendChild(typeof child === 'string' ? document.createTextNode(child) : child); return child; }
+  function link(text, href) { var a = el('a', null, text); a.href = href; if (/^https?:/.test(href)) { a.rel = 'noopener'; a.target = '_blank'; } return a; }
+  function usd(v) { return '$' + (Math.round(v * 100) / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}); }
+  function fmt(ms) { return new Date(ms).toLocaleDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC'}); }
+  function stamp(ms) { return new Date(ms).toLocaleString('en-US', {year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', hourCycle: 'h23', timeZone: 'UTC'}) + ' UTC'; }
+  function today() { var n = new Date(); return Date.UTC(n.getFullYear(), n.getMonth(), n.getDate()); }
+  function plural(n, one, many) { return n.toLocaleString('en-US') + ' ' + (n === 1 ? one : many); }
+  function daysText(d) { return d == null ? '' : d === 0 ? 'today' : d > 0 ? 'in ' + plural(d, 'day', 'days') : plural(-d, 'day', 'days') + ' ago'; }
+  function quote(p, source, href, keys) {
+    add(p, 'USAC’s '); add(p, link(source, href)); add(p, ' page: ');
+    keys.forEach(function (k, i) { add(p, (i ? ' ' : '') + '\u201c' + Q[k] + '\u201d'); });
+  }
+  function say(t) { statusEl.textContent = t; }
+  function showErr(t) { errEl.textContent = t; errEl.hidden = !t; if (t) inp.setAttribute('aria-invalid', 'true'); else inp.removeAttribute('aria-invalid'); }
+  function busy(on) { go.disabled = on; go.textContent = on ? 'Checking…' : 'Check'; }
+
+  // ------------------------------------------------------------------ USAC requests (live, from this browser)
+  function Fail(kind, status) { this.kind = kind; this.status = status; }
+  function isAbort(e) { return e && e.name === 'AbortError'; }
+  function getJSON(url, signal) {
+    var timer, timeout = new Promise(function (ok, no) { timer = setTimeout(function () { no(new Fail('timeout')); }, TIMEOUT); });
+    var req = fetch(url, {signal: signal, credentials: 'omit', headers: {'Accept': 'application/json'}}).then(function (r) {
+      if (!r.ok) throw new Fail('http', r.status);
+      var lm = r.headers.get('Last-Modified');
+      return r.json().then(function (j) { return {json: j, lm: lm}; }, function () { throw new Fail('shape'); });
+    }, function (e) { if (isAbort(e)) throw e; throw new Fail('network'); });
+    return Promise.race([req, timeout]).then(function (v) { clearTimeout(timer); return v; }, function (e) { clearTimeout(timer); throw e; });
+  }
+  function loadMeta() {  // each dataset's rowsUpdatedAt, once per visit (retried on the next check if one failed)
+    if (metaP) return metaP;
+    function one(id) { return getJSON(PC.metaUrl(id)).then(function (r) {
+      var v = r.json && r.json.rowsUpdatedAt; return typeof v === 'number' && v > 0 ? v * 1000 : null; }, function () { return null; }); }
+    var p = Promise.all([one(PC.FRN_ID), one(PC.SPIN_ID)]).then(function (a) {
+      if (!a[0] || !a[1]) metaP = null; return {frn: a[0], spin: a[1]}; });
+    metaP = p;
+    return p;
+  }
+  function fetchFrns(spin, signal) {
+    var rows = [], lm = null;
+    function page(i) {
+      return getJSON(PC.frnUrl(spin, i * PC.PAGE), signal).then(function (r) {
+        if (!Array.isArray(r.json)) throw new Fail('shape');
+        rows = rows.concat(r.json); lm = lm || r.lm;
+        var full = r.json.length >= PC.PAGE;
+        if (full && i + 1 < PC.MAX_PAGES) return page(i + 1);
+        return {rows: rows, lm: lm, truncated: full};
+      });
+    }
+    return page(0);
+  }
+  function check(spin) {
+    var my = ++seq;
+    if (ctl) try { ctl.abort(); } catch (e) {}
+    ctl = typeof AbortController === 'function' ? new AbortController() : null;
+    var signal = ctl ? ctl.signal : undefined;
+    try { var p = new URLSearchParams(location.search); p.set('spin', spin);
+      history.replaceState(null, '', location.pathname + '?' + p.toString() + location.hash); } catch (e) {}
+    busy(true); out.textContent = ''; moreBtn.hidden = true; view = null;
+    say('Checking SPIN ' + spin + ' in USAC’s data…');
+    var meta = loadMeta();
+    var spinP = getJSON(PC.spinUrl(spin), signal).then(function (r) {
+      if (!Array.isArray(r.json)) return {ok: false, spin: spin};
+      return {ok: true, rows: r.json, spin: spin, lm: r.lm}; }, function (e) { if (isAbort(e)) throw e; return {ok: false, spin: spin}; });
+    spinP.catch(function () {});  // an aborted check's second request: handled below, never an unhandled rejection
+    fetchFrns(spin, signal).then(function (fr) {
+      return spinP.then(function (sx) { return meta.then(function (m) { if (my === seq) render(spin, fr, sx, m); }); });
+    }).catch(function (e) {
+      if (my !== seq || isAbort(e)) return;
+      renderError(spin, e);
+    }).then(function () { if (my === seq) busy(false); });
+  }
+
+  // ------------------------------------------------------------------ rendering
+  function renderError(spin, e) {
+    var box = add(out, el('div', 'box warn')), p = add(box, el('p'));
+    var why = e instanceof Fail ? e : new Fail('other');
+    var lead = why.kind === 'mismatch' ? 'USAC’s answer didn’t match the SPIN asked for, so nothing is shown.'
+      : why.kind === 'timeout' ? 'USAC’s data service (opendata.usac.org) didn’t answer within 45 seconds.'
+      : why.kind === 'http' && why.status === 429 ? 'USAC’s data service (opendata.usac.org) is limiting requests right now (HTTP 429). Wait a minute, then try again.'
+      : why.kind === 'http' ? 'USAC’s data service (opendata.usac.org) answered with an error (HTTP ' + why.status + ').'
+      : why.kind === 'shape' ? 'USAC’s data service answered with something other than the expected list of records.'
+      : why.kind === 'network' ? 'Couldn’t reach USAC’s data service (opendata.usac.org). It may be down or busy, or your connection dropped.'
+      : 'Something went wrong while showing the result.';
+    if (!(e instanceof Fail) && window.console) console.error(e);
+    add(p, el('strong', null, lead));
+    add(box, el('p', 'small', 'Nothing was checked for SPIN ' + spin + '. Try again in a few minutes. USAC’s own copy of the data is its FRN Status dataset: '))
+      .appendChild(link('opendata.usac.org/d/qdmp-ygft', 'https://opendata.usac.org/d/qdmp-ygft'));
+    var again = add(box, el('button', 'linkbtn', 'Try again'));
+    again.type = 'button';
+    again.addEventListener('click', function () { check(spin); });
+    say('SPIN ' + spin + ': not checked. ' + lead);
+  }
+
+  function header(spin, n, sp) {
+    var h = add(out, el('h2', null, 'SPIN ' + spin));
+    h.id = 'res-h'; h.tabIndex = -1;
+    var bits = [];
+    if (n.provider) bits.push('USAC’s name for it: ' + n.provider);
+    else if (n.hasName) bits.push('provider name not shown');
+    if (sp.xok && sp.xrow) {
+      if (sp.status) bits.push('USAC status: ' + sp.status);
+      bits.push('Form 473 (SPAC) years in USAC’s SPIN data: ' + (sp.years.length ? PC.yearsText(sp.years) : 'none'));
+    } else if (sp.xok) bits.push('USAC’s SPIN data has no provider with this number');
+    else bits.push('USAC’s SPIN data didn’t answer');
+    add(out, el('p', 'meta', bits.join(' · ')));
+  }
+
+  function spacItem(ul, sp) {
+    var li = add(ul, el('li')), fy = 'FY2026 funded ' + (sp.n26 === 1 ? 'FRN' : 'FRNs');
+    add(li, el('strong', null, 'No FY2026 SPAC (FCC Form 473) on file in USAC’s data.'));
+    var t = ' FRN Status shows SPAC filed: No on ' + (sp.n26 === 1 ? 'this SPIN’s 1 ' + fy : 'all ' + sp.n26 + ' of this SPIN’s ' + fy) +
+      ' (' + usd(sp.committed26) + ' committed, ' + usd(sp.disbursed26) + ' disbursed)';
+    if (sp.xok && sp.xrow) t += ', and USAC’s SPIN data lists Form 473 years ' + (sp.years.length ? PC.yearsText(sp.years) : 'none') + ', not 2026.';
+    else if (sp.xok) t += '. USAC’s SPIN data has no row for this SPIN, so it couldn’t be cross-checked.';
+    else t += '. USAC’s SPIN data didn’t answer, so it couldn’t be cross-checked.';
+    add(li, t);
+    quote(add(li, el('p', 'q')), 'File the FCC Form 473', SPAC, ['spac_rule', 'spac_status']);
+    add(li, el('p', 'q', LAG));
+    showBtn(li, 'Show the FY2026 FRNs', {fy: '2026', show: 'all'});
+  }
+
+  function showBtn(li, text, set) {
+    var b = add(li, el('button', 'linkbtn', text));
+    b.type = 'button';
+    b.addEventListener('click', function () {
+      if (!view) return;
+      $('fy-sel').value = set.fy; $('show-sel').value = set.show; draw();
+      var c = $('count'); if (c) { c.tabIndex = -1; c.focus({preventScroll: true}); c.scrollIntoView({behavior: 'smooth', block: 'start'}); }
+    });
+  }
+
+  function notes(sp, s, n26, left) {
+    var box = el('div', 'box'), ul = el('ul', 'flags'), warn = 0;
+    if (s.windowN) {
+      warn++;
+      var li = add(ul, el('li'));
+      add(li, el('strong', null, 'Extension window open: ' + plural(s.windowN, 'FRN', 'FRNs') + ', ' + usd(s.windowNotYet) + ' not yet disbursed (' + usd(s.windowCommitted) + ' committed; ' + plural(s.windowNoinv, 'FRN', 'FRNs') + ' with no invoice received, ' + plural(s.windowN - s.windowNoinv, 'FRN', 'FRNs') + ' with an invoice received and less than committed disbursed).'));
+      add(li, ' ' + s.window.map(function (g) {
+        return 'Last date to invoice ' + fmt(g.idd) + ' (' + plural(g.n, 'FRN', 'FRNs') + '): window open until ' + fmt(g.close) + ', ' + (g.left === 0 ? 'today' : plural(g.left, 'day', 'days') + ' from today');
+      }).join('; ') + ' (15 calendar days after the last date to invoice). ' + NO_EXT);
+      add(li, el('p', 'q', NOT_OWED));
+      quote(add(li, el('p', 'q')), 'Invoicing', INV, ['inv_ext']);
+      quote(add(li, el('p', 'q')), 'Invoice Deadline Extensions', EXT, ['ext_grace']);
+      add(li, el('p', 'q', 'USAC’s page states its invoicing-rights rule for requests made in EPC’s extension tool, the route while the IDD hasn’t passed; it doesn’t say who may open the Customer Service Case after the deadline.'));
+      showBtn(li, 'Show these FRNs', {fy: '', show: 'window'});
+    }
+    if (sp.flag) { spacItem(ul, sp); warn++; }
+    if (s.noinv.n) {
+      warn++;
+      var li2 = add(ul, el('li'));
+      add(li2, el('strong', null, 'No invoice received yet: ' + plural(s.noinv.n, 'FY2025 FRN', 'FY2025 FRNs') + ' (' + usd(s.noinv.committed) + ' committed).'));
+      add(li2, ' USAC shows the invoicing mode as NOT SET. Last ' + (s.noinv.dates.length === 1 && s.noinv.dates[0].n === 1 ? 'date' : 'dates') + ' to invoice: ' + s.noinv.dates.map(function (d) {
+        return (d.idd == null ? 'none in USAC’s data' : fmt(d.idd)) + (s.noinv.n > 1 ? ' (' + d.n + ')' : ''); }).join(', ') + '.');
+      showBtn(li2, 'Show these FRNs', {fy: '', show: 'noinv'});
+    }
+    if (s.closed.n) {
+      warn++;
+      var li3 = add(ul, el('li'));
+      add(li3, el('strong', null, 'Past the last date to invoice and the 15-day window: ' + plural(s.closed.n, 'FRN', 'FRNs') + ' (' + usd(s.closed.notYet) + ' not yet disbursed).'));
+      add(li3, ' ' + NO_EXT);
+      quote(add(li3, el('p', 'q')), 'Invoice Deadline Extensions', EXT, ['ext_waiver']);
+      add(li3, el('p', 'q', NOT_OWED));
+      showBtn(li3, 'Show these FRNs', {fy: '', show: 'closed'});
+    }
+    if (sp.kind === 'disagree') {
+      var li4 = add(ul, el('li'));
+      add(li4, el('strong', null, 'USAC’s two datasets disagree on the FY2026 SPAC.'));
+      add(li4, ' FRN Status shows SPAC filed: ' + (sp.frn === 'yes' ? 'Yes' : sp.frn === 'no' ? 'No' : 'Yes on some FY2026 FRNs and No on others') +
+        (sp.frn === 'no' && sp.disbursed26 > 0 ? ' (yet ' + usd(sp.disbursed26) + ' is disbursed on them)' : '') +
+        '; USAC’s SPIN data lists Form 473 years ' + (sp.years.length ? PC.yearsText(sp.years) : 'none') + '. ' + LAG);
+    }
+    if (warn || sp.kind === 'disagree') { box.className = warn ? 'box warn' : 'box'; box.insertBefore(el('h3', null, 'Notes from USAC’s data'), box.firstChild); }
+    else {
+      box.className = 'box good';
+      add(box, el('h3', null, 'Nothing to note on the checks this page runs'));
+      add(box, el('p', 'small', 'In USAC’s data, no funded FY2025 or FY2026 FRN listed below is inside a 15-day extension window, none is past one with money not yet disbursed, and none shows invoicing mode NOT SET (no invoice received). ' +
+        (sp.kind === 'onfile' ? 'A FY2026 SPAC is on file in USAC’s data.' : n26 ? '' : 'This SPIN has no funded FY2026 FRNs in USAC’s data.')));
+    }
+    if (ul.childNodes.length) box.appendChild(ul);
+    if (left && left.health) add(box, el('p', 'note warn', plural(left.health, 'FRN on this SPIN isn’t', 'FRNs on this SPIN aren’t') + ' checked or counted here, because the applicant’s name suggests a health-care operator. Check ' + (left.health === 1 ? 'it' : 'them') + ' in EPC.'));
+    add(box, el('p', 'small', 'Only FY2025 and FY2026 FRNs are checked here. An older FRN on this SPIN can still have a last date to invoice ahead, or one that passed within the last 15 days; check older funding years in EPC.'));
+    out.appendChild(box);
+    return warn;
+  }
+
+  function fyCards(s, sp) {
+    var wrap = add(out, el('div', 'fys'));
+    ['2026', '2025'].forEach(function (k) {
+      var y = s.fy[k], c = add(wrap, el('div', 'fy'));
+      add(c, el('strong', null, 'FY' + k));
+      if (!y) { add(c, 'No funded FRNs in USAC’s data.'); return; }
+      add(c, plural(y.n, 'funded FRN', 'funded FRNs') + ' · ' + usd(y.committed) + ' committed · ' + usd(y.disbursed) + ' disbursed');
+      var spac = k === '2026'
+        ? (sp.kind === 'missing' ? 'not on file in USAC’s data' : sp.kind === 'onfile' ? 'on file' : 'the datasets disagree')
+        : (y.spac.Yes === y.n ? 'filed (Yes on every FRN)' : y.spac.No === y.n ? 'No on every FRN in USAC’s data' : 'mixed across FRNs');
+      add(c, el('div', 'small', 'SPAC: ' + spac));
+    });
+  }
+
+  function filters() {
+    var panel = add(out, el('div', 'panel'));
+    panel.setAttribute('role', 'group'); panel.setAttribute('aria-label', 'Filter and sort the FRNs');
+    var row = add(panel, el('div', 'row3'));
+    function sel(id, label, opts) {
+      var d = add(row, el('div')), l = add(d, el('label', null, label)), s = add(d, el('select'));
+      l.htmlFor = id; s.id = id;
+      opts.forEach(function (o) { var op = add(s, el('option', null, o[1])); op.value = o[0]; });
+      s.addEventListener('change', draw);
+    }
+    sel('fy-sel', 'Funding year', [['', 'FY2025 and FY2026'], ['2026', 'FY2026'], ['2025', 'FY2025']]);
+    sel('show-sel', 'Show', [['all', 'All funded FRNs'], ['notes', 'Only FRNs with a note'], ['window', 'Extension window open'], ['noinv', 'No invoice received yet'], ['closed', 'Past the 15-day window']]);
+    sel('sort-sel', 'Sort', [['attention', 'Notes first'], ['date', 'Last date to invoice'], ['amount', 'Largest committed'], ['name', 'Applicant A–Z']]);
+  }
+
+  function card(f) {
+    var c = f.c, a = el('article', 'ent');
+    add(a, el('h3', null, f.applicant || 'Applicant name not shown'));
+    add(a, el('p', 'meta', [NAMES[f.state] || f.state, f.etype, f.ben ? 'BEN ' + f.ben : ''].filter(Boolean).join(' · ')));
+    var dl = add(a, el('dl', 'nums'));
+    function cell(parent, label, val, cls) { var d = add(parent, el('div', cls || null)); add(d, el('dt', null, label)); add(d, el('dd', null, val)); }
+    cell(dl, 'Committed', usd(f.committed));
+    cell(dl, 'Disbursed', usd(f.disbursed));
+    cell(dl, 'Last date to invoice', f.idd == null ? 'not in USAC’s data' : fmt(f.idd) + ' (' + daysText(c.days) + ')',
+      c.window || c.closed || (c.noinv && c.days != null && c.days <= 30) ? 'soon' : null);
+    add(a, el('p', 'meta', ['FRN ' + f.frn, 'FY' + f.fy, f.svc].filter(Boolean).join(' · ')));
+    var kv = add(a, el('dl', 'kv'));
+    cell(kv, 'Invoicing mode', f.mode || '—');
+    cell(kv, 'Extension requested', f.ext || '—');
+    cell(kv, 'Invoicing ready', f.ready || '—');
+    cell(kv, 'SPAC filed', f.spac || '—');
+    if (c.window) add(a, el('p', 'note warn', 'Last date to invoice passed. Extension window open until ' + fmt(c.close) + ' (15 calendar days after; ' + (c.left === 0 ? 'today' : plural(c.left, 'day', 'days') + ' from today') + '). ' + NO_EXT));
+    if (c.closed) add(a, el('p', 'note warn', 'The last date to invoice and the 15-day extension window have both passed (the window closed ' + fmt(c.close) + '). ' + NO_EXT + ' ' + usd(Math.max(f.committed - f.disbursed, 0)) + ' not yet disbursed.'));
+    if (c.noinv) add(a, el('p', 'note warn', 'No invoice received yet: USAC shows the invoicing mode as NOT SET.'));
+    if (c.extYes) add(a, el('p', 'note', 'USAC’s data shows an extension requested for this FRN (on or before the original deadline), so the date shown has most likely been extended once already.'));
+    if (f.ready === 'No') add(a, el('p', 'note', 'Not ready for invoicing in USAC’s data (USAC’s flag for an approved FCC Form 486).'));
+    var p = add(a, el('p', 'links'));
+    add(p, link('Confirm in USAC’s FRN Invoice Deadline Tool', TOOL)); add(p, ' (FRN ' + f.frn + ')');
+    if (c.window || c.closed) { add(p, ' · '); add(p, link('the extension rules', '#rules')); }
+    return a;
+  }
+
+  function draw() {
+    if (!view) return;
+    var fy = $('fy-sel').value, show = $('show-sel').value, sort = $('sort-sel').value;
+    list = view.frns.filter(function (f) {
+      if (fy && String(f.fy) !== fy) return false;
+      if (show === 'notes') return f.c.note;
+      if (show === 'window') return f.c.window;
+      if (show === 'noinv') return f.c.noinv;
+      if (show === 'closed') return f.c.closed;
+      return true;
+    }).sort(PC.sorter(sort));
+    $('list').textContent = ''; shown = 0;
+    var tot = 0; list.forEach(function (f) { tot += f.committed; });
+    $('count').textContent = list.length ? plural(list.length, 'FRN', 'FRNs') + ' shown, ' + usd(tot) + ' committed.' : 'No FRNs match these filters.';
+    more();
+  }
+
+  function more() {
+    var next = list.slice(shown, shown + PAGE_N), box = $('list');
+    next.forEach(function (f) { box.appendChild(card(f)); });
+    shown += next.length;
+    var rest = list.length - shown;
+    moreBtn.hidden = rest <= 0;
+    moreBtn.textContent = 'Show ' + Math.min(rest, PAGE_N) + ' more (' + rest.toLocaleString('en-US') + ' left)';
+  }
+
+  function asOf(fr, sx, m) {
+    var frn = m.frn || (fr.lm ? Date.parse(fr.lm) : NaN), spn = m.spin || (sx.lm ? Date.parse(sx.lm) : NaN);
+    var t = 'USAC data as of: FRN Status ' + (isFinite(frn) ? stamp(frn) : 'time not available') +
+      '; Service Provider Information ' + (sx.ok ? (isFinite(spn) ? stamp(spn) : 'time not available') : 'not available') +
+      '. Checked live at ' + new Date().toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit'}) + ' your time.';
+    var p = add(out, el('p', 'small', t));
+    p.id = 'asof';
+    if (isFinite(frn)) {
+      var age = Math.floor((Date.now() - frn) / PC.DAY);
+      if (age > PC.STALE_DAYS) add(out, el('p', 'note warn', 'USAC last updated its FRN Status data ' + age + ' days ago; it usually updates daily, so recent changes may not show.'));
+    }
+  }
+
+  function render(spin, fr, sx, m) {
+    var n = PC.normalize(fr.rows, spin);
+    if (n.wrong) { renderError(spin, new Fail('mismatch')); return; }
+    var t0 = today();
+    n.frns.forEach(function (f) { f.c = PC.classify(f, t0); });
+    var sp = PC.spacState(n.frns, sx), s = PC.summarize(n.frns);
+    beacon('erate-provider-check');
+    header(spin, n, sp);
+    if (!n.frns.length) {
+      var box = add(out, el('div', 'box'));
+      add(box, el('h3', null, 'No funded FY2025 or FY2026 FRN for this SPIN in USAC’s data'));
+      var why = 'This page lists funded FY2025 and FY2026 FRNs only: not older funding years, and not pending, cancelled or denied FRNs. ';
+      if (sp.xok && !sp.xrow) why += 'USAC’s SPIN data has no provider with this number either, so check the digits: most SPINs start with 143, and a 9-digit number starting with 25 or 26 may be a Form 471 application number.';
+      else if (sp.xrow) why += 'USAC’s SPIN data lists this SPIN' + (sp.status ? ' as ' + sp.status : '') + '; its Form 473 (SPAC) years there: ' + (sp.years.length ? PC.yearsText(sp.years) : 'none') + '.';
+      if (n.left.zero || n.left.health) why += ' ' + leftText(n.left);
+      add(box, el('p', 'small', why));
+      say('SPIN ' + spin + ': no funded FY2025 or FY2026 FRN in USAC’s data.');
+      asOf(fr, sx, m);
+      return;
+    }
+    var warn = notes(sp, s, s.fy[2026] ? s.fy[2026].n : 0, n.left);
+    if (warn) beacon('erate-provider-notes');
+    fyCards(s, sp);
+    filters();
+    var cnt = add(out, el('p')); cnt.id = 'count';
+    var lst = add(out, el('div')); lst.id = 'list';
+    out.appendChild(moreBtn);
+    if (n.left.zero || n.left.health || n.left.dup) add(out, el('p', 'small', leftText(n.left)));
+    if (fr.truncated) add(out, el('p', 'note warn', 'This SPIN has more than ' + (PC.PAGE * PC.MAX_PAGES).toLocaleString('en-US') + ' funded FY2025 and FY2026 FRNs; only the first ' + (PC.PAGE * PC.MAX_PAGES).toLocaleString('en-US') + ' by FRN number are shown.'));
+    asOf(fr, sx, m);
+    var share = add(out, el('p', 'small', 'Link to this check: '));
+    var url = location.origin + location.pathname + '?spin=' + spin;
+    add(share, link(url.replace(/^https?:\/\//, ''), url));
+    view = {spin: spin, frns: n.frns};
+    draw();
+    var rh = $('res-h'); if (rh && rh.getBoundingClientRect().top > window.innerHeight) rh.scrollIntoView({block: 'start'});
+    say('SPIN ' + spin + ': ' + plural(n.frns.length, 'funded FRN', 'funded FRNs') + ' in FY2025 and FY2026' + (n.left.health ? ' (' + n.left.health + ' more not checked)' : '') + '; ' + (warn ? plural(warn, 'note', 'notes') + ' below.' : 'nothing to note on this page’s checks.'));
+  }
+
+  function leftText(left) {
+    var bits = [];
+    if (left.zero) bits.push(plural(left.zero, 'FRN', 'FRNs') + ' with $0 committed (nothing to invoice)');
+    if (left.health) bits.push(plural(left.health, 'FRN', 'FRNs') + ' whose applicant’s name suggests a health-care operator (this page doesn’t cover health care)');
+    if (left.dup) bits.push(plural(left.dup, 'repeated FRN row', 'repeated FRN rows'));
+    return 'Left out: ' + bits.join('; ') + '.';
+  }
+
+  // ------------------------------------------------------------------ wiring
+  if (/^https:\/\/westworkshq\.com\//.test(WATCH)) { $('watch-link').href = WATCH; $('watch-slot').hidden = false; }
+  moreBtn.addEventListener('click', more);
+  inp.addEventListener('input', function () { if (!errEl.hidden) showErr(''); });
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var r = PC.cleanSpin(inp.value);
+    if (r.error) { showErr(r.error); say(''); inp.focus(); return; }
+    showErr(''); inp.value = r.spin; check(r.spin);
+  });
+  var q = new URLSearchParams(location.search).get('spin');
+  if (q) {
+    var r0 = PC.cleanSpin(q);
+    inp.value = r0.spin || q;
+    if (r0.error) showErr('This link’s SPIN can’t be checked: ' + r0.error); else check(r0.spin);
+  }
+  beacon('erate-provider-index.html');
+})();
+</script>
+</main>
+</body>
+</html>
