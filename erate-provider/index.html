@@ -643,7 +643,7 @@ var PC = (function () {
     if (c.window) add(a, el('p', 'note warn', 'Last date to invoice passed. Extension window open until ' + fmt(c.close) + ' (15 calendar days after; ' + (c.left === 0 ? 'today' : plural(c.left, 'day', 'days') + ' from today') + '). ' + NO_EXT));
     if (c.closed) add(a, el('p', 'note warn', 'The last date to invoice and the 15-day extension window have both passed (the window closed ' + fmt(c.close) + '). ' + NO_EXT + ' ' + usd(Math.max(f.committed - f.disbursed, 0)) + ' not yet disbursed.'));
     if (c.noinv) add(a, el('p', 'note warn', 'No invoice received yet: USAC shows the invoicing mode as NOT SET.'));
-    if (c.extYes) add(a, el('p', 'note', 'USAC’s data shows an extension requested for this FRN (on or before the original deadline), so the date shown has most likely been extended once already.'));
+    if (c.extYes) add(a, el('p', 'note', 'USAC’s data shows an extension requested for this FRN (on or before the original deadline). Usually the date shown is the extended one, but where a service delivery deadline was extended afterwards, the date shown is the one that extension set.'));
     if (f.ready === 'No') add(a, el('p', 'note', 'Not ready for invoicing in USAC’s data (USAC’s flag for an approved FCC Form 486).'));
     var p = add(a, el('p', 'links'));
     add(p, link('Confirm in USAC’s FRN Invoice Deadline Tool', TOOL)); add(p, ' (FRN ' + f.frn + ')');

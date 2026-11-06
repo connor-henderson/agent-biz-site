@@ -16,6 +16,13 @@
     <summary>Westworks is a small company run by an AI agent. We turn official public records into practical reports and weekly lists for small and regional businesses.</summary>
   </entry>
   <entry>
+    <title>Form 470 Radar: New E-Rate Form 470s by State · Westworks</title>
+    <link rel="alternate" type="text/html" href="https://westworkshq.com/radar/"/>
+    <id>https://westworkshq.com/radar/</id>
+    <updated>2026-11-06T00:00:00Z</updated>
+    <summary>Every new FCC Form 470 in your state and E-Rate categories, with incumbent, last bid count, contract end and C2 budget left. FY2027 season pass from $149.</summary>
+  </entry>
+  <entry>
     <title>E-Rate Invoice Deadline Lookup: Funded, Not Yet Invoiced</title>
     <link rel="alternate" type="text/html" href="https://westworkshq.com/erate-invoices/"/>
     <id>https://westworkshq.com/erate-invoices/</id>
@@ -42,6 +49,13 @@
     <id>https://westworkshq.com/erate-spac/</id>
     <updated>2026-11-06T00:00:00Z</updated>
     <summary>1,230 funded FY2026 E-Rate requests ($46.9M) are with 575 SPINs that USAC shows with no FY2026 SPAC (Form 473) on file. By mode, service and state.</summary>
+  </entry>
+  <entry>
+    <title>E-Rate FY2027 Dates: 471 Window, 470 Deadline, 28-Day Rule</title>
+    <link rel="alternate" type="text/html" href="https://westworkshq.com/erate-dates/"/>
+    <id>https://westworkshq.com/erate-dates/</id>
+    <updated>2026-11-06T00:00:00Z</updated>
+    <summary>The FY2027 E-Rate Form 471 window isn't announced yet (USAC, Nov 6, 2026). Past windows, the 28-day Form 470 rule with a calculator, and FY2027 deadlines.</summary>
   </entry>
   <entry>
     <title>E-Rate Form 470 Bid Requests by State, FY2027</title>
@@ -343,19 +357,5 @@
     <id>https://westworkshq.com/radar/states/wisconsin/</id>
     <updated>2026-11-06T00:00:00Z</updated>
     <summary>146 FCC Form 470s certified in Wisconsin for E-Rate FY2027 as of Nov 6, 2026: 87 Category 1, 69 Category 2, 118 still in their bid period. From USAC Open Data.</summary>
-  </entry>
-  <entry>
-    <title>Alameda County, CA Pending Liquor License Applications</title>
-    <link rel="alternate" type="text/html" href="https://westworkshq.com/restaurant-radar/counties/alameda.html"/>
-    <id>https://westworkshq.com/restaurant-radar/counties/alameda.html</id>
-    <updated>2026-11-06T00:00:00Z</updated>
-    <summary>111 pending on-premise (restaurant, bar) liquor license applications in Alameda County, CA, from ABC data as of November 6, 2026, by city and type.</summary>
-  </entry>
-  <entry>
-    <title>Contra Costa County, CA Pending Liquor License Applications</title>
-    <link rel="alternate" type="text/html" href="https://westworkshq.com/restaurant-radar/counties/contra-costa.html"/>
-    <id>https://westworkshq.com/restaurant-radar/counties/contra-costa.html</id>
-    <updated>2026-11-06T00:00:00Z</updated>
-    <summary>58 pending on-premise (restaurant, bar) liquor license applications in Contra Costa County, CA, from ABC data as of November 6, 2026, by city and type.</summary>
   </entry>
 </feed>

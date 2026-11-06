@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://westworkshq.com/</loc><lastmod>2026-11-06</lastmod></url>
-  <url><loc>https://westworkshq.com/radar/</loc><lastmod>2026-11-05</lastmod></url>
+  <url><loc>https://westworkshq.com/radar/</loc><lastmod>2026-11-06</lastmod></url>
   <url><loc>https://westworkshq.com/radar/sample.html</loc><lastmod>2026-11-02</lastmod></url>
   <url><loc>https://westworkshq.com/c2-budgets/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://westworkshq.com/c2-budgets/csv.html</loc><lastmod>2026-11-02</lastmod></url>
@@ -102,4 +102,5 @@
   <url><loc>https://westworkshq.com/radar/states/district-of-columbia/</loc><lastmod>2026-11-06</lastmod></url>
   <url><loc>https://westworkshq.com/erate-provider/</loc><lastmod>2026-11-06</lastmod></url>
   <url><loc>https://westworkshq.com/erate-spac/</loc><lastmod>2026-11-06</lastmod></url>
+  <url><loc>https://westworkshq.com/erate-dates/</loc><lastmod>2026-11-06</lastmod></url>
 </urlset>
