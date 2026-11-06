@@ -3,3 +3,4 @@ Allow: /
 Disallow: /q/
 
 Sitemap: https://westworkshq.com/sitemap.xml
+Sitemap: https://westworkshq.com/feed.xml
