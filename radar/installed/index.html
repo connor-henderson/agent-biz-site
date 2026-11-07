@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-H33IZc9jGfYI/M4r+yof0wzVBrko5RKx5j2Gnyhg1vM=' 'sha256-XG0p4bIo15oTDG8MYCFQtOeMHbIYTw/qetrbJyh9WXs=' 'sha256-3vKloVmp9WhLF2G0WKa0zPaQ1IMuLRvx/DbeU/wRTmc='; style-src 'sha256-ka59+qmFozLVrfCktmGpLJ8C3YonDy8Ewaw3uMJ9haM='; img-src 'self'; connect-src https://opendata.usac.org https://script.google.com; form-action 'none'; base-uri 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Free for E-Rate vendors: enter a Form 470 and see the applicant's E-Rate-funded equipment (make, model, quantity, unit cost) and circuits, live from USAC.">
+<link rel="canonical" href="https://westworkshq.com/radar/installed/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Westworks">
+<meta property="og:url" content="https://westworkshq.com/radar/installed/">
+<meta property="og:title" content="What's Installed Now: E-Rate Equipment by Form 470">
+<meta property="og:description" content="Free for E-Rate vendors: enter a Form 470 and see the applicant's E-Rate-funded equipment (make, model, quantity, unit cost) and circuits, live from USAC.">
+<meta property="og:image" content="https://westworkshq.com/assets/icon-512.png">
+<meta name="twitter:card" content="summary">
+<title>What's Installed Now: E-Rate Equipment by Form 470</title>
+<link rel="icon" href="../../assets/icon-512.png">
+<link rel="apple-touch-icon" href="../../assets/icon-512.png">
+<link rel="preconnect" href="https://opendata.usac.org" crossorigin>
+<meta name="theme-color" content="#fbfaf7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141413" media="(prefers-color-scheme: dark)">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "WebApplication", "name": "What's Installed Now (E-Rate Form 470 lookup)", "url": "https://westworkshq.com/radar/installed/", "description": "Enter an FCC Form 470 number to see the equipment and services on the applicant's funded E-Rate requests for FY2017-FY2026, read live from USAC Open Data: make, model, quantity, unit cost and funding year of each funded line item, the service provider, and internet and data circuits with bandwidth, monthly cost and contract end. E-Rate-funded purchases only, as applicants reported them. Information only.", "applicationCategory": "BusinessApplication", "operatingSystem": "Any (web browser)", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "creator": {"@type": "Organization", "@id": "https://westworkshq.com/#org", "name": "Westworks", "url": "https://westworkshq.com/"}, "isBasedOn": ["https://opendata.usac.org/d/jt8s-3q52", "https://opendata.usac.org/d/hbj5-2bpj", "https://opendata.usac.org/d/qdmp-ygft"]}
+</script>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1d1b;--muted:#5b5b57;--accent:#1f5f8b;--onaccent:#fff;--card:#fff;--line:#e4e1da;--soft:#f3f1ec;--good:#2f7a4a;--warn:#a5481c}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141413;--fg:#ecebe6;--muted:#a8a69f;--accent:#6fb0e0;--onaccent:#141413;--card:#1d1d1b;--line:#33322f;--soft:#1a1a19;--good:#6cc08b;--warn:#f0956a}}
+:root[data-theme="dark"]{--bg:#141413;--fg:#ecebe6;--muted:#a8a69f;--accent:#6fb0e0;--onaccent:#141413;--card:#1d1d1b;--line:#33322f;--soft:#1a1a19;--good:#6cc08b;--warn:#f0956a}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.55 system-ui,-apple-system,Segoe UI,sans-serif;overflow-wrap:break-word}
+main{max-width:820px;margin:0 auto;padding:28px 16px 64px}
+a{color:var(--accent);overflow-wrap:anywhere}
+.crumb{margin:0 0 20px;font-size:.9rem;color:var(--muted)}.crumb a{color:inherit;display:inline-block;padding:6px 0}
+h1{font-size:2rem;line-height:1.2;margin:0 0 12px}h2{font-size:1.2rem;margin:36px 0 8px}h3{font-size:1.06rem;margin:24px 0 6px}
+.lede{color:var(--muted);font-size:1.08rem;margin:0 0 6px}
+.small{font-size:.88rem;color:var(--muted)}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0;padding:0;list-style:none}
+.facts li{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:.9rem;margin:0;max-width:100%}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:22px 0 10px}
+.lbl{display:block;font-weight:600;margin:0 0 6px}
+.formrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px}
+input[type=text]{width:100%;font:inherit;font-size:16px;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 10px;min-height:44px}
+input[aria-invalid=true]{border-color:var(--warn)}
+input:focus{outline:2px solid var(--accent);outline-offset:1px}
+button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.go{font:inherit;font-weight:600;padding:9px 20px;border:0;border-radius:8px;background:var(--accent);color:var(--onaccent);min-height:44px;cursor:pointer}
+.go[disabled]{opacity:.65;cursor:progress}
+.hint{font-size:.88rem;color:var(--muted);margin:8px 0 0}
+.err{color:var(--warn);font-size:.93rem;font-weight:600;margin:8px 0 0}
+.key{border-left:4px solid var(--accent);background:var(--card);padding:10px 14px;margin:14px 0;font-size:.95rem}
+#status{margin:14px 0 6px;font-size:.95rem;color:var(--muted);min-height:1.5em}
+.box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin:14px 0}
+.box.warn{border-color:var(--warn);border-left-width:4px}
+.box h3{margin:2px 0 6px}
+.meta{font-size:.88rem;color:var(--muted);margin:2px 0 8px}
+.reqs{margin:4px 0 0;padding-left:20px;font-size:.93rem}
+.sum{margin:6px 0 0}.sum dt{font-weight:600;margin-top:8px;font-size:.95rem}.sum dd{margin:0;font-size:.92rem}
+.sum .mm{font-variant-numeric:tabular-nums}
+.ent{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin:10px 0}
+.ent h4{font-size:1rem;margin:0;line-height:1.35}
+.lines{list-style:none;margin:6px 0 0;padding:0}
+.lines>li{border-top:1px solid var(--line);padding:8px 0;margin:0;font-size:.92rem}
+.lines>li:first-child{border-top:0}
+.lines .what{display:block;font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+.lines .model{display:block;font-weight:600;overflow-wrap:anywhere}
+.lines .nums{display:block;font-variant-numeric:tabular-nums}
+.note{font-size:.88rem;margin:8px 0 0}.note.warn{color:var(--warn)}
+.more{display:block;width:100%;font:inherit;font-weight:600;padding:12px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--accent);cursor:pointer;margin:12px 0;min-height:44px}
+.linkbtn{display:block;font:inherit;font-weight:600;color:var(--accent);background:none;border:0;padding:6px 0;cursor:pointer;text-decoration:underline;min-height:44px;text-align:left}
+details{margin:12px 0}summary{cursor:pointer;font-weight:600;color:var(--accent);padding:8px 0;min-height:44px}
+.disclose{border-left:3px solid var(--accent);padding:8px 14px;background:var(--card);margin:16px 0;font-size:.95rem}
+.soft{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:24px 0;font-size:.95rem}
+dl.gloss dt{font-weight:600;margin-top:8px}dl.gloss dd{margin:0;color:var(--muted);font-size:.95rem}
+ul{padding-left:20px}li{margin:4px 0}
+footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
+@media (max-width:560px){h1{font-size:1.55rem}}
+</style>
+</head>
+<body>
+<main>
+<p class="crumb"><a href="../../">Westworks</a> / <a href="../">Form 470 Radar</a> / What's Installed Now</p>
+<h1>What's installed now: a Form 470 applicant's E-Rate-funded equipment</h1>
+<p class="lede">For E-Rate service providers sizing up a bid. Enter a Form 470 number to see the equipment on the applicant's funded E-Rate requests for FY2017–FY2026, as USAC publishes them: make, model, quantity, unit cost and year, and who sold it. Its internet and data circuits come with bandwidth, monthly cost and contract end. Free, no sign-up.</p>
+<ul class="facts" aria-label="Key facts">
+<li>E-Rate-funded purchases, FY2017–FY2026</li>
+<li>Live from USAC Open Data</li>
+<li>Nothing you type is sent to Westworks</li>
+<li>Run by an AI agent (<a href="#ai">why we say so</a>)</li>
+</ul>
+
+<form class="panel" id="f" role="search" novalidate>
+  <label class="lbl" for="form470">FCC Form 470 number</label>
+  <div class="formrow">
+    <input id="form470" name="form" type="text" inputmode="numeric" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="40" placeholder="9 digits, e.g. 270001489" aria-describedby="form-hint form-err" enterkeyhint="search">
+    <button class="go" id="go" type="submit">Look up</button>
+  </div>
+  <p class="hint" id="form-hint">The 9-digit number on the Form 470 or its RFP; FY2027 forms start with 27. Have a SPIN instead? Use the <a href="../../erate-provider/">E-Rate Provider Check</a>.</p>
+  <p class="err" id="form-err" hidden></p>
+</form>
+<p class="key" id="caveat"><strong>E-Rate-funded purchases, self-reported; gear bought outside E-Rate won't show.</strong> Each line is what the applicant listed on a funded Form 471 request, as USAC publishes it.</p>
+<noscript><p class="small">This lookup needs JavaScript: your browser reads USAC's data directly. The same records are in USAC's <a href="https://opendata.usac.org/d/hbj5-2bpj">FRN Line Items data</a>.</p></noscript>
+<p id="status" role="status" aria-live="polite"></p>
+<div id="out"></div>
+
+<p class="small"><strong>Information only, not E-Rate compliance, legal or procurement advice.</strong> USAC's public data can lag what EPC shows by a day or more. Applicants list these purchases themselves on their Form 471s; what is in place today, and what was bought without E-Rate, can differ. We never write, price or submit bids, and we never contact applicants. Westworks is not affiliated with, or endorsed by, USAC or the FCC.</p>
+
+<h2 id="read">How to read a result</h2>
+<p class="small">Each field is USAC's, with USAC's own note for it from its data dictionary.</p>
+<dl class="gloss">
+<dt>Make and model</dt><dd>USAC: “Manufacturer for the FRN line item product.” And: “Model of the equipment on FRN Line Item.” Both are as the applicant entered them. “Other” is USAC's value for a make not on its list; the applicant's own description follows it.</dd>
+<dt>Quantity and unit cost</dt><dd>USAC's columns “FRN Line One-Time Quantity” and “FRN Line One-Time Eligible Unit Cost”. The unit cost is before the E-Rate discount and leaves out any ineligible share. On the 217 lines this page was tested with (four districts, USAC data of November 6, 2026), quantity × unit cost equals the line's eligible one-time total.</dd>
+<dt>Monthly cost</dt><dd>USAC: “Pre-discounted eligible monthly charges for the FRN line item.” Shown with the number of months of service in that funding year.</dd>
+<dt>Bandwidth</dt><dd>USAC: “Download speed of the connection for the FRN line item service.” Upload speed is shown after it.</dd>
+<dt>Funded</dt><dd>USAC: “Status of the funding request. It includes pending, funded, denied or cancelled.” Only funded requests are listed; the others are counted under “Left out”.</dd>
+<dt>Committed and disbursed</dt><dd>USAC: “The total amount for the Funding Request (FRN) after discount.” And: “Total net amount disbursed to a service provider or applicant.” A funded request with nothing disbursed may not be invoiced yet, or may never have been bought with E-Rate funds; the summary and the card mark it.</dd>
+<dt>Contract ends</dt><dd>USAC: “Contract expiration date for the FRN. If the FRN is for a tariff or month-to-month service this field displays the service end date.” Where USAC has one, the extended date follows: “Contract expiration date for contracts that can be extended.”</dd>
+<dt>Service provider</dt><dd>USAC: “Service provider name for the FRN.” A name that reads as a person's own name is not shown.</dd>
+</dl>
+
+<h2>What it can't show</h2>
+<ul class="small">
+<li>Equipment bought without E-Rate funding: with local funds, grants or donations, or the ineligible share of a purchase.</li>
+<li>Purchases filed under another billed entity number (BEN). The page matches the BEN on the Form 470, so a member school's own requests, or a consortium's, don't show.</li>
+<li>Whether the equipment is still in service. A funded request is a commitment; “disbursed” shows what USAC paid.</li>
+<li>Requests that weren't funded (pending, denied or cancelled), and FY2016 and earlier.</li>
+</ul>
+
+<div class="disclose" id="ai"><strong>Westworks is AI-run.</strong> An AI agent built this page. The Form 470 number you type goes from your browser straight to USAC's public data service (opendata.usac.org); nothing you type is sent to Westworks (a shared link with ?form= in it reaches our web host, GitHub Pages, like any web address). No person checks each result. We tell you because it's true, and because California's bot-disclosure law (SB 1001) asks for it. A person owns Westworks and sets its rules. If we emailed you, reply to that email: our mail desk reads every reply within a day.</div>
+
+<h2>Where the data comes from</h2>
+<ul class="small">
+<li>The form: USAC Open Data, <a href="https://opendata.usac.org/d/jt8s-3q52">E-Rate FCC Form 470 Tool Data</a> (dataset jt8s-3q52, Public Domain). One query per lookup, by application number, 24 named fields, no contact field. USAC's data holds each form as last modified (“Current”) or as first certified (“Original”); this page uses Current where USAC has it. If the form isn't there, one more query counts that funding year's forms.</li>
+<li>The purchases: USAC Open Data, <a href="https://opendata.usac.org/d/hbj5-2bpj">E-Rate Request for Discount on Services: FRN Line Items</a> (dataset hbj5-2bpj, Public Domain). One query per lookup (one more per 5,000 lines): the Current version of every FY2017–FY2026 line item filed under the form's BEN, 24 named fields, no contact field.</li>
+<li>Funding status and provider: USAC Open Data, <a href="https://opendata.usac.org/d/qdmp-ygft">E-Rate Request for Discount on Services: FRN Status</a> (dataset qdmp-ygft, Public Domain). One query per lookup, 13 named fields, no contact field.</li>
+<li>“Data as of” is each dataset's last update as USAC's server reports it (its Last-Modified time).</li>
+<li>Left out: lines on requests that weren't funded, and applicants whose name suggests a health-care operator. A provider's name is shown only when it reads as a business or public body. No person's name, email or phone number is ever requested from USAC or shown.</li>
+<li>Westworks counts visits and lookups on this page, never the Form 470 number.</li>
+</ul>
+
+<footer><a href="../../">Westworks</a> · westworkshq.com · <a href="../">Form 470 Radar</a> · <a href="../brief.html">RFP Briefs</a> · <a href="../../terms.html">Terms</a> · <a href="../../privacy.html">Privacy</a><br>
+Data: Universal Service Administrative Company (USAC) Open Data, read live in your browser; licensed Public Domain. Westworks is not affiliated with, or endorsed by, USAC or the FCC. Information only, not legal, procurement or E-Rate compliance advice.<br>
+Free tools: <a href="../../erate-provider/">E-Rate provider check (SPIN)</a> · <a href="../../erate-invoices/">E-Rate invoice deadline lookup</a> · <a href="../../c2-budgets/">E-Rate C2 budget lookup</a> · <a href="../../erate-dates/">E-Rate FY2027 dates</a></footer>
+<script>var DESK = 'https://script.google.com/macros/s/AKfycbxOqURWCEJMjC8nIms06TAmXw5QJuwNAkjeaD2AD4Wmqoe34Wv79IfstT2PrPnoKvm6/exec';</script>
+<script id="wi-core">
+// The page's pure logic (no DOM): input, SoQL URLs, screens, joins and the summary. tests/core_test.js runs it in Node.
+var WI = (function () {
+  'use strict';
+  var HOST = 'https://opendata.usac.org', F470_ID = 'jt8s-3q52', LINE_ID = 'hbj5-2bpj', FRN_ID = 'qdmp-ygft';
+  var FYS = ['2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026'];
+  // Only these named fields, never a contact or free-text one (build_installed.py page_problems checks all three).
+  var F470_FIELDS = ['application_number', 'funding_year', 'form_version', 'fcc_form_470_status', 'billed_entity_number',
+    'billed_entity_name', 'applicant_type', 'billed_entity_city', 'billed_entity_state', 'certified_date_time',
+    'allowable_contract_date', 'form_pdf', 'rfp_identifier', 'service_request_id', 'service_category', 'service_type',
+    'function', 'manufacturer', 'other_manufacturer', 'quantity', 'unit', 'entities', 'minimum_capacity', 'maximum_capacity'];
+  var FRN_FIELDS = ['funding_year', 'funding_request_number', 'form_version', 'form_471_frn_status_name', 'ben',
+    'form_471_service_type_name', 'spin_name', 'epc_organization_id', 'contract_expiration_date',
+    'extended_expiration_date', 'pricing_confidentiality', 'funding_commitment_request', 'total_authorized_disbursement'];
+  var LINE_FIELDS = ['funding_year', 'funding_request_number', 'form_471_line_item_number', 'form_version', 'ben',
+    'form_471_function_name', 'form_471_product_name', 'form_471_purpose_name', 'form_471_manufacturer_name',
+    'other_manufacturer_desc', 'model_of_equipment', 'lease', 'form_471_unit_name', 'one_time_quantity',
+    'one_time_eligible_costs', 'total_eligible_one_time_costs', 'monthly_quantity', 'monthly_recurring_unit_eligible_costs',
+    'total_monthly_eligible_recurring_costs', 'months_of_service', 'download_speed', 'form_471_download_speed_unit_name',
+    'upload_speed', 'form_471_upload_speed_unit_name'];
+  var PAGE = 5000, MAX_PAGES = 6, DAY = 86400000, STALE_DAYS = 3;
+  var C2_TYPES = {'Internal Connections': 1, 'Basic Maintenance of Internal Connections': 2, 'Managed Internal Broadband Services': 3};
+  var PRODUCT_ORDER = ['Access Point', 'Wireless Controller', 'Switch', 'Router', 'Firewall Services & Components',
+    'UPS/ Battery Backup', 'Module', 'Transceiver', 'License', 'Cabling', 'Connectors'];
+  // invoice-clock's screens (build_invoice_clock.py) as provider-check ports them: HEALTH_RE as is; BUSINESS_RE without
+  // its 13 brand-name tokens (so this page names no firm) plus MOBILITY; ENTITY_RE, PERSON_HEAD, TRADE_RE, FIRST as is.
+  var HEALTH_RE = /\b(HOSPITAL|CLINIC|MEDICAL|HEALTH|NURSING|HOSPICE)\b/i;
+  var EMAIL_RE = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/;
+  var PHONE_RE = /\(?\b\d{3}\)?[-. ]\d{3}[-. ]\d{4}\b/;
+  var BUSINESS_RE = new RegExp('\\b(INC|INCORPORATED|LLC|L\\.L\\.C|LLP|LP|LTD|LIMITED|CORP|CORPO|CORPORATION|CO|COMPANY|' +
+    'COMPANIES|COOPERATIVE|CO-OP|COOP|ASSN|ASSOCIATION|AUTHORITY|DISTRICT|BOARD|BOCES|CITY|COUNTY|STATE|UNIVERSITY|' +
+    'COLLEGE|COUNCIL|COMMISSION|DEPARTMENT|DEPT|TELEPHONE|TEL|TELECOM\\w*|COMMUNICATIONS?|NETWORKS?|NETWORKING|' +
+    'TECHNOLOGY|TECHNOLOGIES|TECH|SYSTEMS?|SOLUTIONS?|SERVICES?|GROUP|ENTERPRISES?|HOLDINGS|PARTNERS|PARTNERSHIP|' +
+    'WIRELESS|BROADBAND|FIBER|FIBRE|CABLE|CABLEVISION|INTERNET|DATA|DATACOM|ELECTRIC\\w*|POWER|ENERGY|UTILITIES|' +
+    'UTILITY|CONSULTING|INTEGRATORS?|INTEGRATIONS?|CONSORTIUM|ALLIANCE|PLC|PLLC|TELCO|ONLINE|DIGITAL|MEDIA|WORKS|' +
+    'SUPPLY|COMPUTERS?|CENTER|CENTRE|ORGANIZATION|WAREHOUSE|INTERNATIONAL|PLANT|ASSOCIATES|MOBILITY)\\b', 'i');
+  var ENTITY_RE = new RegExp('\\b(INC|INCORPORATED|LLC|L\\.L\\.C|LLP|LP|LTD|LIMITED|CORP|CORPO|CORPORATION|CO|COMPANY|' +
+    'COMPANIES|COOPERATIVE|CO-OP|COOP|ASSN|ASSOCIATION|AUTHORITY|DISTRICT|BOARD|BOCES|CITY|COUNTY|STATE|UNIVERSITY|' +
+    'COLLEGE|COUNCIL|COMMISSION|DEPARTMENT|DEPT|PLC|PLLC)\\b', 'i');
+  var PERSON_HEAD = /^([A-Z][a-z]+)\.?\s+(?:[A-Z]\.?\s+)?[A-Z][a-z'’-]+,?\s+(?:&\s+|and\s+)?(.+?)\.?$/;
+  var TRADE_RE = /^(?:consulting|consultants?|services?|solutions?|associates|group|enterprises?|technology|technologies|tech|computers?|systems?|data|works|networking|integrations?|electric|electrical|communications?|cabling|wiring)$/i;
+  var FIRST = {};
+  ('aaron adam alan albert alex alice amanda amy andrew andy angela ann anna anne anthony arthur barbara ben benjamin ' +
+   'beth betty bill billy bob bobby brad brandon brenda brian bruce carl carol caroline carolyn catherine chad charles ' +
+   'charlie chris christine christopher chuck cindy craig dan daniel danny dave david dawn dean debbie deborah dennis ' +
+   'diana diane don donald donna doug douglas ed eddie edward elizabeth emily emma eric frank fred gary george gerald ' +
+   'glenn gloria grace greg gregory harold harry heather helen henry jack james jamie jane janet jason jay jean jeff ' +
+   'jeffrey jennifer jerry jesse jessica jim jimmy joan joe joel john johnny jon jonathan jose joseph josh joshua joyce ' +
+   'juan judy julie justin karen kathleen kathy keith kelly ken kenneth kevin kim kimberly larry laura lauren linda lisa ' +
+   'lori louis margaret maria marie mark martha martin mary matt matthew michael michelle mike nancy nathan nicholas ' +
+   'nick nicole pam pamela pat patricia patrick paul peter phil philip ralph randy ray raymond rebecca rich richard rick ' +
+   'ricky rob robert roger ron ronald rose russell ruth ryan sam samuel sandra sara sarah scott sean sharon shawn ' +
+   'stephanie stephen steve steven sue susan terry thomas tim timothy todd tom tony tracy travis victor vincent walter ' +
+   'wayne william').split(' ').forEach(function (w) { FIRST[w] = 1; });
+
+  function clean(s) { return String(s == null ? '' : s).replace(/\s+/g, ' ').trim(); }
+  function round2(v) { return Math.round(v * 100) / 100; }
+  function num(x) { var v = (x == null || x === '') ? NaN : Number(x); return isFinite(v) ? v : 0; }
+  function utcDay(s) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(s || '')); return m ? Date.UTC(+m[1], +m[2] - 1, +m[3]) : null; }
+  // Free text from USAC (applicant-typed models, makes, names): dropped if it holds an email- or phone-like string.
+  function safeText(s) { s = clean(s); return EMAIL_RE.test(s) || PHONE_RE.test(s) ? '' : s; }
+
+  // A Form 470 number typed or pasted: an optional "Form 470 #" label, spaces, dots and dashes dropped; then 9 digits
+  // that start with a funding year (16-29). A SPIN, an FRN or a BEN gets its own message, and no request is made.
+  function cleanForm(raw) {
+    var s = String(raw == null ? '' : raw).trim()
+      .replace(/^(?:FCC\s*)?(?:Form\s*)?470(?:\s*(?:#|no\.?|number|application)\s*:?\s*|\s*:\s*|\s+)(?=\d)/i, '')
+      .replace(/[\s.\-–—‑_#]/g, '');
+    if (!s) return {error: 'Enter a Form 470 number: 9 digits, starting with the funding year (27 for FY2027).'};
+    if (!/^\d+$/.test(s)) return {error: 'A Form 470 number has digits only, 9 of them (for example 270001489).'};
+    if (s.length === 10) return {error: 'A Form 470 number has 9 digits; that number has 10, like an FRN (a funding request number).'};
+    if (s.length >= 5 && s.length <= 8) return {error: 'A Form 470 number has 9 digits; that number has ' + s.length + ', like a BEN (billed entity number). Use the Form 470 number from the form or its RFP.'};
+    if (s.length !== 9) return {error: 'A Form 470 number has 9 digits; that number has ' + s.length + '.'};
+    if (/^143/.test(s)) return {error: 'That looks like a SPIN (a service provider number; most start with 143). To look up a provider, use the E-Rate Provider Check.', spin: true};
+    if (!/^(1[6-9]|2\d)/.test(s)) return {error: 'A Form 470 number starts with its funding year: 27 for FY2027, 26 for FY2026.'};
+    return {form: s, fy: '20' + s.slice(0, 2)};
+  }
+  function need(form) { if (!/^\d{9}$/.test(String(form))) throw new Error('not a 9-digit Form 470 number'); return String(form); }
+  function needBens(bens) {
+    if (!Array.isArray(bens) || !bens.length || bens.length > 20) throw new Error('BEN list');
+    bens.forEach(function (b) { if (!/^\d{1,9}$/.test(String(b))) throw new Error('not a BEN'); });
+    return '(' + bens.map(function (b) { return "'" + b + "'"; }).join(',') + ')';
+  }
+  function qs(o) { var u = new URLSearchParams(); Object.keys(o).forEach(function (k) { u.set(k, o[k]); }); return u.toString(); }
+  function fyList() { return '(' + FYS.map(function (y) { return "'" + y + "'"; }).join(',') + ')'; }
+  function f470Url(form) {
+    return HOST + '/resource/' + F470_ID + '.json?' + qs({'$select': F470_FIELDS.join(','),
+      '$where': "application_number='" + need(form) + "'", '$order': 'form_version,service_request_id', '$limit': '1000'});
+  }
+  function countUrl(fy) {
+    if (!/^20\d\d$/.test(String(fy))) throw new Error('not a funding year');
+    return HOST + '/resource/' + F470_ID + '.json?' + qs({'$select': 'count(distinct application_number)', '$where': "funding_year='" + fy + "'"});
+  }
+  function frnUrl(bens, offset) {
+    return HOST + '/resource/' + FRN_ID + '.json?' + qs({'$select': FRN_FIELDS.join(','),
+      '$where': 'ben in ' + needBens(bens) + ' AND funding_year in ' + fyList() + " AND form_version='Current'",
+      '$order': 'funding_request_number', '$limit': String(PAGE), '$offset': String(offset || 0)});
+  }
+  function lineUrl(bens, offset) {
+    return HOST + '/resource/' + LINE_ID + '.json?' + qs({'$select': LINE_FIELDS.join(','),
+      '$where': 'ben in ' + needBens(bens) + ' AND funding_year in ' + fyList() + " AND form_version='Current'",
+      '$order': 'funding_request_number,form_471_line_item_number', '$limit': String(PAGE), '$offset': String(offset || 0)});
+  }
+  function lineCountUrl() {  // the fail-closed check when a BEN shows nothing at all: is the dataset itself empty?
+    return HOST + '/resource/' + LINE_ID + '.json?' + qs({'$select': 'count(*)', '$where': "funding_year='" + FYS[FYS.length - 1] + "' AND form_version='Current'"});
+  }
+
+  // USAC's SPIN name, shown only when it reads as a business or public body (never a person's own name).
+  function providerName(name) {
+    name = clean(name);
+    if (!name || EMAIL_RE.test(name) || PHONE_RE.test(name) || !BUSINESS_RE.test(name)) return '';
+    var m = PERSON_HEAD.exec(name);
+    if (m && TRADE_RE.test(m[2]) && !ENTITY_RE.test(name) && FIRST[m[1].toLowerCase()]) return '';
+    return name;
+  }
+
+  // jt8s-3q52 rows for one application number -> the form. Current rows where USAC has them, else Original. Any row
+  // for another number, or of another version, means the answer is not what was asked: wrong > 0, nothing is shown.
+  function pickForm(rows, form) {
+    if (!Array.isArray(rows)) return {wrong: 1};
+    var wrong = 0, cur = [], orig = [];
+    rows.forEach(function (r) {
+      if (!r || typeof r !== 'object' || clean(r.application_number) !== form) { wrong++; return; }
+      if (r.form_version === 'Current') cur.push(r); else if (r.form_version === 'Original') orig.push(r); else wrong++;
+    });
+    if (wrong) return {wrong: wrong};
+    var use = cur.length ? cur : orig;
+    if (!use.length) return {wrong: 0, found: false};
+    var bens = {}, seen = {}, reqs = [], rfp = false, pdf = '', r0 = use[0];
+    use.forEach(function (r) {
+      var b = clean(r.billed_entity_number);
+      if (/^\d{1,9}$/.test(b)) bens[b] = 1;
+      if (r.rfp_identifier === true || r.rfp_identifier === 'true') rfp = true;
+      var u = r.form_pdf && typeof r.form_pdf === 'object' ? String(r.form_pdf.url || '') : '';
+      if (!pdf && u.indexOf('https://publicdata.usac.org/EPC/Prd/Form470/' + form + '/') === 0 && !/["'<>\s]/.test(u)) pdf = u;
+      var q = {id: clean(r.service_request_id), cat: clean(r.service_category), type: clean(r.service_type),
+        fn: safeText(r['function']), make: safeText(r.manufacturer), other: safeText(r.other_manufacturer),
+        qty: clean(r.quantity), unit: safeText(r.unit), entities: clean(r.entities),
+        min: safeText(r.minimum_capacity), max: safeText(r.maximum_capacity)};
+      var k = [q.id, q.cat, q.type, q.fn, q.make, q.other, q.qty, q.unit, q.entities, q.min, q.max].join('|');
+      if (!seen[k] && (q.type || q.fn)) { seen[k] = 1; reqs.push(q); }
+    });
+    reqs.sort(function (a, b) { return (Number(a.id) || 0) - (Number(b.id) || 0) || (a.type < b.type ? -1 : a.type > b.type ? 1 : 0); });
+    return {wrong: 0, found: true, form: form, version: cur.length ? 'Current' : 'Original', bens: Object.keys(bens).sort(),
+      name: safeText(r0.billed_entity_name), type: clean(r0.applicant_type), city: safeText(r0.billed_entity_city),
+      state: clean(r0.billed_entity_state), fy: clean(r0.funding_year), status: clean(r0.fcc_form_470_status),
+      certified: utcDay(r0.certified_date_time), acd: utcDay(r0.allowable_contract_date), pdf: pdf, rfp: rfp,
+      health: HEALTH_RE.test(clean(r0.billed_entity_name)), requests: reqs};
+  }
+
+  function category(type) { return C2_TYPES[type] ? 'c2' : 'c1'; }
+  function makeText(r, model) {
+    var m = clean(r.form_471_manufacturer_name), o = safeText(r.other_manufacturer_desc);
+    if (!m || /^other$/i.test(m)) return o && o !== model && o.toLowerCase() !== m.toLowerCase() ? (m ? m + ': ' + o : o) : m;
+    return safeText(m);
+  }
+  function speed(v, unit) { var n = num(v), u = clean(unit); return n > 0 ? (Math.round(n * 1000) / 1000) + (u ? ' ' + u : '') : ''; }
+  function lineOf(r) {
+    var model = safeText(r.model_of_equipment);
+    return {no: clean(r.form_471_line_item_number), fn: clean(r.form_471_function_name), product: clean(r.form_471_product_name),
+      purpose: clean(r.form_471_purpose_name), make: makeText(r, model), model: model, lease: clean(r.lease) === 'Yes',
+      unit: safeText(r.form_471_unit_name), qty: num(r.one_time_quantity), unitCost: round2(num(r.one_time_eligible_costs)),
+      oneTotal: round2(num(r.total_eligible_one_time_costs)), mqty: num(r.monthly_quantity),
+      munit: round2(num(r.monthly_recurring_unit_eligible_costs)), mtotal: round2(num(r.total_monthly_eligible_recurring_costs)),
+      months: num(r.months_of_service), down: speed(r.download_speed, r.form_471_download_speed_unit_name),
+      up: speed(r.upload_speed, r.form_471_upload_speed_unit_name)};
+  }
+  function lineKey(no) { var m = /\.(\d+)$/.exec(no); return m ? Number(m[1]) : 0; }
+
+  // FRN Status rows + line-item rows for the form's BEN(s) -> the funded requests with their lines, newest first.
+  // Fail closed: any row outside the query (another BEN, year or version), or a line whose year differs from its
+  // request's, makes wrong > 0 and nothing is shown. Lines on requests that weren't funded are counted, not shown.
+  // disagree is set when the two datasets don't fit together (one empty, any line without a status row, or any funded
+  // request without lines), which is what a reload in progress looks like: on 2026-11-07 the two datasets' Current
+  // FRNs matched to within 1 per funding year, FY2017-FY2026 (review M2). USAC repeats some Current line rows exactly
+  // (4,320 at one district): an exact repeat is counted and shown once; a repeat that differs sets conflict.
+  function join(frnRows, lineRows, bens) {
+    var B = {}, Y = {}, out = {wrong: 0, frns: [], left: {notFunded: 0, byStatus: {}, noStatus: 0, dup: 0, bad: 0},
+      nLines: 0, nFrns: 0, fundedNoLines: 0, conflict: 0, disagree: false};
+    if (!Array.isArray(frnRows) || !Array.isArray(lineRows) || !Array.isArray(bens)) { out.wrong = 1; return out; }
+    bens.forEach(function (b) { B[b] = 1; });
+    FYS.forEach(function (y) { Y[y] = 1; });
+    var st = {}, keys = [];
+    frnRows.forEach(function (r) {
+      if (!r || typeof r !== 'object' || !B[clean(r.ben)] || !Y[clean(r.funding_year)] || r.form_version !== 'Current') { out.wrong++; return; }
+      var frn = clean(r.funding_request_number);
+      if (!/^\d{8,12}$/.test(frn)) { out.wrong++; return; }
+      if (st[frn]) return;
+      out.nFrns++;
+      var spin = clean(r.epc_organization_id), conf = clean(r.pricing_confidentiality);
+      st[frn] = {fy: +clean(r.funding_year), frn: frn, status: clean(r.form_471_frn_status_name), type: clean(r.form_471_service_type_name),
+        cat: category(clean(r.form_471_service_type_name)), provider: providerName(r.spin_name), hasName: !!clean(r.spin_name),
+        spin: /^\d{9}$/.test(spin) ? spin : '', end: utcDay(r.contract_expiration_date), extEnd: utcDay(r.extended_expiration_date),
+        confidential: conf !== '' && conf !== 'No', committed: round2(num(r.funding_commitment_request)),
+        disbursed: round2(num(r.total_authorized_disbursement)), lines: []};
+      keys.push(frn);
+    });
+    var seen = {};
+    lineRows.forEach(function (r) {
+      if (!r || typeof r !== 'object' || !B[clean(r.ben)] || !Y[clean(r.funding_year)] || r.form_version !== 'Current') { out.wrong++; return; }
+      var frn = clean(r.funding_request_number), no = clean(r.form_471_line_item_number);
+      if (!/^\d{8,12}$/.test(frn) || no.indexOf(frn + '.') !== 0) { out.left.bad++; return; }
+      var same = JSON.stringify(r);
+      if (seen[no]) { if (seen[no] === same) out.left.dup++; else out.conflict++; return; }
+      seen[no] = same;
+      out.nLines++;
+      var s = st[frn];
+      if (!s) { out.left.noStatus++; return; }
+      if (String(s.fy) !== clean(r.funding_year)) { out.wrong++; return; }
+      if (s.status !== 'Funded') { out.left.notFunded++; var k = s.status || 'no status'; out.left.byStatus[k] = (out.left.byStatus[k] || 0) + 1; return; }
+      s.lines.push(lineOf(r));
+    });
+    keys.forEach(function (k) { var s = st[k]; if (s.status === 'Funded') { if (s.lines.length) out.frns.push(s); else out.fundedNoLines++; } });
+    out.frns.forEach(function (s) { s.lines.sort(function (a, b) { return lineKey(a.no) - lineKey(b.no); }); });
+    out.frns.sort(function (a, b) {
+      return b.fy - a.fy || (C2_TYPES[a.type] || 9) - (C2_TYPES[b.type] || 9) || (a.type < b.type ? -1 : a.type > b.type ? 1 : 0) || (a.frn < b.frn ? -1 : 1);
+    });
+    out.disagree = (out.nLines > 0 && out.nFrns === 0) || (out.nLines === 0 && out.nFrns > 0) ||
+      out.left.noStatus > 0 || out.fundedNoLines > 0;
+    return out;
+  }
+
+  // The "by type" summary of Category 2 Internal Connections lines: per product type, one entry per model, make and
+  // funding year (quantities summed within a year only: a license renewed each year is not added up), newest first.
+  function summary(frns) {
+    var by = {};
+    frns.forEach(function (s) {
+      if (s.type !== 'Internal Connections') return;
+      s.lines.forEach(function (l) {
+        if (!l.product || l.fn === 'Miscellaneous' || !(l.qty > 0)) return;
+        var paid = s.disbursed > 0, p = by[l.product] || (by[l.product] = {}), k = [l.model, l.make, s.fy, paid].join('|');
+        var e = p[k] || (p[k] = {model: l.model, make: l.make, fy: s.fy, paid: paid, qty: 0, lines: 0});
+        e.qty += l.qty; e.lines++;
+      });
+    });
+    return Object.keys(by).sort(function (a, b) {
+      var ia = PRODUCT_ORDER.indexOf(a), ib = PRODUCT_ORDER.indexOf(b);
+      return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) || (a < b ? -1 : a > b ? 1 : 0);
+    }).map(function (p) {
+      var items = Object.keys(by[p]).map(function (k) { return by[p][k]; }).sort(function (a, b) {
+        return b.fy - a.fy || b.qty - a.qty || (a.model < b.model ? -1 : a.model > b.model ? 1 : 0); });
+      return {product: p, items: items};
+    });
+  }
+
+  function years(frns) {
+    var ys = {};
+    frns.forEach(function (s) { ys[s.fy] = 1; });
+    return Object.keys(ys).map(Number).sort(function (a, b) { return a - b; });
+  }
+
+  return {HOST: HOST, F470_ID: F470_ID, LINE_ID: LINE_ID, FRN_ID: FRN_ID, FYS: FYS, F470_FIELDS: F470_FIELDS,
+          FRN_FIELDS: FRN_FIELDS, LINE_FIELDS: LINE_FIELDS, PAGE: PAGE, MAX_PAGES: MAX_PAGES, DAY: DAY,
+          STALE_DAYS: STALE_DAYS, HEALTH_RE: HEALTH_RE, cleanForm: cleanForm,
+          f470Url: f470Url, countUrl: countUrl, frnUrl: frnUrl, lineUrl: lineUrl, lineCountUrl: lineCountUrl,
+          providerName: providerName, pickForm: pickForm, join: join, summary: summary, years: years, category: category};
+})();
+</script>
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var form = $('f'), inp = $('form470'), go = $('go'), errEl = $('form-err'), statusEl = $('status'), out = $('out');
+  var NAMES = {AK:'Alaska',AL:'Alabama',AR:'Arkansas',AS:'American Samoa',AZ:'Arizona',CA:'California',CO:'Colorado',CT:'Connecticut',DC:'District of Columbia',DE:'Delaware',FL:'Florida',GA:'Georgia',GU:'Guam',HI:'Hawaii',IA:'Iowa',ID:'Idaho',IL:'Illinois',IN:'Indiana',KS:'Kansas',KY:'Kentucky',LA:'Louisiana',MA:'Massachusetts',MD:'Maryland',ME:'Maine',MI:'Michigan',MN:'Minnesota',MO:'Missouri',MP:'Northern Mariana Islands',MS:'Mississippi',MT:'Montana',NC:'North Carolina',ND:'North Dakota',NE:'Nebraska',NH:'New Hampshire',NJ:'New Jersey',NM:'New Mexico',NV:'Nevada',NY:'New York',OH:'Ohio',OK:'Oklahoma',OR:'Oregon',PA:'Pennsylvania',PR:'Puerto Rico',RI:'Rhode Island',SC:'South Carolina',SD:'South Dakota',TN:'Tennessee',TX:'Texas',UT:'Utah',VA:'Virginia',VI:'U.S. Virgin Islands',VT:'Vermont',WA:'Washington',WI:'Wisconsin',WV:'West Virginia',WY:'Wyoming'};
+  var CAVEAT = 'E-Rate-funded purchases, self-reported; gear bought outside E-Rate won’t show.';
+  var LAG = 'USAC’s public data can lag what EPC shows by a day or more.';
+  var TIMEOUT = 45000, SHOW_FRNS = 15;
+  var seq = 0, ctl = null, sent = {};
+
+  function beacon(page) { try { if (DESK.indexOf('https://') !== 0 || sent[page]) return; sent[page] = 1;
+    var p = new URLSearchParams(location.search), r = document.referrer ? new URL(document.referrer).hostname : '';
+    navigator.sendBeacon(DESK, new URLSearchParams({ action: 'hit', page: page, source: p.get('utm_source') || '', ref: r })); } catch (e) {} }
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function add(parent, child) { parent.appendChild(typeof child === 'string' ? document.createTextNode(child) : child); return child; }
+  function link(text, href) { var a = el('a', null, text); a.href = href; if (/^https?:/.test(href)) { a.rel = 'noopener'; a.target = '_blank'; } return a; }
+  function usd(v) { return '$' + (Math.round(v * 100) / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}); }
+  function n(v) { return Number(v).toLocaleString('en-US', {maximumFractionDigits: 3}); }
+  function fmt(ms) { return new Date(ms).toLocaleDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC'}); }
+  function stamp(ms) { return new Date(ms).toLocaleString('en-US', {year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', hourCycle: 'h23', timeZone: 'UTC'}) + ' UTC'; }
+  function plural(k, one, many) { return Number(k).toLocaleString('en-US') + ' ' + (k === 1 ? one : many); }
+  function say(t) { statusEl.textContent = t; }
+  function showErr(t) { errEl.textContent = t; errEl.hidden = !t; if (t) inp.setAttribute('aria-invalid', 'true'); else inp.removeAttribute('aria-invalid'); }
+  function busy(on) { go.disabled = on; go.textContent = on ? 'Looking up…' : 'Look up'; }
+
+  // ------------------------------------------------------------------ USAC requests (live, from this browser)
+  function Fail(kind, status) { this.kind = kind; this.status = status; }
+  function isAbort(e) { return e && e.name === 'AbortError'; }
+  function getJSON(url, signal) {
+    var timer, timeout = new Promise(function (ok, no) { timer = setTimeout(function () { no(new Fail('timeout')); }, TIMEOUT); });
+    var req = fetch(url, {signal: signal, credentials: 'omit', headers: {'Accept': 'application/json'}}).then(function (r) {
+      if (!r.ok) throw new Fail('http', r.status);
+      var lm = r.headers.get('Last-Modified');
+      return r.json().then(function (j) { return {json: j, lm: lm}; }, function () { throw new Fail('shape'); });
+    }, function (e) { if (isAbort(e)) throw e; throw new Fail('network'); });
+    return Promise.race([req, timeout]).then(function (v) { clearTimeout(timer); return v; }, function (e) { clearTimeout(timer); throw e; });
+  }
+  function pages(urlOf, signal) {  // every page of one query; more than MAX_PAGES full pages is refused, never cut
+    var rows = [], lm = null;
+    function page(i) {
+      return getJSON(urlOf(i * WI.PAGE), signal).then(function (r) {
+        if (!Array.isArray(r.json)) throw new Fail('shape');
+        rows = rows.concat(r.json); lm = lm || r.lm;
+        if (r.json.length < WI.PAGE) return {rows: rows, lm: lm};
+        if (i + 1 >= WI.MAX_PAGES) throw new Fail('toomany');
+        return page(i + 1);
+      });
+    }
+    return page(0);
+  }
+  function count(url, signal, key) {
+    return getJSON(url, signal).then(function (r) {
+      var v = Array.isArray(r.json) && r.json[0] ? Number(r.json[0][key]) : NaN;
+      return isFinite(v) ? {n: v, lm: r.lm} : null; }, function (e) { if (isAbort(e)) throw e; return null; });
+  }
+
+  function lookup(num) {
+    var my = ++seq;
+    if (ctl) try { ctl.abort(); } catch (e) {}
+    ctl = typeof AbortController === 'function' ? new AbortController() : null;
+    var signal = ctl ? ctl.signal : undefined;
+    try { var p = new URLSearchParams(location.search); p.set('form', num);
+      history.replaceState(null, '', location.pathname + '?' + p.toString() + location.hash); } catch (e) {}
+    busy(true); out.textContent = '';
+    say('Looking up Form 470 #' + num + ' in USAC’s data…');
+    var fy = '20' + num.slice(0, 2);
+    getJSON(WI.f470Url(num), signal).then(function (r) {
+      var f = WI.pickForm(r.json, num);
+      if (f.wrong) throw new Fail('mismatch');
+      if (!f.found) {
+        return count(WI.countUrl(fy), signal, 'count_distinct_application_number').then(function (c) {
+          if (my === seq) renderNotFound(num, fy, c, r.lm);
+        });
+      }
+      if (f.health) { if (my === seq) renderHealth(f); return null; }
+      if (!f.bens.length) throw new Fail('shape');
+      return Promise.all([pages(function (o) { return WI.frnUrl(f.bens, o); }, signal),
+                          pages(function (o) { return WI.lineUrl(f.bens, o); }, signal)]).then(function (a) {
+        var j = WI.join(a[0].rows, a[1].rows, f.bens);
+        if (j.wrong) throw new Fail('mismatch');
+        if (j.conflict) throw new Fail('conflict');
+        if (j.disagree) throw new Fail('disagree');
+        var lms = {f470: r.lm, frn: a[0].lm, line: a[1].lm};
+        if (!j.nLines) {  // nothing on record: first make sure the line-item dataset isn't empty (a reload in progress)
+          return count(WI.lineCountUrl(), signal, 'count').then(function (c) {
+            if (!c || !(c.n > 0)) throw new Fail('empty');
+            if (my === seq) render(f, j, lms);
+          });
+        }
+        if (my === seq) render(f, j, lms);
+      });
+    }).catch(function (e) {
+      if (my !== seq || isAbort(e)) return;
+      renderError(num, e);
+    }).then(function () { if (my === seq) busy(false); });
+  }
+
+  // ------------------------------------------------------------------ rendering (text only: textContent, never markup)
+  function renderError(num, e) {
+    var box = add(out, el('div', 'box warn')), p = add(box, el('p'));
+    var why = e instanceof Fail ? e : new Fail('other');
+    var lead = why.kind === 'mismatch' ? 'USAC’s answer didn’t match the question asked, so nothing is shown.'
+      : why.kind === 'disagree' ? 'USAC’s FRN Status and FRN Line Items data don’t fit together for this applicant right now (one may be part-way through a reload), so nothing is shown.'
+      : why.kind === 'conflict' ? 'USAC’s FRN Line Items data lists the same line twice with different values right now (it may be part-way through a reload), so nothing is shown.'
+      : why.kind === 'empty' ? 'USAC’s FRN Line Items data came back empty or unreadable, so this page can’t tell “nothing on record” from “data missing”. Nothing is shown.'
+      : why.kind === 'toomany' ? 'This applicant has more than ' + (WI.PAGE * WI.MAX_PAGES).toLocaleString('en-US') + ' E-Rate line items or requests in FY2017–FY2026, more than this page loads. Nothing is shown rather than part of the list.'
+      : why.kind === 'timeout' ? 'USAC’s data service (opendata.usac.org) didn’t answer within 45 seconds.'
+      : why.kind === 'http' && why.status === 429 ? 'USAC’s data service (opendata.usac.org) is limiting requests right now (HTTP 429). Wait a minute, then try again.'
+      : why.kind === 'http' ? 'USAC’s data service (opendata.usac.org) answered with an error (HTTP ' + why.status + ').'
+      : why.kind === 'shape' ? 'USAC’s data service answered with something other than the expected list of records.'
+      : why.kind === 'network' ? 'Couldn’t reach USAC’s data service (opendata.usac.org). It may be down or busy, or your connection dropped.'
+      : 'Something went wrong while showing the result.';
+    if (!(e instanceof Fail) && window.console) console.error(e);
+    add(p, el('strong', null, lead));
+    var q = add(box, el('p', 'small', 'Nothing was looked up for Form 470 #' + num + '. ' + (why.kind === 'toomany' ? 'USAC’s own copy of the line items is its FRN Line Items dataset: ' : 'Try again in a few minutes. USAC’s own copy of the line items is its FRN Line Items dataset: ')));
+    q.appendChild(link('opendata.usac.org/d/hbj5-2bpj', 'https://opendata.usac.org/d/hbj5-2bpj'));
+    if (why.kind !== 'toomany') {
+      var again = add(box, el('button', 'linkbtn', 'Try again'));
+      again.type = 'button';
+      again.addEventListener('click', function () { lookup(num); });
+    }
+    say('Form 470 #' + num + ': not looked up. ' + lead);
+  }
+
+  function renderNotFound(num, fy, c, lm) {
+    beacon('radar-installed-notfound');
+    var box = add(out, el('div', 'box'));
+    var h = add(box, el('h3', null, 'Form 470 #' + num + ' isn’t in USAC’s open data right now'));
+    h.id = 'res-h'; h.tabIndex = -1;
+    add(box, el('p', null, 'That doesn’t mean the form doesn’t exist. USAC’s open data may not hold it yet: it can lag EPC by a day or more, and USAC’s Form 470 dataset is reloaded from time to time and can be incomplete for days afterwards.'));
+    var t = c && c.n > 0 ? 'Right now it lists ' + plural(c.n, 'FY' + fy + ' Form 470', 'FY' + fy + ' Form 470s') + '.'
+      : c && c.n === 0 ? 'Right now it lists no FY' + fy + ' Form 470s at all, which is what a reload in progress looks like.'
+      : '';
+    add(box, el('p', 'small', (t ? t + ' ' : '') + 'Check the number against the form or its RFP, or try again tomorrow. Nothing else was looked up.'));
+    var lmMs = lm ? Date.parse(lm) : NaN;
+    if (isFinite(lmMs)) add(box, el('p', 'small', 'USAC’s Form 470 data as of ' + stamp(lmMs) + '.'));
+    say('Form 470 #' + num + ': not in USAC’s open data right now (that doesn’t mean it doesn’t exist).');
+    focusResult();
+  }
+
+  function renderHealth(f) {
+    var box = add(out, el('div', 'box'));
+    add(box, el('h3', null, 'Form 470 #' + f.form + ': not covered here'));
+    add(box, el('p', 'small', 'This page doesn’t cover applicants whose name suggests a health-care operator, so nothing else was looked up. USAC’s FRN Line Items data has the same records.'));
+    say('Form 470 #' + f.form + ': not covered by this page.');
+  }
+
+  function header(f) {
+    var h = add(out, el('h2', null, 'Form 470 #' + f.form));
+    h.id = 'res-h'; h.tabIndex = -1;
+    var place = [f.city ? f.city.replace(/\b([A-Z])([A-Z]+)\b/g, function (m, a, b) { return a + b.toLowerCase(); }) : '', NAMES[f.state] || f.state].filter(Boolean).join(', ');
+    add(out, el('p', 'meta', [f.name || 'Applicant name not shown', place, f.type, 'BEN ' + f.bens.join(', ')].filter(Boolean).join(' · ')));
+    var bits = [f.fy ? 'FY' + f.fy : '', f.status, f.certified != null ? 'certified ' + fmt(f.certified) : '',
+                f.acd != null ? 'allowable contract date ' + fmt(f.acd) : ''].filter(Boolean);
+    var p = add(out, el('p', 'meta', bits.join(' · ')));
+    if (f.pdf) { add(p, ' · '); add(p, link('the form on USAC', f.pdf)); }
+  }
+
+  function requests(f) {
+    var box = add(out, el('div', 'box'));
+    add(box, el('h3', null, 'Requested on this Form 470'));
+    if (!f.requests.length) add(box, el('p', 'small', 'USAC’s Form 470 data lists no service requests for this form.'));
+    else {
+      var ul = add(box, el('ul', 'reqs'));
+      f.requests.forEach(function (q) {
+        var make = q.make === 'Other or equivalent' && q.other ? q.other + ' or equivalent' : q.make === 'Other' && q.other ? q.other : q.make;
+        var cap = q.min || q.max ? (q.min && q.max && q.min !== q.max ? q.min + ' to ' + q.max : q.min || q.max) : '';
+        var bits = [q.fn, make, q.qty ? n(q.qty) + (q.unit ? ' ' + q.unit : '') : '', cap ? 'capacity ' + cap : '',
+                    q.entities ? 'for ' + plural(Number(q.entities), 'entity', 'entities') : ''].filter(Boolean);
+        add(ul, el('li', null, (q.type ? q.type + ': ' : '') + bits.join(' · ')));
+      });
+    }
+    add(box, el('p', 'small', f.version === 'Current' ? 'From USAC’s Form 470 data, the form as last modified.'
+      : 'From USAC’s Form 470 data, which holds this form only as first certified (USAC’s “Original” version) right now; a later change may not show.'));
+  }
+
+  function lineEl(l, s) {
+    var li = el('li');
+    add(li, el('span', 'what', [l.product && l.product !== l.fn ? l.fn + ' · ' + l.product : l.fn, l.make].filter(Boolean).join(' · ')));
+    if (l.model) add(li, el('span', 'model', l.model));
+    var bits = [];
+    if (s.cat === 'c1' && (l.down || l.up)) bits.push((l.down || '?') + ' down / ' + (l.up || '?') + ' up');
+    if (s.confidential) bits.push('price not shown: USAC marks this request’s pricing confidential');
+    else {
+      if (l.qty > 0) bits.push(n(l.qty) + (l.unit && l.unit !== 'Each' ? ' ' + l.unit : '') + ' × ' + usd(l.unitCost) + (l.qty !== 1 ? ' = ' + usd(l.oneTotal) : ''));
+      if (l.mtotal > 0) bits.push((l.mqty > 1 ? n(l.mqty) + ' × ' + usd(l.munit) + ' = ' : '') + usd(l.mtotal) + ' a month' + (l.months > 0 ? ' × ' + n(l.months) + ' months' : ''));
+    }
+    if (!bits.length && l.qty > 0) bits.push(n(l.qty));
+    if (l.lease) bits.push('leased');
+    if (bits.length) add(li, el('span', 'nums', bits.join(' · ')));
+    if (s.cat === 'c1' && l.purpose) add(li, el('span', 'what', l.purpose));
+    return li;
+  }
+
+  function frnEl(s) {
+    var a = el('article', 'ent');
+    add(a, el('h4', null, 'FY' + s.fy + ' · FRN ' + s.frn + ' · ' + s.type));
+    var meta = add(a, el('p', 'meta'));
+    if (s.provider) add(meta, s.provider); else add(meta, s.hasName ? 'Service provider name not shown' : 'No service provider name in USAC’s data');
+    if (s.spin) { add(meta, ' (SPIN ' + s.spin + ', '); add(meta, link('its funded FRNs', '../../erate-provider/?spin=' + s.spin)); add(meta, ')'); }
+    var bits = [];
+    if (s.end != null) bits.push('contract ends ' + fmt(s.end) + (s.extEnd != null && s.extEnd !== s.end ? ', extendable to ' + fmt(s.extEnd) : ''));
+    bits.push('committed ' + usd(s.committed) + ', disbursed ' + usd(s.disbursed));
+    add(meta, ' · ' + bits.join(' · '));
+    if (s.disbursed <= 0) add(a, el('p', 'note warn', 'USAC’s data shows nothing disbursed on this request: it may not be invoiced yet, or it may never have been bought with E-Rate funds.'));
+    var ul = add(a, el('ul', 'lines'));
+    s.lines.forEach(function (l) { ul.appendChild(lineEl(l, s)); });
+    return a;
+  }
+
+  function frnList(parent, list) {
+    var wrap = add(parent, el('div')), shown = 0;
+    var more = el('button', 'more'); more.type = 'button';
+    function next() {
+      list.slice(shown, shown + SHOW_FRNS).forEach(function (s) { wrap.appendChild(frnEl(s)); });
+      shown = Math.min(list.length, shown + SHOW_FRNS);
+      var rest = list.length - shown;
+      more.hidden = rest <= 0;
+      more.textContent = 'Show ' + Math.min(rest, SHOW_FRNS) + ' more funding requests (' + rest.toLocaleString('en-US') + ' left)';
+    }
+    more.addEventListener('click', next);
+    next();
+    parent.appendChild(more);
+  }
+
+  function summaryEl(parent, sum) {
+    if (!sum.length) return;
+    var box = add(parent, el('div', 'box'));
+    add(box, el('h3', null, 'Equipment on USAC’s record, by type'));
+    add(box, el('p', 'small', 'Category 2 internal connections, newest first. Quantities add up within a funding year only. Items on a request USAC has disbursed nothing on are marked: not invoiced yet, or never bought with E-Rate funds.'));
+    var dl = add(box, el('dl', 'sum'));
+    sum.forEach(function (g) {
+      add(dl, el('dt', null, g.product));
+      var dd = add(dl, el('dd', 'mm'));
+      var items = g.items.slice(0, 5).map(function (e) {
+        var m = e.model.length > 70 ? e.model.slice(0, 68) + '…' : e.model;
+        return (m || 'model not given') + (e.make ? ' (' + e.make + ')' : '') + ' × ' + n(e.qty) + ', FY' + e.fy + (e.paid ? '' : ', nothing disbursed');
+      });
+      add(dd, items.join('; ') + (g.items.length > 5 ? '; and ' + (g.items.length - 5) + ' more in the list below' : '') + '.');
+    });
+  }
+
+  function leftText(j) {
+    var bits = [];
+    if (j.left.notFunded) bits.push(plural(j.left.notFunded, 'line', 'lines') + ' on requests that weren’t funded (' +
+      Object.keys(j.left.byStatus).sort().map(function (k) { return k.toLowerCase() + ' ' + j.left.byStatus[k]; }).join(', ') + ')');
+    if (j.left.bad) bits.push(plural(j.left.bad, 'malformed line row', 'malformed line rows'));
+    var rep = j.left.dup ? ' USAC’s data repeats ' + plural(j.left.dup, 'line row', 'line rows') + ' exactly; each line is shown once.' : '';
+    return ((bits.length ? 'Left out: ' + bits.join('; ') + '.' : '') + rep).trim();
+  }
+
+  function asOf(lms) {
+    var parts = [['Form 470 Tool Data', lms.f470], ['FRN Line Items', lms.line], ['FRN Status', lms.frn]], stale = [];
+    var t = 'USAC data as of: ' + parts.map(function (x) {
+      var ms = x[1] ? Date.parse(x[1]) : NaN;
+      if (isFinite(ms) && (Date.now() - ms) / WI.DAY > WI.STALE_DAYS) stale.push(x[0]);
+      return x[0] + ' ' + (isFinite(ms) ? stamp(ms) : 'time not available');
+    }).join('; ') + '. Looked up live at ' + new Date().toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit'}) + ' your time.';
+    var p = add(out, el('p', 'small', t)); p.id = 'asof';
+    if (stale.length) add(out, el('p', 'note warn', 'USAC last updated its ' + stale.join(' and ') + ' data more than ' + WI.STALE_DAYS + ' days ago; it usually updates daily, so recent changes may not show.'));
+  }
+
+  function render(f, j, lms) {
+    beacon('radar-installed-lookup');
+    header(f);
+    if (f.status && f.status !== 'Certified') add(out, el('p', 'note warn', 'USAC’s Form 470 data shows this form as ' + f.status + '.'));
+    requests(f);
+    add(out, el('p', 'key', CAVEAT + ' Lines are matched by the form’s BEN (' + f.bens.join(', ') + '), FY2017–FY2026, funded requests only.'));
+    if (f.type === 'Consortium') add(out, el('p', 'note', 'This applicant is a consortium: only the consortium’s own funding requests show here, not its members’ own.'));
+    var c2 = j.frns.filter(function (s) { return s.cat === 'c2'; }), c1 = j.frns.filter(function (s) { return s.cat === 'c1'; });
+    var ys = WI.years(j.frns);
+    if (!j.frns.length) {
+      var box = add(out, el('div', 'box'));
+      add(box, el('h3', null, 'No E-Rate-funded purchases on USAC’s record for BEN ' + f.bens.join(', ') + ' in FY2017–FY2026'));
+      add(box, el('p', 'small', 'USAC’s line-item data has no funded request filed under this BEN in those years. A school served through a district’s or a consortium’s requests, or a new applicant, shows nothing here. ' + LAG));
+    } else {
+      var lead = add(out, el('p', null, plural(j.frns.length, 'funded request', 'funded requests') + ' with ' +
+        plural(j.frns.reduce(function (t, s) { return t + s.lines.length; }, 0), 'line item', 'line items') + ', FY' + ys[0] + (ys.length > 1 ? '–FY' + ys[ys.length - 1] : '') + '.'));
+      lead.id = 'count';
+      summaryEl(out, WI.summary(j.frns));
+      add(out, el('h3', null, 'Equipment, maintenance and managed Wi-Fi (Category 2), newest first'));
+      if (c2.length) frnList(out, c2); else add(out, el('p', 'small', 'No funded Category 2 request under this BEN in FY2017–FY2026.'));
+      add(out, el('h3', null, 'Internet, data circuits and voice (Category 1)'));
+      if (!c1.length) add(out, el('p', 'small', 'No funded Category 1 request under this BEN in FY2017–FY2026. Internet service a district or consortium requests under its own BEN doesn’t show here.'));
+      else {
+        var top = c1[0].fy, now = c1.filter(function (s) { return s.fy === top; }), old = c1.filter(function (s) { return s.fy !== top; });
+        add(out, el('p', 'small', 'FY' + top + ', the latest year with a funded Category 1 request:'));
+        now.forEach(function (s) { out.appendChild(frnEl(s)); });
+        if (old.length) {
+          var d = add(out, el('details'));
+          add(d, el('summary', null, 'Earlier years: ' + plural(old.length, 'request', 'requests')));
+          old.forEach(function (s) { d.appendChild(frnEl(s)); });
+        }
+      }
+    }
+    var lt = leftText(j);
+    if (lt) add(out, el('p', 'small', lt));
+    asOf(lms);
+    var share = add(out, el('p', 'small', 'Link to this lookup: '));
+    var url = location.origin + location.pathname + '?form=' + f.form;
+    add(share, link(url.replace(/^https?:\/\//, ''), url));
+    if (f.rfp && f.status === 'Certified') {
+      var cta = add(out, el('div', 'soft'));
+      add(cta, el('strong', null, 'Bidding on this form?'));
+      add(cta, ' Its USAC record has RFP files. An RFP Brief summarizes them, with the page each fact came from. It is a paid service: what it covers, its price and its terms are on the ');
+      var a = add(cta, link('RFP Briefs page', '../brief.html?utm_source=installed'));
+      a.addEventListener('click', function () { beacon('radar-installed-brief'); });
+      add(cta, '.');
+    }
+    say('Form 470 #' + f.form + ': ' + (j.frns.length ? plural(j.frns.length, 'funded request', 'funded requests') + ' on USAC’s record for its BEN, FY2017–FY2026.' : 'no E-Rate-funded purchases on USAC’s record for its BEN in FY2017–FY2026.'));
+    focusResult();
+  }
+
+  function focusResult() { var rh = $('res-h'); if (rh && rh.getBoundingClientRect().top > window.innerHeight) rh.scrollIntoView({block: 'start'}); }
+
+  // ------------------------------------------------------------------ wiring
+  inp.addEventListener('input', function () { if (!errEl.hidden) showErr(''); });
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var r = WI.cleanForm(inp.value);
+    if (r.error) { seq++; if (ctl) try { ctl.abort(); } catch (e) {} busy(false); out.textContent = ''; showErr(r.error); say(''); inp.focus(); return; }
+    showErr(''); inp.value = r.form; lookup(r.form);
+  });
+  var q = new URLSearchParams(location.search).get('form');
+  if (q) {
+    var r0 = WI.cleanForm(q);
+    inp.value = r0.form || q;
+    if (r0.error) showErr('This link’s Form 470 number can’t be looked up: ' + r0.error); else lookup(r0.form);
+  }
+  beacon('radar-installed-index.html');
+})();
+</script>
+</main>
+</body>
+</html>
