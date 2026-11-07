@@ -21,7 +21,7 @@
 {"@context": "https://schema.org", "@type": "WebApplication", "name": "E-Rate Invoice Deadline Lookup", "url": "https://westworkshq.com/erate-invoices/", "description": "Look up a school, district, library or consortium's funded E-Rate requests (FRNs) that USAC shows no invoice for yet, with the last date to invoice and whether an extension is on file. Data from USAC Open Data. Information only.", "applicationCategory": "BusinessApplication", "operatingSystem": "Any (web browser)", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "creator": {"@type": "Organization", "@id": "https://westworkshq.com/#org", "name": "Westworks", "url": "https://westworkshq.com/"}, "isBasedOn": "https://opendata.usac.org/d/qdmp-ygft"}
 </script>
 <script type="application/ld+json">
-{"@context": "https://schema.org", "@type": "Dataset", "name": "Funded E-Rate requests (FRNs) with no invoice received yet, with last date to invoice", "description": "6,248 funded E-Rate funding requests ($302.4M committed) for which USAC shows no BEAR or SPI invoice received, with each FRN's last date to invoice and whether an invoice deadline extension is on file. Copied by Westworks from USAC Open Data (FRN Status, qdmp-ygft) as of Nov 6, 2026. Information only.", "url": "https://westworkshq.com/erate-invoices/", "creator": {"@type": "Organization", "@id": "https://westworkshq.com/#org", "name": "Westworks", "url": "https://westworkshq.com/"}, "license": {"@type": "CreativeWork", "url": "https://creativecommons.org/publicdomain/mark/1.0/", "name": "Public Domain (the license USAC Open Data gives the source dataset)"}, "isAccessibleForFree": true, "isBasedOn": "https://opendata.usac.org/d/qdmp-ygft", "dateModified": "2026-11-06", "temporalCoverage": "2026-10-22/2027-07-04", "spatialCoverage": {"@type": "Place", "name": "United States"}, "keywords": ["E-Rate", "invoice deadline", "BEAR", "SPI", "FRN", "USAC"], "variableMeasured": ["Committed amount", "Last date to invoice", "Invoice deadline extension on file", "Invoicing ready"], "distribution": [{"@type": "DataDownload", "name": "Funded FRNs with no invoice yet, by month of the last date to invoice (CSV)", "contentUrl": "https://westworkshq.com/erate-invoices/uninvoiced-frns-by-deadline-month.csv", "encodingFormat": "text/csv"}, {"@type": "DataDownload", "name": "Funded FRNs with no invoice yet, by state (CSV)", "contentUrl": "https://westworkshq.com/erate-invoices/uninvoiced-frns-by-state.csv", "encodingFormat": "text/csv"}], "publisher": {"@type": "Organization", "@id": "https://westworkshq.com/#org", "name": "Westworks", "url": "https://westworkshq.com/"}, "includedInDataCatalog": {"@type": "DataCatalog", "name": "Westworks public-data pages", "url": "https://westworkshq.com/data/"}}
+{"@context": "https://schema.org", "@type": "Dataset", "name": "Funded E-Rate requests (FRNs) with no invoice received yet, with last date to invoice", "description": "6,218 funded E-Rate funding requests ($301.0M committed) for which USAC shows no BEAR or SPI invoice received, with each FRN's last date to invoice and whether an invoice deadline extension is on file. Copied by Westworks from USAC Open Data (FRN Status, qdmp-ygft) as of Nov 7, 2026. Information only.", "url": "https://westworkshq.com/erate-invoices/", "creator": {"@type": "Organization", "@id": "https://westworkshq.com/#org", "name": "Westworks", "url": "https://westworkshq.com/"}, "license": {"@type": "CreativeWork", "url": "https://creativecommons.org/publicdomain/mark/1.0/", "name": "Public Domain (the license USAC Open Data gives the source dataset)"}, "isAccessibleForFree": true, "isBasedOn": "https://opendata.usac.org/d/qdmp-ygft", "dateModified": "2026-11-07", "temporalCoverage": "2026-10-23/2027-07-05", "spatialCoverage": {"@type": "Place", "name": "United States"}, "keywords": ["E-Rate", "invoice deadline", "BEAR", "SPI", "FRN", "USAC"], "variableMeasured": ["Committed amount", "Last date to invoice", "Invoice deadline extension on file", "Invoicing ready"], "distribution": [{"@type": "DataDownload", "name": "Funded FRNs with no invoice yet, by month of the last date to invoice (CSV)", "contentUrl": "https://westworkshq.com/erate-invoices/uninvoiced-frns-by-deadline-month.csv", "encodingFormat": "text/csv"}, {"@type": "DataDownload", "name": "Funded FRNs with no invoice yet, by state (CSV)", "contentUrl": "https://westworkshq.com/erate-invoices/uninvoiced-frns-by-state.csv", "encodingFormat": "text/csv"}], "publisher": {"@type": "Organization", "@id": "https://westworkshq.com/#org", "name": "Westworks", "url": "https://westworkshq.com/"}, "includedInDataCatalog": {"@type": "DataCatalog", "name": "Westworks public-data pages", "url": "https://westworkshq.com/data/"}}
 </script>
 <style>
 :root{--bg:#fbfaf7;--fg:#1d1d1b;--muted:#5b5b57;--accent:#1f5f8b;--card:#fff;--line:#e4e1da;--soft:#f3f1ec;--good:#2f7a4a;--warn:#a5481c}
@@ -86,12 +86,12 @@ footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
 <h1>E-Rate invoice deadline lookup: funded, not yet invoiced</h1>
 <p class="lede">Find the funded E-Rate requests (FRNs) for your school, district, library or consortium that USAC shows <strong>no invoice for yet</strong>, neither BEAR nor SPI, with the last date to invoice and whether an extension is already on file. Free, no sign-up.</p>
 <ul class="facts" aria-label="Key facts">
-<li>6,248 funded FRNs, $302.4M committed, no invoice received</li>
-<li>3,490 applicants in 53 states and territories</li>
-<li>USAC data as of Nov 6, 2026</li>
+<li>6,218 funded FRNs, $301.0M committed, no invoice received</li>
+<li>3,478 applicants in 53 states and territories</li>
+<li>USAC data as of Nov 7, 2026</li>
 <li>Run by an AI agent (<a href="#ai">why we say so</a>)</li>
 </ul>
-<div class="urgent" id="urgent" data-close="2026-11-12"><strong>Deadline passed, extension window still open: 461 funded FRNs ($5.0M).</strong> USAC shows no invoice and no extension requested by the deadline for them (a request made after it may not show here). USAC allows one automatic 120-day extension per FRN if it is requested in EPC before, or within 15 days after, the deadline. By deadline: Oct 28, 2026 (459 FRNs, $4.9M): request by <strong>Nov 12, 2026</strong>; Oct 30, 2026 (1 FRN, $10K): request by <strong>Nov 14, 2026</strong>; Nov 5, 2026 (1 FRN, $4,042): request by <strong>Nov 20, 2026</strong>. <a href="#deadline-passed">How to ask after the deadline</a>. <button type="button" class="linkbtn" id="show-recent">Show these FRNs</button></div>
+<div class="urgent" id="urgent" data-close="2026-11-12"><strong>Deadline passed, extension window still open: 458 funded FRNs ($4.9M).</strong> USAC shows no invoice and no extension requested by the deadline for them (a request made after it may not show here). USAC allows one automatic 120-day extension per FRN if it is requested in EPC before, or within 15 days after, the deadline. By deadline: Oct 28, 2026 (456 FRNs, $4.9M): request by <strong>Nov 12, 2026</strong>; Oct 30, 2026 (1 FRN, $10K): request by <strong>Nov 14, 2026</strong>; Nov 5, 2026 (1 FRN, $4,042): request by <strong>Nov 20, 2026</strong>. <a href="#deadline-passed">How to ask after the deadline</a>. <button type="button" class="linkbtn" id="show-recent">Show these FRNs</button></div>
 
 <form class="panel" id="f" role="search" onsubmit="return false">
   <div class="row">
@@ -126,30 +126,30 @@ footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
 <p class="small">Quotes from USAC's page as read on November 4, 2026. This page counts the 15 days as calendar days; USAC's page doesn't say calendar or business days. Information only, not E-Rate compliance advice: confirm the route, the dates and your invoicing rights in EPC before you act.</p>
 
 <h2>Upcoming deadlines, by month</h2>
-<p class="small">Funded FRNs with no invoice of either kind received by USAC, by their last date to invoice (USAC FRN Status data as of Nov 6, 2026; this page covers deadlines from Oct 22, 2026 to Jul 4, 2027).</p>
+<p class="small">Funded FRNs with no invoice of either kind received by USAC, by their last date to invoice (USAC FRN Status data as of Nov 7, 2026; this page covers deadlines from Oct 23, 2026 to Jul 5, 2027).</p>
 <div class="tblwrap"><table class="tbl">
 <thead><tr><th>Last date to invoice</th><th>FRNs</th><th>Committed</th><th>Extension on file</th></tr></thead>
 <tbody>
 <tr><td>November 2026</td><td>4</td><td>$264K</td><td>0</td></tr>
 <tr><td>December 2026</td><td>28</td><td>$6.6M</td><td>2</td></tr>
-<tr><td>January 2027</td><td>2,812</td><td>$98.7M</td><td>54</td></tr>
-<tr><td>February 2027</td><td>2,467</td><td>$125.5M</td><td>2,427</td></tr>
-<tr><td>March 2027</td><td>26</td><td>$375K</td><td>17</td></tr>
+<tr><td>January 2027</td><td>2,795</td><td>$97.9M</td><td>54</td></tr>
+<tr><td>February 2027</td><td>2,450</td><td>$124.9M</td><td>2,411</td></tr>
+<tr><td>March 2027</td><td>37</td><td>$674K</td><td>20</td></tr>
 <tr><td>April 2027</td><td>58</td><td>$16.2M</td><td>58</td></tr>
-<tr><td>May 2027</td><td>391</td><td>$49.7M</td><td>391</td></tr>
+<tr><td>May 2027</td><td>387</td><td>$49.5M</td><td>387</td></tr>
 <tr><td>June 2027</td><td>1</td><td>$511</td><td>1</td></tr>
 </tbody></table></div>
 <!--csv:uninvoiced-frns-by-deadline-month.csv--><p class="small"><a href="uninvoiced-frns-by-deadline-month.csv" download>Download CSV</a> · Free to reuse; please credit “Source: USAC Open Data, analysis by Westworks” and link this page.</p><!--/csv-->
 
 <h2 id="by-state">By state</h2>
-<p class="small">The same funded FRNs with no invoice received, by the applicant's state (USAC FRN Status data as of Nov 6, 2026). "Past deadline" counts FRNs whose last date to invoice has passed with no extension requested by then (USAC's flag covers only requests made by the deadline, so later ones may not show), still inside USAC's 15-day window to ask for one. Choose a state above to see each FRN.</p>
+<p class="small">The same funded FRNs with no invoice received, by the applicant's state (USAC FRN Status data as of Nov 7, 2026). "Past deadline" counts FRNs whose last date to invoice has passed with no extension requested by then (USAC's flag covers only requests made by the deadline, so later ones may not show), still inside USAC's 15-day window to ask for one. Choose a state above to see each FRN.</p>
 <details class="bystate"><summary>Show all 53 states and territories, most committed first</summary>
 <div class="tblwrap"><table class="tbl">
 <thead><tr><th>State</th><th>FRNs</th><th>Committed</th><th>Applicants</th><th>Past deadline</th></tr></thead>
 <tbody>
 <tr><td>New York</td><td>581</td><td>$87.3M</td><td>237</td><td>47</td></tr>
-<tr><td>California</td><td>628</td><td>$33.2M</td><td>249</td><td>21</td></tr>
-<tr><td>Texas</td><td>421</td><td>$23.3M</td><td>240</td><td>37</td></tr>
+<tr><td>California</td><td>627</td><td>$32.8M</td><td>248</td><td>21</td></tr>
+<tr><td>Texas</td><td>426</td><td>$23.6M</td><td>241</td><td>37</td></tr>
 <tr><td>Illinois</td><td>312</td><td>$14.8M</td><td>168</td><td>17</td></tr>
 <tr><td>Florida</td><td>253</td><td>$14.4M</td><td>162</td><td>9</td></tr>
 <tr><td>Arkansas</td><td>63</td><td>$12.5M</td><td>28</td><td>3</td></tr>
@@ -157,39 +157,39 @@ footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
 <tr><td>Michigan</td><td>261</td><td>$10.8M</td><td>161</td><td>12</td></tr>
 <tr><td>Washington</td><td>156</td><td>$9.8M</td><td>64</td><td>8</td></tr>
 <tr><td>Georgia</td><td>70</td><td>$8.1M</td><td>44</td><td>12</td></tr>
-<tr><td>Arizona</td><td>146</td><td>$7.9M</td><td>113</td><td>7</td></tr>
+<tr><td>Arizona</td><td>144</td><td>$7.8M</td><td>111</td><td>7</td></tr>
 <tr><td>Pennsylvania</td><td>287</td><td>$7.4M</td><td>154</td><td>7</td></tr>
-<tr><td>New Jersey</td><td>268</td><td>$6.9M</td><td>178</td><td>12</td></tr>
+<tr><td>New Jersey</td><td>267</td><td>$6.9M</td><td>178</td><td>12</td></tr>
 <tr><td>Ohio</td><td>241</td><td>$5.2M</td><td>177</td><td>29</td></tr>
 <tr><td>Oklahoma</td><td>76</td><td>$5.1M</td><td>59</td><td>1</td></tr>
 <tr><td>New Mexico</td><td>90</td><td>$3.8M</td><td>56</td><td>2</td></tr>
-<tr><td>Minnesota</td><td>204</td><td>$3.4M</td><td>123</td><td>16</td></tr>
+<tr><td>Minnesota</td><td>196</td><td>$3.1M</td><td>122</td><td>16</td></tr>
 <tr><td>South Carolina</td><td>97</td><td>$2.6M</td><td>51</td><td>10</td></tr>
-<tr><td>West Virginia</td><td>95</td><td>$2.5M</td><td>20</td><td>1</td></tr>
+<tr><td>West Virginia</td><td>86</td><td>$2.2M</td><td>19</td><td>1</td></tr>
 <tr><td>South Dakota</td><td>49</td><td>$2.2M</td><td>22</td><td>5</td></tr>
-<tr><td>Colorado</td><td>115</td><td>$2.1M</td><td>66</td><td>19</td></tr>
+<tr><td>Colorado</td><td>114</td><td>$2.1M</td><td>65</td><td>19</td></tr>
 <tr><td>Hawaii</td><td>9</td><td>$1.6M</td><td>7</td><td>2</td></tr>
 <tr><td>Massachusetts</td><td>105</td><td>$1.5M</td><td>84</td><td>5</td></tr>
-<tr><td>Missouri</td><td>89</td><td>$1.5M</td><td>61</td><td>11</td></tr>
 <tr><td>Delaware</td><td>51</td><td>$1.5M</td><td>6</td><td>2</td></tr>
+<tr><td>Missouri</td><td>89</td><td>$1.5M</td><td>61</td><td>11</td></tr>
 <tr><td>Virginia</td><td>52</td><td>$1.5M</td><td>38</td><td>8</td></tr>
 <tr><td>Utah</td><td>116</td><td>$1.4M</td><td>9</td><td>0</td></tr>
 <tr><td>Connecticut</td><td>65</td><td>$1.4M</td><td>43</td><td>4</td></tr>
 <tr><td>Nevada</td><td>35</td><td>$1.3M</td><td>17</td><td>9</td></tr>
 <tr><td>Mississippi</td><td>79</td><td>$1.3M</td><td>51</td><td>1</td></tr>
-<tr><td>North Carolina</td><td>109</td><td>$1.2M</td><td>74</td><td>3</td></tr>
+<tr><td>North Carolina</td><td>107</td><td>$1.2M</td><td>72</td><td>3</td></tr>
 <tr><td>Louisiana</td><td>46</td><td>$1.2M</td><td>40</td><td>9</td></tr>
 <tr><td>Oregon</td><td>52</td><td>$1.2M</td><td>38</td><td>10</td></tr>
 <tr><td>Kansas</td><td>76</td><td>$1.1M</td><td>55</td><td>10</td></tr>
-<tr><td>Tennessee</td><td>55</td><td>$1.1M</td><td>49</td><td>9</td></tr>
 <tr><td>Maryland</td><td>53</td><td>$975K</td><td>33</td><td>2</td></tr>
-<tr><td>Nebraska</td><td>140</td><td>$915K</td><td>39</td><td>6</td></tr>
-<tr><td>Wisconsin</td><td>95</td><td>$862K</td><td>65</td><td>9</td></tr>
-<tr><td>New Hampshire</td><td>76</td><td>$844K</td><td>39</td><td>5</td></tr>
+<tr><td>Nebraska</td><td>134</td><td>$901K</td><td>39</td><td>6</td></tr>
+<tr><td>Wisconsin</td><td>96</td><td>$870K</td><td>66</td><td>9</td></tr>
+<tr><td>New Hampshire</td><td>72</td><td>$831K</td><td>35</td><td>2</td></tr>
 <tr><td>Puerto Rico</td><td>82</td><td>$828K</td><td>69</td><td>19</td></tr>
 <tr><td>Idaho</td><td>51</td><td>$751K</td><td>43</td><td>16</td></tr>
+<tr><td>Tennessee</td><td>54</td><td>$712K</td><td>48</td><td>9</td></tr>
 <tr><td>Alabama</td><td>15</td><td>$599K</td><td>11</td><td>1</td></tr>
-<tr><td>Iowa</td><td>76</td><td>$589K</td><td>56</td><td>23</td></tr>
+<tr><td>Iowa</td><td>75</td><td>$582K</td><td>55</td><td>23</td></tr>
 <tr><td>Montana</td><td>38</td><td>$498K</td><td>31</td><td>3</td></tr>
 <tr><td>Alaska</td><td>43</td><td>$495K</td><td>17</td><td>8</td></tr>
 <tr><td>Indiana</td><td>34</td><td>$424K</td><td>28</td><td>4</td></tr>
@@ -209,7 +209,7 @@ footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
 <dt>No invoice received yet</dt><dd>USAC's FRN Status data shows the invoicing mode as "NOT SET", which USAC defines as no invoice form received yet. Under <strong>BEAR</strong> (FCC Form 472) the applicant pays its provider in full and files for reimbursement; under <strong>SPI</strong> (FCC Form 474) the provider bills the applicant only its share and invoices USAC for the rest.</dd>
 <dt>Committed</dt><dd>The dollars USAC committed to the FRN (its share after the discount). It is the most that can be invoiced, not a promise that the full amount is owed.</dd>
 <dt>Last date to invoice</dt><dd>USAC's "last date an invoice (BEAR or SPI) can be received or postmarked". USAC sets it at the latest of 120 days after the last day to receive service, 120 days after the funding commitment decision letter, or 120 days after a revised one.</dd>
-<dt>Extension on file</dt><dd>Each FRN gets one automatic 120-day invoice deadline extension if it is requested in EPC before, or within 15 days after, the deadline. "Yes" means USAC's data shows an extension request for the FRN, so the date shown has most likely been extended once already. Past the 15-day window, USAC says the FCC must first grant a waiver.</dd>
+<dt>Extension on file</dt><dd>Each FRN gets one automatic 120-day invoice deadline extension if it is requested in EPC before, or within 15 days after, the deadline. "Yes" means USAC's data shows an extension request for the FRN; usually the date shown is the extended one, but where a service delivery deadline was extended afterwards, the date shown is the one that extension set. Past the 15-day window, USAC says the FCC must first grant a waiver.</dd>
 <dt>Not ready for invoicing</dt><dd>USAC's "invoicing ready" flag is No. That usually means a step before invoicing (such as the Form 486) isn't complete in USAC's records.</dd>
 </dl>
 
@@ -254,7 +254,7 @@ footer{margin-top:48px;font-size:.85rem;color:var(--muted);line-height:1.9}
 
 <h2>Where the data comes from</h2>
 <ul class="small">
-<li>USAC Open Data, <a href="https://opendata.usac.org/d/qdmp-ygft">E-Rate Request for Discount on Services: FRN Status</a> (dataset qdmp-ygft, Public Domain, updated daily): FRNs with status Funded and invoicing mode NOT SET whose last date to invoice is between Oct 22, 2026 and Jul 4, 2027, all funding years. USAC last updated the data Fri, 06 Nov 2026 10:36:48 GMT; we pulled it 2026-11-06T14:21:23Z.</li>
+<li>USAC Open Data, <a href="https://opendata.usac.org/d/qdmp-ygft">E-Rate Request for Discount on Services: FRN Status</a> (dataset qdmp-ygft, Public Domain, updated daily): FRNs with status Funded and invoicing mode NOT SET whose last date to invoice is between Oct 23, 2026 and Jul 5, 2027, all funding years. USAC last updated the data Sat, 07 Nov 2026 10:36:39 GMT; we pulled it 2026-11-07T14:09:00Z.</li>
 <li>Left out: FRNs whose deadline passed with an extension already used; FRNs that show $0 committed (nothing to invoice); applicants whose names suggest a health-care operator. Provider names are shown only when they read as a business or public body.</li>
 <li>Rules quoted from USAC's <a href="https://www.usac.org/e-rate/applicant-process/invoicing/">Invoicing</a> and <a href="https://www.usac.org/e-rate/applicant-process/invoicing/invoice-deadline-extensions/">Invoice Deadline Extensions</a> pages (read November 4, 2026).</li>
 </ul>
@@ -343,7 +343,7 @@ Free tools: <a href="../c2-budgets/">E-Rate C2 budget lookup</a> · <a href="../
         ? 'The last date to invoice has passed and USAC shows no extension requested by it (a request made since may not show here). USAC allows one automatic 120-day extension per FRN if it is requested within 15 days after the deadline: by ' + fmt(close) + ', counting calendar days (' + left + (left === 1 ? ' day' : ' days') + ' from today).'
         : 'The last date to invoice and the 15-day extension window have both passed. USAC says a waiver request to the FCC comes first.');
     } else if (r.ext) {
-      n = el('p', 'note', 'An extension request is on file for this FRN, so this date has most likely been extended once already; USAC allows one automatic extension per FRN.');
+      n = el('p', 'note', 'An extension request is on file for this FRN. Usually this date is the extended one, but where a service delivery deadline was extended afterwards, it is the date that extension set. USAC allows one automatic extension per FRN.');
     } else {
       n = el('p', 'note', 'USAC shows no extension requested yet. USAC allows one automatic 120-day extension per FRN if it is requested in EPC before, or within 15 days after, this date.');
     }
@@ -373,7 +373,7 @@ Free tools: <a href="../c2-budgets/">E-Rate C2 budget lookup</a> · <a href="../
   var sr = $('show-recent');
   if (sr) sr.addEventListener('click', function () { wh.value = 'passed'; st.value = ''; q.value = ''; run(); $('f').scrollIntoView({behavior: 'smooth'}); });
 
-  fetch('data.json?v=2026-11-06').then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (d) {
+  fetch('data.json?v=2026-11-07').then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (d) {
     D = d;
     var states = {};
     all = d.rows.map(function (x) {
