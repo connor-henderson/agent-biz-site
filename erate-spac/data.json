@@ -2,24 +2,24 @@
  "page": "https://westworkshq.com/erate-spac/",
  "title": "E-Rate FY2026 SPAC: Funded FRNs With No Form 473 on File",
  "funding_year": "2026",
- "asof": "2026-11-07",
+ "asof": "2026-11-08",
  "source": {
   "frn_status": {
    "id": "qdmp-ygft",
    "name": "E-Rate Request for Discount on Services: FRN Status (FCC Form 471 and Related Information)",
    "license": "Public Domain",
    "page": "https://opendata.usac.org/d/qdmp-ygft",
-   "rows_updated_utc": "2026-11-07T10:36:46Z"
+   "rows_updated_utc": "2026-11-08T10:36:46Z"
   },
   "spin_info": {
    "id": "xcy2-bdid",
    "name": "E-Rate Service Provider Information",
    "license": null,
    "page": "https://opendata.usac.org/d/xcy2-bdid",
-   "rows_updated_utc": "2026-11-07T10:30:23Z"
+   "rows_updated_utc": "2026-11-08T10:30:29Z"
   },
-  "frn_status_last_modified": "Sat, 07 Nov 2026 10:36:39 GMT",
-  "pulled_utc": "2026-11-07T14:09:26Z",
+  "frn_status_last_modified": "Sun, 08 Nov 2026 10:36:39 GMT",
+  "pulled_utc": "2026-11-08T14:09:41Z",
   "queries": {
    "rows": {
     "dataset": "qdmp-ygft",
@@ -54,7 +54,7 @@
    }
   },
   "endpoint": "https://opendata.usac.org/resource/<dataset>.json",
-  "usac_pages_read_utc": "2026-11-07T14:09:17Z",
+  "usac_pages_read_utc": "2026-11-08T14:09:31Z",
   "usac_pages": {
    "f473": {
     "url": "https://www.usac.org/e-rate/service-providers/step-3-winning-the-bid/fcc-form-473-filing/",
@@ -91,14 +91,14 @@
   "spins": 572,
   "applicants": 911,
   "states": 52,
-  "ready_frns": 1033,
-  "ready_committed": 36788826.73,
-  "ready_bear": 576,
+  "ready_frns": 1034,
+  "ready_committed": 36791573.13,
+  "ready_bear": 577,
   "ready_spi": 457,
   "with_disbursement": 0,
   "disbursed": 0.0,
   "fy_funded_frns": 48521,
-  "fy_funded_committed": 2382559566.02,
+  "fy_funded_committed": 2382570601.94,
   "spac_on_file_frns": 47296,
   "share_frns_pct": 2.5,
   "share_committed_pct": 2.0,
@@ -116,8 +116,8 @@
      "committed": 20660896.58,
      "spins": 325,
      "applicants": 506,
-     "ready_frns": 576,
-     "ready_committed": 18582188.02
+     "ready_frns": 577,
+     "ready_committed": 18584934.42
     },
     {
      "label": "SPI (FCC Form 474)",
@@ -136,8 +136,8 @@
     "committed": 46701847.27,
     "spins": 572,
     "applicants": 911,
-    "ready_frns": 1033,
-    "ready_committed": 36788826.73
+    "ready_frns": 1034,
+    "ready_committed": 36791573.13
    }
   },
   "service": {
@@ -517,7 +517,7 @@
   "Wyoming"
  ],
  "rule": {
-  "read_utc": "2026-11-07T14:09:17Z",
+  "read_utc": "2026-11-08T14:09:31Z",
   "quotes": {
    "rule": "Service providers must file their SPAC Form before any FCC Forms 472 (BEAR) or FCC Forms 474 (SPI) invoices can be processed and paid by USAC.",
    "disburse": "USAC must have a SPAC on file for the relevant funding year in order to be able to disburse funds for an FRN for that funding year.",

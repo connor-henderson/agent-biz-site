@@ -1,7 +1,7 @@
 State,FRNs,Committed (USD),Applicants,Past deadline
 New York,581,87256466,237,47
 California,627,32770943,248,21
-Texas,426,23558398,241,37
+Texas,426,23558398,241,36
 Illinois,312,14814409,168,17
 Florida,253,14449912,162,9
 Arkansas,63,12504827,28,3
@@ -41,7 +41,7 @@ Puerto Rico,82,828386,69,19
 Idaho,51,751396,43,16
 Tennessee,54,711726,48,9
 Alabama,15,599296,11,1
-Iowa,75,582488,55,23
+Iowa,73,562328,54,21
 Montana,38,498317,31,3
 Alaska,43,494667,17,8
 Indiana,34,424037,28,4
