@@ -9,6 +9,20 @@
   <updated>2026-11-10T00:00:00Z</updated>
   <author><name>Westworks</name><uri>https://westworkshq.com/</uri></author>
   <entry>
+    <title>Restaurant Radar: CA Liquor License Applications · Westworks</title>
+    <link rel="alternate" type="text/html" href="https://westworkshq.com/restaurant-radar/"/>
+    <id>https://westworkshq.com/restaurant-radar/</id>
+    <updated>2026-11-10T00:00:00Z</updated>
+    <summary>Weekly pending on-premise liquor-license applications in your California counties, from California ABC records. $29 for 30 days or $69 for 90 days, no renewal.</summary>
+  </entry>
+  <entry>
+    <title>Snow Ledger: Snow &amp; Ice Records for Your Lot · Westworks</title>
+    <link rel="alternate" type="text/html" href="https://westworkshq.com/snow-ledger/"/>
+    <id>https://westworkshq.com/snow-ledger/</id>
+    <updated>2026-11-10T00:00:00Z</updated>
+    <summary>Every snow and ice event near your lot this season, set up before the first billable storm: times, inches, ice, NOAA sources. $79 per ZIP. Uncertified.</summary>
+  </entry>
+  <entry>
     <title>E-Rate Invoice Deadline Lookup: Funded, Not Yet Invoiced</title>
     <link rel="alternate" type="text/html" href="https://westworkshq.com/erate-invoices/"/>
     <id>https://westworkshq.com/erate-invoices/</id>
@@ -28,6 +42,20 @@
     <id>https://westworkshq.com/erate-spac/</id>
     <updated>2026-11-10T00:00:00Z</updated>
     <summary>1,223 funded FY2026 E-Rate requests ($46.7M) are with 570 SPINs that USAC shows with no FY2026 SPAC (Form 473) on file. By mode, service and state.</summary>
+  </entry>
+  <entry>
+    <title>Restaurant Radar sample · Westworks</title>
+    <link rel="alternate" type="text/html" href="https://westworkshq.com/restaurant-radar/sample.html"/>
+    <id>https://westworkshq.com/restaurant-radar/sample.html</id>
+    <updated>2026-11-10T00:00:00Z</updated>
+    <summary>A real Los Angeles County list of pending on-premise liquor-license applications from California ABC, November 10, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Snow Ledger sample: ZIP 55415, Minneapolis · Westworks</title>
+    <link rel="alternate" type="text/html" href="https://westworkshq.com/snow-ledger/sample.html"/>
+    <id>https://westworkshq.com/snow-ledger/sample.html</id>
+    <updated>2026-11-10T00:00:00Z</updated>
+    <summary>A real Snow Ledger: downtown Minneapolis, 42 snow and ice events (including 12 traces) in 2025-26, with times, inches and sources.</summary>
   </entry>
   <entry>
     <title>E-Rate Form 470 Bid Requests by State, FY2027</title>
@@ -329,33 +357,5 @@
     <id>https://westworkshq.com/radar/states/wisconsin/</id>
     <updated>2026-11-10T00:00:00Z</updated>
     <summary>162 FCC Form 470s certified in Wisconsin for E-Rate FY2027 as of Nov 10, 2026: 94 Category 1, 79 Category 2, 122 still in their bid period. From USAC Open Data.</summary>
-  </entry>
-  <entry>
-    <title>Alameda County, CA Pending Liquor License Applications</title>
-    <link rel="alternate" type="text/html" href="https://westworkshq.com/restaurant-radar/counties/alameda.html"/>
-    <id>https://westworkshq.com/restaurant-radar/counties/alameda.html</id>
-    <updated>2026-11-10T00:00:00Z</updated>
-    <summary>106 pending on-premise (restaurant, bar) liquor license applications in Alameda County, CA, from ABC data as of November 10, 2026, by city and type.</summary>
-  </entry>
-  <entry>
-    <title>Contra Costa County, CA Pending Liquor License Applications</title>
-    <link rel="alternate" type="text/html" href="https://westworkshq.com/restaurant-radar/counties/contra-costa.html"/>
-    <id>https://westworkshq.com/restaurant-radar/counties/contra-costa.html</id>
-    <updated>2026-11-10T00:00:00Z</updated>
-    <summary>55 pending on-premise (restaurant, bar) liquor license applications in Contra Costa County, CA, from ABC data as of November 10, 2026, by city and type.</summary>
-  </entry>
-  <entry>
-    <title>Fresno County, CA Pending Liquor License Applications</title>
-    <link rel="alternate" type="text/html" href="https://westworkshq.com/restaurant-radar/counties/fresno.html"/>
-    <id>https://westworkshq.com/restaurant-radar/counties/fresno.html</id>
-    <updated>2026-11-10T00:00:00Z</updated>
-    <summary>54 pending on-premise (restaurant, bar) liquor license applications in Fresno County, CA, from ABC data as of November 10, 2026, by city and type.</summary>
-  </entry>
-  <entry>
-    <title>Kern County, CA Pending Liquor License Applications</title>
-    <link rel="alternate" type="text/html" href="https://westworkshq.com/restaurant-radar/counties/kern.html"/>
-    <id>https://westworkshq.com/restaurant-radar/counties/kern.html</id>
-    <updated>2026-11-10T00:00:00Z</updated>
-    <summary>68 pending on-premise (restaurant, bar) liquor license applications in Kern County, CA, from ABC data as of November 10, 2026, by city and type.</summary>
   </entry>
 </feed>
