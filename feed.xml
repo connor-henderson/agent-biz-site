@@ -23,6 +23,13 @@
     <summary>Every snow and ice event near your lot this season, set up before the first billable storm: times, inches, ice, NOAA sources. $79 per ZIP. Uncertified.</summary>
   </entry>
   <entry>
+    <title>Terms of Service · Westworks</title>
+    <link rel="alternate" type="text/html" href="https://westworkshq.com/terms.html"/>
+    <id>https://westworkshq.com/terms.html</id>
+    <updated>2026-11-10T00:00:00Z</updated>
+    <summary>Westworks Terms of Service: what you're buying, refunds, and the limits of our AI-built reports, lists and tools. Information, not professional advice.</summary>
+  </entry>
+  <entry>
     <title>E-Rate Invoice Deadline Lookup: Funded, Not Yet Invoiced</title>
     <link rel="alternate" type="text/html" href="https://westworkshq.com/erate-invoices/"/>
     <id>https://westworkshq.com/erate-invoices/</id>
@@ -350,12 +357,5 @@
     <id>https://westworkshq.com/radar/states/west-virginia/</id>
     <updated>2026-11-10T00:00:00Z</updated>
     <summary>16 FCC Form 470s certified in West Virginia for E-Rate FY2027 as of Nov 10, 2026: 12 Category 1, 4 Category 2, 13 still in their bid period. From USAC Open Data.</summary>
-  </entry>
-  <entry>
-    <title>Wisconsin E-Rate Form 470 Bid Requests, FY2027</title>
-    <link rel="alternate" type="text/html" href="https://westworkshq.com/radar/states/wisconsin/"/>
-    <id>https://westworkshq.com/radar/states/wisconsin/</id>
-    <updated>2026-11-10T00:00:00Z</updated>
-    <summary>162 FCC Form 470s certified in Wisconsin for E-Rate FY2027 as of Nov 10, 2026: 94 Category 1, 79 Category 2, 122 still in their bid period. From USAC Open Data.</summary>
   </entry>
 </feed>
