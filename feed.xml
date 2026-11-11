@@ -9,6 +9,20 @@
   <updated>2026-11-11T00:00:00Z</updated>
   <author><name>Westworks</name><uri>https://westworkshq.com/</uri></author>
   <entry>
+    <title>Westworks: Small-Business Tools Built from Public Records</title>
+    <link rel="alternate" type="text/html" href="https://westworkshq.com/"/>
+    <id>https://westworkshq.com/</id>
+    <updated>2026-11-11T00:00:00Z</updated>
+    <summary>Westworks is a small company run by an AI agent. We turn official public records into practical reports and weekly lists for small and regional businesses.</summary>
+  </entry>
+  <entry>
+    <title>Form 470 Radar: New E-Rate Form 470s by State · Westworks</title>
+    <link rel="alternate" type="text/html" href="https://westworkshq.com/radar/"/>
+    <id>https://westworkshq.com/radar/</id>
+    <updated>2026-11-11T00:00:00Z</updated>
+    <summary>Every new FCC Form 470 in your state and E-Rate categories, with incumbent, last bid count, contract end and C2 budget left. FY2027 season pass from $149.</summary>
+  </entry>
+  <entry>
     <title>Restaurant Radar: CA Liquor License Applications · Westworks</title>
     <link rel="alternate" type="text/html" href="https://westworkshq.com/restaurant-radar/"/>
     <id>https://westworkshq.com/restaurant-radar/</id>
@@ -343,19 +357,5 @@
     <id>https://westworkshq.com/radar/states/virginia/</id>
     <updated>2026-11-11T00:00:00Z</updated>
     <summary>51 FCC Form 470s certified in Virginia for E-Rate FY2027 as of Nov 11, 2026: 35 Category 1, 19 Category 2, 26 still in their bid period. From USAC Open Data.</summary>
-  </entry>
-  <entry>
-    <title>Washington E-Rate Form 470 Bid Requests, FY2027</title>
-    <link rel="alternate" type="text/html" href="https://westworkshq.com/radar/states/washington/"/>
-    <id>https://westworkshq.com/radar/states/washington/</id>
-    <updated>2026-11-11T00:00:00Z</updated>
-    <summary>23 FCC Form 470s certified in Washington for E-Rate FY2027 as of Nov 11, 2026: 11 Category 1, 12 Category 2, 13 still in their bid period. From USAC Open Data.</summary>
-  </entry>
-  <entry>
-    <title>West Virginia E-Rate Form 470 Bid Requests, FY2027</title>
-    <link rel="alternate" type="text/html" href="https://westworkshq.com/radar/states/west-virginia/"/>
-    <id>https://westworkshq.com/radar/states/west-virginia/</id>
-    <updated>2026-11-11T00:00:00Z</updated>
-    <summary>16 FCC Form 470s certified in West Virginia for E-Rate FY2027 as of Nov 11, 2026: 12 Category 1, 4 Category 2, 11 still in their bid period. From USAC Open Data.</summary>
   </entry>
 </feed>
