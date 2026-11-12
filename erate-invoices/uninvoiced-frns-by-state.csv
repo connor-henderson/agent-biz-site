@@ -1,54 +1,54 @@
 State,FRNs,Committed (USD),Applicants,Past deadline
 New York,581,87256466,237,47
 California,606,32008175,246,20
-Texas,423,23490268,239,31
-Illinois,312,14814409,168,16
-Florida,253,14449912,162,9
+Texas,419,22734854,236,28
+Illinois,312,14814409,168,12
+Florida,252,14067586,161,9
 Arkansas,63,12504827,28,3
-Kentucky,72,10952925,45,4
-Michigan,261,10751813,161,11
+Kentucky,72,10952925,45,3
+Michigan,258,10687226,161,11
 Washington,154,9749913,62,8
-Georgia,70,8109842,44,12
-Arizona,143,7763738,110,6
-Pennsylvania,265,7079894,152,7
-New Jersey,262,6493936,174,12
-Oklahoma,76,5108747,59,1
-Ohio,236,5054144,174,28
+Georgia,67,8096342,43,9
+Arizona,139,7331197,107,6
+New Jersey,260,6475358,173,12
+Pennsylvania,264,5755986,151,7
+Oklahoma,75,5104644,58,1
+Ohio,232,5024068,174,27
 New Mexico,89,3796832,56,2
-Minnesota,193,3067912,121,11
-South Carolina,97,2576139,51,5
+Minnesota,191,3054171,121,11
+South Carolina,92,2386019,49,5
 West Virginia,86,2242098,19,1
-South Dakota,46,2087095,22,4
-Colorado,114,2073248,65,17
+South Dakota,46,2087095,22,3
+Colorado,114,2073248,65,15
 Hawaii,9,1575039,7,2
-Massachusetts,105,1542309,84,5
+Massachusetts,104,1536981,84,4
 Delaware,51,1517932,6,2
-Missouri,88,1487992,60,10
-Virginia,52,1460166,38,8
+Missouri,87,1485275,59,10
+Virginia,52,1460166,38,6
 Utah,116,1415284,9,0
 Connecticut,63,1345889,42,4
 Nevada,35,1336775,17,9
 Mississippi,79,1302103,51,1
-North Carolina,107,1217773,72,3
-Louisiana,46,1182876,40,6
-Oregon,51,1145568,37,10
-Kansas,75,1127209,54,10
+North Carolina,106,1185107,71,2
+Louisiana,46,1182876,40,5
+Oregon,51,1145568,37,9
+Kansas,74,1121348,54,9
 Maryland,53,975074,33,2
-Nebraska,132,892210,39,5
-Wisconsin,96,870287,66,7
+Nebraska,132,892210,39,3
+Wisconsin,96,870287,66,3
 Puerto Rico,82,828386,69,19
 New Hampshire,69,793885,34,2
-Idaho,48,730105,41,14
+Idaho,47,728000,40,14
 Tennessee,54,711726,48,9
 Alabama,15,599296,11,1
-Iowa,72,559592,53,13
+Iowa,68,523440,50,13
 Alaska,43,494667,17,5
 Montana,37,494537,30,3
-Indiana,34,424037,28,3
-Vermont,57,416014,21,1
-Rhode Island,16,403533,12,0
+Indiana,34,424037,28,2
+Vermont,56,407038,20,1
+Rhode Island,15,400575,11,0
 North Dakota,12,377298,10,0
-District of Columbia,15,146162,14,1
+District of Columbia,15,146162,14,0
 Maine,13,133895,10,0
 Guam,2,35074,2,0
 U.S. Virgin Islands,1,6469,1,1
