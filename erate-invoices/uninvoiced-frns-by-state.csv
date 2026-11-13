@@ -1,54 +1,53 @@
 State,FRNs,Committed (USD),Applicants,Past deadline
-New York,581,87256466,237,47
-California,606,32008175,246,20
-Texas,419,22734854,236,28
-Illinois,312,14814409,168,12
-Florida,252,14067586,161,9
-Arkansas,63,12504827,28,3
-Kentucky,72,10952925,45,3
-Michigan,258,10687226,161,11
-Washington,154,9749913,62,8
-Georgia,67,8096342,43,9
-Arizona,139,7331197,107,6
-New Jersey,260,6475358,173,12
-Pennsylvania,264,5755986,151,7
-Oklahoma,75,5104644,58,1
-Ohio,232,5024068,174,27
-New Mexico,89,3796832,56,2
-Minnesota,191,3054171,121,11
-South Carolina,92,2386019,49,5
-West Virginia,86,2242098,19,1
-South Dakota,46,2087095,22,3
-Colorado,114,2073248,65,15
-Hawaii,9,1575039,7,2
-Massachusetts,104,1536981,84,4
-Delaware,51,1517932,6,2
-Missouri,87,1485275,59,10
-Virginia,52,1460166,38,6
+New York,533,86800482,216,0
+California,583,30679016,239,0
+Texas,391,22314708,218,0
+Illinois,300,14678301,159,0
+Florida,242,13780146,157,0
+Arkansas,60,12439037,26,0
+Kentucky,69,10945940,42,0
+Michigan,247,10617082,157,0
+Washington,147,9736663,59,0
+Georgia,60,8007439,40,1
+Arizona,133,7172984,104,0
+New Jersey,248,6352350,163,0
+Pennsylvania,256,5692089,147,0
+Oklahoma,73,5099573,56,0
+Ohio,205,4852443,154,0
+New Mexico,87,3781388,54,0
+Minnesota,180,2977058,113,0
+South Carolina,87,2310710,47,0
+West Virginia,85,2241783,18,0
+Colorado,99,1967421,53,0
+South Dakota,42,1936717,19,0
+Hawaii,7,1526711,6,0
+Massachusetts,100,1519465,80,0
+Delaware,49,1513933,6,0
 Utah,116,1415284,9,0
-Connecticut,63,1345889,42,4
-Nevada,35,1336775,17,9
-Mississippi,79,1302103,51,1
-North Carolina,106,1185107,71,2
-Louisiana,46,1182876,40,5
-Oregon,51,1145568,37,9
-Kansas,74,1121348,54,9
-Maryland,53,975074,33,2
-Nebraska,132,892210,39,3
-Wisconsin,96,870287,66,3
-Puerto Rico,82,828386,69,19
-New Hampshire,69,793885,34,2
-Idaho,47,728000,40,14
-Tennessee,54,711726,48,9
-Alabama,15,599296,11,1
-Iowa,68,523440,50,13
-Alaska,43,494667,17,5
-Montana,37,494537,30,3
-Indiana,34,424037,28,2
-Vermont,56,407038,20,1
+Virginia,46,1395738,34,0
+Missouri,76,1359274,51,0
+Connecticut,59,1296798,39,0
+Mississippi,78,1294423,50,0
+Nevada,26,1218774,15,0
+North Carolina,104,1184169,69,0
+Louisiana,41,1126015,37,0
+Oregon,43,1111084,31,0
+Kansas,65,1102409,46,0
+Maryland,50,963190,31,0
+Nebraska,130,887299,38,0
+Wisconsin,93,855125,64,0
+New Hampshire,65,742013,33,0
+Idaho,33,681887,26,0
+Puerto Rico,63,681468,59,0
+Tennessee,42,675617,36,0
+Alabama,14,593452,11,0
+Montana,35,492845,28,1
+Iowa,53,476841,39,0
+Indiana,32,413189,26,0
+Vermont,55,405375,19,0
 Rhode Island,15,400575,11,0
 North Dakota,12,377298,10,0
+Alaska,40,374248,17,0
 District of Columbia,15,146162,14,0
 Maine,13,133895,10,0
 Guam,2,35074,2,0
-U.S. Virgin Islands,1,6469,1,1
