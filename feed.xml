@@ -30,6 +30,13 @@
     <summary>Latest dated figures from Westworks' free public-data pages (E-Rate, California ABC, NYC facades, NOAA), with sources, definitions and how to cite each.</summary>
   </entry>
   <entry>
+    <title>E-Rate FY2026 SPAC: Funded FRNs With No Form 473 on File</title>
+    <link rel="alternate" type="text/html" href="https://westworkshq.com/erate-spac/"/>
+    <id>https://westworkshq.com/erate-spac/</id>
+    <updated>2026-11-13T00:00:00Z</updated>
+    <summary>1,172 funded FY2026 E-Rate requests ($40.1M) are with 558 SPINs that USAC shows with no FY2026 SPAC (Form 473) on file. By mode, service and state.</summary>
+  </entry>
+  <entry>
     <title>Restaurant Radar sample · Westworks</title>
     <link rel="alternate" type="text/html" href="https://westworkshq.com/restaurant-radar/sample.html"/>
     <id>https://westworkshq.com/restaurant-radar/sample.html</id>
@@ -350,12 +357,5 @@
     <id>https://westworkshq.com/restaurant-radar/counties/contra-costa.html</id>
     <updated>2026-11-13T00:00:00Z</updated>
     <summary>55 pending on-premise (restaurant, bar) liquor license applications in Contra Costa County, CA, from ABC data as of November 13, 2026, by city and type.</summary>
-  </entry>
-  <entry>
-    <title>Fresno County, CA Pending Liquor License Applications</title>
-    <link rel="alternate" type="text/html" href="https://westworkshq.com/restaurant-radar/counties/fresno.html"/>
-    <id>https://westworkshq.com/restaurant-radar/counties/fresno.html</id>
-    <updated>2026-11-13T00:00:00Z</updated>
-    <summary>54 pending on-premise (restaurant, bar) liquor license applications in Fresno County, CA, from ABC data as of November 13, 2026, by city and type.</summary>
   </entry>
 </feed>
