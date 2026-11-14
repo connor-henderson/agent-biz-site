@@ -2,24 +2,24 @@
  "page": "https://westworkshq.com/erate-spac/",
  "title": "E-Rate FY2026 SPAC: Funded FRNs With No Form 473 on File",
  "funding_year": "2026",
- "asof": "2026-11-13",
+ "asof": "2026-11-14",
  "source": {
   "frn_status": {
    "id": "qdmp-ygft",
    "name": "E-Rate Request for Discount on Services: FRN Status (FCC Form 471 and Related Information)",
    "license": "Public Domain",
    "page": "https://opendata.usac.org/d/qdmp-ygft",
-   "rows_updated_utc": "2026-11-13T10:37:18Z"
+   "rows_updated_utc": "2026-11-14T10:37:23Z"
   },
   "spin_info": {
    "id": "xcy2-bdid",
    "name": "E-Rate Service Provider Information",
    "license": null,
    "page": "https://opendata.usac.org/d/xcy2-bdid",
-   "rows_updated_utc": "2026-11-13T10:30:41Z"
+   "rows_updated_utc": "2026-11-14T10:30:43Z"
   },
-  "frn_status_last_modified": "Fri, 13 Nov 2026 10:36:37 GMT",
-  "pulled_utc": "2026-11-13T19:25:59Z",
+  "frn_status_last_modified": "Sat, 14 Nov 2026 10:36:53 GMT",
+  "pulled_utc": "2026-11-14T14:16:34Z",
   "queries": {
    "rows": {
     "dataset": "qdmp-ygft",
@@ -54,7 +54,7 @@
    }
   },
   "endpoint": "https://opendata.usac.org/resource/<dataset>.json",
-  "usac_pages_read_utc": "2026-11-13T19:25:42Z",
+  "usac_pages_read_utc": "2026-11-14T14:16:16Z",
   "usac_pages": {
    "f473": {
     "url": "https://www.usac.org/e-rate/service-providers/step-3-winning-the-bid/fcc-form-473-filing/",
@@ -86,20 +86,20 @@
   "suppression": "a row with fewer than 5 SPINs or fewer than 5 applicants is combined with others; a combination holds at least two rows and itself passes"
  },
  "headline": {
-  "frns": 1172,
-  "committed": 40064206.42,
-  "spins": 558,
-  "applicants": 890,
+  "frns": 1166,
+  "committed": 39794605.45,
+  "spins": 554,
+  "applicants": 886,
   "states": 52,
-  "ready_frns": 1002,
-  "ready_committed": 32614867.95,
-  "ready_bear": 581,
-  "ready_spi": 421,
+  "ready_frns": 1011,
+  "ready_committed": 34072312.63,
+  "ready_bear": 582,
+  "ready_spi": 429,
   "with_disbursement": 0,
   "disbursed": 0.0,
-  "fy_funded_frns": 48840,
-  "fy_funded_committed": 2404197148.61,
-  "spac_on_file_frns": 47668,
+  "fy_funded_frns": 48839,
+  "fy_funded_committed": 2404156031.69,
+  "spac_on_file_frns": 47673,
   "share_frns_pct": 2.4,
   "share_committed_pct": 1.7,
   "spins_both_modes": 60,
@@ -112,49 +112,49 @@
    "rows": [
     {
      "label": "BEAR (FCC Form 472)",
-     "frns": 656,
-     "committed": 20608985.75,
-     "spins": 319,
-     "applicants": 501,
-     "ready_frns": 581,
-     "ready_committed": 18787669.52
+     "frns": 655,
+     "committed": 20570469.35,
+     "spins": 318,
+     "applicants": 500,
+     "ready_frns": 582,
+     "ready_committed": 18947652.92
     },
     {
      "label": "SPI (FCC Form 474)",
-     "frns": 516,
-     "committed": 19455220.67,
-     "spins": 299,
-     "applicants": 398,
-     "ready_frns": 421,
-     "ready_committed": 13827198.43
+     "frns": 511,
+     "committed": 19224136.1,
+     "spins": 296,
+     "applicants": 395,
+     "ready_frns": 429,
+     "ready_committed": 15124659.71
     }
    ],
    "other": null,
    "total": {
     "label": "All",
-    "frns": 1172,
-    "committed": 40064206.42,
-    "spins": 558,
-    "applicants": 890,
-    "ready_frns": 1002,
-    "ready_committed": 32614867.95
+    "frns": 1166,
+    "committed": 39794605.45,
+    "spins": 554,
+    "applicants": 886,
+    "ready_frns": 1011,
+    "ready_committed": 34072312.63
    }
   },
   "service": {
    "rows": [
     {
      "label": "Internal connections",
-     "frns": 509,
-     "committed": 26330447.57,
-     "spins": 286,
-     "applicants": 395
+     "frns": 504,
+     "committed": 26099363.0,
+     "spins": 283,
+     "applicants": 392
     },
     {
      "label": "Internet access and data transmission",
-     "frns": 455,
-     "committed": 10160360.64,
-     "spins": 184,
-     "applicants": 372
+     "frns": 454,
+     "committed": 10121844.24,
+     "spins": 183,
+     "applicants": 371
     },
     {
      "label": "Managed internal broadband services",
@@ -174,20 +174,20 @@
    "other": null,
    "total": {
     "label": "All",
-    "frns": 1172,
-    "committed": 40064206.42,
-    "spins": 558,
-    "applicants": 890
+    "frns": 1166,
+    "committed": 39794605.45,
+    "spins": 554,
+    "applicants": 886
    }
   },
   "type": {
    "rows": [
     {
      "label": "School districts",
-     "frns": 712,
-     "committed": 31768150.28,
-     "spins": 336,
-     "applicants": 512
+     "frns": 708,
+     "committed": 31565613.77,
+     "spins": 333,
+     "applicants": 509
     },
     {
      "label": "Schools",
@@ -198,10 +198,10 @@
     },
     {
      "label": "Library systems",
-     "frns": 62,
-     "committed": 1364393.82,
-     "spins": 45,
-     "applicants": 43
+     "frns": 61,
+     "committed": 1311245.02,
+     "spins": 44,
+     "applicants": 42
     },
     {
      "label": "Libraries",
@@ -212,19 +212,19 @@
     },
     {
      "label": "Consortia",
-     "frns": 39,
-     "committed": 964616.25,
-     "spins": 23,
+     "frns": 38,
+     "committed": 950700.59,
+     "spins": 22,
      "applicants": 22
     }
    ],
    "other": null,
    "total": {
     "label": "All",
-    "frns": 1172,
-    "committed": 40064206.42,
-    "spins": 558,
-    "applicants": 890
+    "frns": 1166,
+    "committed": 39794605.45,
+    "spins": 554,
+    "applicants": 886
    }
   },
   "state": {
@@ -350,10 +350,10 @@
     },
     {
      "label": "Missouri",
-     "frns": 23,
-     "committed": 1135571.63,
-     "spins": 18,
-     "applicants": 19
+     "frns": 21,
+     "committed": 1071075.63,
+     "spins": 17,
+     "applicants": 18
     },
     {
      "label": "Montana",
@@ -368,13 +368,6 @@
      "committed": 164720.86,
      "spins": 10,
      "applicants": 17
-    },
-    {
-     "label": "Nevada",
-     "frns": 10,
-     "committed": 556181.35,
-     "spins": 5,
-     "applicants": 5
     },
     {
      "label": "New Jersey",
@@ -413,10 +406,10 @@
     },
     {
      "label": "Oklahoma",
-     "frns": 11,
-     "committed": 336330.62,
-     "spins": 8,
-     "applicants": 10
+     "frns": 9,
+     "committed": 183657.71,
+     "spins": 7,
+     "applicants": 8
     },
     {
      "label": "Oregon",
@@ -469,14 +462,14 @@
     },
     {
      "label": "Wisconsin",
-     "frns": 52,
-     "committed": 750852.37,
-     "spins": 27,
-     "applicants": 46
+     "frns": 51,
+     "committed": 712335.97,
+     "spins": 26,
+     "applicants": 45
     }
    ],
    "other": {
-    "label": "Other states and territories (17), combined",
+    "label": "Other states and territories (18), combined",
     "combines": [
      "Alabama",
      "Alaska",
@@ -488,6 +481,7 @@
      "Hawaii",
      "Maine",
      "Mississippi",
+     "Nevada",
      "New Hampshire",
      "North Dakota",
      "South Carolina",
@@ -496,17 +490,17 @@
      "Utah",
      "West Virginia"
     ],
-    "frns": 45,
-    "committed": 2584325.3,
-    "spins": 32,
-    "applicants": 40
+    "frns": 54,
+    "committed": 3126590.99,
+    "spins": 35,
+    "applicants": 45
    },
    "total": {
     "label": "All",
-    "frns": 1172,
-    "committed": 40064206.42,
-    "spins": 558,
-    "applicants": 890
+    "frns": 1166,
+    "committed": 39794605.45,
+    "spins": 554,
+    "applicants": 886
    }
   }
  },
@@ -517,7 +511,7 @@
   "Wyoming"
  ],
  "rule": {
-  "read_utc": "2026-11-13T19:25:42Z",
+  "read_utc": "2026-11-14T14:16:16Z",
   "quotes": {
    "rule": "Service providers must file their SPAC Form before any FCC Forms 472 (BEAR) or FCC Forms 474 (SPI) invoices can be processed and paid by USAC.",
    "disburse": "USAC must have a SPAC on file for the relevant funding year in order to be able to disburse funds for an FRN for that funding year.",
