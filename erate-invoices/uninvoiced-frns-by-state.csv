@@ -1,7 +1,7 @@
 State,FRNs,Committed (USD),Applicants,Past deadline
-New York,531,86781717,215,0
+New York,514,86051298,215,0
 California,582,30667212,239,0
-Texas,403,22908232,215,0
+Texas,402,22902520,214,0
 Illinois,296,14596550,157,0
 Florida,243,13784800,158,0
 Arkansas,60,12439037,26,0
@@ -14,13 +14,13 @@ New Jersey,246,6261043,161,0
 Pennsylvania,256,5692089,147,0
 Oklahoma,73,5099573,56,0
 Ohio,203,4827871,153,0
-New Mexico,87,3781388,54,0
+New Mexico,87,3756638,54,0
 Minnesota,173,2829462,112,0
 South Carolina,87,2310710,47,0
 West Virginia,85,2241783,18,0
-Colorado,99,1967421,53,0
-Oregon,46,1944009,31,0
-South Dakota,42,1936717,19,0
+South Dakota,41,1926066,18,0
+Oregon,45,1922205,31,0
+Colorado,95,1665049,52,0
 Hawaii,7,1526711,6,0
 Delaware,49,1513933,6,0
 Massachusetts,99,1510544,79,0
@@ -35,19 +35,19 @@ Tennessee,43,1215425,37,0
 North Carolina,104,1184169,69,0
 Louisiana,41,1126015,37,0
 Maryland,50,963190,31,0
-Nebraska,130,887299,38,0
+Nebraska,129,880099,37,0
 Wisconsin,95,867686,65,0
 New Hampshire,65,742013,33,0
 Idaho,33,681887,26,0
 Puerto Rico,63,681468,59,0
 Alabama,14,593452,11,0
 Montana,34,482813,27,0
-Iowa,51,474655,37,0
+Iowa,49,459939,35,0
 Indiana,32,413189,26,0
 Vermont,55,405375,19,0
 Rhode Island,15,400575,11,0
-North Dakota,12,377298,10,0
 Alaska,40,374248,17,0
+North Dakota,10,302302,9,0
 District of Columbia,15,146162,14,0
 Maine,13,133895,10,0
 Guam,2,35074,2,0
