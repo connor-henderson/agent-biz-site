@@ -1,32 +1,32 @@
 County,Pending,"New since October 31, 2026"
-Los Angeles,721,47
-San Diego,264,17
-Orange,247,19
-Santa Clara,202,8
-Riverside,140,9
+Los Angeles,719,54
+San Diego,265,20
+Orange,251,24
+Santa Clara,202,9
+Riverside,141,11
 San Francisco,129,9
-San Bernardino,124,6
-Alameda,109,10
-Sacramento,95,1
-Kern,65,2
+San Bernardino,125,7
+Alameda,110,11
+Sacramento,95,2
+Kern,65,3
 San Mateo,65,8
-San Joaquin,56,2
-Contra Costa,55,3
+Contra Costa,56,3
+San Joaquin,55,2
 Fresno,54,2
-Ventura,45,4
+Ventura,46,5
 Sonoma,41,5
 Monterey,39,2
 Santa Barbara,36,1
 Stanislaus,32,0
-San Luis Obispo,29,3
+San Luis Obispo,30,3
 Solano,29,0
-Placer,27,3
+Placer,28,4
 Santa Cruz,26,3
 El Dorado,20,4
 Napa,20,1
 Madera,18,1
 Marin,18,3
-Tulare,17,1
+Tulare,18,2
 Shasta,12,0
 Merced,11,0
 Butte,10,0
@@ -34,9 +34,9 @@ Humboldt,10,2
 Imperial,10,2
 Nevada,9,1
 Yolo,9,1
-Mendocino,7,0
 Amador,6,0
 Kings,6,0
+Mendocino,6,0
 San Benito,5,1
 Yuba,5,1
 Inyo,4,0
