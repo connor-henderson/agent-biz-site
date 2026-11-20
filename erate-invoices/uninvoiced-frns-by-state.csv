@@ -1,21 +1,21 @@
 State,FRNs,Committed (USD),Applicants,Past deadline
-New York,511,86018045,215,0
+New York,510,86014341,214,0
 California,581,30641228,238,0
-Texas,397,22276448,210,0
-Illinois,289,13848924,155,0
-Florida,242,13784227,157,0
+Texas,396,22253880,210,0
+Illinois,282,13828229,154,0
 Arkansas,57,12419786,25,0
+Florida,239,11356200,155,0
 Kentucky,68,10929681,42,0
-Michigan,247,10616177,158,0
+Michigan,245,10597553,156,0
 Washington,147,9736663,59,0
 Georgia,58,7959728,40,1
 Arizona,132,7158744,103,0
-New Jersey,244,6234389,161,0
+New Jersey,243,6221410,161,0
 Oklahoma,72,5089020,55,0
 Ohio,202,4823781,153,0
-Pennsylvania,249,4756750,143,0
+Pennsylvania,241,4665072,141,0
 New Mexico,87,3756638,54,0
-Minnesota,173,2829462,112,0
+Minnesota,167,2732750,110,0
 South Carolina,87,2310710,47,0
 West Virginia,77,2080896,17,0
 South Dakota,41,1926066,18,0
@@ -23,10 +23,10 @@ Oregon,45,1922205,31,0
 Colorado,95,1665049,52,0
 Hawaii,7,1526711,6,0
 Delaware,49,1513933,6,0
-Massachusetts,99,1510544,79,0
+Massachusetts,98,1507703,79,0
 Utah,116,1415284,9,0
-Connecticut,60,1408895,39,0
 Virginia,46,1395738,34,0
+Connecticut,54,1334779,37,0
 Mississippi,78,1294423,50,0
 Kansas,68,1286283,47,0
 Missouri,72,1281563,50,0
@@ -34,10 +34,10 @@ Nevada,26,1218774,15,0
 Tennessee,43,1215425,37,0
 North Carolina,104,1184169,69,0
 Louisiana,41,1126015,37,0
-Maryland,50,963190,31,0
 Wisconsin,95,867686,65,0
 Nebraska,120,849932,37,0
 New Hampshire,65,742013,33,0
+Maryland,49,738550,31,0
 Idaho,33,681887,26,0
 Puerto Rico,63,681468,59,0
 Alabama,14,593452,11,0
